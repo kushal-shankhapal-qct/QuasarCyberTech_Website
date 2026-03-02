@@ -1,0 +1,405 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, ChevronDown, Shield, Users, BookOpen, FileText, Book, AlertTriangle, Briefcase, Target, ClipboardCheck, Server, Cpu } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import logoSymbol from '../assets/Logos/Logo_Cropped-cropped.svg';
+import logoText from '../assets/Logos/Dark_QuasarCyberTech_Text_Only_Logo_Over.png';
+import { navigationConfig } from '../config/navigationConfig';
+
+// ---------------------------------------------------------
+// HEADER & NAVBAR CONFIGURATION
+// Modify these variables to easily tune the entire layout, 
+// transparency, dimensions, and speeds of the whole navbar!
+// ---------------------------------------------------------
+export const headerDesignVars = {
+  // 1. Aesthetics & Glassmorphism
+  glassBgOpacity: 0.70,             // 0 to 1 (Lower = more transparent)
+  glassBgColor: '255, 255, 255',    // RGB color for the background pods
+  glassBlurAmount: '16px',          // CSS blur amount for the glass effect!
+  glassBorderColor: 'rgba(255, 255, 255, 0.4)', // Border for floating pods
+  glassShadow: '0 8px 32px rgba(0, 0, 0, 0.08)', // Soft drop shadow
+
+  // 2. Element Sizing & Shapes
+  podPaddingX: '2rem',              // Increased left/right padding of the middle links pod
+  podPaddingY: '0.9rem',            // Increased top/bottom padding of the middle links pod
+  podBorderRadius: '9999px',        // Pill shape for the main middle pod
+  dropdownBorderRadius: '0px 0px 1.5rem 1.5rem',  // Top corners sharp, bottom rounded
+
+  // 3. Exact Positioning Adjustment (Left / Right Movement)
+  logoPositionX: '1.5rem',             // Nudge logo: e.g. '-20px' or '2rem'
+  navPositionX: '0px',              // Nudge middle navbar: e.g. '50px' or '-5%'
+  btnPositionX: '-1.5rem',              // Nudge Contact button: e.g. '-30px'
+
+  // 4. Animation Speeds
+  headerHideSpeed: '400ms',         // How fast the navbar hides/shows on scroll
+  dropdownSpeed: '200ms',           // How fast the mega-menus fade in on hover
+
+  // 4. Interaction Thresholds
+  mouseRevealZone: 150,             // Dist in pixels from top of screen to auto-reveal the navbar
+  autoHideDelay: 1500,              // Milliseconds of inactivity before autohiding
+  scrollBuffer: 250,                // Pixels to scroll down before navbar begins hiding rules
+};
+
+const Header: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const lastScrollY = useRef(0);
+  const mouseY = useRef(window.innerHeight); // default to bottom so it doesn't trigger immediately
+
+  // 1. Unified Scroll Handler
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+
+      // Add a buffer so it doesn't hide immediately after leaving hero
+      if (currentScrollY > headerDesignVars.scrollBuffer) {
+        if (currentScrollY > lastScrollY.current) {
+          // Scrolling down
+          if (!isHovered) {
+            setIsVisible(false);
+            setIsMobileMenuOpen(false);
+          }
+        } else {
+          // Scrolling up
+          setIsVisible(true);
+        }
+      } else {
+        // At the top or within top X px buffer
+        setIsVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHovered]);
+
+  // 2. Mouse Reveal Handler
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // If the mouse gets close to the top of the browser, seamlessly reveal the navbar!
+      if (e.clientY < headerDesignVars.mouseRevealZone) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // 3. Autohide Timeout logic
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (isScrolled && isVisible && !isHovered) {
+      timeoutId = setTimeout(() => {
+        // ONLY autohide if the mouse is safely outside the reveal zone
+        if (mouseY.current > headerDesignVars.mouseRevealZone && !isHovered) {
+          setIsVisible(false);
+          setIsMobileMenuOpen(false);
+        }
+      }, headerDesignVars.autoHideDelay);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [isScrolled, isVisible, isHovered]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#')) {
+      const targetId = href.replace('/#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        e.preventDefault();
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsMobileMenuOpen(false);
+      }
+    }
+  };
+
+
+  // Base styling injected properly without nesting issues
+  const baseGlassStyle = {
+    backgroundColor: `rgba(${headerDesignVars.glassBgColor}, ${headerDesignVars.glassBgOpacity})`,
+    backdropFilter: `blur(${headerDesignVars.glassBlurAmount})`,
+    WebkitBackdropFilter: `blur(${headerDesignVars.glassBlurAmount})`,
+    border: `1px solid ${headerDesignVars.glassBorderColor}`,
+    boxShadow: headerDesignVars.glassShadow,
+  };
+
+  const transparentStyle = {
+    backgroundColor: 'transparent',
+    border: '1px solid transparent',
+    boxShadow: 'none',
+  };
+
+  return (
+    <header
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setIsVisible(true);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`fixed top-0 left-0 right-0 z-50 pt-4 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}
+      style={{
+        transitionProperty: 'all',
+        transitionDuration: headerDesignVars.headerHideSpeed,
+        transitionTimingFunction: 'ease-in-out',
+      }}
+    >
+      <div className="max-w-[1920px] mx-auto px-4 md:px-8 xl:px-12">
+        {/* pointer-events-none lets clicks pass through the spacing, pointer-events-auto restores on actual elements */}
+        <div className="flex items-start justify-between pointer-events-none relative">
+
+          {/* Left Pod: Logo */}
+          <div style={{ position: 'relative', left: headerDesignVars.logoPositionX }}>
+            <Link
+              to="/"
+              className={`block z-10 pointer-events-auto relative transition-transform duration-[400ms] ease-in-out origin-top ${isScrolled ? 'scale-90' : 'scale-100'}`}
+            >
+              <div className="flex flex-col items-center">
+                {/* Tight Circular Scrolled Backdrop strictly behind the symbol */}
+                <div className="relative flex items-center justify-center p-[4px] rounded-full">
+                  <div
+                    className={`absolute inset-0 -z-10 rounded-full transition-opacity duration-[400ms] ${isScrolled ? 'opacity-100 bg-[#FCFBF9]' : 'opacity-0'}`}
+                  />
+                  <img src={logoSymbol} alt="Quasar CyberTech Logo" className="h-[3.75rem] w-[3.75rem] sm:h-[4.25rem] sm:w-[4.25rem] object-contain drop-shadow-sm relative z-10" />
+                </div>
+
+                <div className={`flex items-center justify-center transition-all duration-[400ms] overflow-hidden ${isScrolled ? 'max-h-0 opacity-0 mt-0' : 'max-h-[3rem] opacity-100 mt-2'}`}>
+                  <img src={logoText} alt="Quasar CyberTech" className="h-[1.3rem] sm:h-[1.5rem] w-auto object-contain" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Middle Pod: Desktop Navigation */}
+          <div
+            className="absolute top-0 z-10 hidden lg:flex justify-center pointer-events-none mt-2 w-max -translate-x-1/2"
+            style={{ left: `calc(50% + ${headerDesignVars.navPositionX})` }}
+          >
+            <motion.nav
+              className="flex items-center gap-8 pointer-events-auto relative z-10"
+              style={{
+                padding: `${headerDesignVars.podPaddingY} ${headerDesignVars.podPaddingX}`,
+              }}
+            >
+              {/* The Background Backdrop Div that sits BEHIND the middle nav items to NOT swallow backdrop-filters of dropdowns */}
+              <div
+                className="absolute inset-0 -z-10"
+                style={{
+                  ...(isScrolled ? baseGlassStyle : transparentStyle),
+                  borderRadius: headerDesignVars.podBorderRadius,
+                  transitionProperty: 'all',
+                  transitionDuration: headerDesignVars.headerHideSpeed,
+                }}
+              />
+
+              {navigationConfig.map((link) => (
+                <div key={link.href} className="relative group/navitem py-1">
+                  <Link
+                    to={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="flex items-center gap-1.5 text-[14.5px] font-bold text-[#0F172A] group-hover/navitem:text-[#8B1E3F] transition-colors duration-200 relative group/linktext"
+                  >
+                    <span className="relative">
+                      {link.label}
+                      {/* Active Underline Effect just under the text span */}
+                      <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#8B1E3F] scale-x-0 group-hover/navitem:scale-x-100 origin-left transition-transform duration-300" />
+                    </span>
+                    {link.subItems && (
+                      <ChevronDown size={14} className="opacity-70 group-hover/navitem:rotate-180 transition-transform duration-300" />
+                    )}
+                  </Link>
+
+                  {/* Invisible solid bridge to ensure mouse never drops Hover state when crossing padding gaps */}
+                  {link.subItems && <div className="absolute top-[100%] left-0 w-full h-[1.5rem] bg-transparent z-[60]" />}
+
+                  {/* Mega Menu Dropdown */}
+                  {link.subItems && (
+                    <div
+                      className={`absolute top-[calc(100%+1.5rem)] ${(link as any).dropdownOffset || 'left-1/2 -translate-x-1/2'} opacity-0 pointer-events-none group-hover/navitem:opacity-100 group-hover/navitem:pointer-events-auto translate-y-4 group-hover/navitem:translate-y-0 z-50 p-6 ${(link as any).dropdownWidth || 'w-[400px]'} grid ${(link as any).dropdownCols || 'grid-cols-2'} gap-x-6 gap-y-8 overflow-hidden`}
+                      style={{
+                        ...baseGlassStyle,
+                        borderRadius: headerDesignVars.dropdownBorderRadius,
+                        transitionProperty: 'all',
+                        transitionDuration: headerDesignVars.dropdownSpeed,
+                        transitionTimingFunction: 'ease-out',
+                      }}
+                    >
+                      {/* Accent strip */}
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8B1E3F] to-[#C41E5E] opacity-90" />
+
+                      {link.subItems.map(subItem => {
+                        const content = (
+                          <>
+                            {subItem.icon ? (
+                              <div className="mb-4 h-12 w-full flex items-center justify-start">
+                                <img src={subItem.icon} className="h-full w-auto object-contain max-w-full" alt={subItem.label} />
+                              </div>
+                            ) : subItem.LucideIcon ? (
+                              <div className="mb-4 w-12 h-12 rounded-lg bg-[#8B1E3F]/5 border border-[#8B1E3F]/10 text-[#8B1E3F] flex items-center justify-center shrink-0 group-hover/subitem:bg-[#8B1E3F] group-hover/subitem:text-white transition-colors duration-300">
+                                <subItem.LucideIcon size={24} strokeWidth={1.5} />
+                              </div>
+                            ) : null}
+
+                            <h4 className="text-[15px] font-bold text-slate-900 mb-1.5 group-hover/subitem:text-[#8B1E3F] transition-colors tracking-tight">
+                              {subItem.label}
+                            </h4>
+                            <p className="text-[13.5px] text-slate-600 font-medium leading-relaxed drop-shadow-sm">
+                              {subItem.desc}
+                            </p>
+                          </>
+                        );
+
+                        return subItem.isExternal ? (
+                          <a
+                            key={subItem.href}
+                            href={subItem.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex flex-col group/subitem hover:bg-slate-50 p-4 -m-4 rounded-xl transition-colors"
+                          >
+                            {content}
+                          </a>
+                        ) : (
+                          <Link
+                            key={subItem.href}
+                            to={subItem.href}
+                            className="flex flex-col group/subitem hover:bg-slate-50 p-4 -m-4 rounded-xl transition-colors"
+                          >
+                            {content}
+                          </Link>
+                        );
+                      })}
+
+                    </div>
+                  )}
+                </div>
+              ))}
+            </motion.nav>
+          </div>
+
+          {/* Right Pod: CTA Button */}
+          <div
+            className="hidden lg:flex items-center justify-center pointer-events-auto mt-2 h-max"
+            style={{ position: 'relative', left: headerDesignVars.btnPositionX }}
+          >
+            <Link
+              to="/contact"
+              className="px-8 flex items-center bg-[#8B1E3F] text-white text-[15px] font-bold hover:bg-[#6B1530] transition-all"
+              style={{
+                paddingTop: headerDesignVars.podPaddingY,
+                paddingBottom: headerDesignVars.podPaddingY,
+                borderRadius: headerDesignVars.podBorderRadius,
+                boxShadow: isScrolled ? headerDesignVars.glassShadow : 'none',
+                transitionDuration: headerDesignVars.dropdownSpeed,
+              }}
+            >
+              Contact Us
+            </Link>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2 mt-4 text-[#0F172A] rounded-full hover:bg-gray-100 transition-colors pointer-events-auto"
+            aria-label="Toggle menu"
+            style={isScrolled ? baseGlassStyle : transparentStyle}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden mt-4 overflow-hidden pointer-events-auto"
+              style={{
+                ...baseGlassStyle,
+                borderRadius: headerDesignVars.dropdownBorderRadius
+              }}
+            >
+              <div className="flex flex-col p-4 max-h-[70vh] overflow-y-auto">
+                {navigationConfig.map((link) => (
+                  <div key={link.href} className="flex flex-col border-b border-gray-100 last:border-0 py-2">
+                    <Link
+                      to={link.href}
+                      className="px-4 py-2 text-sm font-bold text-[#0F172A] hover:text-[#8B1E3F] rounded-lg transition-colors"
+                      onClick={(e) => {
+                        handleNavClick(e, link.href);
+                        if (!link.subItems) setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                    {link.subItems && (
+                      <div className="flex flex-col pl-6 py-2 gap-3">
+                        {link.subItems.map(subItem => {
+                          const content = (
+                            <>
+                              <div className="w-8 h-8 rounded shrink-0 flex items-center justify-center text-[#8B1E3F]">
+                                {subItem.icon ? (
+                                  <img src={subItem.icon} className="h-6 w-auto object-contain" alt="" />
+                                ) : subItem.LucideIcon ? (
+                                  <subItem.LucideIcon size={16} />
+                                ) : null}
+                              </div>
+                              <span className="text-[13px] font-medium text-slate-700 group-hover/mob:text-[#8B1E3F]">
+                                {subItem.label}
+                              </span>
+                            </>
+                          );
+
+                          return subItem.isExternal ? (
+                            <a
+                              key={subItem.href}
+                              href={subItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-4 py-2 flex items-center gap-3 hover:bg-gray-50 rounded-lg transition-colors group/mob"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {content}
+                            </a>
+                          ) : (
+                            <Link
+                              key={subItem.href}
+                              to={subItem.href}
+                              className="px-4 py-2 flex items-center gap-3 hover:bg-gray-50 rounded-lg transition-colors group/mob"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {content}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <Link
+                  to="/contact"
+                  className="mx-4 mt-6 mb-2 py-3 bg-[#8B1E3F] text-white text-sm font-semibold rounded-xl text-center hover:bg-[#6B1530] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

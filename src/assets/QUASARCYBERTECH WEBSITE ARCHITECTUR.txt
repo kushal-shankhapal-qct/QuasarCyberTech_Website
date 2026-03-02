@@ -1,0 +1,209 @@
+QUASARCYBERTECH WEBSITE ARCHITECTURE
+Total Core Build Pages: 27
+PART 1 — NUMBERED PAGE STRUCTURE
+Home
+Who We Are (About Us / Company Overview)
+Platforms (Products / Proprietary Security Platforms)
+├── 3.1 Platforms Overview (Security Technology Products)
+├── 3.2 Qpulse (Enterprise Threat Intelligence Platform) — External
+└── 3.3 QStellar (Cloud Security & Compliance Automation Platform) — External
+Services (What we offer / Cybersecurity Services & Consulting)
+├── 4.1 Services Overview (Security Solutions Portfolio)
+├── 4.2 Application Security (Web App Security / API Security / Secure SDLC)
+├── 4.3 Mobile Security (Android & iOS Application Security Testing)
+├── 4.4 Network Security (Network VAPT / Infrastructure Security Testing)
+├── 4.5 Cloud Security (Cloud Pentesting / Container & Kubernetes Security)
+├── 4.6 Red Team & Adversary Simulation (Advanced Offensive Security)
+├── 4.7 Managed Security Operations (SOC as a Service / MDR / SIEM)
+├── 4.8 Incident Response & Threat Hunting (Digital Forensics / IR Retainer)
+├── 4.9 Risk & Compliance (ISO 27001 / SOC 2 / GRC / vCISO Services)
+├── 4.10 Architecture & Engineering (Cloud & Network Security Architecture)
+└── 4.11 Digital Risk & Monitoring (Dark Web Monitoring / Brand Protection)
+Industries (Industry-Specific Security Solutions)
+├── 5.1 BFSI (Banking & Financial Services Security)
+├── 5.2 Healthcare (Healthcare & HIPAA Security)
+├── 5.3 Manufacturing (OT / Industrial Security)
+├── 5.4 SaaS (Technology & Product Security)
+├── 5.5 Government (Public Sector Security)
+└── 5.6 Retail (E-commerce & Payment Security)
+Resources (Cybersecurity Knowledge Center)
+├── 6.1 Blogs (Insights & Thought Leadership)
+├── 6.2 Case Studies (Client Success Stories)
+├── 6.3 Advisories (Threat Alerts & Vulnerability Disclosures)
+├── 6.4 Infosec Dictionary (Cybersecurity Glossary)
+└── 6.5 Security Mindmap (Interactive Cybersecurity Mindmap Section)
+Careers (Join Our Security Team)
+Contact (Request Consultation / Get in Touch)
+PART 2 — DETAILED PAGE STRUCTURE (LAYOUT & SECTIONS)
+
+1. Home
+• Hero (Positioning + Primary CTA)
+• Trust Indicators (Certifications / Clients / Metrics)
+• Platform Highlights (Qpulse & QStellar Overview)
+• Services Overview (10 Service Grid)
+• Industries Snapshot
+• Featured Insights
+• CTA Section
+
+2. Who We Are
+• Hero
+• Company Overview
+• Vision & Mission
+• Leadership
+• Certifications & Recognitions
+• Global Presence
+• CTA
+
+3. Platforms Overview
+• Hero (Technology-Led Security Positioning)
+• Platform Differentiation Statement
+• Qpulse Card (External Redirect)
+• QStellar Card (External Redirect)
+• Integration with Services Overview
+• CTA
+
+4. Services Overview
+• Hero (Security Solutions Portfolio)
+• Positioning / Capability Statement
+• 2 x 5 Grid (10 Service Categories)
+• Engagement Model Overview
+• CTA
+
+SERVICE PAGE TEMPLATE (Reusable Across 4.2–4.11)
+Standard Structure:
+• Hero (Hybrid SEO Title)
+• Threat Landscape Overview
+• Expandable Sub-Service Modules (Reusable Hamburger Component)
+• Methodology / Delivery Framework
+• Tools & Standards
+• Engagement Model
+• Advantages / Differentiators
+• CTA
+
+4.2 Application Security
+Expandable Modules:
+• Web Application Pentesting
+• API Security Testing
+• Secure Code Review
+• Secure SDLC / DevSecOps Advisory
+
+4.3 Mobile Security
+Expandable Modules:
+• Android Pentesting
+• iOS Pentesting
+• Mobile Code Review
+• Mobile Architecture Review
+
+4.4 Network Security
+Expandable Modules:
+• Internal Penetration Testing
+• External Penetration Testing
+• Wireless Security Testing
+• Firewall & Infrastructure Review
+
+4.5 Cloud Security
+Expandable Modules:
+• Cloud Pentesting
+• Configuration Review
+• Container Security
+• Kubernetes Security Assessment
+
+4.6 Red Team & Adversary Simulation
+Expandable Modules:
+• Red Team Engagement
+• APT Simulation
+• Social Engineering
+
+4.7 Managed Security Operations
+Expandable Modules:
+• SOC as a Service
+• Managed Detection & Response
+• SIEM Optimization
+• Threat Intelligence Monitoring
+
+4.8 Incident Response & Threat Hunting
+Expandable Modules:
+• Incident Response Retainer
+• Digital Forensics
+• Threat Hunting
+
+4.9 Risk & Compliance
+Expandable Modules:
+• ISO 27001 Implementation
+• SOC 2 Readiness
+• IS Audit & ITGC
+• Third-Party Risk Management
+• vCISO Services
+
+4.10 Architecture & Engineering
+Expandable Modules:
+• Cloud Architecture Review
+• Network Architecture Review
+• Configuration Audit
+• Active Directory Security
+
+4.11 Digital Risk & Monitoring
+Expandable Modules:
+• Dark Web Monitoring
+• Credential Leak Monitoring
+• Brand Protection Intelligence
+• Emerging Risk (AI / OT Future Expansion)
+
+5. Industry Pages (Template)
+• Hero (Industry-Specific Risk Positioning)
+• Industry Threat Landscape
+• Relevant Services Mapping
+• Case Study Highlight
+• Compliance Considerations
+• CTA
+
+6. Resources
+6.1 Blogs
+• Blog Listing Grid
+• Filters
+• Categories
+
+6.2 Case Studies
+• Case Study Listing
+• Industry Tags
+• Outcome Metrics
+
+6.3 Advisories
+• Threat Alerts Listing
+• CVE References
+• Severity Tags
+
+6.4 Infosec Dictionary
+• Alphabetical Glossary
+• Search Function
+• Internal Linking to Services
+
+6.5 Security Mindmap (Cybersecurity Architecture Framework)
+Purpose:
+Strategic authority page mapping:
+• Threat Landscape
+• Attack Surfaces
+• Defensive Controls
+• Compliance Frameworks
+• Service & Platform Integration
+Structure:
+• Overview
+• Interactive Mindmap Section
+• Framework Explanation
+• Downloadable Version (Optional)
+• CTA
+
+7. Careers
+• Hero
+• Life at Company
+• Open Roles Listing
+• Culture & Benefits
+• CTA
+
+8. Contact
+• Hero
+• Contact Form
+• Office Locations
+• Map
+• CTA
+
