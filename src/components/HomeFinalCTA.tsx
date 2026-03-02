@@ -5,8 +5,7 @@ import { ArrowRight } from 'lucide-react';
 export default function HomeFinalCTA() {
     return (
         <section className="py-[140px] relative overflow-hidden">
-            {/* Subtle overlay texture or pattern for depth, not noisy */}
-            <div className="absolute inset-0 bg-[#000000] opacity-10 mix-blend-overlay"></div>
+            {/* Overlay removed to match the upper gradient seamlessly */}
 
             <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight leading-tight">

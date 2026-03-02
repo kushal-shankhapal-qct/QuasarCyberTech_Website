@@ -2,97 +2,181 @@ import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+import { themeConfig } from '../config/themeConfig';
+
+const platformVars = themeConfig.platform;
+
 export default function PlatformHighlights() {
     return (
-        <section className="py-[120px] relative overflow-hidden">
-            {/* Ultra-subtle diagonal mesh texture (simulated with radial gradient overlay) */}
+        <section
+            className="relative overflow-hidden"
+            style={{ paddingTop: platformVars.paddingTop, paddingBottom: platformVars.paddingBottom }}
+        >
+            {/* Ultra-subtle mesh texture overlay */}
             <div
-                className="absolute inset-0 opacity-[0.02] pointer-events-none"
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{
                     backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
-                    backgroundSize: '24px 24px'
+                    backgroundSize: '32px 32px'
                 }}
             />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-7xl relative z-10" style={{ marginLeft: platformVars.sideMargin }}>
+                <div className="text-left mb-12">
+                    <h2 className="text-2xl font-bold text-[#0F172A] mb-3 tracking-tight">
+                        Our Native Security Platforms
+                    </h2>
+                    <p className="text-black text-[15px] max-w-2xl font-medium leading-relaxed opacity-80">
+                        Proprietary engineering designed for continuous visibility and accelerated remediation.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 pr-[2.5rem]">
 
                     {/* Card 1: Qpulse */}
                     <motion.div
-                        whileHover={{ y: -4 }}
-                        transition={{ duration: 0.3 }}
-                        className="group bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#8B1E3F]/30 transition-all flex flex-col h-full"
+                        whileHover={{ y: -8, boxShadow: '0 30px 60px rgba(0,0,0,0.08)' }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                        className={`group ${platformVars.cardBg} ${platformVars.cardBlur} rounded-r-[40px] rounded-l-none border ${platformVars.cardBorder} border-l-[4px] border-l-[#8B1E3F] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
                     >
-                        <div className="text-xs font-bold text-gray-500 tracking-widest uppercase mb-4">
-                            Platform
+                        <div className="p-8 relative flex flex-col h-full">
+                            <motion.div
+                                initial={{ height: 0 }}
+                                whileInView={{ height: '100%' }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, ease: 'easeInOut' }}
+                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[#8B1E3F] z-20"
+                            />
+
+                            <div className="text-[10px] font-bold text-[#8B1E3F] tracking-[0.2em] uppercase mb-4">
+                                Security Intelligence
+                            </div>
+                            <h3
+                                className="font-bold text-[#0F172A] mb-2 tracking-tight truncate"
+                                style={{ fontSize: platformVars.cardTitleSize, lineHeight: platformVars.cardTitleLineHeight }}
+                            >
+                                Qpulse — Continuous Risk Intelligence
+                            </h3>
+                            <p className="text-black text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
+                                Centralize vulnerability intelligence, remediation tracking, and compliance visibility through a unified risk management platform.
+                            </p>
+
+                            <div className="flex flex-row gap-8 flex-1 min-h-0">
+                                {/* Left Section: Bullets */}
+                                <div className="flex-[0.8] flex flex-col justify-between py-2">
+                                    <ul className="space-y-3">
+                                        {[
+                                            'Asset-centric risk prioritization',
+                                            'Executive-ready reporting',
+                                            'Integrated remediation workflows'
+                                        ].map((item, idx) => (
+                                            <li key={idx} className="flex items-start gap-2">
+                                                <div className="w-4 h-4 rounded-full bg-[#8B1E3F]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <Check className="w-2.5 h-2.5 text-[#8B1E3F]" />
+                                                </div>
+                                                <span className="text-black font-semibold text-[12px] leading-tight">{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <a
+                                        href="https://qpulse.quasarcybertech.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[#8B1E3F] text-white font-bold rounded-lg hover:bg-[#6B1530] transition-all w-max shadow-lg shadow-[#8B1E3F]/20 hover:scale-105 text-[12px] mt-4"
+                                    >
+                                        Explore Qpulse <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                                    </a>
+                                </div>
+
+                                {/* Right Section: Screenshot */}
+                                <div className="flex-[1.2] relative h-full">
+                                    <div className={`absolute inset-0 ${platformVars.screenshotBg} rounded-xl border ${platformVars.screenshotBorder} shadow-inner flex items-center justify-center group-hover:bg-white/50 transition-colors overflow-hidden`}>
+                                        <div className="absolute top-2 left-3 flex gap-1 z-10">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                                        </div>
+                                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest relative z-10 text-center px-4">
+                                            Platform Screenshot Area
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-4 tracking-tight">
-                            Qpulse — Continuous Risk Intelligence
-                        </h3>
-                        <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-                            Centralize vulnerability intelligence, remediation tracking, and compliance visibility through a unified risk management platform.
-                        </p>
-                        <ul className="space-y-4 mb-12 text-[#0F172A] font-medium">
-                            <li className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#0F172A] shrink-0 mt-0.5" />
-                                <span className="text-gray-700">Asset-centric risk prioritization</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#0F172A] shrink-0 mt-0.5" />
-                                <span className="text-gray-700">Executive-ready reporting</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#0F172A] shrink-0 mt-0.5" />
-                                <span className="text-gray-700">Integrated remediation workflows</span>
-                            </li>
-                        </ul>
-                        <a
-                            href="https://qpulse.quasarcybertech.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-auto inline-flex items-center justify-center px-6 py-3 bg-[#8B1E3F] text-white font-bold rounded-lg hover:bg-[#6B1530] transition-colors w-max"
-                        >
-                            Explore Qpulse <ArrowRight className="w-4 h-4 ml-2" />
-                        </a>
                     </motion.div>
 
                     {/* Card 2: QStellar */}
                     <motion.div
-                        whileHover={{ y: -4 }}
-                        transition={{ duration: 0.3 }}
-                        className="group bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#8B1E3F]/30 transition-all flex flex-col h-full"
+                        whileHover={{ y: -8, boxShadow: '0 30px 60px rgba(0,0,0,0.08)' }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                        className={`group ${platformVars.cardBg} ${platformVars.cardBlur} rounded-r-[40px] rounded-l-none border ${platformVars.cardBorder} border-l-[4px] border-l-[#8B1E3F] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
                     >
-                        <div className="text-xs font-bold text-gray-500 tracking-widest uppercase mb-4">
-                            Platform
+                        <div className="p-8 relative flex flex-col h-full">
+                            <motion.div
+                                initial={{ height: 0 }}
+                                whileInView={{ height: '100%' }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, ease: 'easeInOut', delay: 0.1 }}
+                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[#8B1E3F] z-20"
+                            />
+
+                            <div className="text-[10px] font-bold text-[#8B1E3F] tracking-[0.2em] uppercase mb-4">
+                                Posture Engineering
+                            </div>
+                            <h3
+                                className="font-bold text-[#0F172A] mb-2 tracking-tight truncate"
+                                style={{ fontSize: platformVars.cardTitleSize, lineHeight: platformVars.cardTitleLineHeight }}
+                            >
+                                QStellar — Security Posture Engineering
+                            </h3>
+                            <p className="text-black text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
+                                Gain real-time visibility into infrastructure misconfigurations, attack surfaces, and cloud security gaps.
+                            </p>
+
+                            <div className="flex flex-row gap-8 flex-1 min-h-0">
+                                {/* Left Section: Bullets */}
+                                <div className="flex-[0.8] flex flex-col justify-between py-2">
+                                    <ul className="space-y-3">
+                                        {[
+                                            'Cloud and network posture monitoring',
+                                            'Misconfiguration detection',
+                                            'Continuous exposure management'
+                                        ].map((item, idx) => (
+                                            <li key={idx} className="flex items-start gap-2">
+                                                <div className="w-4 h-4 rounded-full bg-[#8B1E3F]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <Check className="w-2.5 h-2.5 text-[#8B1E3F]" />
+                                                </div>
+                                                <span className="text-black font-semibold text-[12px] leading-tight">{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <a
+                                        href="https://qstellar.quasarcybertech.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[#8B1E3F] text-white font-bold rounded-xl hover:bg-[#6B1530] transition-all w-max shadow-lg shadow-[#8B1E3F]/20 hover:scale-105 text-[12px] mt-4"
+                                    >
+                                        Explore QStellar <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                                    </a>
+                                </div>
+
+                                {/* Right Section: Screenshot */}
+                                <div className="flex-[1.2] relative h-full">
+                                    <div className={`absolute inset-0 ${platformVars.screenshotBg} rounded-xl border ${platformVars.screenshotBorder} shadow-inner flex items-center justify-center group-hover:bg-white/50 transition-colors overflow-hidden`}>
+                                        <div className="absolute top-2 left-3 flex gap-1 z-10">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                                        </div>
+                                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest relative z-10 text-center px-4">
+                                            Platform Screenshot Area
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-4 tracking-tight">
-                            QStellar — Security Posture Engineering
-                        </h3>
-                        <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-                            Gain real-time visibility into infrastructure misconfigurations, attack surfaces, and cloud security gaps.
-                        </p>
-                        <ul className="space-y-4 mb-12 text-[#0F172A] font-medium">
-                            <li className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#0F172A] shrink-0 mt-0.5" />
-                                <span className="text-gray-700">Cloud and network posture monitoring</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#0F172A] shrink-0 mt-0.5" />
-                                <span className="text-gray-700">Misconfiguration detection</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#0F172A] shrink-0 mt-0.5" />
-                                <span className="text-gray-700">Continuous exposure management</span>
-                            </li>
-                        </ul>
-                        <a
-                            href="https://qstellar.quasarcybertech.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-auto inline-flex items-center justify-center px-6 py-3 bg-[#8B1E3F] text-white font-bold rounded-lg hover:bg-[#6B1530] transition-colors w-max"
-                        >
-                            Explore QStellar <ArrowRight className="w-4 h-4 ml-2" />
-                        </a>
                     </motion.div>
 
                 </div>
@@ -100,4 +184,3 @@ export default function PlatformHighlights() {
         </section>
     );
 }
-

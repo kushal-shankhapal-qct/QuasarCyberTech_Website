@@ -8,11 +8,26 @@
 
 @layer base {
   :root {
-    --gradient-start: #FFFFFF;
-    --gradient-mid-1: #F8FAFC;
-    --gradient-mid-2: #F3F5F7;
-    --gradient-mid-3: #EFE9EB;
-    --gradient-end: #5a1127; 
+    /* ========================================= */
+    /* GLOBAL THEME CONTROLS (Centralized here)  */
+    /* ========================================= */
+    /* Use these variables to control the feel of the entire website */
+
+    --gradient-start: #ffffff;
+    /* Slightly darker top (Slate 200) */
+    --gradient-mid-1: #f1e7e7;
+    /* Slate 300 */
+    --gradient-mid-2: #c2a3a3;
+    /* Slate 400 */
+    --gradient-mid-3: #a88484;
+    /* Slate 500 */
+    --gradient-end: #000000;
+    /* Slate 800 */
+
+    --brand-accent: #8B1E3F;
+    --brand-accent-hover: #6B1530;
+    --card-bg-opacity: 0.6;
+
     --cta-overlay-opacity: 0.1;
     --gradient-angle: 180deg;
     --gradient-intensity-multiplier: 1;
@@ -125,18 +140,17 @@
 
 @layer utilities {
   .progressive-gradient-bg {
-    background-color: var(--gradient-start); /* Fallback */
+    background-color: var(--gradient-start);
+    /* Fallback */
     /* Blend linear vertical gradient + radial glow at the bottom */
-    background-image: 
-      radial-gradient(circle at center 95%, rgba(139, 30, 63, 0.15) 0%, transparent 40%),
-      linear-gradient(
-        var(--gradient-angle, 180deg),
+    background-image:
+      radial-gradient(circle at center 95%, rgba(139, 30, 63, 0.4) 0%, transparent 60%),
+      linear-gradient(var(--gradient-angle, 180deg),
         var(--gradient-start) 0%,
-        var(--gradient-mid-1) 18%,
-        var(--gradient-mid-2) 35%,
-        var(--gradient-mid-3) 55%,
-        var(--gradient-end) 100%
-      );
+        var(--gradient-mid-1) 15%,
+        var(--gradient-mid-2) 40%,
+        var(--gradient-mid-3) 75%,
+        var(--gradient-end) 100%);
   }
 
   .animate-fade-in {
@@ -148,6 +162,7 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);

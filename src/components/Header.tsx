@@ -6,39 +6,14 @@ import logoSymbol from '../assets/Logos/Logo_Cropped-cropped.svg';
 import logoText from '../assets/Logos/Dark_QuasarCyberTech_Text_Only_Logo_Over.png';
 import { navigationConfig } from '../config/navigationConfig';
 
+import { themeConfig } from '../config/themeConfig';
+
 // ---------------------------------------------------------
 // HEADER & NAVBAR CONFIGURATION
 // Modify these variables to easily tune the entire layout, 
 // transparency, dimensions, and speeds of the whole navbar!
 // ---------------------------------------------------------
-export const headerDesignVars = {
-  // 1. Aesthetics & Glassmorphism
-  glassBgOpacity: 0.70,             // 0 to 1 (Lower = more transparent)
-  glassBgColor: '255, 255, 255',    // RGB color for the background pods
-  glassBlurAmount: '16px',          // CSS blur amount for the glass effect!
-  glassBorderColor: 'rgba(255, 255, 255, 0.4)', // Border for floating pods
-  glassShadow: '0 8px 32px rgba(0, 0, 0, 0.08)', // Soft drop shadow
-
-  // 2. Element Sizing & Shapes
-  podPaddingX: '2rem',              // Increased left/right padding of the middle links pod
-  podPaddingY: '0.9rem',            // Increased top/bottom padding of the middle links pod
-  podBorderRadius: '9999px',        // Pill shape for the main middle pod
-  dropdownBorderRadius: '0px 0px 1.5rem 1.5rem',  // Top corners sharp, bottom rounded
-
-  // 3. Exact Positioning Adjustment (Left / Right Movement)
-  logoPositionX: '1.5rem',             // Nudge logo: e.g. '-20px' or '2rem'
-  navPositionX: '0px',              // Nudge middle navbar: e.g. '50px' or '-5%'
-  btnPositionX: '-1.5rem',              // Nudge Contact button: e.g. '-30px'
-
-  // 4. Animation Speeds
-  headerHideSpeed: '400ms',         // How fast the navbar hides/shows on scroll
-  dropdownSpeed: '200ms',           // How fast the mega-menus fade in on hover
-
-  // 4. Interaction Thresholds
-  mouseRevealZone: 150,             // Dist in pixels from top of screen to auto-reveal the navbar
-  autoHideDelay: 1500,              // Milliseconds of inactivity before autohiding
-  scrollBuffer: 250,                // Pixels to scroll down before navbar begins hiding rules
-};
+const headerDesignVars = themeConfig.header;
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -123,18 +98,24 @@ const Header: React.FC = () => {
   };
 
 
+  const isFlush = headerDesignVars.layoutStyle === 'flush';
+
+  const currentPodRadius = isFlush ? '0px 0px 1.5rem 1.5rem' : '9999px';
+
   // Base styling injected properly without nesting issues
   const baseGlassStyle = {
     backgroundColor: `rgba(${headerDesignVars.glassBgColor}, ${headerDesignVars.glassBgOpacity})`,
     backdropFilter: `blur(${headerDesignVars.glassBlurAmount})`,
     WebkitBackdropFilter: `blur(${headerDesignVars.glassBlurAmount})`,
     border: `1px solid ${headerDesignVars.glassBorderColor}`,
+    borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#8B1E3F'}` : `1px solid ${headerDesignVars.glassBorderColor}`,
     boxShadow: headerDesignVars.glassShadow,
   };
 
   const transparentStyle = {
     backgroundColor: 'transparent',
     border: '1px solid transparent',
+    borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#8B1E3F'}` : '1px solid transparent',
     boxShadow: 'none',
   };
 
@@ -145,28 +126,43 @@ const Header: React.FC = () => {
         setIsVisible(true);
       }}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed top-0 left-0 right-0 z-50 pt-4 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}
+      className={`fixed top-0 left-0 right-0 z-50 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}
       style={{
+        marginTop: headerDesignVars.marginTop,
         transitionProperty: 'all',
         transitionDuration: headerDesignVars.headerHideSpeed,
         transitionTimingFunction: 'ease-in-out',
       }}
     >
-      <div className="max-w-[1920px] mx-auto px-4 md:px-8 xl:px-12">
+      <div
+        className="max-w-[1920px] mx-auto w-full"
+        style={{ paddingLeft: headerDesignVars.sideMargin, paddingRight: headerDesignVars.sideMargin }}
+      >
         {/* pointer-events-none lets clicks pass through the spacing, pointer-events-auto restores on actual elements */}
-        <div className="flex items-start justify-between pointer-events-none relative">
+        <div className="flex items-start w-full pointer-events-none relative">
 
           {/* Left Pod: Logo */}
-          <div style={{ position: 'relative', left: headerDesignVars.logoPositionX }}>
+          <div
+            className="flex-none"
+            style={{
+              position: 'relative',
+              width: headerDesignVars.logoPodWidth,
+              marginTop: headerDesignVars.logoMarginTop,
+              left: headerDesignVars.logoPositionX,
+              transform: `scale(${headerDesignVars.logoScale || 1})`,
+              transformOrigin: 'top left'
+            }}
+          >
             <Link
               to="/"
-              className={`block z-10 pointer-events-auto relative transition-transform duration-[400ms] ease-in-out origin-top ${isScrolled ? 'scale-90' : 'scale-100'}`}
+              className={`block z-10 pointer-events-auto relative transition-transform duration-[400ms] ease-in-out origin-top scale-100`}
             >
               <div className="flex flex-col items-center">
-                {/* Tight Circular Scrolled Backdrop strictly behind the symbol */}
-                <div className="relative flex items-center justify-center p-[4px] rounded-full">
+                {/* Tight Circular/Flush Scrolled Backdrop strictly behind the symbol */}
+                <div className={`relative flex items-center justify-center p-[4px] shrink-0 ${isFlush ? '' : 'rounded-full'}`}>
                   <div
-                    className={`absolute inset-0 -z-10 rounded-full transition-opacity duration-[400ms] ${isScrolled ? 'opacity-100 bg-[#FCFBF9]' : 'opacity-0'}`}
+                    className={`absolute inset-0 -z-10 transition-opacity duration-[400ms] overflow-hidden ${isScrolled ? 'opacity-100 bg-[#FCFBF9]' : 'opacity-0'} ${isFlush ? 'rounded-b-3xl rounded-t-none' : 'rounded-full'}`}
+                    style={{ borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#8B1E3F'}` : 'none' }}
                   />
                   <img src={logoSymbol} alt="Quasar CyberTech Logo" className="h-[3.75rem] w-[3.75rem] sm:h-[4.25rem] sm:w-[4.25rem] object-contain drop-shadow-sm relative z-10" />
                 </div>
@@ -180,8 +176,14 @@ const Header: React.FC = () => {
 
           {/* Middle Pod: Desktop Navigation */}
           <div
-            className="absolute top-0 z-10 hidden lg:flex justify-center pointer-events-none mt-2 w-max -translate-x-1/2"
-            style={{ left: `calc(50% + ${headerDesignVars.navPositionX})` }}
+            className="hidden lg:flex flex-1 justify-center pointer-events-none"
+            style={{
+              marginTop: headerDesignVars.navMarginTop || '0.25rem',
+              position: 'relative',
+              left: headerDesignVars.navPositionX,
+              transform: `scale(${headerDesignVars.navScale || 1})`,
+              transformOrigin: 'top center'
+            }}
           >
             <motion.nav
               className="flex items-center gap-8 pointer-events-auto relative z-10"
@@ -191,21 +193,21 @@ const Header: React.FC = () => {
             >
               {/* The Background Backdrop Div that sits BEHIND the middle nav items to NOT swallow backdrop-filters of dropdowns */}
               <div
-                className="absolute inset-0 -z-10"
+                className="absolute inset-0 -z-10 overflow-hidden"
                 style={{
                   ...(isScrolled ? baseGlassStyle : transparentStyle),
-                  borderRadius: headerDesignVars.podBorderRadius,
+                  borderRadius: currentPodRadius,
                   transitionProperty: 'all',
                   transitionDuration: headerDesignVars.headerHideSpeed,
                 }}
               />
 
               {navigationConfig.map((link) => (
-                <div key={link.href} className="relative group/navitem py-1">
+                <div key={link.href} className="relative group/navitem flex items-center">
                   <Link
                     to={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className="flex items-center gap-1.5 text-[14.5px] font-bold text-[#0F172A] group-hover/navitem:text-[#8B1E3F] transition-colors duration-200 relative group/linktext"
+                    className="flex items-center gap-1.5 text-[14.5px] font-bold text-[#0F172A] group-hover/navitem:text-[#8B1E3F] transition-colors duration-200 relative group/linktext whitespace-nowrap"
                   >
                     <span className="relative">
                       {link.label}
@@ -232,8 +234,9 @@ const Header: React.FC = () => {
                         transitionTimingFunction: 'ease-out',
                       }}
                     >
-                      {/* Accent strip */}
-                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8B1E3F] to-[#C41E5E] opacity-90" />
+                      {/* Active dropdown horizontal top accent line */}
+                      <div className="absolute top-0 left-0 right-0 h-[4px] bg-[#8B1E3F] pointer-events-none" />
+
 
                       {link.subItems.map(subItem => {
                         const content = (
@@ -287,16 +290,26 @@ const Header: React.FC = () => {
 
           {/* Right Pod: CTA Button */}
           <div
-            className="hidden lg:flex items-center justify-center pointer-events-auto mt-2 h-max"
-            style={{ position: 'relative', left: headerDesignVars.btnPositionX }}
+            className="hidden lg:flex flex-none items-center justify-end pointer-events-none"
+            style={{
+              marginTop: headerDesignVars.btnMarginTop || '0.25rem',
+              position: 'relative',
+              left: headerDesignVars.btnPositionX,
+              transform: `scale(${headerDesignVars.btnScale || 1})`,
+              transformOrigin: 'top right'
+            }}
           >
             <Link
               to="/contact"
-              className="px-8 flex items-center bg-[#8B1E3F] text-white text-[15px] font-bold hover:bg-[#6B1530] transition-all"
+              className="relative pointer-events-auto overflow-hidden flex items-center bg-[#8B1E3F] text-white text-[15px] font-bold hover:bg-[#6B1530] transition-all"
               style={{
-                paddingTop: headerDesignVars.podPaddingY,
-                paddingBottom: headerDesignVars.podPaddingY,
-                borderRadius: headerDesignVars.podBorderRadius,
+                paddingLeft: headerDesignVars.btnPaddingX || '2rem',
+                paddingRight: headerDesignVars.btnPaddingX || '2rem',
+                paddingTop: headerDesignVars.btnPaddingTop || headerDesignVars.podPaddingY || '0.8rem',
+                paddingBottom: headerDesignVars.btnPaddingBottom || headerDesignVars.podPaddingY || '0.8rem',
+                borderRadius: currentPodRadius,
+                border: '1px solid transparent',
+                borderTop: isFlush ? `${headerDesignVars.btnAccentLineThickness || '2px'} solid ${headerDesignVars.btnAccentLineColor || '#FFFFFF'}` : '1px solid transparent',
                 boxShadow: isScrolled ? headerDesignVars.glassShadow : 'none',
                 transitionDuration: headerDesignVars.dropdownSpeed,
               }}
@@ -308,7 +321,7 @@ const Header: React.FC = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 mt-4 text-[#0F172A] rounded-full hover:bg-gray-100 transition-colors pointer-events-auto"
+            className="lg:hidden ml-auto p-2 mt-4 text-[#0F172A] rounded-full hover:bg-gray-100 transition-colors pointer-events-auto"
             aria-label="Toggle menu"
             style={isScrolled ? baseGlassStyle : transparentStyle}
           >

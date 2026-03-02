@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import techNetBackdrop from '../assets/Tech_Net_Backdrop.png';
 import logoSymbol from '../assets/Logos/icononly_transparent_nobuffer.png';
 import ubuntuRegular from '../assets/Ubuntu/Ubuntu-Regular.ttf';
 import ubuntuBold from '../assets/Ubuntu/Ubuntu-Bold.ttf';
@@ -84,8 +85,16 @@ const Hero: React.FC = () => {
         style={{ backgroundColor: heroVars.bgColor }}
       />
 
+      <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply opacity-[0.1]">
+        <img
+          src={techNetBackdrop}
+          alt="Hero Backdrop"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
       <div
-        className="absolute top-1/2 right-0 z-0 pointer-events-none flex items-center justify-center"
+        className="absolute top-1/2 right-0 z-[1] pointer-events-none flex items-center justify-center"
         style={{
           width: heroVars.vortexSize,
           height: heroVars.vortexSize,

@@ -22,6 +22,7 @@ import qPulseLogo from '../assets/Logos/QPulse_Logo.png';
 import qStellarLogo from '../assets/Logos/QStelllar_fulllogo_transparent.png';
 
 export const navigationConfig = [
+  { label: 'Home', href: '/' },
   { label: 'Who We Are', href: '/who-we-are' },
   {
     label: 'Platforms',
@@ -55,8 +56,9 @@ export const navigationConfig = [
   {
     label: 'Resources',
     href: '/resources',
-    dropdownWidth: 'w-[750px]',
+    dropdownWidth: 'w-[600px]',
     dropdownCols: 'grid-cols-3', // 3 up, 2 down
+    dropdownOffset: '-translate-x-[60%]', // Shift left to keep it centered on screen without spilling right
     subItems: [
       { label: 'Blogs', href: '/resources/blogs', desc: 'Latest insights, research, and security news.', LucideIcon: FileText },
       { label: 'Case Studies', href: '/resources/case-studies', desc: 'Real-world deployment success stories.', LucideIcon: Book },
@@ -65,6 +67,5 @@ export const navigationConfig = [
       { label: 'Security Mindmap', href: '/resources/security-mindmap', desc: 'Cybersecurity Architecture Framework.', LucideIcon: Brain }
     ]
   },
-  { label: 'Careers', href: '/careers' },
-  { label: 'Contact', href: '/contact' }
+  { label: 'Careers', href: '/careers' }
 ];

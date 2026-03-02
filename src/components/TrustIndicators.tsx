@@ -5,14 +5,44 @@ import { motion, useInView } from 'framer-motion';
 // TRUST INDICATORS VARIABLES
 // ---------------------------------------------------------
 export const trustVars = {
-    // 1. Spacing Controls (Adjust gap from Hero here)
-    paddingTop: '60px',       // Decreased to bring it closer to the hero section
-    paddingBottom: '120px',
+    // 1. Section Spacing
+    paddingTop: '60px',
+    paddingBottom: '40px',
 
-    // 2. Heading Controls
+    // 2. Left Column (Heading & Subheading) Container Controls
+    leftColPaddingLeft: '22px',
+    leftColPaddingRight: '40px',
+    leftColPaddingTop: '40px',
+    leftColPaddingBottom: '30px',
+    leftCardMarginLeft: '20px',
+    leftCardMarginRight: '0px',
+    leftCardMarginTop: '40px',
+    leftCardMarginBottom: '40px',
+    leftCardMaxWidth: '100%',
+    leftCardMinHeight: '100px',
+    rightCardMarginRight: '2.5rem', // Aligned with header sideMargin
+
+    // 3. Heading Controls
     headingWidth: '100%',
-    headingSize: '46px',      // Optimized size to hit exactly 2 lines
-    headingLineHeight: '1.15',
+    headingSize: '37px',
+    headingLineHeight: '1.2',
+    headingMarginBottom: '16px',
+
+    // 4. Subheading (Description) Controls
+    subheadingSize: '14px',
+    subheadingLineHeight: '1.6',
+    subheadingColor: '#000000', // Pure Black
+    subheadingMarginTop: '10px',
+    subheadingMaxWidth: '384px', // max-w-sm
+
+    // 5. Right Card Controls
+    cardPaddingTop: '40px',
+    cardPaddingBottom: '55px',
+    cardPaddingX: '48px',
+
+    // 6. Certificates Badges options
+    certTextSize: '10px',
+    badgesGap: '8px',
 };
 
 export default function TrustIndicators() {
@@ -68,71 +98,135 @@ export default function TrustIndicators() {
 
     return (
         <section
-            className="relative border-b border-gray-100/50"
+            className="relative border-b border-gray-100/30"
             style={{ paddingTop: trustVars.paddingTop, paddingBottom: trustVars.paddingBottom }}
         >
             <div className="max-w-[1400px] mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+                <div className="flex flex-col lg:flex-row items-stretch gap-0">
 
-                    {/* Left 40%: Text Content */}
-                    <div className="lg:w-[40%] text-center lg:text-left relative -mt-8">
-                        {/* Subtle vertical accent divider line (visible on desktop) */}
-                        <div className="hidden lg:block absolute -right-12 top-0 bottom-0 w-px bg-gray-200" />
-
-                        <h2
-                            className="font-bold text-[#0F172A] mb-6 tracking-tight relative mx-auto lg:mx-0"
+                    {/* Left 40%: Text Content wrapped in Card */}
+                    <div className="lg:w-[40%] flex flex-col justify-center">
+                        <div
+                            className="bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-2xl lg:rounded-r-none lg:rounded-l-[40px] flex flex-col justify-center my-auto"
                             style={{
-                                fontSize: trustVars.headingSize,
-                                lineHeight: trustVars.headingLineHeight,
-                                maxWidth: trustVars.headingWidth
+                                paddingLeft: trustVars.leftColPaddingLeft,
+                                paddingRight: trustVars.leftColPaddingRight,
+                                paddingTop: trustVars.leftColPaddingTop,
+                                paddingBottom: trustVars.leftColPaddingBottom,
+                                marginLeft: trustVars.leftCardMarginLeft,
+                                marginRight: trustVars.leftCardMarginRight,
+                                marginTop: trustVars.leftCardMarginTop,
+                                marginBottom: trustVars.leftCardMarginBottom,
+                                maxWidth: trustVars.leftCardMaxWidth,
+                                minHeight: trustVars.leftCardMinHeight
                             }}
                         >
-                            Trusted by Enterprises <br className="hidden lg:block" />
-                            <span className="relative inline-block">
-                                Worldwide
-                                {/* Accent line spanning ONLY the exact width of the lowercase text */}
-                                <span className="absolute -bottom-2 left-0 w-full h-[3.5px] bg-[#8B1E3F] rounded-full opacity-90" />
-                            </span>
-                        </h2>
+                            <h2
+                                className="font-bold text-[#0F172A] tracking-tight flex flex-col items-start"
+                                style={{
+                                    fontSize: trustVars.headingSize,
+                                    lineHeight: trustVars.headingLineHeight,
+                                    maxWidth: trustVars.headingWidth,
+                                    marginBottom: trustVars.headingMarginBottom
+                                }}
+                            >
+                                <span>Trusted by</span>
+                                <span className="relative inline-block mt-0.5 whitespace-nowrap">
+                                    Enterprises Worldwide
+                                    {/* Accent line spanning ONLY the exact width of the lowercase text - Burgundy */}
+                                    <span className="absolute -bottom-2 left-0 w-full h-[3.5px] bg-[#8B1E3F] rounded-full opacity-90" />
+                                </span>
+                            </h2>
 
-                        <p className="text-gray-600 text-lg leading-relaxed mt-10 lg:pr-8">
-                            Security outcomes backed by measurable delivery, operational depth, and global scale.
-                        </p>
+                            <p
+                                className="leading-relaxed font-medium"
+                                style={{
+                                    marginTop: trustVars.subheadingMarginTop,
+                                    maxWidth: trustVars.subheadingMaxWidth,
+                                    fontSize: trustVars.subheadingSize,
+                                    lineHeight: trustVars.subheadingLineHeight,
+                                    color: trustVars.subheadingColor
+                                }}
+                            >
+                                Security outcomes backed by measurable delivery, operational depth, and global scale.
+                            </p>
+                        </div>
                     </div>
 
-                    {/* Right 60%: Metrics Grid & Badges */}
-                    <div className="lg:w-[60%] w-full">
-                        <div className="grid grid-cols-2 gap-6 mb-8">
-                            {metrics.map((metric, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ duration: 0.6, delay: idx * 0.1 }}
-                                    className="bg-white border border-gray-200/60 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow"
-                                >
-                                    <div className="text-4xl md:text-5xl font-black text-[#0F172A] mb-3 tracking-tight">
-                                        <CountUp end={metric.value} suffix={metric.suffix} index={idx} />
-                                    </div>
-                                    <div className="text-[13px] font-bold text-gray-500 uppercase tracking-widest leading-snug lg:px-4">
-                                        {metric.label}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
+                    {/* Right 60%: Wrapped in a big card */}
+                    <div className="lg:w-[60%] w-full relative flex flex-col justify-center">
+                        <div
+                            className="bg-white/90 backdrop-blur-md border text-center border-gray-200/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-2xl lg:rounded-l-none lg:rounded-r-[40px] border-l-[4px] border-l-[#8B1E3F] flex flex-col justify-center my-auto"
+                            style={{
+                                paddingTop: trustVars.cardPaddingTop,
+                                paddingBottom: trustVars.cardPaddingBottom,
+                                paddingLeft: trustVars.cardPaddingX,
+                                paddingRight: trustVars.cardPaddingX,
+                                minHeight: '380px',
+                                marginRight: trustVars.rightCardMarginRight
+                            }}
+                        >
 
-                        {/* Certification Badges on a single line (Desktop) */}
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full">
-                            {certifications.map((cert, idx) => (
-                                <div
-                                    key={idx}
-                                    className="px-2 py-3 bg-white/70 backdrop-blur-sm border border-gray-200/80 rounded-xl text-[11.5px] xl:text-[12.5px] font-bold text-gray-700 uppercase tracking-tight shadow-sm flex items-center justify-center gap-2"
-                                >
-                                    <div className={`w-2 h-2 rounded-full ${cert.color} shadow-sm`} />
-                                    <span className="truncate">{cert.label}</span>
-                                </div>
-                            ))}
+                            {/* Metrics Grid */}
+                            <div className="grid grid-cols-2 gap-4 lg:gap-6 mb-8 w-full">
+                                {metrics.map((metric, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                        className="bg-[#FCFBF9]/60 backdrop-blur-sm border border-gray-200/60 rounded-r-xl lg:rounded-r-[20px] rounded-l-none p-4 lg:p-6 flex flex-col items-center justify-center shadow-sm relative overflow-hidden group"
+                                    >
+                                        {/* Dynamic Filling Solid Accent Line on the LEFT edge */}
+                                        <motion.div
+                                            initial={{ height: 0 }}
+                                            whileInView={{ height: "100%" }}
+                                            viewport={{ once: true }}
+                                            transition={{
+                                                duration: 1.5,
+                                                ease: "easeInOut",
+                                                delay: 0.2 + (idx * 0.1)
+                                            }}
+                                            className="absolute left-0 bottom-0 w-[4px] bg-[#8B1E3F]"
+                                        />
+
+                                        {/* Subtle background wash filling up */}
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 1, delay: 0.5 + (idx * 0.1) }}
+                                            className="absolute inset-0 bg-gradient-to-r from-[#8B1E3F]/[0.03] to-transparent pointer-events-none"
+                                        />
+
+                                        <div className="text-3xl lg:text-4xl font-black text-[#0F172A] mb-1.5 tracking-tight relative z-10">
+                                            <CountUp end={metric.value} suffix={metric.suffix} index={idx} />
+                                        </div>
+                                        <div className="text-[10px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-[0.12em] leading-snug relative z-10">
+                                            {metric.label}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Certification Badges Container - Forced Single Line */}
+                            <div
+                                className="flex flex-row flex-nowrap justify-center items-center w-full"
+                                style={{ gap: trustVars.badgesGap }}
+                            >
+                                {certifications.map((cert, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="px-2 py-1.5 lg:px-3 lg:py-2 bg-[#FCFBF9]/80 backdrop-blur-sm border border-gray-200/60 rounded-full font-bold text-gray-600 uppercase tracking-tight shadow-sm flex flex-row items-center gap-1.5 whitespace-nowrap shrink"
+                                        style={{ fontSize: trustVars.certTextSize }}
+                                    >
+                                        <div className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full ${cert.color} shadow-sm shrink-0`} />
+                                        <span>{cert.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+
                         </div>
                     </div>
 

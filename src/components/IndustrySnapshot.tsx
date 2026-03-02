@@ -1,39 +1,56 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { themeConfig } from '../config/themeConfig';
+
+const industryVars = themeConfig.industry;
+
 export default function IndustrySnapshot() {
     const industries = [
-        { name: 'BFSI', href: '/industries/bfsi' },
-        { name: 'Healthcare', href: '/industries/healthcare' },
-        { name: 'Manufacturing', href: '/industries/manufacturing' },
-        { name: 'SaaS', href: '/industries/saas' },
-        { name: 'Government', href: '/industries/government' },
-        { name: 'Retail', href: '/industries/retail' }
+        { name: 'BFSI', href: '/industries/bfsi', desc: 'Financial security and regulatory compliance.' },
+        { name: 'Healthcare', href: '/industries/healthcare', desc: 'PHI data protection and HIPAA alignment.' },
+        { name: 'Manufacturing', href: '/industries/manufacturing', desc: 'OT/ICS security and IP protection.' },
+        { name: 'SaaS', href: '/industries/saas', desc: 'Cloud-native application security and IAM.' },
+        { name: 'Government', href: '/industries/government', desc: 'Secure infrastructure and sovereign cloud.' },
+        { name: 'Retail', href: '/industries/retail', desc: 'PCI-DSS compliance and supply chain security.' }
     ];
 
     return (
-        <section className="py-[120px] overflow-hidden border-y border-gray-200/40">
-            <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
-                <h2 className="text-3xl font-bold text-[#0F172A] mb-3 tracking-tight">
+        <section
+            className="relative overflow-hidden"
+            style={{ paddingTop: industryVars.paddingTop, paddingBottom: industryVars.paddingBottom }}
+        >
+            <div className="max-w-7xl relative z-10 mb-12" style={{ marginLeft: '2.5rem' }}>
+                <h2 className="text-2xl font-bold text-[#0F172A] mb-3 tracking-tight">
                     Industry-Focused Security Expertise
                 </h2>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                <p className="text-black text-[15px] max-w-2xl font-medium leading-relaxed opacity-80">
                     Security strategies aligned with sector-specific risk and regulatory environments.
                 </p>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 pb-4 overflow-x-auto no-scrollbar">
-                <div className="flex gap-6 w-max mx-auto px-4">
+            <div className="max-w-7xl relative z-10" style={{ marginLeft: '2.5rem', marginRight: '2.5rem' }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {industries.map((ind, idx) => (
                         <Link
                             key={idx}
                             to={ind.href}
-                            className="group relative bg-white border border-gray-200/80 rounded-xl px-12 py-8 min-w-[220px] text-center shadow-sm hover:shadow-md hover:border-[#8B1E3F]/40 transition-all font-bold text-[#0F172A] overflow-hidden"
+                            className={`group relative ${industryVars.cardBg} ${industryVars.cardBlur} border border-white/50 rounded-r-2xl rounded-l-none border-l-[4px] border-l-[#8B1E3F] p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-200 overflow-hidden flex flex-col`}
                         >
-                            <span className="relative z-10">{ind.name}</span>
+                            <div className="text-[11px] font-bold text-[#8B1E3F] tracking-[0.2em] uppercase mb-3">
+                                Industry Sector
+                            </div>
+                            <h3 className="text-xl font-bold text-[#0F172A] mb-3 group-hover:text-[#8B1E3F] transition-colors">
+                                {ind.name}
+                            </h3>
+                            <p className="text-black text-[14px] leading-relaxed font-medium">
+                                {ind.desc}
+                            </p>
 
-                            {/* Hover Top Border Accent */}
-                            <div className="absolute top-0 left-0 w-full h-[3px] bg-[#8B1E3F] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                            {/* Decorative background number or icon placeholder */}
+                            <div className="absolute -bottom-6 -right-6 text-8xl font-black text-black/[0.03] select-none group-hover:text-[#8B1E3F]/[0.05] transition-colors">
+                                0{idx + 1}
+                            </div>
                         </Link>
                     ))}
                 </div>

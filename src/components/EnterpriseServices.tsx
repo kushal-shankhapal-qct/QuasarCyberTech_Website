@@ -5,6 +5,10 @@ import {
     Shield, Search, ClipboardCheck, Cpu, Activity
 } from 'lucide-react';
 
+import { themeConfig } from '../config/themeConfig';
+
+const serviceVars = themeConfig.services;
+
 export default function EnterpriseServices() {
     const services = [
         {
@@ -70,18 +74,28 @@ export default function EnterpriseServices() {
     ];
 
     return (
-        <section className="py-[120px] relative">
-            <div className="max-w-[1600px] mx-auto px-6 relative z-10">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold text-[#0F172A] mb-4 tracking-tight">
+        <section
+            className="relative"
+            style={{ paddingTop: serviceVars.paddingTop, paddingBottom: serviceVars.paddingBottom }}
+        >
+            <div className="max-w-[1600px] relative z-10" style={{ marginLeft: '2.5rem' }}>
+                <div className="text-left mb-12">
+                    <h2 className="text-2xl font-bold text-[#0F172A] mb-3 tracking-tight">
                         Enterprise Security Services
                     </h2>
-                    <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                    <p className="text-black text-[15px] max-w-2xl font-medium leading-relaxed opacity-80">
                         Engineering resilience across applications, infrastructure, and digital ecosystems.
                     </p>
                 </div>
 
-                <div className="bg-[#F8FAFC] p-4 lg:p-8 rounded-3xl border border-gray-200/50 shadow-sm">
+                {/* Container Card with dynamic border rounding matching config */}
+                <div className={`${serviceVars.gridBg} ${serviceVars.gridBlur} p-4 lg:p-8 border border-white/40 shadow-sm mr-[2.5rem] 
+                    ${serviceVars.borderDirection === 'left' ? 'border-l-[4px] border-l-[#8B1E3F] rounded-r-[40px] rounded-l-none' : ''}
+                    ${serviceVars.borderDirection === 'right' ? 'border-r-[4px] border-r-[#8B1E3F] rounded-l-[40px] rounded-r-none' : ''}
+                    ${serviceVars.borderDirection === 'top' ? 'border-t-[4px] border-t-[#8B1E3F] rounded-b-[40px] rounded-t-none' : ''}
+                    ${serviceVars.borderDirection === 'bottom' ? 'border-b-[4px] border-b-[#8B1E3F] rounded-t-[40px] rounded-b-none' : ''}
+                    ${!['left', 'right', 'top', 'bottom'].includes(serviceVars.borderDirection) ? 'rounded-[40px]' : ''}
+                `}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         {services.map((service, idx) => {
                             const Icon = service.Icon;
@@ -89,20 +103,17 @@ export default function EnterpriseServices() {
                                 <Link
                                     key={idx}
                                     to={service.href}
-                                    className="group flex flex-col bg-white border border-gray-200 rounded-xl p-6 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden"
+                                    className={`group flex flex-col ${serviceVars.cardBg} ${serviceVars.cardBlur} border border-white/50 border-l-[4px] border-l-[#8B1E3F] rounded-r-2xl rounded-l-none p-6 hover:-translate-y-1 transition-all duration-150 relative overflow-hidden shadow-sm hover:shadow-md`}
                                 >
                                     <div className="mb-4 text-[#0F172A] group-hover:text-[#8B1E3F] transition-colors relative z-10">
                                         <Icon className="w-8 h-8 stroke-[1.5]" />
                                     </div>
-                                    <h3 className="text-[17px] font-bold text-[#0F172A] mb-2 leading-snug group-hover:text-[#8B1E3F] transition-colors relative z-10">
+                                    <h3 className="text-[16px] font-bold text-[#0F172A] mb-2 leading-snug group-hover:text-[#8B1E3F] transition-colors relative z-10">
                                         {service.title}
                                     </h3>
-                                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mt-auto relative z-10">
+                                    <p className="text-black text-[13px] leading-relaxed line-clamp-2 mt-auto relative z-10 font-medium">
                                         {service.desc}
                                     </p>
-
-                                    {/* Hover Underline Accent */}
-                                    <div className="absolute bottom-0 left-0 w-full h-[3px] bg-[#8B1E3F] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                                 </Link>
                             )
                         })}
