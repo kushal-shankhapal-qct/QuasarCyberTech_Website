@@ -149,7 +149,7 @@ export const themeConfig = {
         sideMargin: '2.5rem',
         logoPodWidth: 'auto',
         logoMarginTop: '-12px',
-        logoPositionX: '0px',
+        logoPositionX: '8px',
         logoScale: 1,
         navMarginTop: '0px',
         navPositionX: '-10px',

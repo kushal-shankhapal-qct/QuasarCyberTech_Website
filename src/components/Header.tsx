@@ -71,7 +71,7 @@ const Header: React.FC = () => {
 
   // 3. Autohide Timeout logic
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: any; // Use any to avoid NodeJS.Timeout error in browser environment
 
     if (isScrolled && isVisible && !isHovered) {
       timeoutId = setTimeout(() => {
@@ -157,19 +157,19 @@ const Header: React.FC = () => {
           >
             <Link
               to="/"
-              className={`block z-10 pointer-events-auto relative transition-transform duration-[400ms] ease-in-out origin-top scale-100`}
+              className={`block z-10 pointer-events-auto relative transition-transform duration-[length:400ms] ease-in-out origin-top scale-100`}
             >
               <div className="flex flex-col items-center">
                 {/* Tight Circular/Flush Scrolled Backdrop strictly behind the symbol */}
                 <div className={`relative flex items-center justify-center p-[4px] shrink-0 ${isFlush ? '' : 'rounded-full'}`}>
                   <div
-                    className={`absolute inset-0 -z-10 transition-opacity duration-[400ms] overflow-hidden ${isSolid ? 'opacity-100 bg-[#FCFBF9]' : 'opacity-0'} ${isFlush ? 'rounded-b-3xl rounded-t-none' : 'rounded-full'}`}
+                    className={`absolute inset-0 -z-10 transition-opacity duration-[length:400ms] overflow-hidden ${isSolid ? 'opacity-100 bg-[#FCFBF9]' : 'opacity-0'} ${isFlush ? 'rounded-b-3xl rounded-t-none' : 'rounded-full'}`}
                     style={{ borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#8B1E3F'}` : 'none' }}
                   />
                   <img src={logoSymbol} alt="Quasar CyberTech Logo" className="h-[3.75rem] w-[3.75rem] sm:h-[4.25rem] sm:w-[4.25rem] object-contain drop-shadow-sm relative z-10" />
                 </div>
 
-                <div className={`flex items-center justify-center transition-all duration-[400ms] overflow-hidden ${isScrolled ? 'max-h-0 opacity-0 mt-0' : 'max-h-[3rem] opacity-100 mt-2'}`}>
+                <div className={`flex items-center justify-center transition-all duration-[length:400ms] overflow-hidden ${isScrolled ? 'max-h-0 opacity-0 mt-0' : 'max-h-[3rem] opacity-100 mt-2'}`}>
                   <img src={logoText} alt="Quasar CyberTech" className="h-[1.3rem] sm:h-[1.5rem] w-auto object-contain" />
                 </div>
               </div>

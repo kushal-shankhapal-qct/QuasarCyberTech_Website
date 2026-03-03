@@ -12,7 +12,7 @@ import ubuntuBold from '../assets/Ubuntu/Ubuntu-Bold.ttf';
 const heroVars = {
   // 1. Static Background Structure
   // Engineered, subtle grid-like background to eliminate the "white wall" feel.
-  bgColor: 'var(--bg-hero)',
+  bgColor: 'transparent',
 
   // 2. Swirling Logo Vortex on the Right
   vortexSize: '800px',               // Enlarged slightly to account for 3D scale squeezing
@@ -46,8 +46,8 @@ const heroVars = {
   subheadingMarginTop: '0px',         // Space above the subheading
 
   // 5. Hero Container Controls
-  containerPaddingTop: '25vh',
-  containerPaddingBottom: '5rem',
+  containerPaddingTop: '0px',
+  containerPaddingBottom: '0px',
   containerPaddingLeft: '1rem',
   containerPaddingRight: '1rem',
   containerMarginTop: '0px',
@@ -60,7 +60,7 @@ const heroVars = {
   buttonsPaddingBottom: '0px',
 
   // 7. Layout Classes
-  container: 'relative z-[30] w-full flex flex-col justify-start max-w-[1920px] mx-auto min-h-[600px] lg:min-h-[80vh]',
+  container: 'relative z-[30] w-full flex flex-col justify-center max-w-[1920px] mx-auto h-full',
   textAlign: 'flex flex-col items-start',
   headingBase: 'font-extrabold w-full tracking-tight text-left',
   subheadingBase: 'font-medium w-full text-left tracking-tight',
@@ -71,7 +71,7 @@ const heroVars = {
 const Hero: React.FC = () => {
   return (
     <section
-      className={`relative lg:h-[85vh] flex items-center snap-start snap-always overflow-visible`} // Changed to h-[85vh] and overflow-visible to allow bleed without scroll expansion
+      className={`relative h-screen lg:h-screen flex items-center snap-start snap-always overflow-visible z-[20]`} // Added z-[20] to ensure bleed over next section
       style={{ fontFamily: 'UbuntuCustom, sans-serif' }}
     >
       <style>{`
@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
       `}</style>
       {/* 1. Static Elegant Background */}
       <div
-        className="absolute inset-0 z-[-1] pointer-events-none"
+        className="absolute inset-0 z-[-2] pointer-events-none"
         style={{ backgroundColor: heroVars.bgColor }}
       />
 
@@ -139,16 +139,16 @@ const Hero: React.FC = () => {
         >
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className={heroVars.headingBase}
             style={{
-              color: heroVars.headingColor,
               fontSize: heroVars.headingFontSize,
               lineHeight: heroVars.headingLineHeight,
+              color: heroVars.headingColor,
               marginBottom: heroVars.headingMarginBottom,
-              marginTop: heroVars.headingMarginTop,
+              marginTop: '160px' // Increased to 160px to push title down further into the lower whitespace area
             }}
           >
             Engineering <span style={{ color: '#7A0F2A' }}>Cyber Resilience</span> <br /> for a Digital First World

@@ -13,7 +13,7 @@ import techNetBackdrop from '../assets/Tech_Net_Backdrop.png';
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden relative">
-      <div className="fixed inset-0 z-[-1] pointer-events-none mix-blend-multiply opacity-[0.09] w-screen h-screen bg-[#FDFDFD]">
+      <div className="fixed inset-0 z-[-1] pointer-events-none mix-blend-darken opacity-[0.15] w-screen h-screen bg-[#FDFDFD]">
         <img
           src={techNetBackdrop}
           alt="Network Backdrop"

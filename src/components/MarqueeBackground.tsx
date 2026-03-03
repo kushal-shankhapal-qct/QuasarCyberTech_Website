@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -27,15 +28,15 @@ const marqueeConfig = {
 // ----------------------------------------------------------------------
 
 // Assets
-const qpulseModules = import.meta.glob("../assets/Logos/Screenshots/QPulse/*.png", { eager: true, as: "url" });
-const qstellarModules = import.meta.glob("../assets/Logos/Screenshots/QStellar/*.png", { eager: true, as: "url" });
+const qpulseModules = import.meta.glob("../assets/Logos/Screenshots/QPulse/*.png", { eager: true, query: "?url", import: "default" });
+const qstellarModules = import.meta.glob("../assets/Logos/Screenshots/QStellar/*.png", { eager: true, query: "?url", import: "default" });
 
 const pulseImages = Object.values(qpulseModules) as string[];
 const stellarImages = Object.values(qstellarModules) as string[];
 
 // 1. CREATE ALTERNATING POOLS
 const createAlternatingPool = (pulse: string[], stellar: string[], startWithPulse: boolean) => {
-    const pool = [];
+    const pool: string[] = [];
     const maxLength = Math.max(pulse.length, stellar.length);
     if (maxLength === 0) return [];
 

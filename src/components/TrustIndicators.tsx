@@ -29,6 +29,20 @@ const partners = [
     { name: 'Vicirus', logo: partner10, isLight: false, scale: 1 },
 ];
 
+// Heading configuration variables for easy tuning
+const trustVars = {
+    headingSizeMobile: '28px',
+    headingSizeDesktop: '36px',
+    line1Weight: 300,
+    line2Weight: 900,
+    line2Scale: '100%', // Increased as requested
+    lineSpacing: '1.2',
+    letterSpacing: '-0.01em',
+    subheadingSize: '16px',
+    subheadingMaxWidth: '400px',
+    subheadingMarginTop: '20px',
+};
+
 export default function TrustIndicators() {
     const metrics = [
         { value: 1600, suffix: '+', label: 'Engagements Delivered' },
@@ -91,34 +105,42 @@ export default function TrustIndicators() {
             <div className="absolute inset-0 bg-white/95 z-[5]" style={{ top: '80px' }} />
 
             <div className="w-full max-w-[1920px] mx-auto relative z-[15] px-4">
-                <div className="max-w-[1400px] mx-auto">
+                <div className="w-full relative">
 
                     {/* SPLIT LAYOUT: Text Left, Metrics Right */}
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 mb-24">
 
-                        {/* LEFT HALF — STATEMENT (Centered in half) */}
-                        <div className="w-full lg:w-1/2 flex flex-col justify-center text-center items-center">
-                            <h2 className="text-[24px] md:text-[30px] m-0 p-0 uppercase"
+                        {/* LEFT HALF — STATEMENT (Aligned with Hero) */}
+                        <div className="w-full lg:w-1/2 flex flex-col justify-center items-start text-left" style={{ paddingLeft: '2.2rem' }}>
+                            <h2 className="m-0 p-0 uppercase"
                                 style={{
-                                    textAlign: 'center',
-                                    lineHeight: '1.2',
-                                    letterSpacing: '-0.01em',
+                                    fontSize: `clamp(${trustVars.headingSizeMobile}, 4vw, ${trustVars.headingSizeDesktop})`,
+                                    textAlign: 'left',
+                                    lineHeight: trustVars.lineSpacing,
+                                    letterSpacing: trustVars.letterSpacing,
                                     color: 'var(--text-primary)'
                                 }}
                             >
-                                <span className="block whitespace-nowrap" style={{ fontWeight: 300 }}>
+                                <span className="block whitespace-nowrap" style={{ fontWeight: trustVars.line1Weight }}>
                                     TRUSTED BY
                                 </span>
                                 <span className="block whitespace-nowrap"
                                     style={{
-                                        fontWeight: 900,
-                                        fontSize: '105%'
+                                        fontWeight: trustVars.line2Weight,
+                                        fontSize: trustVars.line2Scale
                                     }}
                                 >
                                     <span style={{ color: 'var(--brand-accent)' }}>ENTERPRISES</span> WORLDWIDE
                                 </span>
                             </h2>
-                            <p className="text-[16px] text-[var(--text-muted)] mt-[20px] max-w-[400px] font-medium leading-relaxed">
+                            <p style={{
+                                fontSize: trustVars.subheadingSize,
+                                color: 'var(--text-muted)',
+                                marginTop: trustVars.subheadingMarginTop,
+                                maxWidth: trustVars.subheadingMaxWidth,
+                                fontWeight: 500,
+                                lineHeight: '1.6'
+                            }}>
                                 Security outcomes backed by measurable delivery, operational depth, and global scale.
                             </p>
                         </div>

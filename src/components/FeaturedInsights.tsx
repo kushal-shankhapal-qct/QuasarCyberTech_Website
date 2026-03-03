@@ -78,7 +78,7 @@ export default function FeaturedInsights() {
                 </div>
 
                 <div className="relative overflow-visible pb-12">
-                    <div className="flex gap-8 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                    <div className="flex gap-8 transition-all duration-700 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
                         style={{ transform: `translateX(-${currentIndex * 35}%)` }}>
                         {insights.map((item, idx) => (
                             <div key={idx}
