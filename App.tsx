@@ -4,6 +4,7 @@ import { Theme } from '@radix-ui/themes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { themeConfig } from './src/config/themeConfig';
 
 import Home from './src/pages/Home';
 import About from './src/pages/About';
@@ -42,6 +43,15 @@ import Contact from './src/pages/Contact';
 import NotFound from './src/pages/NotFound';
 
 const App: React.FC = () => {
+  React.useEffect(() => {
+    const theme = (themeConfig.themes as any)[themeConfig.activeTheme];
+    if (theme) {
+      Object.keys(theme).forEach(key => {
+        document.documentElement.style.setProperty(key, theme[key]);
+      });
+    }
+  }, []);
+
   return (
     <Theme appearance="inherit" radius="large" scaling="100%">
       <Router>

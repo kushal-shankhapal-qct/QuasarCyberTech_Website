@@ -4,22 +4,27 @@ import { ArrowRight } from 'lucide-react';
 
 export default function HomeFinalCTA() {
     return (
-        <section className="py-[140px] relative overflow-hidden">
-            {/* Overlay removed to match the upper gradient seamlessly */}
-
-            <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-                    Build Resilient Security Foundations
+        <section className="relative overflow-hidden"
+            style={{
+                paddingTop: '80px',
+                paddingBottom: '80px',
+                backgroundColor: '#7A0F2A',
+                background: 'var(--cta-bg)'
+            }}>
+            <div className="max-w-7xl relative z-10 mx-auto px-8 lg:px-12 text-left">
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-8 tracking-tighter leading-[1.1] max-w-3xl">
+                    Build Resilient <br />
+                    <span style={{ color: 'var(--brand-accent)' }}>Security</span> Foundations
                 </h2>
-                <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto font-medium">
+                <p className="text-xl md:text-2xl text-white/80 mb-14 max-w-2xl font-medium leading-relaxed">
                     Engage with our experts to assess your current posture and strengthen your defense strategy.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <div className="flex flex-col sm:flex-row items-center justify-start gap-6">
                     <Link
                         to="/contact"
-                        className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-white text-[#8B1E3F] hover:bg-gray-50 hover:scale-105 active:scale-95 font-bold rounded-xl transition-all shadow-xl shadow-black/20"
+                        className="group inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 bg-[#FFFFFF] text-[var(--brand-accent)] hover:bg-[#F8F9FA] hover:scale-105 active:scale-95 font-black uppercase tracking-widest text-[14px] rounded-lg transition-all shadow-2xl shadow-black/40"
                     >
-                        Schedule a Consultation <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                        Schedule a Consultation <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
                     </Link>
                 </div>
             </div>

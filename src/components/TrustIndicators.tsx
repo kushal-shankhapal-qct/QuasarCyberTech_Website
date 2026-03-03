@@ -1,49 +1,33 @@
 import React from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useInView, motion } from 'framer-motion';
 
-// ---------------------------------------------------------
-// TRUST INDICATORS VARIABLES
-// ---------------------------------------------------------
-export const trustVars = {
-    // 1. Section Spacing
-    paddingTop: '60px',
-    paddingBottom: '40px',
+import isoLogo from '../assets/Logos/Trust_Logos/ISO_27001_Final-Logo.jpg';
+import certInLogo from '../assets/Logos/Trust_Logos/certin-logo.png';
+import crestLogo from '../assets/Logos/Trust_Logos/Crest_Logo.png';
 
-    // 2. Left Column (Heading & Subheading) Container Controls
-    leftColPaddingLeft: '22px',
-    leftColPaddingRight: '40px',
-    leftColPaddingTop: '40px',
-    leftColPaddingBottom: '30px',
-    leftCardMarginLeft: '20px',
-    leftCardMarginRight: '0px',
-    leftCardMarginTop: '40px',
-    leftCardMarginBottom: '40px',
-    leftCardMaxWidth: '100%',
-    leftCardMinHeight: '100px',
-    rightCardMarginRight: '2.5rem', // Aligned with header sideMargin
+import partner1 from '../assets/Logos/Partners/Caniphish.png';
+import partner2 from '../assets/Logos/Partners/D-Link.png';
+import partner3 from '../assets/Logos/Partners/Sophos-1.png';
+import partner4 from '../assets/Logos/Partners/burpsuite-1.png';
+import partner5 from '../assets/Logos/Partners/manage-engine-2-1-1.png';
+import partner6 from '../assets/Logos/Partners/ninja-one-1.png';
+import partner7 from '../assets/Logos/Partners/rapid-7-1.png';
+import partner8 from '../assets/Logos/Partners/satcom-1.png';
+import partner9 from '../assets/Logos/Partners/tenable-one-1.png';
+import partner10 from '../assets/Logos/Partners/vicirus-1.png';
 
-    // 3. Heading Controls
-    headingWidth: '100%',
-    headingSize: '37px',
-    headingLineHeight: '1.2',
-    headingMarginBottom: '16px',
-
-    // 4. Subheading (Description) Controls
-    subheadingSize: '14px',
-    subheadingLineHeight: '1.6',
-    subheadingColor: '#000000', // Pure Black
-    subheadingMarginTop: '10px',
-    subheadingMaxWidth: '384px', // max-w-sm
-
-    // 5. Right Card Controls
-    cardPaddingTop: '40px',
-    cardPaddingBottom: '55px',
-    cardPaddingX: '48px',
-
-    // 6. Certificates Badges options
-    certTextSize: '10px',
-    badgesGap: '8px',
-};
+const partners = [
+    { name: 'Caniphish', logo: partner1, isLight: false, scale: 1 },
+    { name: 'D-Link', logo: partner2, isLight: false, scale: 1.25 },
+    { name: 'Sophos', logo: partner3, isLight: false, scale: 1 },
+    { name: 'Burpsuite', logo: partner4, isLight: false, scale: 1.3 },
+    { name: 'Manage Engine', logo: partner5, isLight: false, scale: 1 },
+    { name: 'Ninja One', logo: partner6, isLight: false, scale: 1.25 },
+    { name: 'Rapid 7', logo: partner7, isLight: false, scale: 1.25 },
+    { name: 'Satcom', logo: partner8, isLight: true, scale: 1.25 }, // Light logos inverted to black via CSS below
+    { name: 'Tenable One', logo: partner9, isLight: false, scale: 1 },
+    { name: 'Vicirus', logo: partner10, isLight: false, scale: 1 },
+];
 
 export default function TrustIndicators() {
     const metrics = [
@@ -54,14 +38,12 @@ export default function TrustIndicators() {
     ];
 
     const certifications = [
-        { label: 'ISO 27001', color: 'bg-[#8B1E3F]' },
-        { label: 'CERT-In Empanelled', color: 'bg-[#0F172A]' },
-        { label: 'CREST Aligned', color: 'bg-[#475569]' },
-        { label: 'Gartner Recognized', color: 'bg-[#8B1E3F]' }
+        { label: 'ISO 27001', logo: isoLogo },
+        { label: 'CERT-In Empanelled', logo: certInLogo },
+        { label: 'CREST Aligned', logo: crestLogo }
     ];
 
-    // Helper component for count-up animation that waits for scroll intersection
-    const CountUp = ({ end, suffix, index }: { end: number; suffix: string; index: number }) => {
+    const CountUp = ({ end, suffix, delay, duration }: { end: number; suffix: string; delay: number; duration: number }) => {
         const [count, setCount] = React.useState(0);
         const ref = React.useRef(null);
         const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
@@ -71,163 +53,158 @@ export default function TrustIndicators() {
 
             let startTimestamp: number | null = null;
             let animationFrame: number;
-            const duration = 1000 + (index * 100);
 
-            const step = (timestamp: number) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const timeoutId = setTimeout(() => {
+                const step = (timestamp: number) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
+                    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                    setCount(Math.floor(easeProgress * end));
 
-                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                setCount(Math.floor(easeProgress * end));
-
-                if (progress < 1) {
-                    animationFrame = window.requestAnimationFrame(step);
-                }
-            };
-
-            animationFrame = window.requestAnimationFrame(step);
+                    if (progress < 1) {
+                        animationFrame = window.requestAnimationFrame(step);
+                    }
+                };
+                animationFrame = window.requestAnimationFrame(step);
+            }, delay * 1000);
 
             return () => {
+                clearTimeout(timeoutId);
                 if (animationFrame) window.cancelAnimationFrame(animationFrame);
             };
-        }, [end, index, isInView]);
+        }, [end, duration, delay, isInView]);
 
         return <span ref={ref}>{count}{suffix}</span>;
     };
 
-
     return (
         <section
-            className="relative border-b border-gray-100/30"
-            style={{ paddingTop: trustVars.paddingTop, paddingBottom: trustVars.paddingBottom }}
+            className="relative w-full z-[0] overflow-visible"
+            style={{
+                backgroundColor: 'transparent',
+                paddingTop: '180px',
+                paddingBottom: '80px',
+                marginTop: '-80px',
+            }}
         >
-            <div className="max-w-[1400px] mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-stretch gap-0">
+            {/* White surface layer */}
+            <div className="absolute inset-0 bg-white/95 z-[5]" style={{ top: '80px' }} />
 
-                    {/* Left 40%: Text Content wrapped in Card */}
-                    <div className="lg:w-[40%] flex flex-col justify-center">
-                        <div
-                            className="bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-2xl lg:rounded-r-none lg:rounded-l-[40px] flex flex-col justify-center my-auto"
-                            style={{
-                                paddingLeft: trustVars.leftColPaddingLeft,
-                                paddingRight: trustVars.leftColPaddingRight,
-                                paddingTop: trustVars.leftColPaddingTop,
-                                paddingBottom: trustVars.leftColPaddingBottom,
-                                marginLeft: trustVars.leftCardMarginLeft,
-                                marginRight: trustVars.leftCardMarginRight,
-                                marginTop: trustVars.leftCardMarginTop,
-                                marginBottom: trustVars.leftCardMarginBottom,
-                                maxWidth: trustVars.leftCardMaxWidth,
-                                minHeight: trustVars.leftCardMinHeight
-                            }}
-                        >
-                            <h2
-                                className="font-bold text-[#0F172A] tracking-tight flex flex-col items-start"
+            <div className="w-full max-w-[1920px] mx-auto relative z-[15] px-4">
+                <div className="max-w-[1400px] mx-auto">
+
+                    {/* SPLIT LAYOUT: Text Left, Metrics Right */}
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-32 mb-24">
+
+                        {/* LEFT HALF — STATEMENT (Centered in half) */}
+                        <div className="w-full lg:w-1/2 flex flex-col justify-center text-center items-center">
+                            <h2 className="text-[24px] md:text-[30px] m-0 p-0 uppercase"
                                 style={{
-                                    fontSize: trustVars.headingSize,
-                                    lineHeight: trustVars.headingLineHeight,
-                                    maxWidth: trustVars.headingWidth,
-                                    marginBottom: trustVars.headingMarginBottom
+                                    textAlign: 'center',
+                                    lineHeight: '1.2',
+                                    letterSpacing: '-0.01em',
+                                    color: 'var(--text-primary)'
                                 }}
                             >
-                                <span>Trusted by</span>
-                                <span className="relative inline-block mt-0.5 whitespace-nowrap">
-                                    Enterprises Worldwide
-                                    {/* Accent line spanning ONLY the exact width of the lowercase text - Burgundy */}
-                                    <span className="absolute -bottom-2 left-0 w-full h-[3.5px] bg-[#8B1E3F] rounded-full opacity-90" />
+                                <span className="block whitespace-nowrap" style={{ fontWeight: 300 }}>
+                                    TRUSTED BY
+                                </span>
+                                <span className="block whitespace-nowrap"
+                                    style={{
+                                        fontWeight: 900,
+                                        fontSize: '105%'
+                                    }}
+                                >
+                                    <span style={{ color: 'var(--brand-accent)' }}>ENTERPRISES</span> WORLDWIDE
                                 </span>
                             </h2>
-
-                            <p
-                                className="leading-relaxed font-medium"
-                                style={{
-                                    marginTop: trustVars.subheadingMarginTop,
-                                    maxWidth: trustVars.subheadingMaxWidth,
-                                    fontSize: trustVars.subheadingSize,
-                                    lineHeight: trustVars.subheadingLineHeight,
-                                    color: trustVars.subheadingColor
-                                }}
-                            >
+                            <p className="text-[16px] text-[var(--text-muted)] mt-[20px] max-w-[400px] font-medium leading-relaxed">
                                 Security outcomes backed by measurable delivery, operational depth, and global scale.
                             </p>
                         </div>
+
+                        {/* RIGHT HALF — METRICS GRID (Spaced out more) */}
+                        <div className="w-full lg:w-1/2">
+                            <div className="grid grid-cols-2 gap-12 pr-4 lg:pr-12">
+                                {metrics.map((metric, idx) => {
+                                    const accentHeight = idx === 0 ? '70%' : idx === 1 ? '80%' : idx === 2 ? '90%' : '100%';
+                                    return (
+                                        <div key={idx} className="flex flex-col items-start relative z-10 p-7 bg-[var(--card-surface-primary)] border border-[var(--brand-accent-soft)] rounded-r-[40px] shadow-sm transition-all hover:scale-[1.02] shrink-0 min-w-[200px]">
+                                            <motion.div
+                                                initial={{ height: 0 }}
+                                                whileInView={{ height: accentHeight }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1, ease: 'easeOut', delay: 0.1 + (idx * 0.1) }}
+                                                className="absolute bottom-0 left-0 w-[4px] bg-[var(--brand-accent)]"
+                                            />
+                                            <div className="text-[36px] md:text-[42px] font-black text-[var(--text-primary)] leading-none mb-2 pl-3">
+                                                <CountUp end={metric.value} suffix={metric.suffix} delay={0.1 + (idx * 0.1)} duration={1.5} />
+                                            </div>
+                                            <div className="text-[10px] text-[var(--text-muted)] tracking-[1.5px] uppercase pl-3 font-bold">
+                                                {metric.label}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Right 60%: Wrapped in a big card */}
-                    <div className="lg:w-[60%] w-full relative flex flex-col justify-center">
-                        <div
-                            className="bg-white/90 backdrop-blur-md border text-center border-gray-200/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-2xl lg:rounded-l-none lg:rounded-r-[40px] border-l-[4px] border-l-[#8B1E3F] flex flex-col justify-center my-auto"
+                    {/* PARTNER LOGO CAROUSEL */}
+                    <div className="w-full relative mb-12" style={{ paddingTop: '60px', paddingBottom: '60px' }}>
+                        <div className="absolute top-[0px] left-0 right-0 text-center uppercase"
                             style={{
-                                paddingTop: trustVars.cardPaddingTop,
-                                paddingBottom: trustVars.cardPaddingBottom,
-                                paddingLeft: trustVars.cardPaddingX,
-                                paddingRight: trustVars.cardPaddingX,
-                                minHeight: '380px',
-                                marginRight: trustVars.rightCardMarginRight
+                                color: 'var(--brand-accent)',
+                                fontWeight: 900,
+                                letterSpacing: '0.15em',
+                                fontSize: '13px',
+                                fontVariant: 'small-caps'
                             }}
                         >
+                            Trusted Technology Partners
+                        </div>
 
-                            {/* Metrics Grid */}
-                            <div className="grid grid-cols-2 gap-4 lg:gap-6 mb-8 w-full">
-                                {metrics.map((metric, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true, margin: "-50px" }}
-                                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                        className="bg-[#FCFBF9]/60 backdrop-blur-sm border border-gray-200/60 rounded-r-xl lg:rounded-r-[20px] rounded-l-none p-4 lg:p-6 flex flex-col items-center justify-center shadow-sm relative overflow-hidden group"
-                                    >
-                                        {/* Dynamic Filling Solid Accent Line on the LEFT edge */}
-                                        <motion.div
-                                            initial={{ height: 0 }}
-                                            whileInView={{ height: "100%" }}
-                                            viewport={{ once: true }}
-                                            transition={{
-                                                duration: 1.5,
-                                                ease: "easeInOut",
-                                                delay: 0.2 + (idx * 0.1)
-                                            }}
-                                            className="absolute left-0 bottom-0 w-[4px] bg-[#8B1E3F]"
-                                        />
+                        <div className="w-full mx-auto relative overflow-hidden flex items-center h-[48px] px-0 mt-8">
+                            <div className="absolute top-[-50px] bottom-[-50px] left-0 w-[120px] bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" />
+                            <div className="absolute top-[-50px] bottom-[-50px] right-0 w-[120px] bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
 
-                                        {/* Subtle background wash filling up */}
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            whileInView={{ opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 1, delay: 0.5 + (idx * 0.1) }}
-                                            className="absolute inset-0 bg-gradient-to-r from-[#8B1E3F]/[0.03] to-transparent pointer-events-none"
-                                        />
-
-                                        <div className="text-3xl lg:text-4xl font-black text-[#0F172A] mb-1.5 tracking-tight relative z-10">
-                                            <CountUp end={metric.value} suffix={metric.suffix} index={idx} />
-                                        </div>
-                                        <div className="text-[10px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-[0.12em] leading-snug relative z-10">
-                                            {metric.label}
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </div>
-
-                            {/* Certification Badges Container - Forced Single Line */}
-                            <div
-                                className="flex flex-row flex-nowrap justify-center items-center w-full"
-                                style={{ gap: trustVars.badgesGap }}
+                            <motion.div
+                                animate={{ x: ["0%", "-50%"] }}
+                                transition={{ ease: "linear", duration: 32, repeat: Infinity }}
+                                className="flex w-max" style={{ gap: '84px' }}
                             >
-                                {certifications.map((cert, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="px-2 py-1.5 lg:px-3 lg:py-2 bg-[#FCFBF9]/80 backdrop-blur-sm border border-gray-200/60 rounded-full font-bold text-gray-600 uppercase tracking-tight shadow-sm flex flex-row items-center gap-1.5 whitespace-nowrap shrink"
-                                        style={{ fontSize: trustVars.certTextSize }}
-                                    >
-                                        <div className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full ${cert.color} shadow-sm shrink-0`} />
-                                        <span>{cert.label}</span>
+                                {[...partners, ...partners].map((partner, idx) => (
+                                    <div key={idx} className="inline-flex items-center justify-center shrink-0 h-[48px] px-10 group relative cursor-pointer">
+                                        <img
+                                            src={partner.logo}
+                                            alt={partner.name}
+                                            className="h-full w-auto object-contain mix-blend-multiply opacity-85 transition-opacity duration-200"
+                                            style={{
+                                                filter: partner.isLight ? 'invert(1)' : 'brightness(0)',
+                                                transform: `scale(${partner.scale || 1})`
+                                            }}
+                                            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                                            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
+                                        />
                                     </div>
                                 ))}
-                            </div>
-
+                            </motion.div>
                         </div>
+                    </div>
+
+                    {/* CERTIFICATIONS STRIP */}
+                    <div className="flex flex-row flex-wrap justify-center items-center gap-24 w-full">
+                        {certifications.map((cert, idx) => (
+                            <div key={idx} className="flex items-center">
+                                {cert.logo && (
+                                    <img
+                                        src={cert.logo}
+                                        alt={cert.label}
+                                        className="h-[60px] lg:h-[70px] w-auto object-contain brightness-100 contrast-125"
+                                    />
+                                )}
+                            </div>
+                        ))}
                     </div>
 
                 </div>

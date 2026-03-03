@@ -13,16 +13,11 @@
     /* ========================================= */
     /* Use these variables to control the feel of the entire website */
 
-    --gradient-start: #ffffff;
-    /* Slightly darker top (Slate 200) */
-    --gradient-mid-1: #f1e7e7;
-    /* Slate 300 */
-    --gradient-mid-2: #c2a3a3;
-    /* Slate 400 */
-    --gradient-mid-3: #a88484;
-    /* Slate 500 */
-    --gradient-end: #000000;
-    /* Slate 800 */
+    /* Cyber Intelligence Theme (Burgundy -> Deep Navy) */
+    --platforms-bg: linear-gradient(135deg, #7A0F2A 0%, #070B19 100%);
+    --sector-bg: linear-gradient(180deg, #0A1128 0%, #050812 100%);
+    --cta-bg: radial-gradient(circle at center, #3d0715 0%, #070B19 60%, #03050A 100%);
+    --footer-bg: linear-gradient(180deg, #050812 0%, #030408 100%);
 
     --brand-accent: #8B1E3F;
     --brand-accent-hover: #6B1530;
@@ -135,6 +130,14 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
 

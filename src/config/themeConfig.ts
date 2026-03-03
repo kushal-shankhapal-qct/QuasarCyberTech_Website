@@ -1,50 +1,176 @@
 export const themeConfig = {
-    // Gradients for the whole page (Used in styles.css via React injection or we just tell the user they are in styles.css)
-    // Let's rely on CSS variables for gradients in styles.css, but provide them here as well if needed.
+    // ---------------------------------------------------------
+    // GLOBAL TONAL ARCHITECTURE (CSS Variables)
+    // ---------------------------------------------------------
+    // These themes represent the "Atmospheric Architecture" requested.
+    // They control the "Tonal Descent" from Hero down to the Footer.
+
+    activeTheme: 'executive', // 'executive' | 'strategic' | 'deep'
+
+    themes: {
+        executive: {
+            '--bg-hero': '#FAFAFA',
+            '--bg-trust': '#FFFFFF',
+            '--bg-platforms': 'linear-gradient(135deg, #7A0F2A 0%, #1A0409 100%)',
+            '--bg-services': '#F8F9FA',
+            '--bg-industry': 'linear-gradient(135deg, #7A0F2A 0%, #1A0409 100%)',
+            '--bg-blog': '#FFFFFF',
+            '--bg-cta': 'linear-gradient(135deg, #7A0F2A 0%, #1A0409 100%)',
+            '--bg-footer': '#FFFFFF',
+
+            // Heading Controls (Soft Adjustments)
+            '--trusted-heading-align': 'left',
+            '--trusted-heading-spacing': '1.1',
+            '--trusted-heading-letter-spacing': '-0.02em',
+            '--trusted-line1-weight': '300',
+            '--trusted-line2-weight': '900',
+            '--trusted-line2-scale': '1.1',
+
+            // Colors
+            '--brand-accent': '#7A0F2A',
+            '--brand-accent-soft': 'rgba(122, 15, 42, 0.12)',
+            '--text-primary': '#111111',
+            '--text-muted': '#555555',
+            '--text-on-dark': '#FFFFFF',
+            '--card-surface-primary': '#FFFFFF',
+            '--card-surface-secondary': '#FAFAFA',
+            '--card-nested-surface': '#F0F0F0',
+
+            // Stats & Sector
+            '--sector-number-color': '#7A0F2A',
+            '--sector-number-opacity': '0.12',
+            '--footer-text-color': '#475569',
+            '--footer-divider-color': 'rgba(0,0,0,0.06)',
+
+            // Section Specific
+            '--light-section-accent': '#7A0F2A',
+            '--light-section-text': '#000000',
+
+            // Layout
+            '--radius-base': '12px',
+            '--radius-card': '40px',
+            '--section-padding': '140px',
+            '--component-gap': '32px',
+
+            // Marquee
+            '--marquee-opacity': '0.12',
+            '--marquee-blur': '3px',
+            '--marquee-speed': '55s',
+            '--marquee-tilt-x': '15deg', // Reduced tilt
+            '--marquee-tilt-z': '-12deg',
+
+            '--platform-card-radius': '40px',
+            '--trusted-card-radius-right': '40px',
+        },
+        strategic: {
+            '--bg-hero': '#FAFAFA',
+            '--bg-trust': '#FFFFFF',
+            '--bg-platforms': '#1A0409',
+            '--bg-services': '#F8F9FA',
+            '--bg-industry': '#1A0409',
+            '--bg-blog': '#FFFFFF',
+            '--bg-cta': '#7A0F2A',
+            '--bg-footer': '#0A0A0A',
+
+            '--brand-accent': '#7A0F2A',
+            '--brand-accent-soft': 'rgba(122, 15, 42, 0.2)',
+
+            '--text-primary': '#111111',
+            '--text-muted': '#555555',
+            '--text-on-dark': '#FFFFFF',
+
+            '--card-surface-primary': 'rgba(255, 255, 255, 0.95)',
+            '--card-surface-secondary': 'rgba(255, 255, 255, 0.85)',
+            '--card-nested-surface': 'rgba(255, 255, 255, 0.75)',
+
+            '--sector-number-color': '#FFFFFF',
+            '--sector-number-opacity': '0.1',
+            '--footer-text-color': '#AAAAAA',
+            '--footer-divider-color': 'rgba(255,255,255,0.1)',
+        },
+        deep: {
+            '--bg-hero': '#FAFAFA',
+            '--bg-trust': '#FFFFFF',
+            '--bg-platforms': '#0F1115', // Vanguard Slate
+            '--bg-services': '#F8F9FA',
+            '--bg-industry': '#0A0C10',
+            '--bg-blog': '#FFFFFF',
+            '--bg-cta': '#1A1D23',
+            '--bg-footer': '#000000',
+
+            '--brand-accent': '#3B82F6', // Cobalt Blue Accent
+            '--brand-accent-soft': 'rgba(59, 130, 246, 0.2)',
+
+            '--text-primary': '#111111',
+            '--text-muted': '#555555',
+            '--text-on-dark': '#FFFFFF',
+
+            '--card-surface-primary': 'rgba(255, 255, 255, 0.08)',
+            '--card-surface-secondary': 'rgba(255, 255, 255, 0.05)',
+            '--card-nested-surface': 'rgba(255, 255, 255, 0.03)',
+
+            '--sector-number-color': '#3B82F6',
+            '--sector-number-opacity': '0.15',
+            '--footer-text-color': '#666666',
+            '--footer-divider-color': 'rgba(255,255,255,0.1)',
+        },
+        obsidian: {
+            '--bg-hero': '#FAFAFA',
+            '--bg-trust': '#FFFFFF',
+            '--bg-platforms': '#080808', // Pure Obsidian
+            '--bg-services': '#F8F9FA',
+            '--bg-industry': '#0A0A0A',
+            '--bg-blog': '#FFFFFF',
+            '--bg-cta': '#111111',
+            '--bg-footer': '#000000',
+
+            '--brand-accent': '#FFFFFF', // Pure White Accent
+            '--brand-accent-soft': 'rgba(255, 255, 254, 0.15)',
+
+            '--text-primary': '#111111',
+            '--text-muted': '#555555',
+            '--text-on-dark': '#FFFFFF',
+
+            '--card-surface-primary': 'rgba(255, 255, 255, 0.05)',
+            '--card-surface-secondary': 'rgba(255, 255, 255, 0.03)',
+            '--card-nested-surface': 'rgba(255, 255, 255, 0.02)',
+
+            '--sector-number-color': '#FFFFFF',
+            '--sector-number-opacity': '0.1',
+            '--footer-text-color': '#888888',
+            '--footer-divider-color': 'rgba(255,255,255,0.1)',
+        }
+    },
 
     // HEADER
     header: {
-        // 1. Master Style Toggle
-        layoutStyle: 'floating',          // 'flush' or 'floating' - toggle 'floating' to revert to original rounded pill navbar
-
-        // 2. Global Positioning
-        marginTop: '1.5rem',              // Set > 0px to detach from the top and see the upper accent line floating
-        sideMargin: '2.5rem',             // Outer edge gap from the browser window
-
-        // 3. Logo Controls
-        logoPodWidth: 'auto',             // HARD BOUNDARY: Stops the middle navbar from shifting left/right when text animates
-        logoMarginTop: '-12px',             // Nudge the logo pod up/down independently
-        logoPositionX: '0px',             // Nudge the logo pod left/right independently
-        logoScale: 1,                     // Resize the logo
-
-        // 4. Middle Navigation Controls
-        navMarginTop: '0px',              // Nudge middle pod downwards to vertically align with logo text
-        navPositionX: '-10px',              // Nudge middle nav left/right
-        navScale: 1,                      // Resize middle nav
-        podPaddingX: '1.5rem',            // Internal horizontal padding of middle nav
-        podPaddingY: '0.8rem',            // Internal vertical padding of middle nav
-
-        // 5. Contact Button Controls
-        btnMarginTop: '0px',              // Nudge specifically the contact button upwards/downwards to align with text
-        btnPositionX: '0px',              // Nudge button left/right
-        btnScale: 1,                      // Resize button
-        btnPaddingX: '1rem',              // Contact Us Button Specific Pacing (X)
-        btnPaddingTop: '0.7rem',          // Contact Us Button Specific Padding (Top)
-        btnPaddingBottom: '0.7rem',       // Contact Us Button Specific Padding (Bottom)
-
-        // 6. Aesthetics & Colors
-        accentLineColor: '#8B1E3F',       // Accent line color on top of navbar and logo
-        btnAccentLineColor: '#FFFFFF',    // Accent line color on top of the contact us button
-        btnAccentLineThickness: '2px',    // Thickness of the button's accent line
-
+        layoutStyle: 'floating',
+        marginTop: '1.5rem',
+        sideMargin: '2.5rem',
+        logoPodWidth: 'auto',
+        logoMarginTop: '-12px',
+        logoPositionX: '0px',
+        logoScale: 1,
+        navMarginTop: '0px',
+        navPositionX: '-10px',
+        navScale: 1,
+        podPaddingX: '1.5rem',
+        podPaddingY: '0.8rem',
+        btnMarginTop: '0px',
+        btnPositionX: '0px',
+        btnScale: 1,
+        btnPaddingX: '1rem',
+        btnPaddingTop: '0.7rem',
+        btnPaddingBottom: '0.7rem',
+        accentLineColor: '#7A0F2A',
+        btnAccentLineColor: '#FFFFFF',
+        btnAccentLineThickness: '2px',
         glassBgOpacity: 0.70,
         glassBgColor: '255, 255, 255',
         glassBlurAmount: '16px',
         glassBorderColor: 'rgba(255, 255, 255, 0.4)',
         glassShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
         dropdownBorderRadius: '0px 0px 1.5rem 1.5rem',
-
-        // 7. Animation Speeds
         headerHideSpeed: '400ms',
         dropdownSpeed: '200ms',
         mouseRevealZone: 150,
@@ -54,43 +180,28 @@ export const themeConfig = {
 
     // PLATFORM HIGHLIGHTS
     platform: {
-        paddingTop: '40px',
-        paddingBottom: '40px',
+        paddingTop: '120px',
+        paddingBottom: '120px',
         sideMargin: '2.5rem',
-        cardBg: 'bg-white/40',
-        cardBlur: 'backdrop-blur-md',
-        cardBorder: 'border-white/40',
-        cardTitleSize: '1.4rem',
-        cardTitleLineHeight: '1.2',
-        screenshotBg: 'bg-gray-100/50',
-        screenshotBorder: 'border-white/20',
     },
 
     // ENTERPRISE SERVICES
     services: {
-        paddingTop: '0px',
-        paddingBottom: '40px',
-        gridBg: 'bg-white/30',
-        gridBlur: 'backdrop-blur-md',
-        cardBg: 'bg-white/60',
-        cardBlur: 'backdrop-blur-sm',
-        accentColor: '#8B1E3F',
-        borderDirection: 'left', // options: 'left', 'right', 'top', 'bottom' - controls the border/rounding placement
+        paddingTop: '120px',
+        paddingBottom: '120px',
+        accentColor: '#7A0F2A',
+        borderDirection: 'left',
     },
 
     // INDUSTRY SNAPSHOT
     industry: {
-        paddingTop: '60px',
-        paddingBottom: '60px',
-        cardBg: 'bg-white/60',
-        cardBlur: 'backdrop-blur-sm',
+        paddingTop: '120px',
+        paddingBottom: '120px',
     },
 
     // FEATURED INSIGHTS
     insights: {
-        paddingTop: '80px',
-        paddingBottom: '100px',
-        cardBg: 'bg-white/60',
-        cardBlur: 'backdrop-blur-sm',
+        paddingTop: '120px',
+        paddingBottom: '120px',
     }
 };

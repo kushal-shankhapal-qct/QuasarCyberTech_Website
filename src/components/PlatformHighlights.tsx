@@ -2,7 +2,11 @@ import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+import qPulseLogo from '../assets/QPulse_Latest_News.png';
+import qStellarLogo from '../assets/QStellar.png';
+
 import { themeConfig } from '../config/themeConfig';
+import MarqueeBackground from './MarqueeBackground';
 
 const platformVars = themeConfig.platform;
 
@@ -10,8 +14,14 @@ export default function PlatformHighlights() {
     return (
         <section
             className="relative overflow-hidden"
-            style={{ paddingTop: platformVars.paddingTop, paddingBottom: platformVars.paddingBottom }}
+            style={{
+                paddingTop: '60px', // Tightened vertical rhythm
+                paddingBottom: '120px',
+                background: 'var(--platforms-bg)',
+            }}
         >
+            <MarqueeBackground />
+
             {/* Ultra-subtle mesh texture overlay */}
             <div
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -21,23 +31,26 @@ export default function PlatformHighlights() {
                 }}
             />
 
-            <div className="max-w-7xl relative z-10" style={{ marginLeft: platformVars.sideMargin }}>
-                <div className="text-left mb-12">
-                    <h2 className="text-2xl font-bold text-[#0F172A] mb-3 tracking-tight">
-                        Our Native Security Platforms
+            <div className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-left mb-10">
+                    <h2 className="text-[38px] md:text-[50px] font-black leading-[1.05] text-[var(--text-on-dark)] mb-3 tracking-tighter">
+                        Our Native <br />
+                        <span style={{
+                            color: 'var(--dark-heading-accent-color)',
+                            fontWeight: 'var(--dark-heading-accent-weight)' as any,
+                            opacity: 'var(--dark-heading-accent-opacity)'
+                        }}>Security</span> Platforms
                     </h2>
-                    <p className="text-black text-[15px] max-w-2xl font-medium leading-relaxed opacity-80">
+                    <p className="text-[var(--text-on-dark)] text-[14px] max-w-xl font-medium leading-relaxed opacity-70">
                         Proprietary engineering designed for continuous visibility and accelerated remediation.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 pr-[2.5rem]">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
 
                     {/* Card 1: Qpulse */}
-                    <motion.div
-                        whileHover={{ y: -8, boxShadow: '0 30px 60px rgba(0,0,0,0.08)' }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                        className={`group ${platformVars.cardBg} ${platformVars.cardBlur} rounded-r-[40px] rounded-l-none border ${platformVars.cardBorder} border-l-[4px] border-l-[#8B1E3F] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
+                    <div
+                        className={`group bg-[var(--card-surface-primary)] backdrop-blur-md rounded-r-[var(--platform-card-radius)] rounded-l-none border border-[var(--brand-accent-soft)] border-l-[4px] border-l-[var(--brand-accent)] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
                     >
                         <div className="p-8 relative flex flex-col h-full">
                             <motion.div
@@ -45,19 +58,17 @@ export default function PlatformHighlights() {
                                 whileInView={{ height: '100%' }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 1, ease: 'easeInOut' }}
-                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[#8B1E3F] z-20"
+                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[var(--brand-accent)] z-20"
                             />
 
-                            <div className="text-[10px] font-bold text-[#8B1E3F] tracking-[0.2em] uppercase mb-4">
+                            <div className="text-[12px] font-bold text-[var(--brand-accent)] tracking-[0.2em] uppercase mb-3">
                                 Security Intelligence
                             </div>
-                            <h3
-                                className="font-bold text-[#0F172A] mb-2 tracking-tight truncate"
-                                style={{ fontSize: platformVars.cardTitleSize, lineHeight: platformVars.cardTitleLineHeight }}
-                            >
-                                Qpulse — Continuous Risk Intelligence
+                            <h3 className="text-[var(--text-primary)] mb-3 tracking-tight">
+                                <span className="block font-black text-[28px] lg:text-[34px] leading-tight mb-1">QPulse</span>
+                                <span className="block font-medium text-[var(--text-muted)] text-[16px] lg:text-[18px] opacity-70 leading-tight">Continuous Risk Intelligence</span>
                             </h3>
-                            <p className="text-black text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
+                            <p className="text-[var(--text-muted)] text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
                                 Centralize vulnerability intelligence, remediation tracking, and compliance visibility through a unified risk management platform.
                             </p>
 
@@ -71,10 +82,10 @@ export default function PlatformHighlights() {
                                             'Integrated remediation workflows'
                                         ].map((item, idx) => (
                                             <li key={idx} className="flex items-start gap-2">
-                                                <div className="w-4 h-4 rounded-full bg-[#8B1E3F]/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                    <Check className="w-2.5 h-2.5 text-[#8B1E3F]" />
+                                                <div className="w-4 h-4 rounded-full bg-[var(--brand-accent)]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <Check className="w-2.5 h-2.5 text-[var(--brand-accent)]" />
                                                 </div>
-                                                <span className="text-black font-semibold text-[12px] leading-tight">{item}</span>
+                                                <span className="text-[var(--text-primary)] font-semibold text-[12px] leading-tight">{item}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -82,7 +93,7 @@ export default function PlatformHighlights() {
                                         href="https://qpulse.quasarcybertech.com"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[#8B1E3F] text-white font-bold rounded-lg hover:bg-[#6B1530] transition-all w-max shadow-lg shadow-[#8B1E3F]/20 hover:scale-105 text-[12px] mt-4"
+                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[var(--brand-accent)] text-white font-bold rounded-lg hover:bg-[#5a111b] transition-all w-max shadow-lg shadow-[var(--brand-accent-soft)] hover:scale-105 text-[12px] mt-4"
                                     >
                                         Explore Qpulse <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                                     </a>
@@ -90,27 +101,23 @@ export default function PlatformHighlights() {
 
                                 {/* Right Section: Screenshot */}
                                 <div className="flex-[1.2] relative h-full">
-                                    <div className={`absolute inset-0 ${platformVars.screenshotBg} rounded-xl border ${platformVars.screenshotBorder} shadow-inner flex items-center justify-center group-hover:bg-white/50 transition-colors overflow-hidden`}>
-                                        <div className="absolute top-2 left-3 flex gap-1 z-10">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                                            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-                                            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                                    <div className="relative flex h-full overflow-hidden shadow-sm">
+                                        <div className="flex-1 h-full overflow-hidden">
+                                            <img
+                                                src={qPulseLogo}
+                                                alt="QPulse Platform Screenshot"
+                                                className="w-full h-full object-contain object-right-top"
+                                            />
                                         </div>
-                                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest relative z-10 text-center px-4">
-                                            Platform Screenshot Area
-                                        </div>
-                                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Card 2: QStellar */}
-                    <motion.div
-                        whileHover={{ y: -8, boxShadow: '0 30px 60px rgba(0,0,0,0.08)' }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                        className={`group ${platformVars.cardBg} ${platformVars.cardBlur} rounded-r-[40px] rounded-l-none border ${platformVars.cardBorder} border-l-[4px] border-l-[#8B1E3F] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
+                    <div
+                        className={`group bg-[var(--card-surface-primary)] backdrop-blur-md rounded-r-[var(--platform-card-radius)] rounded-l-none border border-[var(--brand-accent-soft)] border-l-[4px] border-l-[var(--brand-accent)] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
                     >
                         <div className="p-8 relative flex flex-col h-full">
                             <motion.div
@@ -118,19 +125,17 @@ export default function PlatformHighlights() {
                                 whileInView={{ height: '100%' }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 1, ease: 'easeInOut', delay: 0.1 }}
-                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[#8B1E3F] z-20"
+                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[var(--brand-accent)] z-20"
                             />
 
-                            <div className="text-[10px] font-bold text-[#8B1E3F] tracking-[0.2em] uppercase mb-4">
+                            <div className="text-[12px] font-bold text-[var(--brand-accent)] tracking-[0.2em] uppercase mb-3">
                                 Posture Engineering
                             </div>
-                            <h3
-                                className="font-bold text-[#0F172A] mb-2 tracking-tight truncate"
-                                style={{ fontSize: platformVars.cardTitleSize, lineHeight: platformVars.cardTitleLineHeight }}
-                            >
-                                QStellar — Security Posture Engineering
+                            <h3 className="text-[var(--text-primary)] mb-3 tracking-tight">
+                                <span className="block font-black text-[28px] lg:text-[34px] leading-tight mb-1">QStellar</span>
+                                <span className="block font-medium text-[var(--text-muted)] text-[16px] lg:text-[18px] opacity-70 leading-tight">Security Posture Engineering</span>
                             </h3>
-                            <p className="text-black text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
+                            <p className="text-[var(--text-muted)] text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
                                 Gain real-time visibility into infrastructure misconfigurations, attack surfaces, and cloud security gaps.
                             </p>
 
@@ -144,10 +149,10 @@ export default function PlatformHighlights() {
                                             'Continuous exposure management'
                                         ].map((item, idx) => (
                                             <li key={idx} className="flex items-start gap-2">
-                                                <div className="w-4 h-4 rounded-full bg-[#8B1E3F]/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                    <Check className="w-2.5 h-2.5 text-[#8B1E3F]" />
+                                                <div className="w-4 h-4 rounded-full bg-[var(--brand-accent)]/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <Check className="w-2.5 h-2.5 text-[var(--brand-accent)]" />
                                                 </div>
-                                                <span className="text-black font-semibold text-[12px] leading-tight">{item}</span>
+                                                <span className="text-[var(--text-primary)] font-semibold text-[12px] leading-tight">{item}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -155,7 +160,7 @@ export default function PlatformHighlights() {
                                         href="https://qstellar.quasarcybertech.com"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[#8B1E3F] text-white font-bold rounded-xl hover:bg-[#6B1530] transition-all w-max shadow-lg shadow-[#8B1E3F]/20 hover:scale-105 text-[12px] mt-4"
+                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[var(--brand-accent)] text-white font-bold rounded-xl hover:bg-[#5a111b] transition-all w-max shadow-lg shadow-[var(--brand-accent-soft)] hover:scale-105 text-[12px] mt-4"
                                     >
                                         Explore QStellar <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                                     </a>
@@ -163,21 +168,19 @@ export default function PlatformHighlights() {
 
                                 {/* Right Section: Screenshot */}
                                 <div className="flex-[1.2] relative h-full">
-                                    <div className={`absolute inset-0 ${platformVars.screenshotBg} rounded-xl border ${platformVars.screenshotBorder} shadow-inner flex items-center justify-center group-hover:bg-white/50 transition-colors overflow-hidden`}>
-                                        <div className="absolute top-2 left-3 flex gap-1 z-10">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                                            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-                                            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                                    <div className="relative flex h-full overflow-hidden shadow-sm">
+                                        <div className="flex-1 h-full overflow-hidden">
+                                            <img
+                                                src={qStellarLogo}
+                                                alt="QStellar Platform Screenshot"
+                                                className="w-full h-full object-contain object-right-top"
+                                            />
                                         </div>
-                                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest relative z-10 text-center px-4">
-                                            Platform Screenshot Area
-                                        </div>
-                                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                 </div>
             </div>

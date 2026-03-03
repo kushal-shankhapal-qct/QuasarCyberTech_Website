@@ -76,42 +76,43 @@ export default function EnterpriseServices() {
     return (
         <section
             className="relative"
-            style={{ paddingTop: serviceVars.paddingTop, paddingBottom: serviceVars.paddingBottom }}
+            style={{ paddingTop: '100px', paddingBottom: '100px', backgroundColor: 'var(--bg-services)' }}
         >
-            <div className="max-w-[1600px] relative z-10" style={{ marginLeft: '2.5rem' }}>
-                <div className="text-left mb-12">
-                    <h2 className="text-2xl font-bold text-[#0F172A] mb-3 tracking-tight">
-                        Enterprise Security Services
-                    </h2>
-                    <p className="text-black text-[15px] max-w-2xl font-medium leading-relaxed opacity-80">
-                        Engineering resilience across applications, infrastructure, and digital ecosystems.
-                    </p>
-                </div>
-
+            <div className="max-w-7xl relative z-10 mx-auto">
                 {/* Container Card with dynamic border rounding matching config */}
-                <div className={`${serviceVars.gridBg} ${serviceVars.gridBlur} p-4 lg:p-8 border border-white/40 shadow-sm mr-[2.5rem] 
-                    ${serviceVars.borderDirection === 'left' ? 'border-l-[4px] border-l-[#8B1E3F] rounded-r-[40px] rounded-l-none' : ''}
-                    ${serviceVars.borderDirection === 'right' ? 'border-r-[4px] border-r-[#8B1E3F] rounded-l-[40px] rounded-r-none' : ''}
-                    ${serviceVars.borderDirection === 'top' ? 'border-t-[4px] border-t-[#8B1E3F] rounded-b-[40px] rounded-t-none' : ''}
-                    ${serviceVars.borderDirection === 'bottom' ? 'border-b-[4px] border-b-[#8B1E3F] rounded-t-[40px] rounded-b-none' : ''}
+                <div className={`bg-[var(--card-nested-surface)] backdrop-blur-md p-6 lg:p-8 border border-[var(--brand-accent-soft)] shadow-[0_8px_30px_rgba(0,0,0,0.02)] mx-4 sm:mx-6 lg:mx-8
+                    ${serviceVars.borderDirection === 'left' ? 'border-l-[4px] border-l-[var(--brand-accent)] rounded-r-[40px] rounded-l-none' : ''}
+                    ${serviceVars.borderDirection === 'right' ? 'border-r-[4px] border-r-[var(--brand-accent)] rounded-l-[40px] rounded-r-none' : ''}
+                    ${serviceVars.borderDirection === 'top' ? 'border-t-[4px] border-t-[var(--brand-accent)] rounded-b-[40px] rounded-t-none' : ''}
+                    ${serviceVars.borderDirection === 'bottom' ? 'border-b-[4px] border-b-[var(--brand-accent)] rounded-t-[40px] rounded-b-none' : ''}
                     ${!['left', 'right', 'top', 'bottom'].includes(serviceVars.borderDirection) ? 'rounded-[40px]' : ''}
                 `}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div className="text-left mb-10 px-2">
+                        <h2 className="text-[40px] md:text-[52px] font-[800] leading-[1.1] text-black mb-4 tracking-tight">
+                            Enterprise <br />
+                            <span style={{ color: 'var(--brand-accent)' }}>Security</span> Services
+                        </h2>
+                        <p className="text-[var(--text-muted)] text-[15px] max-w-2xl font-medium leading-relaxed opacity-90">
+                            Engineering resilience across applications, infrastructure, and digital ecosystems.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
                         {services.map((service, idx) => {
                             const Icon = service.Icon;
                             return (
                                 <Link
                                     key={idx}
                                     to={service.href}
-                                    className={`group flex flex-col ${serviceVars.cardBg} ${serviceVars.cardBlur} border border-white/50 border-l-[4px] border-l-[#8B1E3F] rounded-r-2xl rounded-l-none p-6 hover:-translate-y-1 transition-all duration-150 relative overflow-hidden shadow-sm hover:shadow-md`}
+                                    className={`group flex flex-col bg-[var(--card-surface-primary)] backdrop-blur-sm border border-[var(--brand-accent-soft)] border-l-[4px] border-l-[var(--brand-accent)] rounded-r-2xl rounded-l-none p-4 hover:-translate-y-2 transition-all duration-300 relative overflow-hidden shadow-sm hover:shadow-lg`}
                                 >
-                                    <div className="mb-4 text-[#0F172A] group-hover:text-[#8B1E3F] transition-colors relative z-10">
-                                        <Icon className="w-8 h-8 stroke-[1.5]" />
+                                    <div className="mb-3 text-[var(--brand-accent)] group-hover:scale-110 transition-transform relative z-10">
+                                        <Icon className="w-6 h-6 stroke-[1.8]" />
                                     </div>
-                                    <h3 className="text-[16px] font-bold text-[#0F172A] mb-2 leading-snug group-hover:text-[#8B1E3F] transition-colors relative z-10">
+                                    <h3 className="text-[14px] font-bold text-[var(--text-primary)] mb-1 leading-snug group-hover:text-[var(--brand-accent)] transition-colors relative z-10 lg:min-h-[42px] content-start">
                                         {service.title}
                                     </h3>
-                                    <p className="text-black text-[13px] leading-relaxed line-clamp-2 mt-auto relative z-10 font-medium">
+                                    <p className="text-[var(--text-muted)] text-[12px] leading-relaxed line-clamp-3 mt-auto relative z-10 font-medium opacity-90">
                                         {service.desc}
                                     </p>
                                 </Link>
