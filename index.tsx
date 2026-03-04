@@ -2,6 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './styles.css';
+import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+// Load Material Typography tokens globally
+if (document.adoptedStyleSheets) {
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, typescaleStyles.styleSheet];
+}
 
 // Send logs to parent frame (like a preview system)
 function postToParent(level: string, ...args: any[]): void {

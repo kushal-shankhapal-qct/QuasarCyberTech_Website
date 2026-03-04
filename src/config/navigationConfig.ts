@@ -27,7 +27,7 @@ export const navigationConfig = [
   {
     label: 'Platforms',
     href: '/platforms',
-    dropdownWidth: 'w-[450px]',
+    dropdownWidth: 'w-[400px]',
     subItems: [
       { label: 'Qpulse', href: 'https://qpulse.quasarcybertech.com', desc: 'Advanced threat intelligence and monitoring platform.', icon: qPulseLogo, isExternal: true },
       { label: 'QStellar', href: 'https://qstellar.quasarcybertech.com', desc: 'Cloud-native security and compliance automation.', icon: qStellarLogo, isExternal: true }
@@ -36,7 +36,7 @@ export const navigationConfig = [
   {
     label: 'Services',
     href: '/services',
-    dropdownWidth: 'w-[1000px]',
+    dropdownWidth: 'w-[900px]',
     dropdownCols: 'grid-cols-5',
     dropdownOffset: '-translate-x-[40%]', // Center the massive grid properly relative to the viewport instead of the left-nav item
     subItems: [
@@ -56,7 +56,7 @@ export const navigationConfig = [
   {
     label: 'Resources',
     href: '/resources',
-    dropdownWidth: 'w-[600px]',
+    dropdownWidth: 'w-[540px]',
     dropdownCols: 'grid-cols-3', // 3 up, 2 down
     dropdownOffset: '-translate-x-[60%]', // Shift left to keep it centered on screen without spilling right
     subItems: [

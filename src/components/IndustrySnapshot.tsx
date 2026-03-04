@@ -39,8 +39,14 @@ export default function IndustrySnapshot() {
                         <Link
                             key={idx}
                             to={ind.href}
-                            className={`group relative backdrop-blur-md border border-[var(--brand-accent-soft)] rounded-r-[32px] rounded-l-none border-l-[4px] border-l-[var(--brand-accent)] p-8 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-400 overflow-hidden flex flex-col justify-between min-h-[140px]`}
-                            style={{ backgroundColor: '#F6F5F2' }}
+                            className={`group relative border border-[var(--brand-accent-soft)] rounded-r-none border-l-[4px] border-l-[var(--brand-accent)] p-8 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-400 overflow-hidden flex flex-col justify-between min-h-[140px]`}
+                            style={{
+                                backgroundColor: `rgba(${themeConfig.industry.clay.bgColor}, ${themeConfig.industry.clay.bgOpacity})`,
+                                backdropFilter: `blur(${themeConfig.industry.clay.blur})`,
+                                WebkitBackdropFilter: `blur(${themeConfig.industry.clay.blur})`,
+                                boxShadow: `${themeConfig.industry.clay.innerShadow}, ${themeConfig.industry.clay.shadow}`,
+                                borderRadius: `0 ${themeConfig.industry.cardRadius || '32px'} ${themeConfig.industry.cardRadius || '32px'} 0`
+                            }}
                         >
                             <div className="absolute top-4 right-4 text-4xl font-black select-none transition-opacity"
                                 style={{

@@ -15,8 +15,8 @@ export default function PlatformHighlights() {
         <section
             className="relative overflow-hidden"
             style={{
-                paddingTop: '60px', // Tightened vertical rhythm
-                paddingBottom: '120px',
+                paddingTop: platformVars.paddingTop || '60px',
+                paddingBottom: platformVars.paddingBottom || '120px',
                 background: 'var(--platforms-bg)',
             }}
         >
@@ -31,26 +31,46 @@ export default function PlatformHighlights() {
                 }}
             />
 
-            <div className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-left mb-10">
-                    <h2 className="text-[38px] md:text-[50px] font-black leading-[1.05] text-[var(--text-on-dark)] mb-3 tracking-tighter">
-                        Our Native <br />
-                        <span style={{
-                            color: 'var(--dark-heading-accent-color)',
-                            fontWeight: 'var(--dark-heading-accent-weight)' as any,
-                            opacity: 'var(--dark-heading-accent-opacity)'
-                        }}>Security</span> Platforms
-                    </h2>
-                    <p className="text-[var(--text-on-dark)] text-[14px] max-w-xl font-medium leading-relaxed opacity-70">
-                        Proprietary engineering designed for continuous visibility and accelerated remediation.
-                    </p>
+            {/* Header Strip: Compact Full-width Clay Background */}
+            <div
+                className="relative z-10 w-full py-6"
+                style={{
+                    marginBottom: themeConfig.platform.headerStripMarginBottom || '8px',
+                    backgroundColor: `rgba(${themeConfig.platform.clay.bgColor}, ${themeConfig.platform.clay.bgOpacity})`,
+                    backdropFilter: `blur(${themeConfig.platform.clay.blur})`,
+                    WebkitBackdropFilter: `blur(${themeConfig.platform.clay.blur})`,
+                    boxShadow: `${themeConfig.platform.clay.innerShadow}, ${themeConfig.platform.clay.shadow}`,
+                    borderTop: '1px solid rgba(255, 255, 255, 0.3)',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
+                }}
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-left" style={{ paddingLeft: '2.2rem' }}>
+                        <h2 className="text-[34px] md:text-[40px] font-black leading-[1.1] text-[#111111] mb-1 tracking-tighter">
+                            Our Native <span style={{ color: '#7A0F2A' }}>Security Platforms</span>
+                        </h2>
+                        <p className="text-[#555555] text-[14px] max-w-xl font-medium leading-relaxed mt-2">
+                            Proprietary engineering designed for continuous visibility and accelerated remediation.
+                        </p>
+                    </div>
                 </div>
+            </div>
+
+            <div className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
 
                 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
 
                     {/* Card 1: Qpulse */}
                     <div
-                        className={`group bg-[var(--card-surface-primary)] backdrop-blur-md rounded-r-[var(--platform-card-radius)] rounded-l-none border border-[var(--brand-accent-soft)] border-l-[4px] border-l-[var(--brand-accent)] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
+                        className="group transition-all flex flex-col overflow-hidden h-full max-h-[480px]"
+                        style={{
+                            backgroundColor: `rgba(${themeConfig.platform.clay.bgColor}, ${themeConfig.platform.clay.bgOpacity})`,
+                            backdropFilter: `blur(${themeConfig.platform.clay.blur})`,
+                            WebkitBackdropFilter: `blur(${themeConfig.platform.clay.blur})`,
+                            borderRadius: `0 ${themeConfig.platform.cardRadius} ${themeConfig.platform.cardRadius} 0`,
+                            boxShadow: `${themeConfig.platform.clay.innerShadow}, ${themeConfig.platform.clay.shadow}`,
+                            borderLeft: `4px solid var(--brand-accent)`,
+                        }}
                     >
                         <div className="p-8 relative flex flex-col h-full">
                             <motion.div
@@ -100,13 +120,13 @@ export default function PlatformHighlights() {
                                 </div>
 
                                 {/* Right Section: Screenshot */}
-                                <div className="flex-[1.2] relative h-full">
+                                <div className="flex-[1.2] relative h-full min-h-0">
                                     <div className="relative flex h-full overflow-hidden shadow-sm">
                                         <div className="flex-1 h-full overflow-hidden">
                                             <img
                                                 src={qPulseLogo}
                                                 alt="QPulse Platform Screenshot"
-                                                className="w-full h-full object-contain object-right-top"
+                                                className="w-full h-full object-cover object-left-top"
                                             />
                                         </div>
                                     </div>
@@ -117,7 +137,15 @@ export default function PlatformHighlights() {
 
                     {/* Card 2: QStellar */}
                     <div
-                        className={`group bg-[var(--card-surface-primary)] backdrop-blur-md rounded-r-[var(--platform-card-radius)] rounded-l-none border border-[var(--brand-accent-soft)] border-l-[4px] border-l-[var(--brand-accent)] shadow-sm transition-all flex flex-col overflow-hidden h-full max-h-[480px]`}
+                        className="group transition-all flex flex-col overflow-hidden h-full max-h-[480px]"
+                        style={{
+                            backgroundColor: `rgba(${themeConfig.platform.clay.bgColor}, ${themeConfig.platform.clay.bgOpacity})`,
+                            backdropFilter: `blur(${themeConfig.platform.clay.blur})`,
+                            WebkitBackdropFilter: `blur(${themeConfig.platform.clay.blur})`,
+                            borderRadius: `0 ${themeConfig.platform.cardRadius} ${themeConfig.platform.cardRadius} 0`,
+                            boxShadow: `${themeConfig.platform.clay.innerShadow}, ${themeConfig.platform.clay.shadow}`,
+                            borderLeft: `4px solid var(--brand-accent)`,
+                        }}
                     >
                         <div className="p-8 relative flex flex-col h-full">
                             <motion.div
@@ -167,13 +195,13 @@ export default function PlatformHighlights() {
                                 </div>
 
                                 {/* Right Section: Screenshot */}
-                                <div className="flex-[1.2] relative h-full">
+                                <div className="flex-[1.2] relative h-full min-h-0">
                                     <div className="relative flex h-full overflow-hidden shadow-sm">
                                         <div className="flex-1 h-full overflow-hidden">
                                             <img
                                                 src={qStellarLogo}
                                                 alt="QStellar Platform Screenshot"
-                                                className="w-full h-full object-contain object-right-top"
+                                                className="w-full h-full object-cover object-left-top"
                                             />
                                         </div>
                                     </div>

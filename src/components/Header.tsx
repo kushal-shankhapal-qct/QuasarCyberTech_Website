@@ -34,7 +34,7 @@ const Header: React.FC = () => {
       setIsScrolled(currentScrollY > 50);
 
       // Add a buffer so it doesn't hide immediately after leaving hero
-      if (currentScrollY > headerDesignVars.scrollBuffer) {
+      if (currentScrollY > headerDesignVars.interactions.scrollBuffer) {
         if (currentScrollY > lastScrollY.current) {
           // Scrolling down
           if (!isHovered) {
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       // If the mouse gets close to the top of the browser, seamlessly reveal the navbar!
-      if (e.clientY < headerDesignVars.mouseRevealZone) {
+      if (e.clientY < headerDesignVars.interactions.mouseRevealZone) {
         setIsVisible(true);
       }
     };
@@ -76,11 +76,11 @@ const Header: React.FC = () => {
     if (isScrolled && isVisible && !isHovered) {
       timeoutId = setTimeout(() => {
         // ONLY autohide if the mouse is safely outside the reveal zone
-        if (mouseY.current > headerDesignVars.mouseRevealZone && !isHovered) {
+        if (mouseY.current > headerDesignVars.interactions.mouseRevealZone && !isHovered) {
           setIsVisible(false);
           setIsMobileMenuOpen(false);
         }
-      }, headerDesignVars.autoHideDelay);
+      }, headerDesignVars.interactions.autoHideDelay);
     }
 
     return () => clearTimeout(timeoutId);
@@ -99,27 +99,24 @@ const Header: React.FC = () => {
   };
 
 
-  const isFlush = headerDesignVars.layoutStyle === 'flush';
+  const isFlush = headerDesignVars.global.layoutStyle === 'flush';
   const isSolid = isScrolled || isHovered;
 
   const currentPodRadius = isFlush ? '0px 0px 1.5rem 1.5rem' : '9999px';
 
   // Base styling injected properly without nesting issues
   const baseGlassStyle = {
-    backgroundColor: `rgba(var(--bg-white-rgb, 255, 255, 255), var(--navbar-bg-opacity, 0.98))`,
-    backdropFilter: `blur(var(--navbar-blur, 8px))`,
-    WebkitBackdropFilter: `blur(var(--navbar-blur, 8px))`,
-    border: `var(--navbar-border, 1px solid rgba(0,0,0,0.05))`,
-    borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#7A0F2A'}` : `var(--navbar-border, 1px solid rgba(0,0,0,0.05))`,
-    boxShadow: `var(--dropdown-shadow, 0 20px 40px rgba(0,0,0,0.12))`,
+    backgroundColor: `rgba(var(--bg-white-rgb, ${headerDesignVars.visuals.glassBgColor || '255, 255, 255'}), var(--navbar-bg-opacity, ${headerDesignVars.visuals.glassBgOpacity || 0.98}))`,
+    backdropFilter: `blur(var(--navbar-blur, ${headerDesignVars.visuals.glassBlurAmount || '8px'}))`,
+    WebkitBackdropFilter: `blur(var(--navbar-blur, ${headerDesignVars.visuals.glassBlurAmount || '8px'}))`,
+    border: 'none',
+    borderTop: isFlush ? `${headerDesignVars.global.flushAccentThickness || '3px'} solid ${headerDesignVars.global.accentColor || '#7A0F2A'}` : 'none',
+    boxShadow: `${headerDesignVars.visuals.glassInnerShadow ? headerDesignVars.visuals.glassInnerShadow + ', ' : ''}${headerDesignVars.visuals.glassShadow}`,
+    opacity: (isScrolled || isHovered) ? 1 : 0,
+    transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
   };
 
-  const transparentStyle = {
-    backgroundColor: 'transparent',
-    border: '1px solid transparent',
-    borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#8B1E3F'}` : '1px solid transparent',
-    boxShadow: 'none',
-  };
+  const transparentStyle = baseGlassStyle;
 
   return (
     <header
@@ -130,15 +127,15 @@ const Header: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
       className={`fixed top-0 left-0 right-0 z-50 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}
       style={{
-        marginTop: headerDesignVars.marginTop,
+        marginTop: headerDesignVars.global.marginTop,
         transitionProperty: 'all',
-        transitionDuration: headerDesignVars.headerHideSpeed,
+        transitionDuration: headerDesignVars.interactions.hideSpeed,
         transitionTimingFunction: 'ease-in-out',
       }}
     >
       <div
         className="max-w-[1920px] mx-auto w-full"
-        style={{ paddingLeft: headerDesignVars.sideMargin, paddingRight: headerDesignVars.sideMargin }}
+        style={{ paddingLeft: headerDesignVars.global.sideMargin, paddingRight: headerDesignVars.global.sideMargin }}
       >
         {/* pointer-events-none lets clicks pass through the spacing, pointer-events-auto restores on actual elements */}
         <div className="flex items-start w-full pointer-events-none relative">
@@ -148,10 +145,10 @@ const Header: React.FC = () => {
             className="flex-none"
             style={{
               position: 'relative',
-              width: headerDesignVars.logoPodWidth,
-              marginTop: headerDesignVars.logoMarginTop,
-              left: headerDesignVars.logoPositionX,
-              transform: `scale(${headerDesignVars.logoScale || 1})`,
+              width: headerDesignVars.logoSection.width,
+              marginTop: headerDesignVars.logoSection.marginTop,
+              left: headerDesignVars.logoSection.offsetX,
+              transform: `scale(${headerDesignVars.logoSection.scale || 1})`,
               transformOrigin: 'top left'
             }}
           >
@@ -161,10 +158,17 @@ const Header: React.FC = () => {
             >
               <div className="flex flex-col items-center">
                 {/* Tight Circular/Flush Scrolled Backdrop strictly behind the symbol */}
-                <div className={`relative flex items-center justify-center p-[4px] shrink-0 ${isFlush ? '' : 'rounded-full'}`}>
+                <div
+                  className={`relative flex items-center justify-center shrink-0 ${isFlush ? '' : 'rounded-full'}`}
+                  style={{ padding: headerDesignVars.logoSection.padding || '0px' }}
+                >
                   <div
-                    className={`absolute inset-0 -z-10 transition-opacity duration-[length:400ms] overflow-hidden ${isSolid ? 'opacity-100 bg-[#FCFBF9]' : 'opacity-0'} ${isFlush ? 'rounded-b-3xl rounded-t-none' : 'rounded-full'}`}
-                    style={{ borderTop: isFlush ? `4px solid ${headerDesignVars.accentLineColor || '#8B1E3F'}` : 'none' }}
+                    className={`absolute inset-0 -z-10 transition-all duration-[length:400ms] overflow-hidden bg-[#FCFBF9] ${isFlush ? 'rounded-b-3xl rounded-t-none' : 'rounded-full'}`}
+                    style={{
+                      borderTop: isFlush ? `${headerDesignVars.global.flushAccentThickness || '3px'} solid ${headerDesignVars.global.accentColor || '#8B1E3F'}` : 'none',
+                      opacity: (isScrolled || isHovered) ? 1 : 1, // Logo backdrop should be persistent
+                      boxShadow: (isScrolled || isHovered) ? headerDesignVars.visuals.glassShadow : 'none',
+                    }}
                   />
                   <img src={logoSymbol} alt="Quasar CyberTech Logo" className="h-[3.75rem] w-[3.75rem] sm:h-[4.25rem] sm:w-[4.25rem] object-contain drop-shadow-sm relative z-10" />
                 </div>
@@ -180,17 +184,17 @@ const Header: React.FC = () => {
           <div
             className="hidden lg:flex flex-1 justify-center pointer-events-none"
             style={{
-              marginTop: headerDesignVars.navMarginTop || '0.25rem',
+              marginTop: headerDesignVars.navSection.marginTop || '0.25rem',
               position: 'relative',
-              left: headerDesignVars.navPositionX,
-              transform: `scale(${headerDesignVars.navScale || 1})`,
+              left: headerDesignVars.navSection.offsetX,
+              transform: `scale(${headerDesignVars.navSection.scale || 1})`,
               transformOrigin: 'top center'
             }}
           >
             <motion.nav
               className="flex items-center gap-8 pointer-events-auto relative z-10"
               style={{
-                padding: `${headerDesignVars.podPaddingY} ${headerDesignVars.podPaddingX}`,
+                padding: `${headerDesignVars.navSection.paddingY} ${headerDesignVars.navSection.paddingX}`,
               }}
             >
               {/* The Background Backdrop Div that sits BEHIND the middle nav items to NOT swallow backdrop-filters of dropdowns */}
@@ -200,7 +204,7 @@ const Header: React.FC = () => {
                   ...(isSolid ? baseGlassStyle : transparentStyle),
                   borderRadius: currentPodRadius,
                   transitionProperty: 'all',
-                  transitionDuration: headerDesignVars.headerHideSpeed,
+                  transitionDuration: headerDesignVars.interactions.hideSpeed,
                 }}
               />
 
@@ -211,12 +215,18 @@ const Header: React.FC = () => {
                     <Link
                       to={link.href}
                       onClick={(e) => handleNavClick(e, link.href)}
-                      className={`flex items-center gap-1.5 text-[14.5px] font-bold ${isActive ? 'text-[#7A0F2A]' : 'text-[#0F172A]'} group-hover/navitem:text-[#7A0F2A] transition-colors duration-200 relative group/linktext whitespace-nowrap`}
+                      className={`md-typescale-label-large flex items-center gap-1.5 ${isActive ? 'text-[#7A0F2A]' : 'text-[#0F172A]'} group-hover/navitem:text-[#7A0F2A] transition-colors duration-200 relative group/linktext whitespace-nowrap`}
                     >
                       <span className="relative">
                         {link.label}
                         {/* Active Underline Effect just under the text span */}
-                        <span className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[#7A0F2A] ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover/navitem:scale-x-100'} origin-left transition-transform duration-300`} />
+                        <span
+                          className={`absolute -bottom-1 left-0 w-full ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover/navitem:scale-x-100'} origin-left transition-transform duration-300`}
+                          style={{
+                            height: headerDesignVars.navSection.underlineThickness || '2px',
+                            backgroundColor: headerDesignVars.global.accentColor || '#7A0F2A'
+                          }}
+                        />
                       </span>
                       {link.subItems && (
                         <ChevronDown size={14} className="opacity-70 group-hover/navitem:rotate-180 transition-transform duration-300" />
@@ -229,37 +239,45 @@ const Header: React.FC = () => {
                     {/* Mega Menu Dropdown */}
                     {link.subItems && (
                       <div
-                        className={`absolute top-[calc(100%+1.5rem)] ${(link as any).dropdownOffset || 'left-1/2 -translate-x-1/2'} opacity-0 pointer-events-none group-hover/navitem:opacity-100 group-hover/navitem:pointer-events-auto translate-y-4 group-hover/navitem:translate-y-0 z-50 p-6 ${(link as any).dropdownWidth || 'w-[400px]'} grid ${(link as any).dropdownCols || 'grid-cols-2'} gap-x-6 gap-y-8 overflow-hidden`}
+                        className={`absolute top-[calc(100%+1.5rem)] ${(link as any).dropdownOffset || 'left-1/2 -translate-x-1/2'} opacity-0 pointer-events-none group-hover/navitem:opacity-100 group-hover/navitem:pointer-events-auto translate-y-4 group-hover/navitem:translate-y-0 z-50 p-4 ${(link as any).dropdownWidth || 'w-[400px]'} grid ${(link as any).dropdownCols || 'grid-cols-2'} gap-3 overflow-hidden`}
                         style={{
-                          backgroundColor: `var(--dropdown-bg-color, #FFFFFF)`,
-                          borderRadius: `0 0 var(--dropdown-radius, 24px) var(--dropdown-radius, 24px)`,
-                          boxShadow: `var(--dropdown-shadow, 0 20px 40px rgba(0,0,0,0.12))`,
+                          backgroundColor: `rgba(${headerDesignVars.dropdowns.clay.bgColor}, ${headerDesignVars.dropdowns.clay.bgOpacity})`,
+                          backdropFilter: `blur(${headerDesignVars.dropdowns.clay.blur})`,
+                          WebkitBackdropFilter: `blur(${headerDesignVars.dropdowns.clay.blur})`,
+                          borderRadius: headerDesignVars.dropdowns.borderRadius,
+                          boxShadow: `${headerDesignVars.dropdowns.clay.innerShadow}, ${headerDesignVars.dropdowns.shadow}`,
                           transitionProperty: 'all',
-                          transitionDuration: headerDesignVars.dropdownSpeed,
+                          transitionDuration: headerDesignVars.dropdowns.transitionSpeed,
                           transitionTimingFunction: 'ease-out',
                         }}
                       >
                         {/* Active dropdown horizontal top accent line stretched past border */}
-                        <div className="absolute -top-[1px] -left-[1px] -right-[1px] h-[4px] bg-[#7A0F2A] pointer-events-none z-10" />
+                        <div
+                          className="absolute -top-[1px] -left-[1px] -right-[1px] pointer-events-none z-10"
+                          style={{
+                            height: headerDesignVars.dropdowns.topAccentThickness || '2px',
+                            backgroundColor: headerDesignVars.global.accentColor || '#7A0F2A'
+                          }}
+                        />
 
 
                         {link.subItems.map(subItem => {
                           const content = (
                             <>
                               {subItem.icon ? (
-                                <div className="mb-4 h-12 w-full flex items-center justify-start">
+                                <div className="mb-3 h-8 w-full flex items-center justify-start">
                                   <img src={subItem.icon} className="h-full w-auto object-contain max-w-full" alt={subItem.label} />
                                 </div>
                               ) : subItem.LucideIcon ? (
-                                <div className="mb-4 w-12 h-12 rounded-lg bg-[#8B1E3F]/5 border border-[#8B1E3F]/10 text-[#8B1E3F] flex items-center justify-center shrink-0 group-hover/subitem:bg-[#8B1E3F] group-hover/subitem:text-white transition-colors duration-300">
-                                  <subItem.LucideIcon size={24} strokeWidth={1.5} />
+                                <div className="mb-3 w-10 h-10 rounded-lg bg-[#8B1E3F]/5 border border-[#8B1E3F]/10 text-[#8B1E3F] flex items-center justify-center shrink-0 group-hover/subitem:bg-[#8B1E3F] group-hover/subitem:text-white transition-colors duration-300">
+                                  <subItem.LucideIcon size={20} strokeWidth={1.5} />
                                 </div>
                               ) : null}
 
-                              <h4 className="text-[15px] font-bold text-slate-900 mb-1.5 group-hover/subitem:text-[#8B1E3F] transition-colors tracking-tight">
+                              <h4 className="md-typescale-label-medium text-slate-900 mb-1 group-hover/subitem:text-[#8B1E3F] transition-colors tracking-tight">
                                 {subItem.label}
                               </h4>
-                              <p className="text-[13.5px] text-slate-600 font-medium leading-relaxed drop-shadow-sm">
+                              <p className="md-typescale-body-medium text-slate-600 font-medium leading-relaxed drop-shadow-sm">
                                 {subItem.desc}
                               </p>
                             </>
@@ -271,7 +289,7 @@ const Header: React.FC = () => {
                               href={subItem.href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex flex-col group/subitem hover:bg-slate-50 p-4 -m-4 rounded-xl transition-colors"
+                              className="flex flex-col group/subitem hover:bg-slate-50 p-3 -m-3 rounded-xl transition-colors"
                             >
                               {content}
                             </a>
@@ -279,7 +297,7 @@ const Header: React.FC = () => {
                             <Link
                               key={subItem.href}
                               to={subItem.href}
-                              className="flex flex-col group/subitem hover:bg-slate-50 p-4 -m-4 rounded-xl transition-colors"
+                              className="flex flex-col group/subitem hover:bg-slate-50 p-3 -m-3 rounded-xl transition-colors"
                             >
                               {content}
                             </Link>
@@ -298,28 +316,33 @@ const Header: React.FC = () => {
           <div
             className="hidden lg:flex flex-none items-center justify-end pointer-events-none"
             style={{
-              marginTop: headerDesignVars.btnMarginTop || '0.25rem',
+              marginTop: headerDesignVars.contactSection.marginTop || '0.25rem',
               position: 'relative',
-              left: headerDesignVars.btnPositionX,
-              transform: `scale(${headerDesignVars.btnScale || 1})`,
+              left: headerDesignVars.contactSection.offsetX,
+              transform: `scale(${headerDesignVars.contactSection.scale || 1})`,
               transformOrigin: 'top right'
             }}
           >
             <Link
               to="/contact"
-              className="relative pointer-events-auto overflow-hidden flex items-center bg-[#8B1E3F] text-white text-[15px] font-bold hover:bg-[#6B1530] transition-all"
+              className="md-typescale-label-large relative pointer-events-auto overflow-hidden flex items-center transition-all duration-300 text-white"
               style={{
-                paddingLeft: headerDesignVars.btnPaddingX || '2rem',
-                paddingRight: headerDesignVars.btnPaddingX || '2rem',
-                paddingTop: headerDesignVars.btnPaddingTop || headerDesignVars.podPaddingY || '0.8rem',
-                paddingBottom: headerDesignVars.btnPaddingBottom || headerDesignVars.podPaddingY || '0.8rem',
+                paddingLeft: headerDesignVars.contactSection.paddingX || '2rem',
+                paddingRight: headerDesignVars.contactSection.paddingX || '2rem',
+                paddingTop: headerDesignVars.contactSection.paddingY || headerDesignVars.navSection.paddingY || '0.8rem',
+                paddingBottom: headerDesignVars.contactSection.paddingY || headerDesignVars.navSection.paddingY || '0.8rem',
                 borderRadius: currentPodRadius,
-                border: '1px solid transparent',
-                borderTop: isFlush ? `${headerDesignVars.btnAccentLineThickness || '2px'} solid ${headerDesignVars.btnAccentLineColor || '#FFFFFF'}` : '1px solid transparent',
-                boxShadow: isSolid ? headerDesignVars.glassShadow : 'none',
-                transitionDuration: headerDesignVars.dropdownSpeed,
               }}
             >
+              {/* Button Backdrop that vanishes */}
+              <div
+                className="absolute inset-0 -z-10 bg-[#8B1E3F] transition-all duration-400 ease-out"
+                style={{
+                  opacity: 1, // Button should be persistent
+                  borderTop: isFlush ? `${headerDesignVars.contactSection.accentLineThickness || '2px'} solid ${headerDesignVars.contactSection.accentLineColor || '#FFFFFF'}` : 'none',
+                  boxShadow: (isScrolled || isHovered) ? headerDesignVars.visuals.glassShadow : 'none',
+                }}
+              />
               Contact Us
             </Link>
           </div>
@@ -345,7 +368,7 @@ const Header: React.FC = () => {
               className="lg:hidden mt-4 overflow-hidden pointer-events-auto"
               style={{
                 ...baseGlassStyle,
-                borderRadius: headerDesignVars.dropdownBorderRadius
+                borderRadius: headerDesignVars.dropdowns.borderRadius
               }}
             >
               <div className="flex flex-col p-4 max-h-[70vh] overflow-y-auto">

@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-
 import { themeConfig } from '../config/themeConfig';
-
-const insightsVars = themeConfig.insights;
 
 export default function FeaturedInsights() {
     const insights = [
@@ -26,6 +22,12 @@ export default function FeaturedInsights() {
             category: 'Offensive Security',
             image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
             href: '/resources/blogs'
+        },
+        {
+            title: 'Quantum-Resistant Cryptography Strategies',
+            category: 'Intelligence',
+            image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop',
+            href: '/resources/blogs'
         }
     ];
 
@@ -43,8 +45,8 @@ export default function FeaturedInsights() {
         <section
             className="relative overflow-hidden"
             style={{
-                paddingTop: '100px', // Reduced top whitespace
-                paddingBottom: '120px',
+                paddingTop: '80px',
+                paddingBottom: '80px',
                 backgroundColor: 'var(--bg-blog)',
                 color: 'var(--text-primary)'
             }}
@@ -79,13 +81,20 @@ export default function FeaturedInsights() {
 
                 <div className="relative overflow-visible pb-12">
                     <div className="flex gap-8 transition-all duration-700 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
-                        style={{ transform: `translateX(-${currentIndex * 35}%)` }}>
+                        style={{ transform: `translateX(-${currentIndex * (100 / insights.length)}%)` }}>
                         {insights.map((item, idx) => (
                             <div key={idx}
-                                className={`w-[280px] md:w-[340px] group flex flex-col bg-[var(--blog-card-surface)] rounded-[var(--blog-card-radius)] overflow-hidden shadow-2xl transition-all duration-500 hover:scale-[1.02] shrink-0 mb-4`} // Added margin bottom for shadow room
-                                style={{ borderLeft: '4px solid #7A0F2A' }}
+                                className={`w-[260px] md:w-[320px] group flex flex-col overflow-hidden transition-all duration-500 hover:scale-[1.02] shrink-0 mb-4`}
+                                style={{
+                                    borderLeft: '4px solid #7A0F2A',
+                                    borderRadius: `0 ${themeConfig.insights.cardRadius || '24px'} ${themeConfig.insights.cardRadius || '24px'} 0`,
+                                    backgroundColor: `rgba(${themeConfig.insights.clay.bgColor}, ${themeConfig.insights.clay.bgOpacity})`,
+                                    backdropFilter: `blur(${themeConfig.insights.clay.blur})`,
+                                    WebkitBackdropFilter: `blur(${themeConfig.insights.clay.blur})`,
+                                    boxShadow: `${themeConfig.insights.clay.innerShadow}, ${themeConfig.insights.clay.shadow}`,
+                                }}
                             >
-                                <div className="w-full max-w-full aspect-[16/9] overflow-hidden bg-[#0A0A0A] relative shrink-0"> {/* Width constraints prevent aspect explosion */}
+                                <div className="w-full max-w-full aspect-[16/10] overflow-hidden bg-[#0A0A0A] relative shrink-0">
                                     <img
                                         src={item.image}
                                         alt={item.title}
@@ -94,7 +103,7 @@ export default function FeaturedInsights() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                                 </div>
-                                <div className="p-6 flex flex-col flex-1" style={{ minHeight: '180px' }}> {/* Controlled padding */}
+                                <div className="p-6 flex flex-col flex-1" style={{ minHeight: '160px' }}>
                                     <div className="text-[10px] font-black text-[var(--brand-accent)] tracking-[3px] uppercase mb-2">
                                         {item.category}
                                     </div>

@@ -13,6 +13,13 @@
     /* ========================================= */
     /* Use these variables to control the feel of the entire website */
 
+    /* Material Web Typography Tokens */
+    --md-ref-typeface-brand: 'Roboto', sans-serif;
+    --md-ref-typeface-plain: 'Roboto', sans-serif;
+    --md-sys-typescale-label-large-weight: 700;
+    --md-sys-typescale-label-medium-weight: 500;
+    --md-sys-typescale-label-large-tracking: 0.02em;
+
     /* Cyber Intelligence Theme (Burgundy -> Deep Navy) */
     --platforms-bg: linear-gradient(135deg, #7A0F2A 0%, #070B19 100%);
     --sector-bg: linear-gradient(180deg, #0A1128 0%, #050812 100%);

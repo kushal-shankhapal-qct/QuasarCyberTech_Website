@@ -2,9 +2,6 @@ export const themeConfig = {
     // ---------------------------------------------------------
     // GLOBAL TONAL ARCHITECTURE (CSS Variables)
     // ---------------------------------------------------------
-    // These themes represent the "Atmospheric Architecture" requested.
-    // They control the "Tonal Descent" from Hero down to the Footer.
-
     activeTheme: 'executive', // 'executive' | 'strategic' | 'deep'
 
     themes: {
@@ -18,7 +15,7 @@ export const themeConfig = {
             '--bg-cta': 'linear-gradient(135deg, #7A0F2A 0%, #1A0409 100%)',
             '--bg-footer': '#FFFFFF',
 
-            // Heading Controls (Soft Adjustments)
+            // Heading Controls
             '--trusted-heading-align': 'left',
             '--trusted-heading-spacing': '1.1',
             '--trusted-heading-letter-spacing': '-0.02em',
@@ -56,7 +53,7 @@ export const themeConfig = {
             '--marquee-opacity': '0.12',
             '--marquee-blur': '3px',
             '--marquee-speed': '55s',
-            '--marquee-tilt-x': '15deg', // Reduced tilt
+            '--marquee-tilt-x': '15deg',
             '--marquee-tilt-z': '-12deg',
 
             '--platform-card-radius': '40px',
@@ -71,18 +68,14 @@ export const themeConfig = {
             '--bg-blog': '#FFFFFF',
             '--bg-cta': '#7A0F2A',
             '--bg-footer': '#0A0A0A',
-
             '--brand-accent': '#7A0F2A',
             '--brand-accent-soft': 'rgba(122, 15, 42, 0.2)',
-
             '--text-primary': '#111111',
             '--text-muted': '#555555',
             '--text-on-dark': '#FFFFFF',
-
             '--card-surface-primary': 'rgba(255, 255, 255, 0.95)',
             '--card-surface-secondary': 'rgba(255, 255, 255, 0.85)',
             '--card-nested-surface': 'rgba(255, 255, 255, 0.75)',
-
             '--sector-number-color': '#FFFFFF',
             '--sector-number-opacity': '0.1',
             '--footer-text-color': '#AAAAAA',
@@ -91,24 +84,20 @@ export const themeConfig = {
         deep: {
             '--bg-hero': '#FAFAFA',
             '--bg-trust': '#FFFFFF',
-            '--bg-platforms': '#0F1115', // Vanguard Slate
+            '--bg-platforms': '#0F1115',
             '--bg-services': '#F8F9FA',
             '--bg-industry': '#0A0C10',
             '--bg-blog': '#FFFFFF',
             '--bg-cta': '#1A1D23',
             '--bg-footer': '#000000',
-
-            '--brand-accent': '#3B82F6', // Cobalt Blue Accent
+            '--brand-accent': '#3B82F6',
             '--brand-accent-soft': 'rgba(59, 130, 246, 0.2)',
-
             '--text-primary': '#111111',
             '--text-muted': '#555555',
             '--text-on-dark': '#FFFFFF',
-
             '--card-surface-primary': 'rgba(255, 255, 255, 0.08)',
             '--card-surface-secondary': 'rgba(255, 255, 255, 0.05)',
             '--card-nested-surface': 'rgba(255, 255, 255, 0.03)',
-
             '--sector-number-color': '#3B82F6',
             '--sector-number-opacity': '0.15',
             '--footer-text-color': '#666666',
@@ -117,24 +106,20 @@ export const themeConfig = {
         obsidian: {
             '--bg-hero': '#FAFAFA',
             '--bg-trust': '#FFFFFF',
-            '--bg-platforms': '#080808', // Pure Obsidian
+            '--bg-platforms': '#080808',
             '--bg-services': '#F8F9FA',
             '--bg-industry': '#0A0A0A',
             '--bg-blog': '#FFFFFF',
             '--bg-cta': '#111111',
             '--bg-footer': '#000000',
-
-            '--brand-accent': '#FFFFFF', // Pure White Accent
+            '--brand-accent': '#FFFFFF',
             '--brand-accent-soft': 'rgba(255, 255, 254, 0.15)',
-
             '--text-primary': '#111111',
             '--text-muted': '#555555',
             '--text-on-dark': '#FFFFFF',
-
             '--card-surface-primary': 'rgba(255, 255, 255, 0.05)',
             '--card-surface-secondary': 'rgba(255, 255, 255, 0.03)',
             '--card-nested-surface': 'rgba(255, 255, 255, 0.02)',
-
             '--sector-number-color': '#FFFFFF',
             '--sector-number-opacity': '0.1',
             '--footer-text-color': '#888888',
@@ -142,66 +127,174 @@ export const themeConfig = {
         }
     },
 
-    // HEADER
+    // HEADER & NAVIGATION ARCHITECTURE
     header: {
-        layoutStyle: 'floating',
-        marginTop: '1.5rem',
-        sideMargin: '2.5rem',
-        logoPodWidth: 'auto',
-        logoMarginTop: '-12px',
-        logoPositionX: '8px',
-        logoScale: 1,
-        navMarginTop: '0px',
-        navPositionX: '-10px',
-        navScale: 1,
-        podPaddingX: '1.5rem',
-        podPaddingY: '0.8rem',
-        btnMarginTop: '0px',
-        btnPositionX: '0px',
-        btnScale: 1,
-        btnPaddingX: '1rem',
-        btnPaddingTop: '0.7rem',
-        btnPaddingBottom: '0.7rem',
-        accentLineColor: '#7A0F2A',
-        btnAccentLineColor: '#FFFFFF',
-        btnAccentLineThickness: '2px',
-        glassBgOpacity: 0.70,
-        glassBgColor: '255, 255, 255',
-        glassBlurAmount: '16px',
-        glassBorderColor: 'rgba(255, 255, 255, 0.4)',
-        glassShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
-        dropdownBorderRadius: '0px 0px 1.5rem 1.5rem',
-        headerHideSpeed: '400ms',
-        dropdownSpeed: '200ms',
-        mouseRevealZone: 150,
-        autoHideDelay: 1500,
-        scrollBuffer: 250,
+        global: {
+            layoutStyle: 'floating',
+            marginTop: '1.5rem',
+            sideMargin: '2.5rem',
+            accentColor: '#7A0F2A',
+            flushAccentThickness: '3px',
+            pageBackgroundColor: '#F5F7FA',
+        },
+        logoSection: {
+            width: 'auto',
+            marginTop: '-10px',
+            offsetX: '8px',
+            padding: '0px',
+            scale: 1,
+        },
+        navSection: {
+            marginTop: '0px',
+            offsetX: '-10px',
+            scale: 1,
+            paddingX: '1.5rem',
+            paddingY: '0.8rem',
+            underlineThickness: '1.7px',
+        },
+        contactSection: {
+            marginTop: '0px',
+            offsetX: '-18px',
+            scale: 1,
+            paddingX: '1.3rem',
+            paddingY: '0.7rem',
+            accentLineColor: '#FFFFFF',
+            accentLineThickness: '2px',
+        },
+        dropdowns: {
+            shadow: '0 12px 30px -10px rgba(0, 0, 0, 0.15), 0 4px 10px -5px rgba(0, 0, 0, 0.05)',
+            borderRadius: '0px 0px 1.5rem 1.5rem',
+            topAccentThickness: '3px',
+            transitionSpeed: '200ms',
+            clay: {
+                bgColor: '255, 255, 255',
+                bgOpacity: 0.80,
+                blur: '16px',
+                shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+                innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+            },
+        },
+        visuals: {
+            glassBgColor: '255, 255, 255',
+            glassBgOpacity: 0.80,
+            glassBlurAmount: '16px',
+            glassBorderColor: 'rgba(255, 255, 255, 0)',
+            glassShadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            glassInnerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        },
+        interactions: {
+            hideSpeed: '400ms',
+            mouseRevealZone: 150,
+            autoHideDelay: 1500,
+            scrollBuffer: 250,
+        },
+    },
+
+    // TRUST INDICATORS
+    trusted: {
+        paddingTop: '160px',
+        paddingBottom: '80px',
+        cardRadius: '30px',
+        clay: {
+            bgColor: '255, 255, 255',
+            bgOpacity: 0.80,
+            blur: '16px',
+            shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            innerShadow: 'inset 0 2px 5px rgba(244, 244, 244, 1), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        },
+        carousel: {
+            speed: 15, // Lower is faster (duration in seconds)
+            gap: '60px',
+            logoScales: {
+                ninjaOne: 1.45,
+                rapid7: 1.45,
+                satcom: 1.4,
+                vicirus: 1.2,
+                dLink: 1.4,
+                burpSuite: 1.5,
+                default: 1.0,
+            }
+        }
     },
 
     // PLATFORM HIGHLIGHTS
     platform: {
-        paddingTop: '120px',
-        paddingBottom: '120px',
+        paddingTop: '60px',
+        paddingBottom: '80px',
         sideMargin: '2.5rem',
+        cardRadius: '24px',
+        clay: {
+            bgColor: '255, 255, 255',
+            bgOpacity: 0.85,
+            blur: '16px',
+            shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        },
+        headerStripMarginBottom: '8px',
     },
 
     // ENTERPRISE SERVICES
     services: {
-        paddingTop: '120px',
-        paddingBottom: '120px',
+        paddingTop: '100px',
+        paddingBottom: '100px',
         accentColor: '#7A0F2A',
         borderDirection: 'left',
+        mainCardRadius: '24px',
+        itemCardRadius: '16px',
+        clay: {
+            bgColor: '255, 255, 255',
+            bgOpacity: 0.80,
+            blur: '16px',
+            shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        }
     },
 
     // INDUSTRY SNAPSHOT
     industry: {
-        paddingTop: '120px',
-        paddingBottom: '120px',
+        paddingTop: '100px',
+        paddingBottom: '100px',
+        cardRadius: '32px',
+        clay: {
+            bgColor: '255, 255, 255',
+            bgOpacity: 0.98,
+            blur: '16px',
+            shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        }
     },
 
     // FEATURED INSIGHTS
     insights: {
-        paddingTop: '120px',
+        paddingTop: '100px',
         paddingBottom: '120px',
+        cardRadius: '24px',
+        clay: {
+            bgColor: '255, 255, 255',
+            bgOpacity: 0.95,
+            blur: '16px',
+            shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        },
+        logoScale: 1.35,
+        watermarkGlowRadius: '180px',
+    },
+
+    // CONTACT PAGE
+    contact: {
+        navStripHeight: '120px',
+        overlapMarginTop: '-40px',
+        heroPaddingTop: '180px',
+        heroPaddingBottom: '120px',
+        sectionPaddingTop: '80px',
+        sectionPaddingBottom: '80px',
+        cardRadius: '24px',
+        clay: {
+            bgColor: '255, 255, 255',
+            bgOpacity: 0.98,
+            blur: '24px',
+            shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
+            innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 1), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        }
     }
 };

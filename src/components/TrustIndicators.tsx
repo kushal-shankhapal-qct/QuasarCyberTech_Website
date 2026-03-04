@@ -1,5 +1,10 @@
 import React from 'react';
 import { useInView, motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
+
+import { themeConfig } from '../config/themeConfig';
 
 import isoLogo from '../assets/Logos/Trust_Logos/ISO_27001_Final-Logo.jpg';
 import certInLogo from '../assets/Logos/Trust_Logos/certin-logo.png';
@@ -17,16 +22,16 @@ import partner9 from '../assets/Logos/Partners/tenable-one-1.png';
 import partner10 from '../assets/Logos/Partners/vicirus-1.png';
 
 const partners = [
-    { name: 'Caniphish', logo: partner1, isLight: false, scale: 1 },
-    { name: 'D-Link', logo: partner2, isLight: false, scale: 1.25 },
-    { name: 'Sophos', logo: partner3, isLight: false, scale: 1 },
-    { name: 'Burpsuite', logo: partner4, isLight: false, scale: 1.3 },
-    { name: 'Manage Engine', logo: partner5, isLight: false, scale: 1 },
-    { name: 'Ninja One', logo: partner6, isLight: false, scale: 1.25 },
-    { name: 'Rapid 7', logo: partner7, isLight: false, scale: 1.25 },
-    { name: 'Satcom', logo: partner8, isLight: true, scale: 1.25 }, // Light logos inverted to black via CSS below
-    { name: 'Tenable One', logo: partner9, isLight: false, scale: 1 },
-    { name: 'Vicirus', logo: partner10, isLight: false, scale: 1 },
+    { name: 'Caniphish', logo: partner1, isLight: false, scale: themeConfig.trusted.carousel.logoScales.default },
+    { name: 'D-Link', logo: partner2, isLight: false, scale: themeConfig.trusted.carousel.logoScales.dLink },
+    { name: 'Sophos', logo: partner3, isLight: false, scale: themeConfig.trusted.carousel.logoScales.default },
+    { name: 'Burpsuite', logo: partner4, isLight: false, scale: themeConfig.trusted.carousel.logoScales.burpSuite },
+    { name: 'Manage Engine', logo: partner5, isLight: false, scale: themeConfig.trusted.carousel.logoScales.default },
+    { name: 'Ninja One', logo: partner6, isLight: false, scale: themeConfig.trusted.carousel.logoScales.ninjaOne },
+    { name: 'Rapid 7', logo: partner7, isLight: false, scale: themeConfig.trusted.carousel.logoScales.rapid7 },
+    { name: 'Satcom', logo: partner8, isLight: true, scale: themeConfig.trusted.carousel.logoScales.satcom },
+    { name: 'Tenable One', logo: partner9, isLight: false, scale: themeConfig.trusted.carousel.logoScales.default },
+    { name: 'Vicirus', logo: partner10, isLight: false, scale: themeConfig.trusted.carousel.logoScales.vicirus },
 ];
 
 // Heading configuration variables for easy tuning
@@ -151,7 +156,21 @@ export default function TrustIndicators() {
                                 {metrics.map((metric, idx) => {
                                     const accentHeight = idx === 0 ? '70%' : idx === 1 ? '80%' : idx === 2 ? '90%' : '100%';
                                     return (
-                                        <div key={idx} className="flex flex-col items-start relative z-10 p-7 bg-[var(--card-surface-primary)] border border-[var(--brand-accent-soft)] rounded-r-[40px] shadow-sm transition-all hover:scale-[1.02] shrink-0 min-w-[200px]">
+                                        <div
+                                            key={idx}
+                                            className="flex flex-col items-start relative z-10 p-7 transition-all hover:scale-[1.02] shrink-0 min-w-[200px]"
+                                            style={{
+                                                backgroundColor: `rgba(${themeConfig.trusted.clay.bgColor}, ${themeConfig.trusted.clay.bgOpacity})`,
+                                                backdropFilter: `blur(${themeConfig.trusted.clay.blur})`,
+                                                WebkitBackdropFilter: `blur(${themeConfig.trusted.clay.blur})`,
+                                                boxShadow: `${themeConfig.trusted.clay.innerShadow}, ${themeConfig.trusted.clay.shadow}`,
+                                                borderRight: 'none',
+                                                borderLeft: 'none',
+                                                borderTop: 'none',
+                                                borderBottom: 'none',
+                                                borderRadius: `0 ${themeConfig.trusted.cardRadius} ${themeConfig.trusted.cardRadius} 0`
+                                            }}
+                                        >
                                             <motion.div
                                                 initial={{ height: 0 }}
                                                 whileInView={{ height: accentHeight }}
@@ -190,44 +209,57 @@ export default function TrustIndicators() {
                             <div className="absolute top-[-50px] bottom-[-50px] left-0 w-[120px] bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" />
                             <div className="absolute top-[-50px] bottom-[-50px] right-0 w-[120px] bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
 
-                            <motion.div
-                                animate={{ x: ["0%", "-50%"] }}
-                                transition={{ ease: "linear", duration: 32, repeat: Infinity }}
-                                className="flex w-max" style={{ gap: '84px' }}
+                            <style>{`
+                                .trust-ticker-swiper .swiper-wrapper {
+                                    transition-timing-function: linear !important;
+                                }
+                                .trust-ticker-swiper {
+                                    cursor: grab;
+                                }
+                                .trust-ticker-swiper:active {
+                                    cursor: grabbing;
+                                }
+                            `}</style>
+
+                            <Swiper
+                                modules={[Autoplay]}
+                                spaceBetween={parseInt(themeConfig.trusted.carousel.gap || '60')}
+                                slidesPerView="auto"
+                                loop={true}
+                                speed={4000}
+                                autoplay={{
+                                    delay: 0,
+                                    disableOnInteraction: false,
+                                    pauseOnMouseEnter: true,
+                                }}
+                                allowTouchMove={true}
+                                className="trust-ticker-swiper w-full flex items-center"
                             >
+                                {/* Duplicating the list slightly more ensures Swiper has enough items to infinitely loop seamlessly on ultra-wide screens */}
                                 {[...partners, ...partners].map((partner, idx) => (
-                                    <div key={idx} className="inline-flex items-center justify-center shrink-0 h-[48px] px-10 group relative cursor-pointer">
-                                        <img
-                                            src={partner.logo}
-                                            alt={partner.name}
-                                            className="h-full w-auto object-contain mix-blend-multiply opacity-85 transition-opacity duration-200"
-                                            style={{
-                                                filter: partner.isLight ? 'invert(1)' : 'brightness(0)',
-                                                transform: `scale(${partner.scale || 1})`
-                                            }}
-                                            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                                            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
-                                        />
-                                    </div>
+                                    <SwiperSlide key={idx} style={{ width: 'auto', display: 'flex', alignItems: 'center' }}>
+                                        <div className="inline-flex items-center justify-center shrink-0 h-[48px] px-4 sm:px-10 group relative select-none">
+                                            <img
+                                                src={partner.logo}
+                                                alt={partner.name}
+                                                draggable={false}
+                                                className="h-full w-auto object-contain mix-blend-multiply opacity-85 transition-opacity duration-200 pointer-events-none"
+                                                style={{
+                                                    filter: partner.isLight ? 'invert(1)' : 'brightness(0)',
+                                                    transform: `scale(${partner.scale || 1})`,
+                                                    maxHeight: '48px'
+                                                }}
+                                                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                                                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
+                                            />
+                                        </div>
+                                    </SwiperSlide>
                                 ))}
-                            </motion.div>
+                            </Swiper>
                         </div>
                     </div>
 
-                    {/* CERTIFICATIONS STRIP */}
-                    <div className="flex flex-row flex-wrap justify-center items-center gap-24 w-full">
-                        {certifications.map((cert, idx) => (
-                            <div key={idx} className="flex items-center">
-                                {cert.logo && (
-                                    <img
-                                        src={cert.logo}
-                                        alt={cert.label}
-                                        className="h-[60px] lg:h-[70px] w-auto object-contain brightness-100 contrast-125"
-                                    />
-                                )}
-                            </div>
-                        ))}
-                    </div>
+
 
                 </div>
             </div>
