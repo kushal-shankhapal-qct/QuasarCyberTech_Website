@@ -56,10 +56,7 @@ const Footer: React.FC = () => {
     <footer className="relative overflow-hidden bg-white border-t" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
       {/* Mouse tracking area — only the content div, not the entire footer */}
       <div
-        ref={footerContentRef}
         className="max-w-7xl relative z-10 mx-auto px-8 pt-20 pb-8"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
       >
         {/* ───── QUASARCYBERTECH Text Watermark — centered, with cursor glow ───── */}
         <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
@@ -71,6 +68,7 @@ const Footer: React.FC = () => {
               lineHeight: '1',
               color: 'transparent',
               WebkitTextStroke: '1.5px rgba(0,0,0,0.04)',
+              transform: `translateY(${(themeConfig as any).footer?.watermarkOffsetY || '40px'})`,
             }}
           >
             QUASARCYBERTECH
@@ -82,42 +80,48 @@ const Footer: React.FC = () => {
               fontSize: 'clamp(50px, 8vw, 110px)',
               lineHeight: '1',
               color: 'transparent',
-              WebkitTextStroke: '1.5px rgba(122, 15, 42, 0.25)',
+              WebkitTextStroke: '1.5px rgba(122, 15, 42, 0.4)',
               opacity: glowPos.opacity,
-              transition: 'opacity 0.3s ease',
-              maskImage: `radial-gradient(circle ${(themeConfig as any).footer?.watermarkGlowRadius || '180px'} at ${glowPos.x} ${glowPos.y}, black, transparent)`,
-              WebkitMaskImage: `radial-gradient(circle ${(themeConfig as any).footer?.watermarkGlowRadius || '180px'} at ${glowPos.x} ${glowPos.y}, black, transparent)`,
+              transition: 'opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+              transform: `translateY(${(themeConfig as any).footer?.watermarkOffsetY || '40px'}) scale(${(themeConfig as any).footer?.watermarkHoverScale || 1.05})`,
+              maskImage: `radial-gradient(circle ${(themeConfig as any).footer?.watermarkGlowRadius || '140px'} at ${glowPos.x} ${glowPos.y}, black, transparent)`,
+              WebkitMaskImage: `radial-gradient(circle ${(themeConfig as any).footer?.watermarkGlowRadius || '140px'} at ${glowPos.x} ${glowPos.y}, black, transparent)`,
             }}
           >
             QUASARCYBERTECH
           </span>
         </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-12 mb-16 relative z-10">
-          {/* Brand Column — spans 2 */}
-          <div className="col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-4 mb-8">
+        {/* Main Grid — Hover activation zone moved here for tighter control */}
+        <div
+          ref={footerContentRef}
+          className="grid grid-cols-2 md:grid-cols-12 gap-12 mb-16 relative z-10"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          {/* Brand Column — 4/12 = 33% */}
+          <div className="col-span-2 md:col-span-4 flex flex-col items-start text-left">
+            <div className="flex items-center gap-4 mb-8">
               <img
                 src="/src/assets/Logos/fulllogo_transparent_nobuffer.png"
                 alt="Quasar CyberTech"
-                className="h-20 w-auto"
-                style={{ transform: `scale(${(themeConfig as any).footer?.logoScale || 1.35})` }}
+                className="h-16 w-auto"
+                style={{ transform: `scale(${(themeConfig as any).footer?.logoScale || 1.1})`, transformOrigin: 'left' }}
               />
             </div>
-            <p className="text-slate-400 text-[14px] leading-relaxed font-medium mb-8 max-w-xs">
+            <p className="text-slate-800 text-[14px] leading-relaxed font-semibold mb-8 max-w-xs">
               Enterprise cybersecurity engineering designed for continuous visibility and accelerated remediation.
             </p>
 
             <div className="space-y-3 mb-8">
-              <a href="mailto:contactus@quasarcybertech.com" className="flex items-center gap-3 text-[13px] text-slate-400 hover:text-[var(--brand-accent)] transition-colors font-medium">
-                <Mail size={14} className="text-slate-300 shrink-0" /> contactus@quasarcybertech.com
+              <a href="mailto:contactus@quasarcybertech.com" className="flex items-center gap-3 text-[13px] text-slate-800 hover:text-[var(--brand-accent)] transition-colors font-bold">
+                <Mail size={14} className="text-slate-900 shrink-0" /> contactus@quasarcybertech.com
               </a>
-              <a href="tel:+919730691190" className="flex items-center gap-3 text-[13px] text-slate-400 hover:text-[var(--brand-accent)] transition-colors font-medium">
-                <Phone size={14} className="text-slate-300 shrink-0" /> +91 97306 91190
+              <a href="tel:+919730691190" className="flex items-center gap-3 text-[13px] text-slate-800 hover:text-[var(--brand-accent)] transition-colors font-bold">
+                <Phone size={14} className="text-slate-900 shrink-0" /> +91 97306 91190
               </a>
-              <div className="flex items-start gap-3 text-[13px] text-slate-400 font-medium">
-                <MapPin size={14} className="text-slate-300 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 text-[13px] text-slate-800 font-bold">
+                <MapPin size={14} className="text-slate-900 shrink-0 mt-0.5" />
                 <span>Nashik, Maharashtra – 422009</span>
               </div>
             </div>
@@ -143,14 +147,14 @@ const Footer: React.FC = () => {
 
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
+            <div key={category} className="md:col-span-1">
               <h3 className="font-bold text-[11px] text-[var(--brand-accent)] tracking-[2px] uppercase mb-6">{category}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-[14px] text-slate-400 hover:text-[var(--brand-accent)] font-medium transition-colors duration-300 flex items-center group w-fit"
+                      className="text-[14px] text-slate-700 hover:text-[var(--brand-accent)] font-semibold transition-colors duration-300 flex items-center group w-fit"
                     >
                       {link.label}
                       <ArrowUpRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 -translate-y-0.5 transition-all" />
@@ -164,7 +168,7 @@ const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-slate-100 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] text-slate-300 font-medium">
+          <div className={`flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] ${(themeConfig as any).footer?.linkContrast || 'text-slate-500'} font-medium`}>
             <p>&copy; {currentYear} QuasarCyberTech. All rights reserved.</p>
             <p>Engineering Cyber Resilience for a Digital First World</p>
           </div>

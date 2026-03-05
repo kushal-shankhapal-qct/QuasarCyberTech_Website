@@ -15,8 +15,8 @@ export default function PlatformHighlights() {
         <section
             className="relative overflow-hidden"
             style={{
-                paddingTop: platformVars.paddingTop || '60px',
-                paddingBottom: platformVars.paddingBottom || '120px',
+                paddingTop: platformVars.sectionTopSpacing || '80px',
+                paddingBottom: platformVars.paddingBottom || '80px',
                 background: 'var(--platforms-bg)',
             }}
         >
@@ -33,30 +33,41 @@ export default function PlatformHighlights() {
 
             {/* Header Strip: Compact Full-width Clay Background */}
             <div
-                className="relative z-10 w-full py-6"
+                className="relative z-10 w-full"
                 style={{
-                    marginBottom: themeConfig.platform.headerStripMarginBottom || '8px',
-                    backgroundColor: `rgba(${themeConfig.platform.clay.bgColor}, ${themeConfig.platform.clay.bgOpacity})`,
-                    backdropFilter: `blur(${themeConfig.platform.clay.blur})`,
-                    WebkitBackdropFilter: `blur(${themeConfig.platform.clay.blur})`,
-                    boxShadow: `${themeConfig.platform.clay.innerShadow}, ${themeConfig.platform.clay.shadow}`,
+                    marginBottom: platformVars.stripBottomSpacing || '40px',
+                    paddingTop: platformVars.headerStripPaddingY || '20px',
+                    paddingBottom: platformVars.headerStripPaddingY || '20px',
+                    paddingLeft: platformVars.headerStripPaddingX || '0px',
+                    paddingRight: platformVars.headerStripPaddingX || '0px',
+                    backgroundColor: `rgba(${platformVars.clay.bgColor}, ${platformVars.clay.bgOpacity})`,
+                    backdropFilter: `blur(${platformVars.clay.blur})`,
+                    WebkitBackdropFilter: `blur(${platformVars.clay.blur})`,
+                    boxShadow: `${platformVars.clay.innerShadow}, ${platformVars.clay.shadow}`,
                     borderTop: '1px solid rgba(255, 255, 255, 0.3)',
                     borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
                 }}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-left" style={{ paddingLeft: '2.2rem' }}>
-                        <h2 className="text-[34px] md:text-[40px] font-black leading-[1.1] text-[#111111] mb-1 tracking-tighter">
-                            Our Native <span style={{ color: '#7A0F2A' }}>Security Platforms</span>
-                        </h2>
-                        <p className="text-[#555555] text-[14px] max-w-xl font-medium leading-relaxed mt-2">
-                            Proprietary engineering designed for continuous visibility and accelerated remediation.
-                        </p>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between" style={{ gap: themeConfig.platform.headerStripGap || '1rem', paddingLeft: '2.2rem' }}>
+                        <div className="text-left">
+                            <h2 className="font-black leading-[1.1] text-[#111111] mb-1 tracking-tighter"
+                                style={{ fontSize: themeConfig.platform.headerStripTitleSize || '40px' }}
+                            >
+                                Our Native <span style={{ color: '#7A0F2A' }}>Security Platforms</span>
+                            </h2>
+                            <p className="text-[#555555] text-[14px] max-w-xl font-medium leading-relaxed mt-2">
+                                Proprietary engineering designed for continuous visibility and accelerated remediation.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8"
+                style={{ marginTop: platformVars.cardOverlapOffset || '-20px' }}
+            >
 
                 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
 

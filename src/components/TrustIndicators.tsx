@@ -214,10 +214,10 @@ export default function TrustIndicators() {
                                     transition-timing-function: linear !important;
                                 }
                                 .trust-ticker-swiper {
-                                    cursor: grab;
+                                    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23333333'%3E%3Cpath d='M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v10'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v13a7 7 0 0 0 7 7h1.41a2 2 0 0 0 1.42-.59l4.88-4.88a2 2 0 0 0 0-2.82l-.2-.2a2 2 0 0 0-2.82 0l-3.69 3.69'/%3E%3Cpath d='M22 13V9a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4'/%3E%3C/svg%3E") 12 12, grab !important;
                                 }
                                 .trust-ticker-swiper:active {
-                                    cursor: grabbing;
+                                    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v10'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v13a7 7 0 0 0 7 7h1.41a2 2 0 0 0 1.42-.59l4.88-4.88a2 2 0 0 0 0-2.82l-.2-.2a2 2 0 0 0-2.82 0l-3.69 3.69'/%3E%3Cpath d='M22 13V9a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4'/%3E%3C/svg%3E") 12 12, grabbing !important;
                                 }
                             `}</style>
 

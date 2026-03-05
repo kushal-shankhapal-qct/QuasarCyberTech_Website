@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, Shield, Users, BookOpen, FileText, Book, AlertTriangle, Briefcase, Target, ClipboardCheck, Server, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import logoSymbol from '../assets/Logos/Logo_Cropped-cropped.svg';
+import logoSymbol from '../assets/Logos/icononly_nobuffer_white_fill.png';
 import logoText from '../assets/Logos/Dark_QuasarCyberTech_Text_Only_Logo_Over.png';
 import { navigationConfig } from '../config/navigationConfig';
 
@@ -134,11 +134,9 @@ const Header: React.FC = () => {
       }}
     >
       <div
-        className="max-w-[1920px] mx-auto w-full"
-        style={{ paddingLeft: headerDesignVars.global.sideMargin, paddingRight: headerDesignVars.global.sideMargin }}
+        className="max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-16"
       >
-        {/* pointer-events-none lets clicks pass through the spacing, pointer-events-auto restores on actual elements */}
-        <div className="flex items-start w-full pointer-events-none relative">
+        <div className="flex items-center w-full pointer-events-none relative">
 
           {/* Left Pod: Logo */}
           <div
@@ -146,36 +144,50 @@ const Header: React.FC = () => {
             style={{
               position: 'relative',
               width: headerDesignVars.logoSection.width,
+              height: headerDesignVars.logoSection.height,
               marginTop: headerDesignVars.logoSection.marginTop,
+              marginBottom: headerDesignVars.logoSection.marginBottom,
+              marginLeft: headerDesignVars.logoSection.marginLeft,
+              marginRight: headerDesignVars.logoSection.marginRight,
+              paddingTop: headerDesignVars.logoSection.paddingTop,
+              paddingBottom: headerDesignVars.logoSection.paddingBottom,
+              paddingLeft: headerDesignVars.logoSection.paddingLeft,
+              paddingRight: headerDesignVars.logoSection.paddingRight,
               left: headerDesignVars.logoSection.offsetX,
+              top: headerDesignVars.logoSection.offsetY,
               transform: `scale(${headerDesignVars.logoSection.scale || 1})`,
               transformOrigin: 'top left'
             }}
           >
             <Link
               to="/"
-              className={`block z-10 pointer-events-auto relative transition-transform duration-[length:400ms] ease-in-out origin-top scale-100`}
+              className="flex flex-col items-center group pointer-events-auto relative"
             >
-              <div className="flex flex-col items-center">
-                {/* Tight Circular/Flush Scrolled Backdrop strictly behind the symbol */}
-                <div
-                  className={`relative flex items-center justify-center shrink-0 ${isFlush ? '' : 'rounded-full'}`}
-                  style={{ padding: headerDesignVars.logoSection.padding || '0px' }}
-                >
-                  <div
-                    className={`absolute inset-0 -z-10 transition-all duration-[length:400ms] overflow-hidden bg-[#FCFBF9] ${isFlush ? 'rounded-b-3xl rounded-t-none' : 'rounded-full'}`}
-                    style={{
-                      borderTop: isFlush ? `${headerDesignVars.global.flushAccentThickness || '3px'} solid ${headerDesignVars.global.accentColor || '#8B1E3F'}` : 'none',
-                      opacity: (isScrolled || isHovered) ? 1 : 1, // Logo backdrop should be persistent
-                      boxShadow: (isScrolled || isHovered) ? headerDesignVars.visuals.glassShadow : 'none',
-                    }}
-                  />
-                  <img src={logoSymbol} alt="Quasar CyberTech Logo" className="h-[3.75rem] w-[3.75rem] sm:h-[4.25rem] sm:w-[4.25rem] object-contain drop-shadow-sm relative z-10" />
-                </div>
-
-                <div className={`flex items-center justify-center transition-all duration-[length:400ms] overflow-hidden ${isScrolled ? 'max-h-0 opacity-0 mt-0' : 'max-h-[3rem] opacity-100 mt-2'}`}>
-                  <img src={logoText} alt="Quasar CyberTech" className="h-[1.3rem] sm:h-[1.5rem] w-auto object-contain" />
-                </div>
+              <img
+                src={logoSymbol}
+                alt="Quasar CyberTech Icon"
+                className="object-contain drop-shadow-sm transition-all duration-500 ease-in-out"
+                style={{
+                  width: `clamp(${headerDesignVars.logoSection.iconWidthMobile}, 5vw, ${headerDesignVars.logoSection.iconWidth})`,
+                  height: `clamp(${headerDesignVars.logoSection.iconHeightMobile}, 5vw, ${headerDesignVars.logoSection.iconHeight})`,
+                }}
+              />
+              <div
+                className={`absolute left-1/2 -translate-x-1/2 overflow-hidden transition-all duration-500 ease-in-out flex justify-center w-max ${isScrolled ? 'max-h-0 opacity-0' : 'max-h-32 opacity-100'}`}
+                style={{
+                  top: '105%',
+                  marginTop: headerDesignVars.logoSection.textMarginTop,
+                  transform: isScrolled
+                    ? `translateX(-50%) translateY(${headerDesignVars.logoSection.textHideOffset})`
+                    : 'translateX(-50%) translateY(0)'
+                }}
+              >
+                <img
+                  src={logoText}
+                  alt="QuasarCyberTech Text"
+                  className="w-auto object-contain"
+                  style={{ height: headerDesignVars.logoSection.textHeight }}
+                />
               </div>
             </Link>
           </div>
@@ -184,11 +196,11 @@ const Header: React.FC = () => {
           <div
             className="hidden lg:flex flex-1 justify-center pointer-events-none"
             style={{
-              marginTop: headerDesignVars.navSection.marginTop || '0.25rem',
+              marginTop: headerDesignVars.navSection.marginTop || '0px',
               position: 'relative',
               left: headerDesignVars.navSection.offsetX,
               transform: `scale(${headerDesignVars.navSection.scale || 1})`,
-              transformOrigin: 'top center'
+              transformOrigin: 'center'
             }}
           >
             <motion.nav
@@ -215,7 +227,7 @@ const Header: React.FC = () => {
                     <Link
                       to={link.href}
                       onClick={(e) => handleNavClick(e, link.href)}
-                      className={`md-typescale-label-large flex items-center gap-1.5 ${isActive ? 'text-[#7A0F2A]' : 'text-[#0F172A]'} group-hover/navitem:text-[#7A0F2A] transition-colors duration-200 relative group/linktext whitespace-nowrap`}
+                      className={`md-typescale-label-large flex items-center gap-1.5 ${isActive ? 'text-[var(--brand-navy)]' : 'text-[#0F172A]'} group-hover/navitem:text-[var(--brand-navy)] transition-colors duration-200 relative group/linktext whitespace-nowrap`}
                     >
                       <span className="relative">
                         {link.label}
@@ -224,7 +236,7 @@ const Header: React.FC = () => {
                           className={`absolute -bottom-1 left-0 w-full ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover/navitem:scale-x-100'} origin-left transition-transform duration-300`}
                           style={{
                             height: headerDesignVars.navSection.underlineThickness || '2px',
-                            backgroundColor: headerDesignVars.global.accentColor || '#7A0F2A'
+                            backgroundColor: 'var(--brand-navy)'
                           }}
                         />
                       </span>
@@ -269,12 +281,24 @@ const Header: React.FC = () => {
                                   <img src={subItem.icon} className="h-full w-auto object-contain max-w-full" alt={subItem.label} />
                                 </div>
                               ) : subItem.LucideIcon ? (
-                                <div className="mb-3 w-10 h-10 rounded-lg bg-[#8B1E3F]/5 border border-[#8B1E3F]/10 text-[#8B1E3F] flex items-center justify-center shrink-0 group-hover/subitem:bg-[#8B1E3F] group-hover/subitem:text-white transition-colors duration-300">
+                                <div
+                                  className="mb-3 w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300 border"
+                                  style={{
+                                    backgroundColor: `${headerDesignVars.dropdowns.iconHoverColor}0D`, // 5% opacity
+                                    borderColor: `${headerDesignVars.dropdowns.iconHoverColor}1A`, // 10% opacity
+                                    color: headerDesignVars.dropdowns.iconColor
+                                  }}
+                                >
                                   <subItem.LucideIcon size={20} strokeWidth={1.5} />
                                 </div>
                               ) : null}
 
-                              <h4 className="md-typescale-label-medium text-slate-900 mb-1 group-hover/subitem:text-[#8B1E3F] transition-colors tracking-tight">
+                              <h4
+                                className="md-typescale-label-medium text-slate-900 mb-1 transition-colors tracking-tight"
+                                style={{
+                                  '--hover-color': headerDesignVars.dropdowns.iconHoverColor
+                                } as React.CSSProperties}
+                              >
                                 {subItem.label}
                               </h4>
                               <p className="md-typescale-body-medium text-slate-600 font-medium leading-relaxed drop-shadow-sm">
@@ -316,11 +340,11 @@ const Header: React.FC = () => {
           <div
             className="hidden lg:flex flex-none items-center justify-end pointer-events-none"
             style={{
-              marginTop: headerDesignVars.contactSection.marginTop || '0.25rem',
+              marginTop: headerDesignVars.contactSection.marginTop || '0px',
               position: 'relative',
               left: headerDesignVars.contactSection.offsetX,
               transform: `scale(${headerDesignVars.contactSection.scale || 1})`,
-              transformOrigin: 'top right'
+              transformOrigin: 'center'
             }}
           >
             <Link

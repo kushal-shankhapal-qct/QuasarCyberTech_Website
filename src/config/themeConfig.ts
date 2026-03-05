@@ -29,6 +29,8 @@ export const themeConfig = {
             '--text-primary': '#111111',
             '--text-muted': '#555555',
             '--text-on-dark': '#FFFFFF',
+            '--brand-navy': '#0A192F',
+            '--brand-burgundy-deep': '#4A0819',
             '--card-surface-primary': '#FFFFFF',
             '--card-surface-secondary': '#FAFAFA',
             '--card-nested-surface': '#F0F0F0',
@@ -127,6 +129,12 @@ export const themeConfig = {
         }
     },
 
+    // GLOBAL REFINEMENT CONTROLS
+    global: {
+        verticalSpacing: '100px',
+        interactiveEasing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+    },
+
     // HEADER & NAVIGATION ARCHITECTURE
     header: {
         global: {
@@ -138,15 +146,36 @@ export const themeConfig = {
             pageBackgroundColor: '#F5F7FA',
         },
         logoSection: {
+            // Container (The link/wrapper)
             width: 'auto',
-            marginTop: '-10px',
-            offsetX: '8px',
-            padding: '0px',
+            height: 'auto',
+            marginTop: '0px',
+            marginBottom: '0px',
+            marginLeft: '1.7rem',
+            marginRight: '0px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            paddingRight: '0px',
+            offsetX: '0px',
+            offsetY: '0px',
             scale: 1,
+
+            // Icon (The symbol)
+            iconWidth: '4.5rem',
+            iconHeight: '4.5rem',
+            iconWidthMobile: '2.6rem',
+            iconHeightMobile: '2.6rem',
+
+            // Text (The logotype)
+            textHeight: '1.5rem',
+            textWidth: 'auto',
+            textMarginTop: '4px',
+            textHideOffset: '-10px',
         },
         navSection: {
             marginTop: '0px',
-            offsetX: '-10px',
+            offsetX: '15px',
             scale: 1,
             paddingX: '1.5rem',
             paddingY: '0.8rem',
@@ -154,7 +183,7 @@ export const themeConfig = {
         },
         contactSection: {
             marginTop: '0px',
-            offsetX: '-18px',
+            offsetX: '0px',
             scale: 1,
             paddingX: '1.3rem',
             paddingY: '0.7rem',
@@ -166,6 +195,8 @@ export const themeConfig = {
             borderRadius: '0px 0px 1.5rem 1.5rem',
             topAccentThickness: '3px',
             transitionSpeed: '200ms',
+            iconColor: '#334155',
+            iconHoverColor: '#0A192F',
             clay: {
                 bgColor: '255, 255, 255',
                 bgOpacity: 0.80,
@@ -220,9 +251,9 @@ export const themeConfig = {
     // PLATFORM HIGHLIGHTS
     platform: {
         paddingTop: '60px',
-        paddingBottom: '80px',
+        paddingBottom: '20px',
         sideMargin: '2.5rem',
-        cardRadius: '24px',
+        cardRadius: '70px',
         clay: {
             bgColor: '255, 255, 255',
             bgOpacity: 0.85,
@@ -230,7 +261,14 @@ export const themeConfig = {
             shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
             innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
         },
-        headerStripMarginBottom: '8px',
+        headerStripMarginBottom: '40px',
+        headerStripPaddingY: '20px',
+        headerStripPaddingX: '0px',
+        headerStripGap: '1rem',
+        headerStripTitleSize: '40px',
+        sectionTopSpacing: '60px',
+        stripBottomSpacing: '50px',
+        cardOverlapOffset: '-20px',
     },
 
     // ENTERPRISE SERVICES
@@ -247,6 +285,10 @@ export const themeConfig = {
             blur: '16px',
             shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
             innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
+        },
+        carousel: {
+            gap: 32,
+            speed: 600,
         }
     },
 
@@ -278,6 +320,10 @@ export const themeConfig = {
         },
         logoScale: 1.35,
         watermarkGlowRadius: '180px',
+        carousel: {
+            gap: 32,
+            speed: 800,
+        }
     },
 
     // CONTACT PAGE
@@ -296,5 +342,35 @@ export const themeConfig = {
             shadow: '0 0 1px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -5px rgba(0,0,0,0.04)',
             innerShadow: 'inset 0 2px 5px rgba(255, 255, 255, 1), inset 0 -2px 5px rgba(0, 0, 0, 0.03)',
         }
+    },
+
+    // FOOTER CONFIGURATION
+    footer: {
+        logoScale: 1.35,
+        watermarkGlowRadius: '180px',
+        watermarkOffsetY: '60px', // adjustment to move it down
+        textContrast: 'text-slate-700', // for description and contact info
+        linkContrast: 'text-slate-500', // for footer links
+        columnRatio: '3:5',
+        socialIconContrast: 'high',
+        watermarkHoverScale: 1.05,
+    },
+
+    // ABOUT PAGE ARCHITECTURE
+    about: {
+        heroLayoutMode: 'split-2-col',
+        metricBottomSpacing: '40px',
+        capabilityCardDensity: 'compact',
+        visionBlockElevation: 'elevated',
+        coreValueAccentMode: 'navy-gradient',
+    },
+
+    // CONTACT PAGE ARCHITECTURE
+    contactConfig: {
+        routingCardThemeVariant: 'navy-metallic',
+        presenceIconColorPrimary: '#0A192F',
+        presenceIconColorSecondary: '#7A0F2A',
+        radarBackgroundBlend: 'screen',
+        radarGlowIntensity: 0.8,
     }
 };
