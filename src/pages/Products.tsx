@@ -15,11 +15,17 @@ export default function Products() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
-              Our Products
+            <h1
+              className="mb-6 tracking-tight"
+              style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '56px', color: '#0F172A', lineHeight: 1.1 }}
+            >
+              Our Security Platforms
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Coming soon. Use Meku to generate content for this page.
+            <p
+              className="max-w-2xl mx-auto"
+              style={{ fontFamily: 'var(--font-body)', fontSize: '18px', color: '#4A4A5A', lineHeight: 1.6 }}
+            >
+              Proprietary engineering designed for continuous visibility <br />and accelerated remediation at scale.
             </p>
           </motion.div>
 

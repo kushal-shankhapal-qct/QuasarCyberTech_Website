@@ -41,24 +41,24 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="mb-16 p-8 rounded-xl bg-gradient-to-br from-[#8B1E3F]/5 to-[#007AFF]/5 border border-gray-200"
+            className="mb-16 p-8 rounded-xl bg-gradient-to-br from-[#0B1F3B]/5 to-[#007AFF]/5 border border-gray-200"
           >
             <h2 className="text-3xl font-bold text-[#0F172A] mb-4">Our Values</h2>
             <ul className="space-y-4 text-gray-700">
               <li className="flex gap-3">
-                <span className="text-[#8B1E3F] font-bold">•</span>
+                <span className="text-[#0B1F3B] font-bold">•</span>
                 <span><strong>Excellence:</strong> We deliver superior cybersecurity solutions through continuous innovation and expertise.</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-[#8B1E3F] font-bold">•</span>
+                <span className="text-[#0B1F3B] font-bold">•</span>
                 <span><strong>Integrity:</strong> We maintain the highest ethical standards in all our operations and client relationships.</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-[#8B1E3F] font-bold">•</span>
+                <span className="text-[#0B1F3B] font-bold">•</span>
                 <span><strong>Partnership:</strong> We work collaboratively with our clients to achieve their security objectives.</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-[#8B1E3F] font-bold">•</span>
+                <span className="text-[#0B1F3B] font-bold">•</span>
                 <span><strong>Innovation:</strong> We stay ahead of emerging threats through cutting-edge research and development.</span>
               </li>
             </ul>
@@ -74,19 +74,19 @@ export default function About() {
             <h2 className="text-3xl font-bold text-[#0F172A] mb-6">Why We're Different</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-xl font-semibold text-[#8B1E3F] mb-2">Expert Team</h3>
+                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">Expert Team</h3>
                 <p className="text-gray-700">Certified security professionals with decades of combined experience across industries.</p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-[#8B1E3F] mb-2">24/7 Support</h3>
+                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">24/7 Support</h3>
                 <p className="text-gray-700">Round-the-clock monitoring and incident response to protect your organization.</p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-[#8B1E3F] mb-2">Proven Track Record</h3>
+                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">Proven Track Record</h3>
                 <p className="text-gray-700">Trusted by Fortune 500 companies and organizations worldwide.</p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-[#8B1E3F] mb-2">Custom Solutions</h3>
+                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">Custom Solutions</h3>
                 <p className="text-gray-700">Tailored security strategies designed for your specific business needs.</p>
               </div>
             </div>

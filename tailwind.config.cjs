@@ -59,6 +59,24 @@ module.exports = {
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
+        },
+        brand: {
+          primary: 'var(--brand-primary)',
+          secondary: 'var(--brand-secondary)',
+          pink: 'var(--brand-pink)',
+          gold: 'var(--brand-gold)',
+          'light-gold': 'var(--brand-light-gold)',
+          peach: 'var(--brand-peach)',
+          rose: 'var(--brand-rose)',
+          navy: 'var(--brand-navy)',
+          'navy-light': 'var(--brand-navy-light)',
+          'cyber-blue': 'var(--brand-cyber-blue)',
+        },
+        canvas: {
+          DEFAULT: 'var(--bg-canvas)',
+          surface: 'var(--bg-surface)',
+          elevated: 'var(--bg-elevated)',
+          warm: 'var(--bg-warm)',
         }
       },
       borderRadius: {
@@ -98,8 +116,11 @@ module.exports = {
         "2xl": "var(--shadow-2xl)"
       },
       fontFamily: {
+        heading: ['var(--font-heading)', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'],
+        ui: ['var(--font-ui)', 'sans-serif'],
         sans: [
-          "'Inter'",
+          "'Ubuntu'",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",

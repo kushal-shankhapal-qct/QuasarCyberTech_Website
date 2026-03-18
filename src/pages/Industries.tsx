@@ -27,7 +27,7 @@ export default function Industries() {
                         className="text-center"
                     >
                         <h1 className="text-5xl md:text-7xl font-bold text-[#0F172A] mb-6 tracking-tight">
-                            Securing Every <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B1E3F] to-[#C41E5E]">Sector</span>
+                            Securing Every <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0B1F3B] to-[#C41E5E]">Sector</span>
                         </h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                             Cyber threats are universally present, but their impact differs by industry. We apply domain-specific threat intelligence to secure your unique operational environment.
@@ -44,15 +44,15 @@ export default function Industries() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6, delay: i * 0.1 }}
                                     viewport={{ once: true }}
-                                    className="h-full bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 border border-gray-200 hover:border-[#8B1E3F]/40 hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                                    className="h-full bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 border border-gray-200 hover:border-[#0B1F3B]/40 hover:shadow-xl transition-all duration-300 relative overflow-hidden"
                                 >
-                                    <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-6 text-[#8B1E3F] group-hover:scale-110 group-hover:bg-[#8B1E3F] group-hover:text-white transition-all duration-300">
+                                    <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-6 text-[#0B1F3B] group-hover:scale-110 group-hover:bg-[#0B1F3B] group-hover:text-white transition-all duration-300">
                                         <ind.icon className="w-7 h-7" />
                                     </div>
                                     <h3 className="text-2xl font-bold text-[#0F172A] mb-4">{ind.name}</h3>
                                     <p className="text-gray-600 mb-6 leading-relaxed">{ind.desc}</p>
 
-                                    <div className="mt-auto flex items-center text-[#8B1E3F] font-bold">
+                                    <div className="mt-auto flex items-center text-[#0B1F3B] font-bold">
                                         View Industry Solutions <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" />
                                     </div>
                                 </motion.div>
@@ -62,7 +62,7 @@ export default function Industries() {
                 </section>
 
                 <section className="mx-4 lg:mx-auto max-w-7xl p-12 bg-[#0F172A] rounded-3xl text-center relative overflow-hidden mb-12">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#8B1E3F]/20 to-transparent mix-blend-overlay"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3B]/20 to-transparent mix-blend-overlay"></div>
                     <div className="relative z-10">
                         <h2 className="text-3xl font-bold text-white mb-6">Don't see your industry listed?</h2>
                         <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">

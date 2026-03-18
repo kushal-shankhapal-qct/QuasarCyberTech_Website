@@ -21,7 +21,7 @@ export default function ThemeToggle() {
                     key={theme}
                     onClick={() => toggleTheme(theme)}
                     className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTheme === theme
-                            ? 'bg-[#7A0F2A] text-white shadow-lg'
+                            ? 'bg-[#1F6FEB] text-white shadow-lg'
                             : 'text-slate-500 hover:bg-black/5'
                         }`}
                 >

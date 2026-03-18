@@ -22,7 +22,7 @@ interface WorldMapProps {
 
 export default function WorldMap({
     dots = [],
-    lineColor = '#7A0F2A',
+    lineColor = '#1F6FEB',
     secondaryLineColor,
     dotColor = '#00000040',
     backgroundColor = 'transparent',

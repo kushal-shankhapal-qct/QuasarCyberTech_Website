@@ -1,54 +1,74 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
-import { themeConfig } from '../config/themeConfig';
-
-/* ───────── ADJUSTABLE VARIABLES ───────── */
-const SECTION_PADDING_TOP = '60px';
-const SECTION_PADDING_BOTTOM = '100px';
-// Hardcoded to guarantee exact match with CTA section
-const TESTIMONIAL_BG = 'var(--cta-bg)';  // radial-gradient from styles.css: #3d0715 → #070B19 → #03050A
+import SectionEyebrow from './shared/SectionEyebrow';
+import { themeConfig, COLORS, SECTION_BACKGROUNDS } from '../config/themeConfig';
 
 export default function Testimonials() {
     const testimonials = [
         {
-            quote: "QuasarCyberTech profoundly transformed our security posture across the Healthcare Sector. By identifying critical vulnerabilities and executing rigorous Application Security Testing, they prevented potentially disastrous breaches before they occurred.",
-            name: 'Healthcare Partner',
-            role: 'Co-Founder, Top Tier Hospital Group',
-            initials: 'HP'
+            quote: "Working with Quasar CyberTech has been an excellent experience. Their team demonstrated deep expertise and professionalism throughout the project, helping us identify and mitigate critical vulnerabilities while strengthening our overall security posture. The actionable insights, clear communication, and collaborative approach made the process smooth and effective. We highly recommend Quasar CyberTech to any organization looking to enhance their cyber resilience.",
+            name: 'Co-founder',
+            role: 'Health Care Sector',
+            initials: 'CH'
         },
         {
-            quote: "When standardizing our manufacturing ICS networks, QuasarCyberTech's proactive engagement and outcome-oriented approach minimized downtime completely. Their deep alignment with industry standards ensured our supply chain remained fully protected.",
-            name: 'Manufacturing Director',
-            role: 'Senior Director, Global Manufacturing Firm',
-            initials: 'MD'
+            quote: "We engaged Quasar CyberTech Pvt Ltd to conduct a comprehensive security assessment, including Vulnerability Assessment & Penetration Testing (VAPT), Application Security Testing, Configuration Audit of Network Infrastructure with Database Security Review. Their team demonstrated a deep understanding of cybersecurity principles and industry best practices. The assessments were thorough, clearly documented, and tailored to our business needs. Their findings and recommendations were not only insightful but also actionable, helping us significantly enhance our overall security posture.",
+            name: 'Senior Director - IT',
+            role: 'Manufacturing Sector',
+            initials: 'SM'
         }
     ];
 
     return (
         <section
-            className="relative overflow-hidden"
+            className="relative z-[20] overflow-hidden w-full transition-colors duration-700"
             style={{
-                paddingTop: SECTION_PADDING_TOP,
-                paddingBottom: SECTION_PADDING_BOTTOM,
-                background: TESTIMONIAL_BG,
+                background: SECTION_BACKGROUNDS.LIGHT,
+                paddingTop: `calc(${themeConfig.global.verticalSpacing} * 0.5)`,
+                paddingBottom: themeConfig.global.verticalSpacing
             }}
         >
-            {/* Subtle grid overlay */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#FFF 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
-            <div className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-left mb-16">
-                    <h2 className="text-[40px] md:text-[52px] font-[800] leading-[1.1] text-white mb-4 tracking-tight">
-                        What Our <br />
-                        <span className="text-white/70">Clients</span> Say
-                    </h2>
-                    <p className="text-white/60 text-[15px] max-w-2xl font-medium leading-relaxed">
-                        Trusted by enterprise leaders across industries for measurable security outcomes.
-                    </p>
+
+            <div 
+                className="max-w-[1440px] mx-auto relative z-10"
+                style={{
+                    paddingLeft: themeConfig.global.sectionMarginLeft || '4rem',
+                    paddingRight: themeConfig.global.sectionMarginRight || '4rem',
+                }}
+            >
+                <div className="text-left mb-16 relative">
+                    <SectionEyebrow
+                        text="WHAT OUR CLIENTS SAY"
+                        noBox
+                        className="absolute -top-[10px]"
+                        style={{ left: '0rem' }}
+                    />
+                    <div style={{ marginLeft: '2.5rem', paddingTop: '10px' }}>
+                        <h2
+                            style={{
+                                fontFamily: 'var(--font-heading)',
+                                fontWeight: 800,
+                                fontSize: themeConfig.global.sectionTitleSize || '40px',
+                                color: COLORS.deepCyberBlue,
+                                lineHeight: themeConfig.global.sectionTitleLineHeight || '1.1',
+                                marginBottom: '12px',
+                            }}
+                        >
+                            Trusted by <span style={{ color: COLORS.burgundy }}>Enterprise Leaders</span><br />
+                            Across Industries
+                        </h2>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div 
+                    className="grid grid-cols-1 md:grid-cols-2 gap-10"
+                    style={{
+                        paddingLeft: themeConfig.global.contentMarginLeft || '6.5rem',
+                        paddingRight: themeConfig.global.sectionMarginRight || '4rem',
+                    }}
+                >
                     {testimonials.map((testimonial, idx) => (
                         <motion.div
                             key={idx}
@@ -56,31 +76,49 @@ export default function Testimonials() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: idx * 0.2 }}
-                            className="relative p-10 flex flex-col"
+                            className={`relative px-8 py-6 flex flex-col bg-white group transition-all duration-700 overflow-hidden rounded-[32px] md:rounded-y-none ${idx === 0 ? 'md:rounded-l-none md:rounded-r-[40px]' : 'md:rounded-r-none md:rounded-l-[40px]'}`}
                             style={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                backdropFilter: 'blur(16px)',
-                                WebkitBackdropFilter: 'blur(16px)',
-                                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.3)',
-                                borderRadius: `0 ${themeConfig.industry.cardRadius || '32px'} ${themeConfig.industry.cardRadius || '32px'} 0`,
-                                borderLeft: '4px solid var(--brand-accent)',
+                                border: '1px solid rgba(0,0,0,0.06)',
+                                background: 'linear-gradient(135deg, #ffffff 0%, #f6f6f7 100%)',
+                                minHeight: '240px',
+                                boxShadow: themeConfig.global.unifiedShadows?.cardSoft || '0 10px 30px rgba(0,0,0,0.06)',
                             }}
                         >
-                            <div className="mb-6">
-                                <Quote className="w-8 h-8 text-white/30" />
+                             {/* Sharp Vertical Accent Line (Left for card 0, Right for card 1) */}
+                            <div
+                                className="absolute top-0 bottom-0 w-[5px] transition-all duration-500"
+                                style={{
+                                    background: COLORS.teal,
+                                    left: idx === 0 ? '0' : 'auto',
+                                    right: idx === 1 ? '0' : 'auto'
+                                }}
+                            />
+
+                            <div className="mb-6 relative">
+                                <Quote className="w-10 h-10" style={{ color: COLORS.teal }} fill="currentColor" fillOpacity={0.15} />
                             </div>
 
-                            <p className="text-[16px] text-white/80 leading-relaxed mb-8 flex-grow font-medium">
+                            <p className="text-[14.5px] text-[#4A4A5A] leading-relaxed mb-5 flex-grow font-medium italic opacity-90 group-hover:opacity-100 transition-opacity text-justify px-2">
                                 "{testimonial.quote}"
                             </p>
 
-                            <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/10">
-                                <div className="w-[48px] h-[48px] rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                                    <span className="text-[13px] font-black text-white/80">{testimonial.initials}</span>
-                                </div>
+                            <div
+                                className="flex items-center gap-4 mt-auto p-4 rounded-xl transition-all duration-300"
+                                style={{
+                                    backgroundColor: '#F8F9FA',
+                                    border: '1px solid rgba(0,0,0,0.03)',
+                                    boxShadow: 'inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.7)',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow = 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.8)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = 'inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.7)';
+                                }}
+                            >
                                 <div className="flex flex-col">
-                                    <span className="text-[15px] font-bold text-white">{testimonial.name}</span>
-                                    <span className="text-[13px] font-medium text-white/50">{testimonial.role}</span>
+                                    <span className="text-[15px] font-black text-[#0A0A0F] group-hover:text-[#6B1530] transition-colors">{testimonial.name}</span>
+                                    <span className="text-[12px] font-bold text-[#6B1530] uppercase tracking-wider">{testimonial.role}</span>
                                 </div>
                             </div>
                         </motion.div>

@@ -20,18 +20,24 @@ export default function Services() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6 tracking-tight">
-              Services Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B1E3F] to-[#C41E5E]">Enterprise Cyber Resilience</span>
+            <h1
+              className="mb-6 tracking-tight"
+              style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '56px', color: '#0F172A', lineHeight: 1.1 }}
+            >
+              Services Built for <br /><span style={{ color: '#C41E3A' }}>Enterprise Cyber Resilience</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              We provide strategic, full-spectrum cybersecurity solutions designed to protect your assets and empower digital transformation.
+            <p
+              className="max-w-3xl mx-auto"
+              style={{ fontFamily: 'var(--font-body)', fontSize: '18px', color: '#4A4A5A', lineHeight: 1.6 }}
+            >
+              We provide strategic, full-spectrum cybersecurity solutions designed to <br />protect your assets and empower digital transformation.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-24">
             {servicesData.map((service, index) => {
               // ServiceGridCard expects a valid Icon component
-              const Icon = service.LucideIcon as React.ElementType;
+              const Icon = service.LucideIcon as any;
               return (
                 <ServiceGridCard
                   key={service.href}
@@ -53,10 +59,18 @@ export default function Services() {
             viewport={{ once: true }}
             className="rounded-2xl p-10 bg-gradient-to-br from-[#0F172A] to-[#1E293B] text-center relative overflow-hidden border border-gray-800"
           >
-            <div className="absolute inset-0 bg-[#8B1E3F]/10 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[#0B1F3B]/10 mix-blend-overlay"></div>
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold text-white mb-4">Ready to fortify your defenses?</h2>
-              <p className="text-gray-300 max-w-2xl mx-auto mb-8 text-lg">
+              <h2
+                className="text-3xl font-bold text-white mb-4"
+                style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '32px', color: '#FFFFFF' }}
+              >
+                Ready to fortify your defenses?
+              </h2>
+              <p
+                className="text-gray-300 max-w-2xl mx-auto mb-8 text-lg"
+                style={{ fontFamily: 'var(--font-body)', fontSize: '18px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}
+              >
                 Speak with our experts to design a tailored security architecture meeting your business objectives.
               </p>
               <Link

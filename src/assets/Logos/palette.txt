@@ -13,3 +13,10 @@ QLEAP	Blue	#0892d0
 	Yellow 	#bb9a3e
 	Yellow Light	#edb92a
 	Golden	#edba2b
+
+•	Primary Color – Deep Cyber Blue #0B1F3B
+•	Secondary Color – Electric Blue #1F6FEB
+•	Accent Color – Security Teal #2BC4B6
+•	Neutral Dark – Graphite #1A1A1A
+•	Light Background – Soft Grey #F5F7FA
+•	White – #FFFFFF

@@ -1,228 +1,119 @@
 import React from 'react';
-import { ArrowRight, Check } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, Target } from 'lucide-react';
+import qStellarLogoImg from '../assets/Logos/Cropped_QStelllar_fulllogo_transparent.png';
+import qLeapLogoImg from '../assets/logos copy/Platforms/QLeap_Logo.png';
+import { ALPHAS, COLORS, SECTION_BACKGROUNDS } from '../config/themeConfig';
 
-import qPulseLogo from '../assets/QPulse_Latest_News.png';
-import qStellarLogo from '../assets/QStellar.png';
-
-import { themeConfig } from '../config/themeConfig';
-import MarqueeBackground from './MarqueeBackground';
-
-const platformVars = themeConfig.platform;
+const platforms = [
+  {
+    name: 'QRGT',
+    subtitle: 'Penetration Testing as a Service (PTaaS) platform',
+    highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
+    ctaText: 'Explore QRGT Platform',
+    link: '/platforms/qrgt',
+  },
+  {
+    name: 'QStellar',
+    subtitle: 'AI-powered asset intelligence and vulnerability management platform',
+    logo: qStellarLogoImg,
+    highlights: ['Asset discovery and visibility', 'Vulnerability intelligence and prioritization', 'Risk-based security decision support', 'AI-assisted security operations visibility'],
+    ctaText: 'Visit QStellar Website',
+    link: 'https://qstellar.co',
+    external: true,
+  },
+  {
+    name: 'QLeap',
+    subtitle: 'Cybersecurity training and talent development initiative from QuasarCyberTech',
+    logo: qLeapLogoImg,
+    highlights: ['SOC analyst training programs', 'Enterprise cybersecurity education', 'Certification and talent development programs', 'Industry-ready cybersecurity workforce training'],
+    ctaText: 'Visit QLeap',
+    link: 'https://qleap-ed.com',
+    external: true,
+  },
+];
 
 export default function PlatformHighlights() {
-    return (
-        <section
-            className="relative overflow-hidden"
+  return (
+    <section style={{ background: SECTION_BACKGROUNDS.DARK_ALT, padding: '100px max(24px, calc((100vw - 1200px) / 2))' }}>
+      <h2 style={{ color: COLORS.textOnDark, fontWeight: 900, fontSize: 'clamp(30px, 4.2vw, 44px)', lineHeight: 1.08, marginBottom: '10px' }}>
+        <span style={{ color: COLORS.teal }}>Security</span> Platforms & Ecosystem
+      </h2>
+      <p style={{ color: COLORS.textMuted, maxWidth: '740px', fontSize: '15px', lineHeight: 1.7, marginBottom: '34px' }}>
+        Platforms and initiatives within the QuasarCyberTech ecosystem that support continuous security operations, visibility, and cyber resilience.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '24px' }}>
+        {platforms.map((platform) => (
+          <article
+            key={platform.name}
             style={{
-                paddingTop: platformVars.sectionTopSpacing || '80px',
-                paddingBottom: platformVars.paddingBottom || '80px',
-                background: 'var(--platforms-bg)',
+              borderRadius: '0 0 16px 16px',
+              borderTop: `3px solid ${COLORS.teal}`,
+              background: COLORS.cardOnDark,
+              border: `1px solid ${ALPHAS.teal12}`,
+              borderTopWidth: '3px',
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              transition: 'transform 0.25s ease, border-top-color 0.25s ease',
             }}
-        >
-            <MarqueeBackground />
-
-            {/* Ultra-subtle mesh texture overlay */}
-            <div
-                className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style={{
-                    backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
-                    backgroundSize: '32px 32px'
-                }}
-            />
-
-            {/* Header Strip: Compact Full-width Clay Background */}
-            <div
-                className="relative z-10 w-full"
-                style={{
-                    marginBottom: platformVars.stripBottomSpacing || '40px',
-                    paddingTop: platformVars.headerStripPaddingY || '20px',
-                    paddingBottom: platformVars.headerStripPaddingY || '20px',
-                    paddingLeft: platformVars.headerStripPaddingX || '0px',
-                    paddingRight: platformVars.headerStripPaddingX || '0px',
-                    backgroundColor: `rgba(${platformVars.clay.bgColor}, ${platformVars.clay.bgOpacity})`,
-                    backdropFilter: `blur(${platformVars.clay.blur})`,
-                    WebkitBackdropFilter: `blur(${platformVars.clay.blur})`,
-                    boxShadow: `${platformVars.clay.innerShadow}, ${platformVars.clay.shadow}`,
-                    borderTop: '1px solid rgba(255, 255, 255, 0.3)',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-                }}
-            >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between" style={{ gap: themeConfig.platform.headerStripGap || '1rem', paddingLeft: '2.2rem' }}>
-                        <div className="text-left">
-                            <h2 className="font-black leading-[1.1] text-[#111111] mb-1 tracking-tighter"
-                                style={{ fontSize: themeConfig.platform.headerStripTitleSize || '40px' }}
-                            >
-                                Our Native <span style={{ color: '#7A0F2A' }}>Security Platforms</span>
-                            </h2>
-                            <p className="text-[#555555] text-[14px] max-w-xl font-medium leading-relaxed mt-2">
-                                Proprietary engineering designed for continuous visibility and accelerated remediation.
-                            </p>
-                        </div>
-                    </div>
+            onMouseEnter={(event) => {
+              event.currentTarget.style.transform = 'translateY(-6px)';
+              event.currentTarget.style.borderTopColor = COLORS.burgundy;
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.transform = 'translateY(0)';
+              event.currentTarget.style.borderTopColor = COLORS.teal;
+            }}
+          >
+            <div style={{ minHeight: '52px', display: 'flex', alignItems: 'center', marginBottom: '14px' }}>
+              {platform.logo ? (
+                <div style={{ background: COLORS.cardOnLight, borderRadius: '6px', padding: '8px 10px' }}>
+                  <img src={platform.logo} alt={platform.name} style={{ height: '34px', width: 'auto', objectFit: 'contain' }} />
                 </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Target size={24} color={COLORS.teal} />
+                  <h3 style={{ color: COLORS.textOnDark, fontSize: '24px', fontWeight: 800, margin: 0 }}>{platform.name}</h3>
+                </div>
+              )}
             </div>
 
-            <div
-                className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8"
-                style={{ marginTop: platformVars.cardOverlapOffset || '-20px' }}
+            <p style={{ color: COLORS.textMuted, fontSize: '14px', lineHeight: 1.6, marginBottom: '18px' }}>{platform.subtitle}</p>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: '10px', marginBottom: '18px', flexGrow: 1 }}>
+              {platform.highlights.map((highlight) => (
+                <li key={highlight} style={{ display: 'flex', gap: '10px', color: COLORS.textMuted, fontSize: '13px', lineHeight: 1.5 }}>
+                  <CheckCircle2 size={16} color={COLORS.gold} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={platform.link}
+              target={platform.external ? '_blank' : undefined}
+              rel={platform.external ? 'noopener noreferrer' : undefined}
+              style={{
+                color: COLORS.teal,
+                fontWeight: 700,
+                fontSize: '12px',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '10px',
+                borderTop: `1px solid ${ALPHAS.white06}`,
+                paddingTop: '16px',
+              }}
             >
-
-                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
-
-                    {/* Card 1: Qpulse */}
-                    <div
-                        className="group transition-all flex flex-col overflow-hidden h-full max-h-[480px]"
-                        style={{
-                            backgroundColor: `rgba(${themeConfig.platform.clay.bgColor}, ${themeConfig.platform.clay.bgOpacity})`,
-                            backdropFilter: `blur(${themeConfig.platform.clay.blur})`,
-                            WebkitBackdropFilter: `blur(${themeConfig.platform.clay.blur})`,
-                            borderRadius: `0 ${themeConfig.platform.cardRadius} ${themeConfig.platform.cardRadius} 0`,
-                            boxShadow: `${themeConfig.platform.clay.innerShadow}, ${themeConfig.platform.clay.shadow}`,
-                            borderLeft: `4px solid var(--brand-accent)`,
-                        }}
-                    >
-                        <div className="p-8 relative flex flex-col h-full">
-                            <motion.div
-                                initial={{ height: 0 }}
-                                whileInView={{ height: '100%' }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 1, ease: 'easeInOut' }}
-                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[var(--brand-accent)] z-20"
-                            />
-
-                            <div className="text-[12px] font-bold text-[var(--brand-accent)] tracking-[0.2em] uppercase mb-3">
-                                Security Intelligence
-                            </div>
-                            <h3 className="text-[var(--text-primary)] mb-3 tracking-tight">
-                                <span className="block font-black text-[28px] lg:text-[34px] leading-tight mb-1">QPulse</span>
-                                <span className="block font-medium text-[var(--text-muted)] text-[16px] lg:text-[18px] opacity-70 leading-tight">Continuous Risk Intelligence</span>
-                            </h3>
-                            <p className="text-[var(--text-muted)] text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
-                                Centralize vulnerability intelligence, remediation tracking, and compliance visibility through a unified risk management platform.
-                            </p>
-
-                            <div className="flex flex-row gap-8 flex-1 min-h-0">
-                                {/* Left Section: Bullets */}
-                                <div className="flex-[0.8] flex flex-col justify-between py-2">
-                                    <ul className="space-y-3">
-                                        {[
-                                            'Asset-centric risk prioritization',
-                                            'Executive-ready reporting',
-                                            'Integrated remediation workflows'
-                                        ].map((item, idx) => (
-                                            <li key={idx} className="flex items-start gap-2">
-                                                <div className="w-4 h-4 rounded-full bg-[var(--brand-accent)]/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                    <Check className="w-2.5 h-2.5 text-[var(--brand-accent)]" />
-                                                </div>
-                                                <span className="text-[var(--text-primary)] font-semibold text-[12px] leading-tight">{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <a
-                                        href="https://qpulse.quasarcybertech.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[var(--brand-accent)] text-white font-bold rounded-lg hover:bg-[#5a111b] transition-all w-max shadow-lg shadow-[var(--brand-accent-soft)] hover:scale-105 text-[12px] mt-4"
-                                    >
-                                        Explore Qpulse <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                                    </a>
-                                </div>
-
-                                {/* Right Section: Screenshot */}
-                                <div className="flex-[1.2] relative h-full min-h-0">
-                                    <div className="relative flex h-full overflow-hidden shadow-sm">
-                                        <div className="flex-1 h-full overflow-hidden">
-                                            <img
-                                                src={qPulseLogo}
-                                                alt="QPulse Platform Screenshot"
-                                                className="w-full h-full object-cover object-left-top"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Card 2: QStellar */}
-                    <div
-                        className="group transition-all flex flex-col overflow-hidden h-full max-h-[480px]"
-                        style={{
-                            backgroundColor: `rgba(${themeConfig.platform.clay.bgColor}, ${themeConfig.platform.clay.bgOpacity})`,
-                            backdropFilter: `blur(${themeConfig.platform.clay.blur})`,
-                            WebkitBackdropFilter: `blur(${themeConfig.platform.clay.blur})`,
-                            borderRadius: `0 ${themeConfig.platform.cardRadius} ${themeConfig.platform.cardRadius} 0`,
-                            boxShadow: `${themeConfig.platform.clay.innerShadow}, ${themeConfig.platform.clay.shadow}`,
-                            borderLeft: `4px solid var(--brand-accent)`,
-                        }}
-                    >
-                        <div className="p-8 relative flex flex-col h-full">
-                            <motion.div
-                                initial={{ height: 0 }}
-                                whileInView={{ height: '100%' }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 1, ease: 'easeInOut', delay: 0.1 }}
-                                className="absolute left-[-4px] bottom-0 w-[4px] bg-[var(--brand-accent)] z-20"
-                            />
-
-                            <div className="text-[12px] font-bold text-[var(--brand-accent)] tracking-[0.2em] uppercase mb-3">
-                                Posture Engineering
-                            </div>
-                            <h3 className="text-[var(--text-primary)] mb-3 tracking-tight">
-                                <span className="block font-black text-[28px] lg:text-[34px] leading-tight mb-1">QStellar</span>
-                                <span className="block font-medium text-[var(--text-muted)] text-[16px] lg:text-[18px] opacity-70 leading-tight">Security Posture Engineering</span>
-                            </h3>
-                            <p className="text-[var(--text-muted)] text-[13px] font-medium leading-[1.4] mb-6 line-clamp-2 opacity-90">
-                                Gain real-time visibility into infrastructure misconfigurations, attack surfaces, and cloud security gaps.
-                            </p>
-
-                            <div className="flex flex-row gap-8 flex-1 min-h-0">
-                                {/* Left Section: Bullets */}
-                                <div className="flex-[0.8] flex flex-col justify-between py-2">
-                                    <ul className="space-y-3">
-                                        {[
-                                            'Cloud and network posture monitoring',
-                                            'Misconfiguration detection',
-                                            'Continuous exposure management'
-                                        ].map((item, idx) => (
-                                            <li key={idx} className="flex items-start gap-2">
-                                                <div className="w-4 h-4 rounded-full bg-[var(--brand-accent)]/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                    <Check className="w-2.5 h-2.5 text-[var(--brand-accent)]" />
-                                                </div>
-                                                <span className="text-[var(--text-primary)] font-semibold text-[12px] leading-tight">{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <a
-                                        href="https://qstellar.quasarcybertech.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center px-5 py-2.5 bg-[var(--brand-accent)] text-white font-bold rounded-xl hover:bg-[#5a111b] transition-all w-max shadow-lg shadow-[var(--brand-accent-soft)] hover:scale-105 text-[12px] mt-4"
-                                    >
-                                        Explore QStellar <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                                    </a>
-                                </div>
-
-                                {/* Right Section: Screenshot */}
-                                <div className="flex-[1.2] relative h-full min-h-0">
-                                    <div className="relative flex h-full overflow-hidden shadow-sm">
-                                        <div className="flex-1 h-full overflow-hidden">
-                                            <img
-                                                src={qStellarLogo}
-                                                alt="QStellar Platform Screenshot"
-                                                className="w-full h-full object-cover object-left-top"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    );
+              {platform.ctaText}
+              <ArrowRight size={16} color={COLORS.teal} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }

@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
   return (
     <Theme appearance="inherit" radius="large" scaling="100%">
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <main className="min-h-screen font-sans">
           <Routes>
             <Route path="/" element={<Home />} />

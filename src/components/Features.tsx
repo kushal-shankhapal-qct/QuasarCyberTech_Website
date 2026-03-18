@@ -43,7 +43,7 @@ const Features: React.FC = () => {
                   viewport={{ once: true }}
                   className="flex items-start gap-3"
                 >
-                  <CheckCircle2 size={24} className="text-[#8B1E3F] flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 size={24} className="text-[#0B1F3B] flex-shrink-0 mt-0.5" />
                   <span className="text-gray-700 font-medium">{feature}</span>
                 </motion.div>
               ))}
@@ -58,7 +58,7 @@ const Features: React.FC = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-[#8B1E3F]/10 to-[#007AFF]/10 border border-gray-200">
+            <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-[#0B1F3B]/10 to-[#007AFF]/10 border border-gray-200">
               <img
                 src="https://placehold.co/600x600"
                 alt="Cybersecurity monitoring dashboard"

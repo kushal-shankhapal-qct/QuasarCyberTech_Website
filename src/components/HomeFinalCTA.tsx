@@ -1,33 +1,106 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import Button from './ui/Button';
+import { themeConfig, GRADIENTS, COLORS } from '../config/themeConfig';
 
 export default function HomeFinalCTA() {
     return (
-        <section className="relative overflow-hidden"
+        <section className="relative overflow-hidden text-left"
             style={{
-                paddingTop: '80px',
-                paddingBottom: '80px',
-                backgroundColor: '#7A0F2A',
-                background: 'var(--cta-bg)'
+                background: 'radial-gradient(circle at 50% 20%, rgba(56,8,26,0.9) 0%, #040B1D 60%)',
+                paddingTop: themeConfig.cta?.paddingY || '100px',
+                paddingBottom: themeConfig.cta?.paddingY || '100px',
             }}>
-            <div className="max-w-7xl relative z-10 mx-auto px-8 lg:px-12 text-left">
-                <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-8 tracking-tighter leading-[1.1] max-w-3xl">
-                    Build Resilient <br />
-                    <span style={{ color: 'var(--brand-accent)' }}>Security</span> Foundations
-                </h2>
-                <p className="text-xl md:text-2xl text-white/80 mb-14 max-w-2xl font-medium leading-relaxed">
-                    Engage with our experts to assess your current posture and strengthen your defense strategy.
+
+            {/* Hex grid pattern overlay */}
+            <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, rgba(43,196,182,0.15) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+
+            <div className="max-w-[1440px] relative z-10 mx-auto"
+                style={{
+                    paddingLeft: themeConfig.global.sectionMarginLeft || '3rem',
+                    paddingRight: themeConfig.global.sectionMarginRight || '3rem',
+                }}>
+                {/* Eyebrow */}
+                <p style={{ color: '#D6B05C', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
+                    Ready to Begin?
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-start gap-6">
-                    <Link
-                        to="/contact"
-                        className="group inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 bg-[#FFFFFF] text-[var(--brand-accent)] hover:bg-[#F8F9FA] hover:scale-105 active:scale-95 font-black uppercase tracking-widest text-[14px] rounded-lg transition-all shadow-2xl shadow-black/40"
-                    >
-                        Schedule a Consultation <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+                <h2
+                    className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl mx-auto"
+                    style={{
+                        fontFamily: 'var(--font-heading)',
+                        fontSize: '44px',
+                        color: '#FFFFFF',
+                    }}
+                >
+                    Secure Your Digital <br />
+                    <span style={{ color: '#D6B05C' }}>Enterprise</span>
+                </h2>
+
+                <p
+                    className="mb-14 max-w-2xl mx-auto font-medium leading-relaxed"
+                    style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '17px',
+                        color: '#8B949E',
+                    }}
+                >
+                    Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <Link to="/contact">
+                        <button style={{
+                            background: '#6B1530',
+                            color: '#FFFFFF',
+                            padding: '14px 32px',
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            borderRadius: '4px 4px 12px 12px',
+                            border: 'none',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#8B1F40';
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#6B1530';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                        >
+                            Talk to a Security Expert
+                        </button>
+                    </Link>
+                    <Link to="/capabilities">
+                        <button style={{
+                            background: 'transparent',
+                            color: '#6B1530',
+                            padding: '14px 32px',
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            borderRadius: '4px 4px 12px 12px',
+                            border: '1px solid #6B1530',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(107,21,48,0.1)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                        }}
+                        >
+                            Explore Capabilities
+                        </button>
                     </Link>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }

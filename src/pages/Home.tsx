@@ -2,39 +2,38 @@ import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TrustIndicators from '../components/TrustIndicators';
-import PlatformHighlights from '../components/PlatformHighlights';
+import QCTSecureFramework from '../components/QCTSecureFramework';
 import EnterpriseServices from '../components/EnterpriseServices';
-import Testimonials from '../components/Testimonials';
+import PlatformHighlights from '../components/PlatformHighlights';
+import IndustrySnapshot from '../components/IndustrySnapshot';
 import FeaturedInsights from '../components/FeaturedInsights';
+import LeadershipVision from '../components/LeadershipVision';
 import HomeFinalCTA from '../components/HomeFinalCTA';
+
 import Footer from '../components/Footer';
-import techNetBackdrop from '../assets/Tech_Net_Backdrop.png';
 
 import { themeConfig } from '../config/themeConfig';
 
 export default function Home() {
-  const bgColor = themeConfig.header.global.pageBackgroundColor || '#FDFDFD';
-
   return (
-    <div className="min-h-screen overflow-x-hidden relative">
-      <div
-        className="fixed inset-0 z-[-1] pointer-events-none mix-blend-darken opacity-[0.10] w-screen h-screen"
-        style={{ backgroundColor: bgColor }}
-      >
-        <img
-          src={techNetBackdrop}
-          alt="Network Backdrop"
-          className="w-full h-full object-cover"
-        />
-      </div>
+    <div className="min-h-screen w-full relative bg-canvas overflow-x-hidden selection:bg-brand-primary/20 selection:text-brand-primary">
+      {/* 
+        CONTINUOUS CANVAS GRADIENT OVERLAY
+        A very soft, almost imperceptible gradient stretching across the entire height
+        to give subtle depth to the flat canvas color.
+      */}
+      <div className="fixed inset-0 pointer-events-none z-[-1] bg-gradient-to-b from-white/60 via-transparent to-white/30" />
+
       <Header />
       <main>
         <Hero />
         <TrustIndicators />
-        <PlatformHighlights />
+        <QCTSecureFramework />
         <EnterpriseServices />
-        <Testimonials />
+        <PlatformHighlights />
+        <IndustrySnapshot />
         <FeaturedInsights />
+        <LeadershipVision />
         <HomeFinalCTA />
       </main>
       <Footer />

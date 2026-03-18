@@ -16,7 +16,7 @@ export default function Breadcrumbs() {
 
   return (
     <nav className="flex items-center text-sm font-medium text-gray-500 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none">
-      <Link to="/" className="flex items-center hover:text-[#8B1E3F] transition-colors">
+      <Link to="/" className="flex items-center hover:text-[#0B1F3B] transition-colors">
         <Home className="w-4 h-4 mr-1" />
         <span className="sr-only">Home</span>
       </Link>
@@ -36,7 +36,7 @@ export default function Breadcrumbs() {
                 {formatRouteName(name)}
               </span>
             ) : (
-              <Link to={routeTo} className="hover:text-[#8B1E3F] transition-colors">
+              <Link to={routeTo} className="hover:text-[#0B1F3B] transition-colors">
                 {formatRouteName(name)}
               </Link>
             )}

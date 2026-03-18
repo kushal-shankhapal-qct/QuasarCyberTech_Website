@@ -1,0 +1,20 @@
+
+> quasarcybertech-cybersecurity-landing-page@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 213 modules transformed.
+[31m✗[39m Build failed in 3.47s
+[31merror during build:
+[31mBuild failed due to unresolved import:
+"dotted-map" is imported by "src/components/ui/world-map.tsx", but could not be resolved – treating it as an external dependency.[31m
+    at Object.onwarn (file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/.vite-temp/vite.config.ts.timestamp-1772713406326-8ad413821b6a58.mjs:19:17)
+    at onwarn (file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/@vitejs/plugin-react/dist/index.js:75:78)
+    at file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/vite/dist/node/chunks/config.js:33669:28
+    at onRollupLog (file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/vite/dist/node/chunks/config.js:33664:63)
+    at onLog (file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/vite/dist/node/chunks/config.js:33467:4)
+    at file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/rollup/dist/es/shared/node-entry.js:20981:32
+    at Object.logger [as onLog] (file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/rollup/dist/es/shared/node-entry.js:22968:9)
+    at ModuleLoader.handleInvalidResolvedId (file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/rollup/dist/es/shared/node-entry.js:21712:26)
+    at file:///C:/Users/kusha/Desktop/CyberSec/QCT_meku_project/node_modules/rollup/dist/es/shared/node-entry.js:21670:26[39m

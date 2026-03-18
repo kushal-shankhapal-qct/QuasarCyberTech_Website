@@ -7,12 +7,12 @@ import { Activity, ShieldCheck, ArrowRight, Zap, Database } from 'lucide-react';
 
 export default function Platforms() {
     return (
-        <div className="min-h-screen bg-[#020617] text-white selection:bg-[#8B1E3F] selection:text-white">
+        <div className="min-h-screen bg-[#020617] text-white selection:bg-[#0B1F3B] selection:text-white">
             {/* Notice: Product-led implies darker, sleeker theme (different from services) */}
             <Header />
             <main className="pt-32 pb-20 relative overflow-hidden">
                 {/* Background Gradients */}
-                <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#8B1E3F]/20 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0B1F3B]/20 rounded-full blur-[120px] pointer-events-none"></div>
                 <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#0ea5e9]/10 rounded-full blur-[150px] pointer-events-none"></div>
 
                 <section className="max-w-7xl mx-auto px-6 mb-20 relative z-10">
@@ -42,17 +42,17 @@ export default function Platforms() {
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6 }}
                             viewport={{ once: true }}
-                            className="group rounded-3xl p-1 bg-gradient-to-b from-white/10 to-transparent hover:from-[#8B1E3F]/50 transition-colors duration-500"
+                            className="group rounded-3xl p-1 bg-gradient-to-b from-white/10 to-transparent hover:from-[#0B1F3B]/50 transition-colors duration-500"
                         >
                             <div className="bg-[#0f172a] rounded-[22px] p-8 md:p-12 h-full flex flex-col relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B1E3F]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#8B1E3F]/20 transition-colors duration-500"></div>
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-[#0B1F3B]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#0B1F3B]/20 transition-colors duration-500"></div>
 
-                                <div className="w-16 h-16 rounded-2xl bg-[#8B1E3F]/20 border border-[#8B1E3F]/30 flex items-center justify-center mb-8 relative z-10">
-                                    <Activity className="w-8 h-8 text-[#8B1E3F]" />
+                                <div className="w-16 h-16 rounded-2xl bg-[#0B1F3B]/20 border border-[#0B1F3B]/30 flex items-center justify-center mb-8 relative z-10">
+                                    <Activity className="w-8 h-8 text-[#0B1F3B]" />
                                 </div>
 
                                 <h2 className="text-4xl font-black text-white mb-4 tracking-tight relative z-10">
-                                    Qpulse<span className="text-[#8B1E3F]">.</span>
+                                    Qpulse<span className="text-[#0B1F3B]">.</span>
                                 </h2>
                                 <h3 className="text-xl font-medium text-gray-300 mb-6 relative z-10">
                                     Enterprise Threat Intelligence & Monitoring
@@ -63,8 +63,8 @@ export default function Platforms() {
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-4 mb-10 relative z-10">
-                                    <div className="flex items-center text-sm text-gray-300"><Zap className="w-4 h-4 text-[#8B1E3F] mr-2" /> Real-time Analytics</div>
-                                    <div className="flex items-center text-sm text-gray-300"><Database className="w-4 h-4 text-[#8B1E3F] mr-2" /> Global Threat Feeds</div>
+                                    <div className="flex items-center text-sm text-gray-300"><Zap className="w-4 h-4 text-[#0B1F3B] mr-2" /> Real-time Analytics</div>
+                                    <div className="flex items-center text-sm text-gray-300"><Database className="w-4 h-4 text-[#0B1F3B] mr-2" /> Global Threat Feeds</div>
                                 </div>
 
                                 <div className="mt-auto relative z-10">

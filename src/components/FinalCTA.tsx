@@ -19,10 +19,10 @@ export default function FinalCTA() {
             </div>
 
             <div className="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10 text-center flex flex-col items-center">
-                <h2 className="text-[14px] font-bold tracking-widest text-[#8B1E3F] uppercase mb-4">Final Strategy</h2>
+                <h2 className="text-[14px] font-bold tracking-widest text-[#0B1F3B] uppercase mb-4">Final Strategy</h2>
 
                 <h3 className="text-4xl md:text-5xl font-extrabold text-[#1F2933] tracking-tight leading-tight max-w-[800px] mb-8">
-                    Empowering Your Digital Transformation to Enhance Overall Cyber <span className="text-[#8B1E3F] relative whitespace-nowrap">Well-being<svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,5 Q50,10 100,5" fill="none" stroke="#CA9C88" strokeWidth="2" strokeDasharray="10 4" /></svg></span>
+                    Empowering Your Digital Transformation to Enhance Overall Cyber <span className="text-[#0B1F3B] relative whitespace-nowrap">Well-being<svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,5 Q50,10 100,5" fill="none" stroke="#CA9C88" strokeWidth="2" strokeDasharray="10 4" /></svg></span>
                 </h3>
 
                 <Link

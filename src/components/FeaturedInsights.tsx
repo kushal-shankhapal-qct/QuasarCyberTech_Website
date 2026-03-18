@@ -1,158 +1,151 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
-import 'swiper/css';
-import { themeConfig } from '../config/themeConfig';
+import SectionEyebrow from './shared/SectionEyebrow';
+import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS } from '../config/themeConfig';
+import Button from './ui/Button';
 
 export default function FeaturedInsights() {
+    const config = themeConfig.insights;
     const insights = [
         {
-            title: 'Emerging Cloud Attack Patterns in 2026',
-            category: 'Research',
-            image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop',
+            title: 'Top Cybersecurity Threats Businesses Should Watch Out for in 2025',
+            category: 'Cyber Security',
             href: '/resources/blogs'
         },
         {
-            title: 'Zero Trust Architecture: Implementation Lessons',
-            category: 'Architecture',
-            image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop',
+            title: 'AI in Cybersecurity: A Powerful Ally or a Looming Threat?',
+            category: 'Blogs & Articles',
             href: '/resources/blogs'
         },
         {
-            title: 'Modern Red Teaming in Hybrid Environments',
-            category: 'Offensive Security',
-            image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
+            title: 'A Glance On The Evolution Of Information and Communication Technology – Part 1',
+            category: 'Technology',
             href: '/resources/blogs'
         },
         {
-            title: 'Quantum-Resistant Cryptography Strategies',
-            category: 'Intelligence',
-            image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop',
+            title: 'Staff Augmentation vs. Traditional Hiring: Which Is Right for Your Business?',
+            category: 'Staff Augmentation',
+            href: '/resources/blogs'
+        },
+        {
+            title: 'Moneygram Suffers Data Breach, Exposing Customer Information',
+            category: 'Advisory',
+            href: '/resources/blogs'
+        },
+        {
+            title: 'Data Leak of Star Health & Allied Insurance',
+            category: 'Cyber Security',
             href: '/resources/blogs'
         }
     ];
 
-    const prevRef = React.useRef<HTMLButtonElement>(null);
-    const nextRef = React.useRef<HTMLButtonElement>(null);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+
+    const next = () => {
+        setCurrentIndex((prev) => (prev + 1) % insights.length);
+    };
+
+    const prev = () => {
+        setCurrentIndex((prev) => (prev - 1 + insights.length) % insights.length);
+    };
 
     return (
         <section
             className="relative overflow-hidden"
             style={{
-                paddingTop: '80px',
-                paddingBottom: '80px',
-                backgroundColor: 'var(--bg-blog)',
-                color: 'var(--text-primary)'
+                background: '#040B1D',
+                paddingTop: '100px',
+                paddingBottom: '100px'
             }}
         >
-            <div className="max-w-7xl relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-                <style>{`
-                    .insights-swiper {
-                        cursor: grab;
-                        overflow: visible !important;
-                    }
-                    .insights-swiper:active {
-                        cursor: grabbing;
-                    }
-                `}</style>
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-0" />
 
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8" style={{ marginTop: 'var(--research-heading-margin-top)' }}>
-                    <div className="text-left">
-                        <h2 className="text-[40px] md:text-[52px] font-[800] leading-[1.1] text-black mb-4 tracking-tight">
-                            <span style={{ color: 'var(--brand-accent)' }}>Security</span> Research <br />
-                            & Intelligence
-                        </h2>
-                        <p className="text-[var(--text-muted)] text-[15px] max-w-xl font-medium leading-relaxed opacity-80">
-                            Proprietary analysis on emerging threat vectors, zero-day research, and architectural defense.
-                        </p>
+            <div
+                className="max-w-[1440px] relative z-10 mx-auto"
+                style={{
+                    paddingLeft: themeConfig.global.sectionMarginLeft || '4rem',
+                    paddingRight: themeConfig.global.sectionMarginRight || '4rem',
+                }}
+            >
+                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8 relative">
+                    <div className="text-left relative">
+
+                        <div style={{ marginLeft: '0rem', paddingTop: '10px' }}>
+                            <h2 className="font-black leading-[1.05] mb-4 tracking-tighter" style={{ fontFamily: 'var(--font-heading)', fontSize: themeConfig.global.sectionTitleSize || '44px', color: '#FFFFFF' }}>
+                                <span style={{ color: '#FFFFFF' }}>Cybersecurity</span>{' '}
+                                <span style={{ color: '#D6B05C' }}>Insights</span>
+                                <br /> & Research
+                            </h2>
+                            <p className="text-[15px] max-w-lg font-medium leading-relaxed" style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.5)' }}>
+                                Curated intelligence, research insights, and security perspectives from the QuasarCyberTech ecosystem.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 mb-2">
                         <button
-                            ref={prevRef}
-                            className="w-12 h-12 rounded-full border border-[var(--brand-accent-soft)] flex items-center justify-center hover:bg-black/5 transition-all group scale-90"
+                            onClick={prev}
+                            className="w-12 h-12 rounded-xl bg-white border border-black/5 flex items-center justify-center hover:bg-[#F8F9FA] transition-all group shadow-sm"
                         >
-                            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform opacity-60 text-[var(--brand-accent)]" />
+                            <ArrowLeft className="w-5 h-5 transition-transform text-[#6B1530]" />
                         </button>
                         <button
-                            ref={nextRef}
-                            className="w-12 h-12 rounded-full border border-[var(--brand-accent-soft)] flex items-center justify-center hover:bg-black/5 transition-all group scale-90"
+                            onClick={next}
+                            className="w-12 h-12 rounded-xl bg-white border border-black/5 flex items-center justify-center hover:bg-[#F8F9FA] transition-all group shadow-sm"
                         >
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform opacity-60 text-[var(--brand-accent)]" />
+                            <ArrowRight className="w-5 h-5 transition-transform text-[#6B1530]" />
                         </button>
                     </div>
                 </div>
 
-                <div className="relative pb-12">
-                    <Swiper
-                        modules={[Autoplay, Navigation]}
-                        spaceBetween={themeConfig.insights.carousel.gap}
-                        slidesPerView="auto"
-                        loop={true}
-                        speed={themeConfig.insights.carousel.speed}
-                        autoplay={{
-                            delay: 5000,
-                            disableOnInteraction: false,
-                        }}
-                        navigation={{
-                            prevEl: prevRef.current,
-                            nextEl: nextRef.current,
-                        }}
-                        onBeforeInit={(swiper) => {
-                            // @ts-ignore
-                            swiper.params.navigation.prevEl = prevRef.current;
-                            // @ts-ignore
-                            swiper.params.navigation.nextEl = nextRef.current;
-                        }}
-                        className="insights-swiper"
-                    >
+                <div className="relative overflow-visible pb-8">
+                    <div className="flex gap-6 transition-all duration-700 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
+                        style={{ transform: `translateX(-${currentIndex * (100 / insights.length)}%)` }}>
                         {insights.map((item, idx) => (
-                            <SwiperSlide key={idx} style={{ width: 'auto' }}>
-                                <div
-                                    className={`w-[260px] md:w-[320px] group flex flex-col overflow-hidden transition-all duration-500 hover:scale-[1.02] shrink-0 mb-4 h-full`}
-                                    style={{
-                                        borderTop: '4px solid var(--brand-accent)',
-                                        borderRadius: themeConfig.insights.cardRadius || '24px',
-                                        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-                                        boxShadow: '0 20px 50px -15px rgba(0,0,0,0.3)',
-                                        border: '1px solid rgba(255, 255, 255, 0.05)',
-                                    }}
-                                >
-                                    <div className="w-full max-w-full aspect-[16/10] overflow-hidden bg-[#0A0A0A] relative shrink-0">
-                                        <img
-                                            src={item.image}
-                                            alt={item.title}
-                                            loading="lazy"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-60 group-hover:opacity-100"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent" />
-                                    </div>
-                                    <div className="p-6 flex flex-col flex-1" style={{ minHeight: '160px' }}>
-                                        <div className="text-[10px] font-black text-[var(--brand-accent)] tracking-[3px] uppercase mb-2">
-                                            {item.category}
-                                        </div>
-                                        <h3 className="text-[18px] font-bold text-white mb-4 leading-tight group-hover:text-[var(--brand-accent)] transition-colors line-clamp-2">
-                                            {item.title}
-                                        </h3>
-                                        <div className="mt-auto pb-2">
-                                            <Link
-                                                to={item.href}
-                                                className="inline-flex items-center text-slate-300 font-bold text-[12px] uppercase tracking-widest group-hover:text-[var(--brand-accent)] transition-colors"
-                                            >
-                                                <span className="relative">
-                                                    Read Research
-                                                    <span className="absolute bottom-[-2px] left-0 w-6 h-[2px] bg-[var(--brand-accent)] group-hover:w-full transition-all duration-300" />
-                                                </span>
-                                                <ArrowRight className="w-3.5 h-3.5 ml-2 group-hover:translate-x-2 transition-transform" />
-                                            </Link>
-                                        </div>
+                            <div key={idx}
+                                className="w-[260px] md:w-[320px] relative group flex flex-col transition-all duration-500 hover:translate-y-[-8px] shrink-0"
+                                style={{
+                                    borderRadius: '0 0 16px 16px',
+                                    borderTop: '3px solid #2BC4B6',
+                                    background: 'rgba(255,255,255,0.04)',
+                                    overflow: 'hidden'
+                                }}
+                            >
+                                {/* Image zone - 160px tall */}
+                                <div className="w-full relative shrink-0" style={{ height: '160px', background: 'linear-gradient(135deg, #0B1F3B 0%, #0d2844 100%)' }}>
+                                    {/* Hex grid pattern */}
+                                    <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'radial-gradient(circle, rgba(43,196,182,0.15) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                                    {/* QPulse badge */}
+                                    <div className="absolute top-4 left-4" style={{ background: 'rgba(43,196,182,0.15)', padding: '4px 12px', borderRadius: '4px' }}>
+                                        <span style={{ color: '#2BC4B6', fontSize: '10px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>QPulse</span>
                                     </div>
                                 </div>
-                            </SwiperSlide>
+                                <div className="p-6 flex flex-col flex-1">
+                                    <div
+                                        className="text-[10px] font-bold tracking-[0.15em] uppercase mb-2"
+                                        style={{ color: '#8B949E' }}
+                                    >
+                                        {item.category}
+                                    </div>
+                                    <h3 className="text-[16px] font-bold text-white mb-3 leading-snug" style={{ fontFamily: 'var(--font-heading)' }}>
+                                        {item.title}
+                                    </h3>
+                                    <p style={{ color: '#8B949E', fontSize: '13px', lineHeight: 1.5, marginBottom: '12px' }} className="line-clamp-2">
+                                        Security insights and analysis from QPulse.
+                                    </p>
+                                    <div style={{ color: '#D6B05C', fontSize: '11px', marginBottom: '12px' }}>
+                                        Dec 2024
+                                    </div>
+                                    <div className="mt-auto pt-4 flex items-center justify-between border-t border-white/5">
+                                        <Link to={item.href} className="flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+                                            <span style={{ color: '#2BC4B6', fontSize: '12px', fontWeight: 600 }}>Read on QPulse →</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                         ))}
-                    </Swiper>
+                    </div>
                 </div>
             </div>
         </section>

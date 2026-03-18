@@ -25,7 +25,7 @@ export default function Resources() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold text-[#0F172A] mb-6 tracking-tight">
-              Knowledge <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B1E3F] to-[#C41E5E]">Center</span>
+              Knowledge <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0B1F3B] to-[#C41E5E]">Center</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Arm your team with the latest intelligence, research, and strategies needed to defend against modern adversaries.
@@ -36,11 +36,11 @@ export default function Resources() {
         <section className="max-w-7xl mx-auto px-6 mb-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((cat, i) => (
-              <div key={i} className="group p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:bg-white hover:shadow-xl hover:border-[#8B1E3F]/30 transition-all duration-300">
-                <cat.icon className="w-10 h-10 text-[#8B1E3F] mb-6" />
+              <div key={i} className="group p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:bg-white hover:shadow-xl hover:border-[#0B1F3B]/30 transition-all duration-300">
+                <cat.icon className="w-10 h-10 text-[#0B1F3B] mb-6" />
                 <h3 className="text-2xl font-bold text-[#0F172A] mb-3">{cat.title}</h3>
                 <p className="text-gray-600 mb-6">{cat.desc}</p>
-                <div className="text-[#8B1E3F] font-bold flex items-center cursor-pointer group-hover:unde">
+                <div className="text-[#0B1F3B] font-bold flex items-center cursor-pointer group-hover:unde">
                   Browse {cat.title} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -56,8 +56,8 @@ export default function Resources() {
               Subscribe to The Quasar Brief. Get zero-day alerts and our monthly cybersecurity digest delivered straight to your inbox.
             </p>
             <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
-              <input type="email" placeholder="Your work email" className="px-6 py-4 rounded-xl flex-grow focus:outline-none focus:ring-2 focus:ring-[#8B1E3F] bg-white/10 text-white border border-white/20" />
-              <button className="px-8 py-4 bg-[#8B1E3F] text-white font-bold rounded-xl hover:bg-[#6B1530] transition-colors whitespace-nowrap">
+              <input type="email" placeholder="Your work email" className="px-6 py-4 rounded-xl flex-grow focus:outline-none focus:ring-2 focus:ring-[#0B1F3B] bg-white/10 text-white border border-white/20" />
+              <button className="px-8 py-4 bg-[#0B1F3B] text-white font-bold rounded-xl hover:bg-[#1F6FEB] transition-colors whitespace-nowrap">
                 Subscribe
               </button>
             </form>

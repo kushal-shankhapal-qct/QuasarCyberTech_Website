@@ -13,7 +13,7 @@ export const servicesVars = {
   // Width of the colored accent line below the active service title
   titleAccentLineWidth: '100%', // Change to '32px', '50%', etc. to adjust
   topCardBorderGradient: 'from-[#2F6F78] to-[#1E2A38]', // Deep teal and slate
-  titleUnderlineColor: 'bg-[#8B1E3F]', // Deep magenta
+  titleUnderlineColor: 'bg-[#0B1F3B]', // Deep magenta
 };
 
 const servicesData = [

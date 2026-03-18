@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const CTA: React.FC = () => {
   return (
-    <section className="py-24 bg-gradient-to-r from-[#8B1E3F] to-[#C41E5E] relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-r from-[#0B1F3B] to-[#C41E5E] relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
@@ -46,7 +46,7 @@ const CTA: React.FC = () => {
         >
           <Link
             to="/contact"
-            className="px-8 py-4 bg-white text-[#8B1E3F] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 flex items-center gap-2 group"
+            className="px-8 py-4 bg-white text-[#0B1F3B] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 flex items-center gap-2 group"
           >
             Schedule a Consultation
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

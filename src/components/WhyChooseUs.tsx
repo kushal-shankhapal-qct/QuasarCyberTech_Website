@@ -7,7 +7,7 @@ const coreValues = [
         title: 'Customized Solutions',
         description: 'We do not believe in one-size-fits-all. Our security strategies are uniquely tailored to match your specific operational footprint and threat model.',
         icon: Settings,
-        color: '#8B1E3F', // Magenta accent
+        color: '#0B1F3B', // Magenta accent
     },
     {
         title: 'Proactive Engagement',
@@ -34,7 +34,7 @@ export default function WhyChooseUs() {
         <section className="py-24 bg-[#FFFFFF] relative overflow-hidden border-t border-[#E1E6EB]">
             {/* Soft blurred background layer for depth */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#8B1E3F]/[0.02] to-transparent rounded-full blur-3xl translate-y-[-30%]" />
+                <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#0B1F3B]/[0.02] to-transparent rounded-full blur-3xl translate-y-[-30%]" />
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#2F6F78]/[0.02] to-transparent rounded-full blur-3xl translate-y-[20%]" />
             </div>
 
@@ -42,7 +42,7 @@ export default function WhyChooseUs() {
                 <div className="text-center mb-16">
                     <h2 className="text-[13px] font-bold tracking-widest text-[#52606D] uppercase mb-2">Logical Differentiators</h2>
                     <h3 className="text-4xl font-bold text-[#1F2933] tracking-tight">
-                        Why Choose <span className="text-[#8B1E3F]">QuasarCyberTech</span>
+                        Why Choose <span className="text-[#0B1F3B]">QuasarCyberTech</span>
                     </h3>
                     <p className="mt-4 text-[16px] text-[#52606D] max-w-2xl mx-auto leading-relaxed">
                         We deliver highly secure, authoritative, and crisp cyber strategies without relying on outdated hacker clichés.

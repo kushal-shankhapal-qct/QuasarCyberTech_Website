@@ -21,7 +21,7 @@ export default function Milestones() {
                     transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
                 >
                     <path d="M 250, 250 m -220, 0 a 220,220 0 1,1 440,0 a 220,220 0 1,1 -440,0" fill="none" stroke="#1E2A38" strokeWidth="4" />
-                    <path d="M 250, 250 m -150, 0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" fill="none" stroke="#8B1E3F" strokeWidth="2" />
+                    <path d="M 250, 250 m -150, 0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" fill="none" stroke="#0B1F3B" strokeWidth="2" />
                     <rect x="150" y="150" width="200" height="200" fill="none" transform="rotate(45 250 250)" stroke="#CA9C88" strokeWidth="2" />
                 </motion.svg>
             </div>

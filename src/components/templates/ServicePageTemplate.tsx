@@ -51,9 +51,9 @@ export default function ServicePageTemplate({
 
     const renderEngagementIcon = () => {
         switch (engagementModel.type) {
-            case 'recurring': return <Clock className="w-8 h-8 text-[#8B1E3F]" />;
-            case 'project': return <CalendarDays className="w-8 h-8 text-[#8B1E3F]" />;
-            case 'hybrid': return <Briefcase className="w-8 h-8 text-[#8B1E3F]" />;
+            case 'recurring': return <Clock className="w-8 h-8 text-[#0B1F3B]" />;
+            case 'project': return <CalendarDays className="w-8 h-8 text-[#0B1F3B]" />;
+            case 'hybrid': return <Briefcase className="w-8 h-8 text-[#0B1F3B]" />;
         }
     };
 
@@ -77,7 +77,7 @@ export default function ServicePageTemplate({
                         <h1 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-4 tracking-tight">
                             {seoTitle}
                         </h1>
-                        <h2 className="text-2xl font-semibold text-[#8B1E3F] mb-6 tracking-wide">
+                        <h2 className="text-2xl font-semibold text-[#0B1F3B] mb-6 tracking-wide">
                             {heroSubtitle}
                         </h2>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -89,9 +89,9 @@ export default function ServicePageTemplate({
                 {/* Section 2: Threat Landscape */}
                 <section className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] py-16 mb-20 border-y border-gray-800">
                     <div className="max-w-4xl mx-auto px-6 text-center">
-                        <ShieldAlert className="w-12 h-12 text-[#8B1E3F] mx-auto mb-6" />
+                        <ShieldAlert className="w-12 h-12 text-[#0B1F3B] mx-auto mb-6" />
                         <h2 className="text-3xl font-bold text-white mb-6">Threat Landscape</h2>
-                        <p className="text-xl text-gray-300 leading-relaxed italic border-l-4 border-[#8B1E3F] pl-6 text-left inline-block">
+                        <p className="text-xl text-gray-300 leading-relaxed italic border-l-4 border-[#0B1F3B] pl-6 text-left inline-block">
                             "{threatLandscape}"
                         </p>
                     </div>
@@ -109,7 +109,7 @@ export default function ServicePageTemplate({
                                     key={idx}
                                     onClick={() => setActiveCategory(activeCategory === idx ? null : idx)}
                                     className={`w-full text-left px-6 py-4 rounded-xl font-bold transition-all duration-300 flex justify-between items-center ${activeCategory === idx
-                                        ? 'bg-[#8B1E3F] text-white shadow-lg shadow-[#8B1E3F]/20'
+                                        ? 'bg-[#0B1F3B] text-white shadow-lg shadow-[#0B1F3B]/20'
                                         : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-100'
                                         }`}
                                 >
@@ -135,7 +135,7 @@ export default function ServicePageTemplate({
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {subServices[activeCategory].items.map((item, i) => (
                                                 <div key={i} className="flex items-start">
-                                                    <CheckCircle2 className="w-5 h-5 text-[#8B1E3F] mr-3 mt-0.5 flex-shrink-0" />
+                                                    <CheckCircle2 className="w-5 h-5 text-[#0B1F3B] mr-3 mt-0.5 flex-shrink-0" />
                                                     <span className="text-gray-700 font-medium">{item}</span>
                                                 </div>
                                             ))}
@@ -157,7 +157,7 @@ export default function ServicePageTemplate({
                                     {idx !== methodology.length - 1 && (
                                         <div className="hidden lg:block absolute top-8 left-1/2 w-full border-t-2 border-dashed border-gray-300"></div>
                                     )}
-                                    <div className="relative z-10 bg-white w-16 h-16 rounded-full border-4 border-gray-50 shadow-md flex items-center justify-center text-xl font-bold text-[#8B1E3F] mb-6 mx-auto">
+                                    <div className="relative z-10 bg-white w-16 h-16 rounded-full border-4 border-gray-50 shadow-md flex items-center justify-center text-xl font-bold text-[#0B1F3B] mb-6 mx-auto">
                                         {step.step}
                                     </div>
                                     <h3 className="text-xl font-bold text-center text-[#0F172A] mb-3">{step.title}</h3>
@@ -171,9 +171,9 @@ export default function ServicePageTemplate({
                 {/* Section 5: Tools & Standards */}
                 <section className="max-w-7xl mx-auto px-6 mb-24">
                     <div className="flex flex-col md:flex-row items-center justify-between bg-[#0F172A] rounded-3xl p-10 md:p-14 overflow-hidden relative shadow-xl">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B1E3F]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#0B1F3B]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
                         <div className="md:w-1/3 mb-8 md:mb-0 relative z-10">
-                            <Wrench className="w-10 h-10 text-[#8B1E3F] mb-4" />
+                            <Wrench className="w-10 h-10 text-[#0B1F3B] mb-4" />
                             <h2 className="text-3xl font-bold text-white mb-4">Tools & Standards</h2>
                             <p className="text-gray-400">We leverage industry-leading technologies and adhere to global compliance frameworks.</p>
                         </div>
@@ -193,7 +193,7 @@ export default function ServicePageTemplate({
                 <section className="max-w-7xl mx-auto px-6 mb-24">
                     <h2 className="text-3xl font-bold text-[#0F172A] mb-12 text-center">Engagement Model</h2>
                     <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-3xl p-8 md:p-12 shadow-sm text-center">
-                        <div className="w-16 h-16 bg-[#8B1E3F]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <div className="w-16 h-16 bg-[#0B1F3B]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                             {renderEngagementIcon()}
                         </div>
                         <div className="inline-block px-4 py-1.5 bg-gray-100 text-gray-700 font-bold text-sm rounded-full mb-6 uppercase tracking-wider">
@@ -225,13 +225,13 @@ export default function ServicePageTemplate({
                         <h2 className="text-3xl font-bold text-[#0F172A] mb-12 text-center">Proven Impact</h2>
                         <div className="bg-gradient-to-br from-[#F8FAFC] to-white border border-gray-200 rounded-2xl p-8 lg:p-12 shadow-sm flex flex-col md:flex-row items-center gap-10">
                             <div className="md:w-1/3 text-center md:text-left border-b md:border-b-0 md:border-r border-gray-200 pb-8 md:pb-0 md:pr-10">
-                                <div className="text-5xl font-black text-[#8B1E3F] mb-2">{caseStudyPreview.impact}</div>
+                                <div className="text-5xl font-black text-[#0B1F3B] mb-2">{caseStudyPreview.impact}</div>
                                 <div className="text-gray-500 font-semibold uppercase tracking-wider text-sm">Key Metric</div>
                             </div>
                             <div className="md:w-2/3">
                                 <h3 className="text-2xl font-bold text-[#0F172A] mb-4">{caseStudyPreview.title}</h3>
                                 <p className="text-gray-600 leading-relaxed mb-6">{caseStudyPreview.description}</p>
-                                <Link to="/resources" className="inline-flex items-center text-[#8B1E3F] font-bold hover:text-[#C41E5E] transition-colors">
+                                <Link to="/resources" className="inline-flex items-center text-[#0B1F3B] font-bold hover:text-[#C41E5E] transition-colors">
                                     Read Full Case Study <ArrowRight className="w-4 h-4 ml-2" />
                                 </Link>
                             </div>
@@ -242,10 +242,10 @@ export default function ServicePageTemplate({
                 {/* Cross Link Banner */}
                 {crossLinkBanner && (
                     <section className="max-w-7xl mx-auto px-6 mb-24">
-                        <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] rounded-2xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between border border-[#8B1E3F]/30 shadow-2xl shadow-[#8B1E3F]/10 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B1E3F]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] rounded-2xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between border border-[#0B1F3B]/30 shadow-2xl shadow-[#0B1F3B]/10 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#0B1F3B]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
                             <div className="md:w-2/3 relative z-10 flex items-start">
-                                {crossLinkBanner.iconNode && <div className="mr-6 bg-[#8B1E3F]/20 p-4 rounded-xl shrink-0 border border-[#8B1E3F]/30">{crossLinkBanner.iconNode}</div>}
+                                {crossLinkBanner.iconNode && <div className="mr-6 bg-[#0B1F3B]/20 p-4 rounded-xl shrink-0 border border-[#0B1F3B]/30">{crossLinkBanner.iconNode}</div>}
                                 <div>
                                     <h3 className="text-2xl md:text-3xl font-bold mb-3">{crossLinkBanner.title}</h3>
                                     <p className="text-gray-300 text-lg leading-relaxed">{crossLinkBanner.description}</p>
@@ -254,11 +254,11 @@ export default function ServicePageTemplate({
                             <div className="md:w-1/3 mt-8 md:mt-0 flex shrink-0 md:justify-end relative z-10">
                                 {crossLinkBanner.isExternal ? (
                                     <a href={crossLinkBanner.linkHref} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap px-8 py-4 bg-white text-[#0F172A] font-bold rounded-xl hover:bg-gray-100 transition-colors flex items-center shadow-lg">
-                                        {crossLinkBanner.linkText} <ArrowRight className="w-5 h-5 ml-2 text-[#8B1E3F]" />
+                                        {crossLinkBanner.linkText} <ArrowRight className="w-5 h-5 ml-2 text-[#0B1F3B]" />
                                     </a>
                                 ) : (
                                     <Link to={crossLinkBanner.linkHref} className="whitespace-nowrap px-8 py-4 bg-white text-[#0F172A] font-bold rounded-xl hover:bg-gray-100 transition-colors flex items-center shadow-lg">
-                                        {crossLinkBanner.linkText} <ArrowRight className="w-5 h-5 ml-2 text-[#8B1E3F]" />
+                                        {crossLinkBanner.linkText} <ArrowRight className="w-5 h-5 ml-2 text-[#0B1F3B]" />
                                     </Link>
                                 )}
                             </div>
@@ -276,7 +276,7 @@ export default function ServicePageTemplate({
                                     const Icon = adv.icon;
                                     return (
                                         <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                                            {Icon && <Icon className="w-10 h-10 text-[#8B1E3F] mb-4" />}
+                                            {Icon && <Icon className="w-10 h-10 text-[#0B1F3B] mb-4" />}
                                             <h3 className="text-xl font-bold text-[#0F172A] mb-3">{adv.title}</h3>
                                             <p className="text-gray-600 leading-relaxed">{adv.description}</p>
                                         </div>
@@ -295,7 +295,7 @@ export default function ServicePageTemplate({
                     </p>
                     <Link
                         to="/contact"
-                        className="inline-flex items-center px-8 py-4 bg-[#8B1E3F] text-white font-bold rounded-lg hover:bg-[#6B1530] hover:scale-105 transition-all duration-300 shadow-xl shadow-[#8B1E3F]/20"
+                        className="inline-flex items-center px-8 py-4 bg-[#0B1F3B] text-white font-bold rounded-lg hover:bg-[#1F6FEB] hover:scale-105 transition-all duration-300 shadow-xl shadow-[#0B1F3B]/20"
                     >
                         Schedule a Strategy Call
                     </Link>

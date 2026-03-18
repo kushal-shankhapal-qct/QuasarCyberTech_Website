@@ -460,7 +460,7 @@ export default function Contact() {
                   }}
                 >
                   <WorldMap
-                    lineColor="#7A0F2A"
+                    lineColor="#1F6FEB"
                     secondaryLineColor="#3B82F6"
                     dotColor="#00000025"
                     backgroundColor="transparent"
@@ -470,7 +470,7 @@ export default function Contact() {
                   {/* LEGEND — MINIMAL OVERLAY */}
                   <div className="absolute bottom-6 right-6 flex items-center gap-6 z-20">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#7A0F2A]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#1F6FEB]" />
                       <span className="text-[10px] font-black text-[#555] uppercase tracking-wider">Offices</span>
                     </div>
                     <div className="flex items-center gap-2">
