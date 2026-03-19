@@ -1,70 +1,95 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import SectionEyebrow from './shared/SectionEyebrow';
-import { themeConfig, GRADIENTS, COLORS } from '../config/themeConfig';
+import { User } from 'lucide-react';
+import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY } from '../config/themeConfig';
+import SectionHeader from './SectionHeader';
+import logoIcon from '../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
 
 export default function LeadershipVision() {
     return (
         <section 
-            className="relative py-[120px] overflow-hidden"
             style={{ 
-                background: '#F5F7FA',
-                paddingTop: themeConfig.global.verticalSpacing,
-                paddingBottom: themeConfig.global.verticalSpacing 
+                background: SECTION_BACKGROUNDS.LIGHT,
+                padding: '120px max(24px, calc((100vw - 1200px) / 2))',
+                overflow: 'hidden',
+                fontFamily: TYPOGRAPHY.fontBody
             }}
         >
-            <div 
-                className="max-w-[1440px] relative z-10 mx-auto"
-                style={{
-                    paddingLeft: themeConfig.global.sectionMarginLeft || '4rem',
-                    paddingRight: themeConfig.global.sectionMarginRight || '4rem',
-                }}
-            >
-                {/* Section Header */}
-                <div className="mb-20 text-left relative">
+            <div className="max-w-[1200px] mx-auto">
+                <SectionHeader 
+                    eyebrow="LEADERSHIP & VISION"
+                    title="BUILDING THE FUTURE OF"
+                    highlight="CYBERSECURITY ENGINEERING"
+                    subtitle="QuasarCyberTech is led by a vision to transform cybersecurity from a defensive posture into a proactive engineering discipline."
+                    maxWidth="760px"
+                />
 
-                    <div style={{ marginLeft: '0rem', paddingTop: '10px' }}>
-                        <h2 
-                            className="mt-6 font-black tracking-tight"
-                            style={{ 
-                                fontFamily: 'var(--font-heading)',
-                                fontSize: themeConfig.global.sectionTitleSize || '44px',
-                                color: COLORS.deepCyberBlue,
-                                lineHeight: '1.05',
-                                marginBottom: '15px',
-                            }}
-                        >
-                            Building the Future of <br />
-                            <span style={{ color: '#2BC4B6' }}>Cybersecurity</span> Engineering
-                        </h2>
-                    </div>
-                </div>
-
-                {/* Founder Vision Block */}
-                <div className="flex flex-col lg:flex-row gap-16 items-center">
-                    {/* Founder Photo Placeholder - Book Page Style */}
+                <div className="flex flex-col lg:flex-row gap-20 items-center mt-12">
+                    {/* ─── PLACEMENT 7: FOUNDER PHOTO PLACEHOLDER ─── */}
                     <motion.div 
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="w-full lg:w-[40%] relative overflow-hidden"
                         style={{
-                            width: '320px',
-                            height: '380px',
+                            width: '420px',
+                            height: '480px',
+                            background: `linear-gradient(160deg, ${COLORS.deepCyberBlue} 0%, rgba(20,10,18,0.95) 100%)`,
                             borderRadius: '0 0 24px 24px',
-                            borderTop: '4px solid #2BC4B6',
-                            background: 'linear-gradient(135deg, #0B1F3B 0%, #1a3560 100%)',
+                            borderTop: `3px solid ${COLORS.burgundy}`,
+                            position: 'relative',
+                            overflow: 'hidden',
                             display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginBottom: '20px'
+                            boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
+                            flexShrink: 0
                         }}
                     >
-                        {/* Placeholder initials */}
-                        <span style={{ color: '#2BC4B6', fontSize: '48px', fontWeight: 900 }}>QCT</span>
-                        <div className="absolute bottom-6 left-6 z-20">
-                            <h4 style={{ color: '#0B1F3B', fontWeight: 700, fontSize: '16px', marginBottom: '4px' }}>Founder Name</h4>
-                            <p style={{ color: '#6B1530', fontWeight: 600, fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Founder & CEO</p>
+                        {/* Background: large fingerprint icon, very faint */}
+                        <img src={logoIcon} style={{
+                            position: 'absolute',
+                            width: '320px', 
+                            opacity: 0.05,
+                            transform: 'rotate(-15deg)',
+                            top: '10%',
+                            left: '10%'
+                        }} alt="" />
+                        
+                        {/* Foreground: name placeholder */}
+                        <div style={{ position: 'relative', textAlign: 'center', zIndex: 1 }}>
+                            <div style={{
+                                width: '100px', height: '100px',
+                                borderRadius: '50%',
+                                background: 'rgba(43,196,182,0.1)',
+                                border: `2px solid ${ALPHAS.teal20}`,
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                margin: '0 auto 24px',
+                            }}>
+                                <User size={48} color={COLORS.teal} strokeWidth={1} style={{ opacity: 0.5 }} />
+                            </div>
+                            <p style={{ ...TYPOGRAPHY.metricLabel, color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>
+                                FOUNDER PHOTOGRAPH
+                            </p>
+                        </div>
+                        
+                        {/* Scrim at bottom for name overlay */}
+                        <div style={{
+                          position: 'absolute', bottom: 0, left: 0, right: 0,
+                          height: '100px',
+                          background: 'linear-gradient(transparent, rgba(4,11,29,0.95))',
+                          display: 'flex', alignItems: 'flex-end',
+                          padding: '0 32px 24px',
+                          zIndex: 2
+                        }}>
+                          <div>
+                            <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, fontSize: '11px', marginBottom: '4px' }}>
+                              Founder & CEO
+                            </p>
+                            <h4 style={{ ...TYPOGRAPHY.cardTitle, color: '#FFFFFF', fontSize: '20px', margin: 0 }}>
+                                Professional Headshot
+                            </h4>
+                          </div>
                         </div>
                     </motion.div>
 
@@ -73,20 +98,30 @@ export default function LeadershipVision() {
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="w-full lg:w-[60%]"
+                        className="flex-1"
                     >
-                        {/* Eyebrow label */}
-                        <p style={{ color: '#2BC4B6', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>
-                            Leadership & Vision
-                        </p>
                         <blockquote 
-                            className="text-[24px] md:text-[32px] font-bold leading-tight mb-8"
-                            style={{ fontFamily: 'var(--font-heading)', color: '#0B1F3B', borderLeft: '4px solid #6B1530', paddingLeft: '20px', fontStyle: 'italic' }}
+                            style={{ 
+                                ...TYPOGRAPHY.pageTitle,
+                                fontFamily: TYPOGRAPHY.fontHeading, 
+                                color: COLORS.deepCyberBlue, 
+                                borderLeft: `6px solid ${COLORS.burgundy}`, 
+                                paddingLeft: '32px', 
+                                fontStyle: 'italic',
+                                fontSize: 'clamp(24px, 2.5vw, 32px)',
+                                fontWeight: 800,
+                                lineHeight: 1.3,
+                                marginBottom: '48px'
+                            }}
                         >
                             "Our mission is to engineer high-resilience security ecosystems that empower enterprises to innovate without fear."
                         </blockquote>
-                        <div className="space-y-6 text-[16px] leading-relaxed max-w-2xl" style={{ fontFamily: 'var(--font-body)', color: '#5A6478' }}>
-                            <p>
+                        <div style={{ 
+                            ...TYPOGRAPHY.bodyLarge,
+                            color: COLORS.textSub,
+                            maxWidth: '640px'
+                        }}>
+                            <p style={{ marginBottom: '24px' }}>
                                 QuasarCyberTech was founded on the principle that cybersecurity should be an engineering discipline, not just a defensive posture. In an era of rapid digital evolution, we believe in building security that scales with your ambition.
                             </p>
                             <p>

@@ -109,6 +109,79 @@ export const BRAND_CONTROLS = {
   }
 };
 
+// ─── TYPOGRAPHY SYSTEM ──────────────────────────────────────────
+// Toggles between different brand personalities.
+export type TypographyOption = 'current' | 'A' | 'B' | 'C';
+export const ACTIVE_TYPOGRAPHY_OPTION: TypographyOption = 'A'; // Recommended: Option A
+
+const TYPOGRAPHY_VARIANTS = {
+  current: {
+    fontHeading: "'Ubuntu', sans-serif",
+    fontBody: "'Inter', sans-serif",
+    trackingHeadline: '0em',
+    trackingBody: '0em',
+    trackingButton: '0.04em',
+    trackingEyebrow: '0.1em',
+    bodyWeight: 400,
+    uiWeight: 500,
+  },
+  A: {
+    fontHeading: "'Ubuntu', sans-serif",
+    fontBody: "'DM Sans', sans-serif",
+    trackingHeadline: '-0.01em',
+    trackingBody: '0.005em',
+    trackingButton: '0.1em',
+    trackingEyebrow: '0.15em',
+    bodyWeight: 300,
+    uiWeight: 400,
+  },
+  B: {
+    fontHeading: "'Ubuntu', sans-serif",
+    fontBody: "'IBM Plex Sans', sans-serif",
+    trackingHeadline: '-0.015em',
+    trackingBody: '0em',
+    trackingButton: '0.08em',
+    trackingEyebrow: '0.12em',
+    bodyWeight: 400,
+    uiWeight: 500,
+  },
+  C: {
+    fontHeading: "'Ubuntu', sans-serif",
+    fontBody: "'Ubuntu', sans-serif",
+    trackingHeadline: '-0.02em',
+    trackingBody: '0em',
+    trackingButton: '0.06em',
+    trackingEyebrow: '0.12em',
+    bodyWeight: 400,
+    uiWeight: 500,
+  }
+};
+
+const T = TYPOGRAPHY_VARIANTS[ACTIVE_TYPOGRAPHY_OPTION];
+
+export const TYPOGRAPHY = {
+  fontHeading: T.fontHeading,
+  fontBody: T.fontBody,
+
+  // Sizes & Weights
+  heroTitle: { fontSize: 'clamp(36px, 4.5vw, 40px)', fontWeight: 800, lineHeight: 1.12, letterSpacing: T.trackingHeadline },
+  pageTitle: { fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, lineHeight: 1.12, letterSpacing: T.trackingHeadline },
+  sectionTitle: { fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 700, lineHeight: 1.2, letterSpacing: T.trackingHeadline },
+  cardTitle: { fontSize: '17px', fontWeight: 700, lineHeight: 1.3, letterSpacing: '0em', fontFamily: T.fontHeading },
+
+  bodyLarge: { fontSize: '16px', fontWeight: T.bodyWeight, lineHeight: 1.6, letterSpacing: T.trackingBody },
+  bodyBase: { fontSize: '15px', fontWeight: T.bodyWeight, lineHeight: 1.65, letterSpacing: T.trackingBody },
+  bodySmall: { fontSize: '13px', fontWeight: T.bodyWeight, lineHeight: 1.6, letterSpacing: T.trackingBody },
+
+  navLink: { fontSize: '14px', fontWeight: T.uiWeight, letterSpacing: '0.01em' },
+  buttonLarge: { fontSize: '13px', fontWeight: 700, letterSpacing: T.trackingButton, textTransform: 'uppercase' as const },
+  buttonSmall: { fontSize: '12px', fontWeight: 700, letterSpacing: T.trackingButton, textTransform: 'uppercase' as const },
+  eyebrow: { fontSize: '11px', fontWeight: 700, letterSpacing: T.trackingEyebrow, textTransform: 'uppercase' as const },
+  metricNumber: { fontSize: 'clamp(44px, 5vw, 64px)', fontWeight: 800, lineHeight: 1, letterSpacing: T.trackingHeadline, fontFamily: T.fontHeading },
+  metricLabel: { fontSize: '12px', fontWeight: 600, letterSpacing: T.trackingButton, textTransform: 'uppercase' as const },
+  caption: { fontSize: '11px', fontWeight: 400, letterSpacing: '0.04em' },
+};
+
 // ─── GRADIENTS ───
 export const GRADIENTS = {
   HERO_CTA_BG: `radial-gradient(circle at ${BRAND_CONTROLS.heroGradient.x} ${BRAND_CONTROLS.heroGradient.y}, rgba(56,8,26,1) 0%, rgba(0,1,18,1) ${BRAND_CONTROLS.heroGradient.radius})`,
@@ -227,45 +300,54 @@ export const themeConfig = {
   },
 };
 
-// ─── NAVBAR MATERIAL MODES (RANKED) ───
-export type NavbarMaterialMode = 'integrated-warm-dark' | 'structural-accent' | 'faint-burgundy';
+// ─── NAVBAR MATERIAL VARIANTS ───
+export type NavbarVariant = 'A' | 'B' | 'C' | 'recommended' | 'current';
 
-export const ACTIVE_NAVBAR_MATERIAL: NavbarMaterialMode = 'faint-burgundy';
+export const ACTIVE_NAVBAR_VARIANT: NavbarVariant = 'recommended';
 
-export const NAVBAR_MATERIALS = {
-  'integrated-warm-dark': {
-    // Rank 1: Deep Cyber Glass
-    background: 'linear-gradient(180deg, rgba(11, 31, 59, 0.98) 0%, rgba(4, 11, 29, 1) 100%)',
-    backdropFilter: 'blur(12px)',
-    border: 'none',
-    borderTop: 'none',
-    accentColor: 'transparent',
-    accentOpacity: 0,
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
-  },
-  'structural-accent': {
-    // Rank 2: Structural Teal Accent
-    background: 'rgba(4, 11, 29, 1)',
+export const NAVBAR_VARIANTS = {
+  A: {
+    // Option A: Warm Obsidian (Recommended for Hero context)
+    pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
+    dropdownBackground: 'rgba(18, 8, 16, 0.99)',
+    pillBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
+    dropdownBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
     backdropFilter: 'none',
-    border: 'none',
-    borderTop: `1px solid ${COLORS.teal}`,
-    accentColor: COLORS.teal,
-    accentOpacity: 0.8,
-    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
   },
-  'faint-burgundy': {
-    // Rank 3: Deep Blood-Dark Gradient (Current Choice)
-    background: 'radial-gradient(circle at 20% 0%, rgba(56, 8, 26, 1) 0%, rgba(4, 11, 29, 1) 100%)',
+  B: {
+    // Option B: Deep Navy Slate (Technical/Cold)
+    pillBackground: 'linear-gradient(180deg, rgb(14, 22, 48), rgb(8, 14, 32))',
+    dropdownBackground: 'rgb(9, 15, 35)',
+    pillBorderTop: '1px solid rgba(255, 255, 255, 0.06)',
+    dropdownBorderTop: '1px solid rgba(255, 255, 255, 0.06)',
     backdropFilter: 'none',
-    border: 'none',
-    borderTop: 'none',
-    accentColor: 'transparent',
-    accentOpacity: 0,
-    boxShadow: '0 12px 48px rgba(0, 0, 0, 0.7)',
+  },
+  C: {
+    // Option C: Branded Dark with Teal Structural Accent
+    pillBackground: 'linear-gradient(180deg, rgba(14, 18, 42, 0.95), rgba(8, 10, 28, 0.97))',
+    dropdownBackground: 'rgb(10, 12, 28)',
+    pillBorderTop: '1px solid rgba(43, 196, 182, 0.2)',
+    dropdownBorderTop: '1.5px solid rgba(43, 196, 182, 0.45)',
+    backdropFilter: 'none',
+  },
+  recommended: {
+    // Recommended: Warm Pill + Cool/Teal Dropdown
+    pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
+    dropdownBackground: 'rgb(10, 12, 28)',
+    pillBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
+    dropdownBorderTop: '1.5px solid rgba(43, 196, 182, 0.45)',
+    backdropFilter: 'none',
+  },
+  current: {
+    pillBackground: 'radial-gradient(circle at 20% 0%, rgba(56, 8, 26, 1) 0%, rgba(4, 11, 29, 1) 100%)',
+    dropdownBackground: 'radial-gradient(circle at 20% 0%, rgba(56, 8, 26, 1) 0%, rgba(4, 11, 29, 1) 100%)',
+    pillBorderTop: 'none',
+    dropdownBorderTop: 'none',
+    backdropFilter: 'none',
   }
 };
 
-const material = NAVBAR_MATERIALS[ACTIVE_NAVBAR_MATERIAL];
+const navMaterial = NAVBAR_VARIANTS[ACTIVE_NAVBAR_VARIANT];
 
 // ─── NAVBAR CONFIG — Single source of truth for navbar ─────────────────────
 export const NAVBAR_CONFIG = {
@@ -281,7 +363,7 @@ export const NAVBAR_CONFIG = {
     paddingLeft: '2em',
     paddingRight: '2em',
 
-    logoContainerNudgeX: '-2.2em',
+    logoContainerNudgeX: '-1.9em',
     logoContainerNudgeY: '0px',
     logoIconNudgeX: '0px',
     logoIconNudgeY: '0px',
@@ -309,7 +391,7 @@ export const NAVBAR_CONFIG = {
   logoText: {
     width: '160px',
     height: 'auto',
-    marginTop: '10px',
+    marginTop: '13px',
     marginBottom: '0px',
     marginLeft: '0px',
     marginRight: '0px',
@@ -332,11 +414,11 @@ export const NAVBAR_CONFIG = {
     nudgeY: '5px',
 
     // Scrolled state (Dynamic Material Direction — Claymorphism)
-    backgroundScrolled: material.background,
-    backdropFilterScrolled: material.backdropFilter,
-    borderScrolled: material.border,
-    borderTopScrolled: material.borderTop,
-    boxShadowScrolled: material.boxShadow,
+    backgroundScrolled: navMaterial.pillBackground,
+    backdropFilterScrolled: navMaterial.backdropFilter,
+    borderScrolled: 'none',
+    borderTopScrolled: navMaterial.pillBorderTop,
+    boxShadowScrolled: '0 8px 32px rgba(0, 0, 0, 0.4)',
 
     // At-top state (fully transparent)
     backgroundTop: 'rgba(10, 8, 22, 0.0)',
@@ -354,10 +436,6 @@ export const NAVBAR_CONFIG = {
       paddingRight: '16px',
       height: '100%',
       borderRadius: '100px',
-      fontSize: '14px',
-      fontWeight: '450',
-      fontFamily: 'inherit',
-      letterSpacing: '0.015em',
       color: 'rgba(255,255,255,0.80)',
       colorHover: '#D6B05C',
       colorActive: '#D6B05C',
@@ -371,6 +449,8 @@ export const NAVBAR_CONFIG = {
       borderRadiusLast: '20px 100px 100px 20px',
       borderRadiusMiddle: '20px',
       textTransform: 'none' as const,
+      ...TYPOGRAPHY.navLink,
+      fontFamily: TYPOGRAPHY.fontBody,
 
       activeIndicator: {
         type: 'none' as 'dot' | 'line' | 'none',
@@ -397,8 +477,8 @@ export const NAVBAR_CONFIG = {
     height: '46px',
     paddingTop: '0px',
     paddingBottom: '0px',
-    paddingLeft: '26px',
-    paddingRight: '26px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
     marginTop: '0px',
     marginBottom: '0px',
     marginLeft: '0px',
@@ -408,11 +488,8 @@ export const NAVBAR_CONFIG = {
     backgroundHover: '#8B1E3F',
     color: '#FFFFFF',
     colorHover: '#FFFFFF',
-    fontSize: '13px',
-    fontWeight: '600',
-    fontFamily: 'inherit',
-    letterSpacing: '0.03em',
-    textTransform: 'none' as const,
+    ...TYPOGRAPHY.buttonLarge,
+    fontFamily: TYPOGRAPHY.fontBody,
     textDecoration: 'none' as const,
     border: 'none',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -442,16 +519,16 @@ export const NAVBAR_CONFIG = {
     borderRadiusBottom: '16px',
     borderRadius: '0 0 16px 16px',
 
-    background: material.background,
-    backdropFilter: material.backdropFilter,
+    background: navMaterial.dropdownBackground,
+    backdropFilter: navMaterial.backdropFilter,
 
-    topAccentHeight: '1px',
-    topAccentColor: material.accentColor,
-    topAccentOpacity: material.accentOpacity,
+    topAccentHeight: '1.5px', // Option C uses 1.5px
+    topAccentColor: COLORS.teal,
+    topAccentOpacity: 0, // Hidden if using borderTop directly
 
-    border: material.border,
-    borderTop: material.borderTop,
-    boxShadow: material.boxShadow,
+    border: '1px solid rgba(255,255,255,0.05)',
+    borderTop: navMaterial.dropdownBorderTop,
+    boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
 
     openAnimation: 'fadeSlideDown 0.18s cubic-bezier(0.23,1,0.32,1)',
     closeDelay: 150,

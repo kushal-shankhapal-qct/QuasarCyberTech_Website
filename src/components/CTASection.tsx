@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { COLORS, GRADIENTS } from '../config/themeConfig';
+import { COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
 import TrustIndicators from './TrustIndicators';
 
 interface CTASectionProps {
@@ -21,13 +21,14 @@ const CTASection: React.FC<CTASectionProps> = ({
         background: GRADIENTS.HERO_BG,
         padding: '120px 2.5em',
         overflow: 'hidden',
+        fontFamily: TYPOGRAPHY.fontBody
       }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '80px' }}>
         
         {/* Upper CTA Content */}
         <div style={{ maxWidth: '800px' }}>
-          <p style={{ color: COLORS.teal, fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '20px' }}>
+          <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, marginBottom: '20px' }}>
             READY TO BEGIN?
           </p>
           <motion.h2
@@ -36,12 +37,11 @@ const CTASection: React.FC<CTASectionProps> = ({
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             style={{
+              ...TYPOGRAPHY.sectionTitle,
+              fontFamily: TYPOGRAPHY.fontHeading,
               color: COLORS.textOnDark,
-              fontSize: 'clamp(32px, 5vw, 42px)',
-              fontWeight: 800,
               lineHeight: 1.1,
               marginBottom: '24px',
-              letterSpacing: '-0.02em',
             }}
           >
             Secure Your Digital<br />Enterprise
@@ -53,9 +53,8 @@ const CTASection: React.FC<CTASectionProps> = ({
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
             style={{
+              ...TYPOGRAPHY.bodyLarge,
               color: 'rgba(255, 255, 255, 0.7)',
-              fontSize: '18px',
-              lineHeight: 1.6,
               maxWidth: '600px',
               marginBottom: '40px',
             }}
@@ -73,15 +72,12 @@ const CTASection: React.FC<CTASectionProps> = ({
             <Link
               to="/contact"
               style={{
+                ...TYPOGRAPHY.buttonLarge,
                 background: COLORS.burgundy,
                 color: '#FFFFFF',
                 padding: '16px 36px',
                 borderRadius: '4px',
-                fontWeight: 700,
-                fontSize: '13px',
                 textDecoration: 'none',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
                 boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
                 display: 'flex',
                 alignItems: 'center',
@@ -94,16 +90,13 @@ const CTASection: React.FC<CTASectionProps> = ({
             <Link
               to="/capabilities"
               style={{
+                ...TYPOGRAPHY.buttonLarge,
                 background: 'transparent',
                 border: `1px solid ${COLORS.gold}`,
                 color: COLORS.gold,
                 padding: '16px 36px',
                 borderRadius: '4px',
-                fontWeight: 700,
-                fontSize: '13px',
                 textDecoration: 'none',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
-import { themeConfig } from '../config/themeConfig';
+import { themeConfig, TYPOGRAPHY } from '../config/themeConfig';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative overflow-hidden" style={{ backgroundColor: themeConfig.footer.backgroundColor }}>
+    <footer className="relative overflow-hidden" style={{ backgroundColor: themeConfig.footer.backgroundColor, fontFamily: TYPOGRAPHY.fontBody }}>
       {/* ───── CENTERED Q WATERMARK ───── */}
       <div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none z-0"
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
 
             {/* Address & Contact - Vertical Stack */}
             <div className="flex flex-col gap-3 items-start justify-start mb-8 w-full" style={{ color: themeConfig.footer.textColor }}>
-              <span className="text-[13px] font-medium flex items-center justify-start gap-4">
+              <span style={{ ...TYPOGRAPHY.bodySmall, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', gap: '16px' }}>
                 <div
                   className="w-8 h-8 rounded-full flex flex-shrink-0 items-center justify-center opacity-80"
                   style={{ backgroundColor: themeConfig.footer.iconBg, color: themeConfig.footer.iconColor }}>
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
                 </div>
                 Nashik, MH – 422009
               </span>
-              <a href="mailto:contactus@quasarcybertech.com" className="text-[13px] font-medium transition-colors flex items-center justify-start gap-4 hover:text-[#D6B05C]">
+              <a href="mailto:contactus@quasarcybertech.com" style={{ ...TYPOGRAPHY.bodySmall, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', gap: '16px', color: themeConfig.footer.textColor, textDecoration: 'none' }}>
                 <div
                   className="w-8 h-8 rounded-full flex flex-shrink-0 items-center justify-center opacity-80"
                   style={{ backgroundColor: themeConfig.footer.iconBg, color: themeConfig.footer.iconColor }}>
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
                 </div>
                 contactus@quasarcybertech.com
               </a>
-              <a href="tel:+910000000000" className="text-[13px] font-medium transition-colors flex items-center justify-start gap-4 hover:text-[#D6B05C]">
+              <a href="tel:+910000000000" style={{ ...TYPOGRAPHY.bodySmall, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', gap: '16px', color: themeConfig.footer.textColor, textDecoration: 'none' }}>
                 <div
                   className="w-8 h-8 rounded-full flex flex-shrink-0 items-center justify-center opacity-80"
                   style={{ backgroundColor: themeConfig.footer.iconBg, color: themeConfig.footer.iconColor }}>
@@ -143,8 +143,7 @@ const Footer: React.FC = () => {
               style={{ paddingLeft: themeConfig.footer.columnsMarginLeft || '0px' }}
             >
               <h3
-                className="font-black text-[10.5px] tracking-[0.25em] uppercase mb-8"
-                style={{ color: themeConfig.footer.headingColor }}
+                style={{ ...TYPOGRAPHY.eyebrow, color: themeConfig.footer.headingColor, fontSize: '10.5px', marginBottom: '32px' }}
               >
                 {category.title}
               </h3>
@@ -153,10 +152,22 @@ const Footer: React.FC = () => {
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-[14.5px] font-bold transition-all duration-300 inline-block hover:translate-x-1"
-                      style={{ color: themeConfig.footer.linkColor }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = themeConfig.footer.linkHoverColor || '#D6B05C'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = themeConfig.footer.linkColor || 'rgba(255, 255, 255, 0.95)'}
+                      style={{ 
+                        ...TYPOGRAPHY.navLink,
+                        color: themeConfig.footer.linkColor, 
+                        fontSize: '14.5px',
+                        textDecoration: 'none',
+                        transition: 'all 0.3s ease',
+                        display: 'inline-block'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = themeConfig.footer.linkHoverColor || '#D6B05C';
+                        e.currentTarget.style.transform = 'translateX(4px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = themeConfig.footer.linkColor || 'rgba(255, 255, 255, 0.95)';
+                        e.currentTarget.style.transform = 'translateX(0)';
+                      }}
                     >
                       {link.label}
                     </Link>
@@ -170,8 +181,8 @@ const Footer: React.FC = () => {
         {/* ───── LOWER SECTION (3-Tier Strip) ───── */}
         <div className="pt-8 border-t border-white/5 relative z-10">
           <div
-            className="flex flex-col md:flex-row items-center justify-between gap-6 text-[13px] font-medium"
-            style={{ color: themeConfig.footer.textColor }}
+            className="flex flex-col md:flex-row items-center justify-between gap-6"
+            style={{ ...TYPOGRAPHY.bodySmall, color: themeConfig.footer.textColor, fontSize: '13px' }}
           >
             {/* LEFT: Copyright */}
             <div className="text-center md:text-left order-2 md:order-1">
@@ -180,9 +191,9 @@ const Footer: React.FC = () => {
 
             {/* MIDDLE: Legals */}
             <div className="flex justify-center flex-wrap gap-6 md:gap-8 order-1 md:order-2">
-              <Link to="/privacy" className="hover:text-[#D6B05C] transition-colors">Privacy</Link>
-              <Link to="/terms" className="hover:text-[#D6B05C] transition-colors">Terms</Link>
-              <Link to="/cookies" className="hover:text-[#D6B05C] transition-colors">Cookies</Link>
+              <Link to="/privacy" className="hover:text-[#D6B05C] transition-colors" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy</Link>
+              <Link to="/terms" className="hover:text-[#D6B05C] transition-colors" style={{ color: 'inherit', textDecoration: 'none' }}>Terms</Link>
+              <Link to="/cookies" className="hover:text-[#D6B05C] transition-colors" style={{ color: 'inherit', textDecoration: 'none' }}>Cookies</Link>
             </div>
 
             {/* RIGHT: Motto */}

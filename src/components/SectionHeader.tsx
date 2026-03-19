@@ -1,5 +1,4 @@
-import React from 'react';
-import { COLORS } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY } from '../config/themeConfig';
 
 interface SectionHeaderProps {
   eyebrow: string;
@@ -19,22 +18,18 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   maxWidth = '560px'
 }) => {
   return (
-    <div style={{ textAlign: 'left', marginBottom: '42px' }}>
+    <div style={{ textAlign: 'left', marginBottom: '42px', fontFamily: TYPOGRAPHY.fontBody }}>
       <p style={{ 
+        ...TYPOGRAPHY.eyebrow,
         color: COLORS.teal, 
-        fontSize: '11px', 
-        fontWeight: 700, 
-        letterSpacing: '0.15em', 
-        textTransform: 'uppercase',
         marginBottom: '12px'
       }}>
         {eyebrow}
       </p>
       <h2 style={{ 
+        ...TYPOGRAPHY.sectionTitle,
+        fontFamily: TYPOGRAPHY.fontHeading,
         color: isDark ? COLORS.textOnDark : COLORS.textOnLight, 
-        fontWeight: 800, 
-        fontSize: 'clamp(28px, 4.2vw, 38px)', 
-        lineHeight: 1.15, 
         marginBottom: '18px',
         maxWidth: '800px'
       }}>
@@ -42,11 +37,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       </h2>
       {subtitle && (
         <p style={{ 
+          ...TYPOGRAPHY.bodyBase,
           color: isDark ? 'rgba(255,255,255,0.6)' : COLORS.textSub, 
-          fontSize: '15.5px', 
-          lineHeight: 1.65, 
           maxWidth,
-          fontWeight: 400
         }}>
           {subtitle}
         </p>

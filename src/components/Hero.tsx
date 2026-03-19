@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logoSymbol from '../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
-import { ALPHAS, COLORS, GRADIENTS } from '../config/themeConfig';
+import { ALPHAS, COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
 
 const Hero: React.FC = () => {
   return (
@@ -15,6 +15,7 @@ const Hero: React.FC = () => {
         background: GRADIENTS.HERO_BG,
         overflow: 'hidden',
         padding: '14em 2em 2em 2em', // 2.5em gap from edges
+        fontFamily: TYPOGRAPHY.fontBody,
       }}
     >
       <div
@@ -44,15 +45,13 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
+            ...TYPOGRAPHY.heroTitle,
+            fontFamily: TYPOGRAPHY.fontHeading,
             color: COLORS.textOnDark,
-            fontWeight: 500,
-            fontSize: 'clamp(40px, 6.5vw, 42px)',
-            lineHeight: 1.05,
-            letterSpacing: '-0.03em',
             marginBottom: '28px',
           }}
         >
-          Engineering <span style={{ color: COLORS.gold }}>Cyber Resilience</span> for Modern Enterprises
+          Engineering <span style={{ color: COLORS.gold }}>Cyber Resilience</span><br />for Modern Enterprises
         </motion.h1>
 
         <motion.p
@@ -60,13 +59,11 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
           style={{
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: '18px',
-            lineHeight: 1.4,
-            letterSpacing: '-0.03em',
-            maxWidth: '680px',
+            ...TYPOGRAPHY.bodyLarge,
+            color: 'rgba(255,255,255,0.76)',
+            textAlign: 'justify',
+            maxWidth: '100%',
             marginBottom: '42px',
-            fontWeight: 400,
           }}
         >
           QuasarCyberTech delivers cybersecurity consulting and engineering designed for enterprise scale - from advisory and offensive security to managed defense and advanced security platforms.
@@ -91,16 +88,13 @@ const Hero: React.FC = () => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
             style={{
+              ...TYPOGRAPHY.buttonLarge,
               background: 'transparent',
               color: '#FFFFFF',
               border: `1px solid #6B1530`,
               borderRadius: '4px',
               padding: '14px 34px',
-              fontWeight: 700,
-              fontSize: '12px',
-              letterSpacing: '0.05em',
               textDecoration: 'none',
-              textTransform: 'uppercase',
               transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
             }}
           >
@@ -119,16 +113,13 @@ const Hero: React.FC = () => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
             style={{
+              ...TYPOGRAPHY.buttonLarge,
               background: '#6B1530',
               color: '#FFFFFF',
               border: '1px solid transparent',
               borderRadius: '4px',
               padding: '14px 34px',
-              fontWeight: 700,
-              fontSize: '13px',
-              letterSpacing: '0.1em',
               textDecoration: 'none',
-              textTransform: 'uppercase',
               transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
             }}
           >

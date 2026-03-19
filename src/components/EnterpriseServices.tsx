@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { ALPHAS, COLORS, SECTION_BACKGROUNDS, SHADOWS } from '../config/themeConfig';
+import { ALPHAS, COLORS, SECTION_BACKGROUNDS, SHADOWS, TYPOGRAPHY } from '../config/themeConfig';
 
 // Import SVC Images from Set 2
 import svc1 from '../assets/logos copy/SVCs_Set_2/SVC_1.png';
@@ -50,23 +50,89 @@ const services = [
   },
 ];
 
+import SectionHeader from './SectionHeader';
+
 export default function EnterpriseServices() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '80px max(24px, calc((100vw - 1200px) / 2))' }}>
+    <section style={{ 
+      background: SECTION_BACKGROUNDS.LIGHT, 
+      padding: '120px max(24px, calc((100vw - 1200px) / 2))',
+      fontFamily: TYPOGRAPHY.fontBody
+    }}>
+      {/* ─── PLACEMENT 3: TWO-COLUMN SECTION ENTRY ─── */}
       <div style={{ 
-        maxWidth: '1040px', 
-        margin: '0 auto', 
-        textAlign: 'left', 
-        marginBottom: '40px' 
+        display: 'grid', 
+        gridTemplateColumns: '60% 40%', 
+        gap: '48px',
+        alignItems: 'center', 
+        marginBottom: '64px',
+        maxWidth: '1040px',
+        margin: '0 auto 64px auto'
       }}>
-        <h2 style={{ color: COLORS.textOnLight, fontWeight: 900, fontSize: 'clamp(28px, 3.8vw, 38px)', lineHeight: 1.08, marginBottom: '10px' }}>
-          Core <span style={{ color: COLORS.teal }}>Capabilities</span>
-        </h2>
-        <p style={{ color: COLORS.textSub, maxWidth: '640px', fontSize: '15px', lineHeight: 1.7 }}>
-          QuasarCyberTech delivers end-to-end cybersecurity services spanning advisory, engineering, offensive validation, cloud security, and managed defense.
-        </p>
+        <div>
+          <SectionHeader 
+            eyebrow="OUR EXPERTISE"
+            title="CORE"
+            highlight="CAPABILITIES"
+            subtitle="QuasarCyberTech delivers end-to-end cybersecurity services spanning advisory, engineering, offensive validation, cloud security, and managed defense."
+            maxWidth="640px"
+          />
+          <Link 
+            to="/capabilities"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: COLORS.teal,
+              ...TYPOGRAPHY.navLink,
+              fontSize: '14px',
+              textDecoration: 'none',
+              marginTop: '4px',
+              borderBottom: `2px solid ${ALPHAS.teal20}`,
+              paddingBottom: '2px',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = COLORS.burgundy;
+              e.currentTarget.style.borderColor = COLORS.burgundy;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = COLORS.teal;
+              e.currentTarget.style.borderColor = ALPHAS.teal20;
+            }}
+          >
+            Explore All Capabilities <ArrowRight size={16} />
+          </Link>
+        </div>
+        
+        {/* RIGHT COLUMN: Image Zone */}
+        <div style={{
+          width: '100%',
+          height: '240px',
+          background: `linear-gradient(135deg, ${COLORS.deepCyberBlue} 10%, rgba(4,11,29,0.85) 100%)`,
+          borderRadius: '0 0 24px 24px',
+          borderTop: `3px solid ${ALPHAS.teal20}`,
+          overflow: 'hidden',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08)'
+        }}>
+          {/* Placeholder Pattern */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: 'radial-gradient(circle, rgba(43,196,182,0.06) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }} />
+          <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.textMuted, fontSize: '10px' }}>
+              Cybersecurity Team / Technical Assessment
+            </p>
+          </div>
+        </div>
       </div>
 
       <div style={{ 
@@ -128,7 +194,7 @@ export default function EnterpriseServices() {
 
             <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <p style={{ color: COLORS.teal, fontSize: '9px', fontWeight: 700, letterSpacing: '0.15em' }}>
+                <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, fontSize: '9px' }}>
                   SVC.{String(index + 1).padStart(2, '0')}
                 </p>
                 <div style={{ 
@@ -139,10 +205,10 @@ export default function EnterpriseServices() {
                   <ArrowRight size={16} color={COLORS.teal} />
                 </div>
               </div>
-              <h3 style={{ color: COLORS.textOnLight, fontWeight: 700, fontSize: '16px', marginBottom: '10px', lineHeight: 1.3 }}>
+              <h3 style={{ ...TYPOGRAPHY.cardTitle, color: COLORS.textOnLight, fontSize: '16px', marginBottom: '10px', lineHeight: 1.3 }}>
                 {service.title}
               </h3>
-              <p style={{ color: COLORS.textSub, fontSize: '13px', lineHeight: 1.6, marginBottom: '0' }}>
+              <p style={{ ...TYPOGRAPHY.bodySmall, color: COLORS.textSub, lineHeight: 1.6, marginBottom: '0' }}>
                 {service.desc}
               </p>
             </div>
@@ -157,15 +223,12 @@ export default function EnterpriseServices() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '12px',
+            ...TYPOGRAPHY.buttonLarge,
             background: COLORS.burgundy,
             color: '#FFFFFF',
             padding: '16px 42px',
             borderRadius: '4px',
-            fontWeight: 700,
-            fontSize: '14px',
             textDecoration: 'none',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
             transition: 'all 0.3s ease',
             boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
           }}

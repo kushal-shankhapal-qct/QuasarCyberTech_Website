@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInView, motion } from 'framer-motion';
 
-import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, BRAND_CONTROLS } from '../config/themeConfig';
+import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, BRAND_CONTROLS, TYPOGRAPHY } from '../config/themeConfig';
 
 /* ───────── COUNT-UP COMPONENT ───────── */
 const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end: number; suffix: string; label: string; delay: number; duration: number; isDark?: boolean }) => {
@@ -39,17 +39,17 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
         if (suffix === '×7') {
             return (
                 <span className="flex items-center ml-1">
-                    <span className="text-3xl md:text-4xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsSymbolColor }}>
+                    <span style={{ ...TYPOGRAPHY.metricNumber, fontSize: '32px', color: BRAND_CONTROLS.metricsSymbolColor }}>
                         ×
                     </span>
-                    <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsNumberColor }}>
+                    <span style={{ ...TYPOGRAPHY.metricNumber, fontSize: '42px', color: BRAND_CONTROLS.metricsNumberColor }}>
                         7
                     </span>
                 </span>
             );
         }
         return (
-            <span className="text-3xl md:text-4xl font-black tabular-nums leading-none ml-1" style={{ color: BRAND_CONTROLS.metricsSymbolColor }}>
+            <span style={{ ...TYPOGRAPHY.metricNumber, fontSize: '32px', color: BRAND_CONTROLS.metricsSymbolColor, marginLeft: '4px' }}>
                 {suffix}
             </span>
         );
@@ -61,7 +61,7 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
                 <div className="relative mb-2 flex flex-row items-end justify-center">
                     <div className="relative inline-flex flex-col items-center">
                         <div className="flex flex-row items-center">
-                            <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor }}>
+                            <span style={{ ...TYPOGRAPHY.metricNumber, color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor }}>
                                 {end > 999 ? count.toLocaleString() : count}
                             </span>
                             {renderSuffix()}
@@ -82,11 +82,7 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
                 <div
                     className={`mt-6 text-center whitespace-pre-line ${label.includes('Monitoring') ? 'max-w-[120px]' : 'max-w-[150px]'}`}
                     style={{
-                        fontSize: '11px',
-                        fontFamily: 'var(--font-ui)',
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.15em',
+                        ...TYPOGRAPHY.metricLabel,
                         color: isDark ? 'rgba(255,255,255,0.5)' : BRAND_CONTROLS.metricsLabelColor,
                         lineHeight: '1.4'
                     }}

@@ -152,14 +152,15 @@ const Navbar: React.FC = () => {
 
   // ── Column Header with Text-Width Underline ──
   const ColumnHeader = ({ title }: { title: string }) => (
-    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '14px' }}>
+    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '16px' }}>
       <span style={{
           color: NC.dropdown.columnHeader.color,
           fontSize: NC.dropdown.columnHeader.fontSize,
           fontWeight: NC.dropdown.columnHeader.fontWeight,
           letterSpacing: NC.dropdown.columnHeader.letterSpacing,
           textTransform: NC.dropdown.columnHeader.textTransform,
-          marginBottom: '10px',
+          marginBottom: '8px',
+          display: 'inline-block'
       }}>
           {title}
       </span>
@@ -167,6 +168,7 @@ const Navbar: React.FC = () => {
           height: NC.dropdown.columnHeader.separatorHeight,
           width: '100%',
           background: NC.dropdown.columnHeader.separatorColor,
+          display: 'inline-block'
       }} />
     </div>
   );
