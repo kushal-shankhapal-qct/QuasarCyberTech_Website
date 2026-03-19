@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Globe2, ShieldAlert, ArrowRight, Building2, Wifi, Target } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe2, ShieldAlert, ArrowRight, Building2, Wifi } from 'lucide-react';
 import { toast } from 'react-toastify';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -45,8 +45,8 @@ const MaterialInput = ({ label, type = 'text', required = false, placeholder, va
       />
       <label
         className={`absolute left-4 transition-all pointer-events-none font-bold uppercase tracking-widest ${isFocused || hasValue
-          ? 'top-2 text-[9px] text-[var(--brand-accent)]'
-          : 'top-1/2 -translate-y-1/2 text-[11px] text-[var(--text-muted)]'
+            ? 'top-2 text-[9px] text-[var(--brand-accent)]'
+            : 'top-1/2 -translate-y-1/2 text-[11px] text-[var(--text-muted)]'
           }`}
         style={isTextarea && !(isFocused || hasValue) ? { top: '24px', transform: 'none' } : {}}
       >
@@ -178,7 +178,7 @@ function RadarDisplay() {
   }, []);
 
   return (
-    <div className="relative w-full h-[320px] overflow-hidden">
+    <div className="relative w-full h-[320px] rounded-2xl overflow-hidden border border-white/15">
       <canvas ref={canvasRef} className="w-full h-full" style={{ display: 'block' }} />
     </div>
   );
@@ -279,15 +279,11 @@ export default function Contact() {
                 className="p-10 relative overflow-hidden"
                 style={{
                   maxWidth: CARD_MAX_WIDTH,
-                  background: 'linear-gradient(135deg, #0A192F 0%, #112240 50%, #0A192F 100%)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  background: FORM_CARD_BG,
                   borderRadius: CARD_RADIUS,
-                  boxShadow: '0 30px 60px -12px rgba(0,0,0,0.45)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: '0 25px 60px -12px rgba(0,0,0,0.35)',
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
                 <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(#FFF 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white/10 text-white/90 mb-6 relative z-10">
@@ -408,20 +404,22 @@ export default function Contact() {
                   Strategic operations distributed across key technology corridors for localized response and global coverage.
                 </p>
 
-                {/* HQ Information (Minimal Style) */}
+                {/* HQ Card */}
                 <div
-                  className="p-6 mb-4 flex items-center gap-5 transition-colors hover:bg-white/50"
+                  className="p-6 mb-4 flex items-center gap-5"
                   style={{
-                    borderBottom: '1px solid rgba(0,0,0,0.05)',
+                    backgroundColor: `rgba(${CARD_CLAY.bgColor}, ${CARD_CLAY.bgOpacity})`,
+                    boxShadow: `${CARD_CLAY.innerShadow}, ${CARD_CLAY.shadow}`,
+                    borderRadius: '20px',
                   }}
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-[var(--brand-navy)]/5 flex items-center justify-center shrink-0">
-                    <Building2 className="w-7 h-7 text-[var(--brand-navy)]" />
+                  <div className="w-14 h-14 rounded-2xl bg-[var(--brand-accent-soft)] flex items-center justify-center shrink-0">
+                    <Building2 className="w-7 h-7 text-[var(--brand-accent)]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-[17px] font-bold text-[var(--text-primary)] tracking-tight">Nashik — Headquarters</h3>
-                      <span className="px-2 py-0.5 bg-[var(--brand-navy)]/10 text-[var(--brand-navy)] text-[9px] font-black rounded tracking-widest uppercase shrink-0">HQ</span>
+                      <span className="px-2 py-0.5 bg-[var(--brand-accent-soft)] text-[var(--brand-accent)] text-[9px] font-black rounded tracking-widest uppercase shrink-0">HQ</span>
                     </div>
                     <p className="text-[13px] text-[var(--text-muted)] font-medium">
                       #1, State Bank Colony, Indira Nagar, Maharashtra – 422009
@@ -430,17 +428,22 @@ export default function Contact() {
                 </div>
 
                 {/* Satellite locations */}
-                <div className="grid grid-cols-3 gap-4 mb-auto pt-4">
+                <div className="grid grid-cols-3 gap-4 mb-auto">
                   {[
-                    { city: 'Mumbai', label: 'Operations', icon: Building2, color: 'var(--brand-accent)' },
-                    { city: 'Bengaluru', label: 'Engineering', icon: Target, color: 'var(--brand-navy)' },
-                    { city: 'Dallas', label: 'Americas', icon: Wifi, color: 'var(--brand-accent)' },
+                    { city: 'Mumbai', label: 'Operations', icon: Building2 },
+                    { city: 'Bengaluru', label: 'Engineering', icon: Building2 },
+                    { city: 'Dallas', label: 'Americas', icon: Wifi },
                   ].map((loc) => (
                     <div
                       key={loc.city}
-                      className="p-4 flex flex-col items-center text-center gap-2 border-r last:border-0 border-black/5"
+                      className="p-4 flex flex-col items-center text-center gap-2"
+                      style={{
+                        backgroundColor: `rgba(${CARD_CLAY.bgColor}, ${CARD_CLAY.bgOpacity})`,
+                        boxShadow: `${CARD_CLAY.innerShadow}, ${CARD_CLAY.shadow}`,
+                        borderRadius: '18px',
+                      }}
                     >
-                      <loc.icon className="w-5 h-5" style={{ color: loc.color }} />
+                      <loc.icon className="w-5 h-5 text-[var(--brand-accent)]" />
                       <div>
                         <div className="text-[14px] font-black text-[var(--text-primary)] tracking-tight">{loc.city}</div>
                         <div className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-wider">{loc.label}</div>
@@ -473,7 +476,7 @@ export default function Contact() {
                       <div className="w-2.5 h-2.5 rounded-full bg-[#1F6FEB]" />
                       <span className="text-[10px] font-black text-[#555] uppercase tracking-wider">Offices</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/80 shadow-sm border border-black/5">
                       <div className="w-2.5 h-2.5 rounded-full bg-[#3B82F6]" />
                       <span className="text-[10px] font-black text-[#555] uppercase tracking-wider">Clients</span>
                     </div>

@@ -58,7 +58,7 @@ const App: React.FC = () => {
         <main className="min-h-screen font-sans">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<WhoWeAre />} />
+            <Route path="/about" element={<About />} />
             <Route path="/who-we-are" element={<WhoWeAre />} />
             <Route path="/products" element={<Products />} />
             <Route path="/platforms" element={<Platforms />} />

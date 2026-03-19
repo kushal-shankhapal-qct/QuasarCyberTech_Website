@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import fullLogo from '../assets/logos copy/QuasarCyberTech/fulllogo_transparent_nobuffer.png';
+import logoSymbol from '../assets/Logos/icononly_nobuffer_white_fill.png';
+import logoText from '../assets/Logos/Dark_QuasarCyberTech_Text_Only_Logo_Over.png';
 import { navigationConfig } from '../config/navigationConfig';
 import { ALPHAS, COLORS, SHADOWS } from '../config/themeConfig';
 
@@ -77,206 +78,207 @@ const Header: React.FC = () => {
         transition: 'background 0.3s ease, box-shadow 0.3s ease, border-bottom 0.3s ease',
       }}
     >
-      <style>{`@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}`}</style>
       <div
-        style={{
-          maxWidth: '1320px',
-          margin: '0 auto',
-          padding: '0 24px',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px',
-        }}
+        className="max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-16"
       >
-        <Link to="/" aria-label="QuasarCyberTech Home" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={fullLogo} alt="QuasarCyberTech" style={{ height: '38px', width: 'auto' }} />
-        </Link>
+        <div className="flex items-center w-full pointer-events-none relative">
 
-        <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: '14px' }}>
+          {/* Left Pod: Logo */}
           <div
+            className="flex-none"
             style={{
-              background: ALPHAS.deepBlueGlass,
-              border: `1px solid ${ALPHAS.white08}`,
-              borderRadius: '100px',
-              padding: '0 28px',
-              height: '42px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
+              position: 'relative',
+              width: headerDesignVars.logoSection.width,
+              height: headerDesignVars.logoSection.height,
+              marginTop: headerDesignVars.logoSection.marginTop,
+              marginBottom: headerDesignVars.logoSection.marginBottom,
+              marginLeft: headerDesignVars.logoSection.marginLeft,
+              marginRight: headerDesignVars.logoSection.marginRight,
+              paddingTop: headerDesignVars.logoSection.paddingTop,
+              paddingBottom: headerDesignVars.logoSection.paddingBottom,
+              paddingLeft: headerDesignVars.logoSection.paddingLeft,
+              paddingRight: headerDesignVars.logoSection.paddingRight,
+              left: headerDesignVars.logoSection.offsetX,
+              top: headerDesignVars.logoSection.offsetY,
+              transform: `scale(${headerDesignVars.logoSection.scale || 1})`,
+              transformOrigin: 'top left'
             }}
           >
-            {navMenus.map((menu) => {
-              const hasDropdown = Boolean(menu.subItems?.length || menu.megaMenuGroups?.length);
-              const active = isActive(menu.href);
-              return (
-                <div
-                  key={menu.id}
-                  onMouseEnter={() => hasDropdown && open(menu.id)}
-                  onMouseLeave={() => hasDropdown && close()}
-                  style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center' }}
-                >
-                  <Link
-                    to={menu.href}
-                    style={{
-                      color: active ? COLORS.gold : COLORS.textOnDark,
-                      opacity: active ? 1 : 0.82,
-                      fontSize: '14px',
-                      fontWeight: 500,
-                      padding: '0 10px',
-                      textDecoration: 'none',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      height: '100%',
-                    }}
-                  >
-                    {menu.label}
-                    {hasDropdown && <ChevronDown size={14} />}
-                  </Link>
-                  <span
-                    style={{
-                      position: 'absolute',
-                      left: '10px',
-                      right: '10px',
-                      bottom: '6px',
-                      height: '1.5px',
-                      background: COLORS.burgundy,
-                      transformOrigin: 'left',
-                      transform: active || openMenu === menu.id ? 'scaleX(1)' : 'scaleX(0)',
-                      transition: 'transform 0.2s ease',
-                    }}
-                  />
+            <Link
+              to="/"
+              className="flex flex-col items-center group pointer-events-auto relative"
+            >
+              <img
+                src={logoSymbol}
+                alt="Quasar CyberTech Icon"
+                className="object-contain drop-shadow-sm transition-all duration-500 ease-in-out"
+                style={{
+                  width: `clamp(${headerDesignVars.logoSection.iconWidthMobile}, 5vw, ${headerDesignVars.logoSection.iconWidth})`,
+                  height: `clamp(${headerDesignVars.logoSection.iconHeightMobile}, 5vw, ${headerDesignVars.logoSection.iconHeight})`,
+                }}
+              />
+              <div
+                className={`absolute left-1/2 -translate-x-1/2 overflow-hidden transition-all duration-500 ease-in-out flex justify-center w-max ${isScrolled ? 'max-h-0 opacity-0' : 'max-h-32 opacity-100'}`}
+                style={{
+                  top: '105%',
+                  marginTop: headerDesignVars.logoSection.textMarginTop,
+                  transform: isScrolled
+                    ? `translateX(-50%) translateY(${headerDesignVars.logoSection.textHideOffset})`
+                    : 'translateX(-50%) translateY(0)'
+                }}
+              >
+                <img
+                  src={logoText}
+                  alt="QuasarCyberTech Text"
+                  className="w-auto object-contain"
+                  style={{ height: headerDesignVars.logoSection.textHeight }}
+                />
+              </div>
+            </Link>
+          </div>
 
-                  {menu.megaMenuGroups && openMenu === menu.id && (
-                    <div
-                      onMouseEnter={() => open(menu.id)}
-                      onMouseLeave={close}
-                      style={{
-                        position: 'fixed',
-                        top: '68px',
-                        left: 0,
-                        right: 0,
-                        background: `rgb(11, 31, 59)`,
-                        borderTop: `1px solid ${ALPHAS.teal20}`,
-                        borderBottom: `1px solid ${ALPHAS.teal12}`,
-                        boxShadow: SHADOWS.dropdown,
-                        padding: '36px max(48px, calc((100vw - 1200px) / 2))',
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 1fr)',
-                        gap: '40px',
-                        animation: 'fadeSlideDown 0.18s ease',
-                        zIndex: 999,
-                      }}
-                    >
-                      {menu.megaMenuGroups.map((group) => (
-                        <div key={group.title}>
-                          <h4
-                            style={{
-                              color: COLORS.teal,
-                              fontSize: '11px',
-                              fontWeight: 700,
-                              letterSpacing: '0.14em',
-                              textTransform: 'uppercase',
-                              marginBottom: '18px',
-                              paddingBottom: '10px',
-                              borderBottom: `1px solid ${ALPHAS.teal20}`,
-                            }}
-                          >
-                            {group.title}
-                          </h4>
-                          {group.items.map((sub) => (
-                            <Link
-                              key={sub.href}
-                              to={sub.href}
-                              style={{
-                                display: 'block',
-                                color: COLORS.textOnDark,
-                                fontSize: '13px',
-                                fontWeight: 500,
-                                padding: '7px 0',
-                                opacity: 0.82,
-                                textDecoration: 'none',
-                                transition: 'color 0.15s, padding-left 0.15s, opacity 0.15s',
-                              }}
-                              onMouseEnter={(event) => {
-                                event.currentTarget.style.color = COLORS.teal;
-                                event.currentTarget.style.opacity = '1';
-                                event.currentTarget.style.paddingLeft = '6px';
-                              }}
-                              onMouseLeave={(event) => {
-                                event.currentTarget.style.color = COLORS.textOnDark;
-                                event.currentTarget.style.opacity = '0.82';
-                                event.currentTarget.style.paddingLeft = '0px';
-                              }}
-                            >
-                              {sub.label}
-                            </Link>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+          {/* Middle Pod: Desktop Navigation */}
+          <div
+            className="hidden lg:flex flex-1 justify-center pointer-events-none"
+            style={{
+              marginTop: headerDesignVars.navSection.marginTop || '0px',
+              position: 'relative',
+              left: headerDesignVars.navSection.offsetX,
+              transform: `scale(${headerDesignVars.navSection.scale || 1})`,
+              transformOrigin: 'center'
+            }}
+          >
+            <motion.nav
+              className="flex items-center gap-8 pointer-events-auto relative z-10"
+              style={{
+                padding: `${headerDesignVars.navSection.paddingY} ${headerDesignVars.navSection.paddingX}`,
+              }}
+            >
+              {/* The Background Backdrop Div that sits BEHIND the middle nav items to NOT swallow backdrop-filters of dropdowns */}
+              <div
+                className="absolute inset-0 -z-10 overflow-hidden"
+                style={{
+                  ...(isSolid ? baseGlassStyle : transparentStyle),
+                  borderRadius: currentPodRadius,
+                  transitionProperty: 'all',
+                  transitionDuration: headerDesignVars.interactions.hideSpeed,
+                }}
+              />
 
-                  {menu.subItems && openMenu === menu.id && (
-                    <div
-                      onMouseEnter={() => open(menu.id)}
-                      onMouseLeave={close}
-                      style={{
-                        position: 'absolute',
-                        top: '58px',
-                        left: 0,
-                        minWidth: '320px',
-                        background: COLORS.deepCyberBlue,
-                        borderTop: `1px solid ${ALPHAS.teal20}`,
-                        border: `1px solid ${ALPHAS.teal12}`,
-                        borderRadius: '0 0 14px 14px',
-                        boxShadow: SHADOWS.dropdown,
-                        padding: '12px 14px',
-                        zIndex: 999,
-                      }}
+              {navigationConfig.map((link) => {
+                const isActive = location.pathname === link.href || (link.href !== '/' && location.pathname.startsWith(link.href));
+                return (
+                  <div key={link.href} className="relative group/navitem flex items-center">
+                    <Link
+                      to={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`md-typescale-label-large flex items-center gap-1.5 ${isActive ? 'text-[var(--brand-navy)]' : 'text-[#0F172A]'} group-hover/navitem:text-[var(--brand-navy)] transition-colors duration-200 relative group/linktext whitespace-nowrap`}
                     >
-                      {menu.subItems.map((sub) =>
-                        sub.isExternal ? (
-                          <a
-                            key={sub.href}
-                            href={sub.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              display: 'block',
-                              color: COLORS.textOnDark,
-                              fontSize: '13px',
-                              textDecoration: 'none',
-                              opacity: 0.86,
-                              padding: '8px 4px',
-                            }}
-                          >
-                            {sub.label}
-                          </a>
-                        ) : (
-                          <Link
-                            key={sub.href}
-                            to={sub.href}
-                            style={{
-                              display: 'block',
-                              color: COLORS.textOnDark,
-                              fontSize: '13px',
-                              textDecoration: 'none',
-                              opacity: 0.86,
-                              padding: '8px 4px',
-                            }}
-                          >
-                            {sub.label}
-                          </Link>
-                        )
+                      <span className="relative">
+                        {link.label}
+                        {/* Active Underline Effect just under the text span */}
+                        <span
+                          className={`absolute -bottom-1 left-0 w-full ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover/navitem:scale-x-100'} origin-left transition-transform duration-300`}
+                          style={{
+                            height: headerDesignVars.navSection.underlineThickness || '2px',
+                            backgroundColor: 'var(--brand-navy)'
+                          }}
+                        />
+                      </span>
+                      {link.subItems && (
+                        <ChevronDown size={14} className="opacity-70 group-hover/navitem:rotate-180 transition-transform duration-300" />
                       )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                    </Link>
+
+                    {/* Invisible solid bridge to ensure mouse never drops Hover state when crossing padding gaps */}
+                    {link.subItems && <div className="absolute top-[100%] left-0 w-full h-[1.5rem] bg-transparent z-[60]" />}
+
+                    {/* Mega Menu Dropdown */}
+                    {link.subItems && (
+                      <div
+                        className={`absolute top-[calc(100%+1.5rem)] ${(link as any).dropdownOffset || 'left-1/2 -translate-x-1/2'} opacity-0 pointer-events-none group-hover/navitem:opacity-100 group-hover/navitem:pointer-events-auto translate-y-4 group-hover/navitem:translate-y-0 z-50 p-4 ${(link as any).dropdownWidth || 'w-[400px]'} grid ${(link as any).dropdownCols || 'grid-cols-2'} gap-3 overflow-hidden`}
+                        style={{
+                          backgroundColor: `rgba(${headerDesignVars.dropdowns.clay.bgColor}, ${headerDesignVars.dropdowns.clay.bgOpacity})`,
+                          backdropFilter: `blur(${headerDesignVars.dropdowns.clay.blur})`,
+                          WebkitBackdropFilter: `blur(${headerDesignVars.dropdowns.clay.blur})`,
+                          borderRadius: headerDesignVars.dropdowns.borderRadius,
+                          boxShadow: `${headerDesignVars.dropdowns.clay.innerShadow}, ${headerDesignVars.dropdowns.shadow}`,
+                          transitionProperty: 'all',
+                          transitionDuration: headerDesignVars.dropdowns.transitionSpeed,
+                          transitionTimingFunction: 'ease-out',
+                        }}
+                      >
+                        {/* Active dropdown horizontal top accent line stretched past border */}
+                        <div
+                          className="absolute -top-[1px] -left-[1px] -right-[1px] pointer-events-none z-10"
+                          style={{
+                            height: headerDesignVars.dropdowns.topAccentThickness || '2px',
+                            backgroundColor: headerDesignVars.global.accentColor || '#7A0F2A'
+                          }}
+                        />
+
+
+                        {link.subItems.map(subItem => {
+                          const content = (
+                            <>
+                              {subItem.icon ? (
+                                <div className="mb-3 h-8 w-full flex items-center justify-start">
+                                  <img src={subItem.icon} className="h-full w-auto object-contain max-w-full" alt={subItem.label} />
+                                </div>
+                              ) : subItem.LucideIcon ? (
+                                <div
+                                  className="mb-3 w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300 border"
+                                  style={{
+                                    backgroundColor: `${headerDesignVars.dropdowns.iconHoverColor}0D`, // 5% opacity
+                                    borderColor: `${headerDesignVars.dropdowns.iconHoverColor}1A`, // 10% opacity
+                                    color: headerDesignVars.dropdowns.iconColor
+                                  }}
+                                >
+                                  <subItem.LucideIcon size={20} strokeWidth={1.5} />
+                                </div>
+                              ) : null}
+
+                              <h4
+                                className="md-typescale-label-medium text-slate-900 mb-1 transition-colors tracking-tight"
+                                style={{
+                                  '--hover-color': headerDesignVars.dropdowns.iconHoverColor
+                                } as React.CSSProperties}
+                              >
+                                {subItem.label}
+                              </h4>
+                              <p className="md-typescale-body-medium text-slate-600 font-medium leading-relaxed drop-shadow-sm">
+                                {subItem.desc}
+                              </p>
+                            </>
+                          );
+
+                          return subItem.isExternal ? (
+                            <a
+                              key={subItem.href}
+                              href={subItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex flex-col group/subitem hover:bg-slate-50 p-3 -m-3 rounded-xl transition-colors"
+                            >
+                              {content}
+                            </a>
+                          ) : (
+                            <Link
+                              key={subItem.href}
+                              to={subItem.href}
+                              className="flex flex-col group/subitem hover:bg-slate-50 p-3 -m-3 rounded-xl transition-colors"
+                            >
+                              {content}
+                            </Link>
+                          );
+                        })}
+
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </motion.nav>
           </div>
         </nav>
 
@@ -284,28 +286,36 @@ const Header: React.FC = () => {
           <Link
             to="/contact"
             style={{
-              background: COLORS.burgundy,
-              color: COLORS.textOnDark,
-              borderRadius: '0 0 10px 10px',
-              borderTop: `2px solid ${ALPHAS.gold30}`,
-              padding: '10px 22px',
-              fontWeight: 700,
-              fontSize: '13px',
-              textDecoration: 'none',
-              transition: 'background 0.2s ease, transform 0.2s ease',
-            }}
-            onMouseEnter={(event) => {
-              event.currentTarget.style.background = COLORS.burgundyHover;
-              event.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(event) => {
-              event.currentTarget.style.background = COLORS.burgundy;
-              event.currentTarget.style.transform = 'translateY(0)';
+              marginTop: headerDesignVars.contactSection.marginTop || '0px',
+              position: 'relative',
+              left: headerDesignVars.contactSection.offsetX,
+              transform: `scale(${headerDesignVars.contactSection.scale || 1})`,
+              transformOrigin: 'center'
             }}
           >
-            Contact Us
-          </Link>
-        </div>
+            <Link
+              to="/contact"
+              className="md-typescale-label-large relative pointer-events-auto overflow-hidden flex items-center transition-all duration-300 text-white"
+              style={{
+                paddingLeft: headerDesignVars.contactSection.paddingX || '2rem',
+                paddingRight: headerDesignVars.contactSection.paddingX || '2rem',
+                paddingTop: headerDesignVars.contactSection.paddingY || headerDesignVars.navSection.paddingY || '0.8rem',
+                paddingBottom: headerDesignVars.contactSection.paddingY || headerDesignVars.navSection.paddingY || '0.8rem',
+                borderRadius: currentPodRadius,
+              }}
+            >
+              {/* Button Backdrop that vanishes */}
+              <div
+                className="absolute inset-0 -z-10 bg-[#8B1E3F] transition-all duration-400 ease-out"
+                style={{
+                  opacity: 1, // Button should be persistent
+                  borderTop: isFlush ? `${headerDesignVars.contactSection.accentLineThickness || '2px'} solid ${headerDesignVars.contactSection.accentLineColor || '#FFFFFF'}` : 'none',
+                  boxShadow: (isScrolled || isHovered) ? headerDesignVars.visuals.glassShadow : 'none',
+                }}
+              />
+              Contact Us
+            </Link>
+          </div>
 
         <button
           className="lg:hidden"

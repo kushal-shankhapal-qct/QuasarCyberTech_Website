@@ -485,9 +485,7 @@ export default function WhoWeAre() {
                         </motion.div>
                     </div>
                 </section>
-
             </main>
-
             <Footer />
         </div>
     );
