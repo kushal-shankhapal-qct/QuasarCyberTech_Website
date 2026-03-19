@@ -11,19 +11,19 @@ const Hero: React.FC = () => {
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start', // Move down
         background: GRADIENTS.HERO_BG,
         overflow: 'hidden',
-        padding: '68px max(24px, calc((100vw - 1200px) / 2)) 60px',
+        padding: '14em 2em 2em 2em', // 2.5em gap from edges
       }}
     >
       <div
         style={{
           position: 'absolute',
-          right: '-8%',
+          right: '-23.5%',
           top: '44%',
-          transform: 'translateY(-50%)',
-          width: 'min(52vw, 680px)',
+          transform: 'translateY(-45%)',
+          width: 'min(52vw, 560px)',
           aspectRatio: '1 / 1',
           pointerEvents: 'none',
           opacity: 0.88,
@@ -45,11 +45,11 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
             color: COLORS.textOnDark,
-            fontWeight: 800,
-            fontSize: 'clamp(34px, 5vw, 58px)',
-            lineHeight: 1.08,
-            letterSpacing: '-0.02em',
-            marginBottom: '20px',
+            fontWeight: 500,
+            fontSize: 'clamp(40px, 6.5vw, 42px)',
+            lineHeight: 1.05,
+            letterSpacing: '-0.03em',
+            marginBottom: '28px',
           }}
         >
           Engineering <span style={{ color: COLORS.gold }}>Cyber Resilience</span> for Modern Enterprises
@@ -60,11 +60,13 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
           style={{
-            color: COLORS.textMuted,
-            fontSize: '17px',
-            lineHeight: 1.7,
-            maxWidth: '640px',
-            marginBottom: '34px',
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: '18px',
+            lineHeight: 1.4,
+            letterSpacing: '-0.03em',
+            maxWidth: '680px',
+            marginBottom: '42px',
+            fontWeight: 400,
           }}
         >
           QuasarCyberTech delivers cybersecurity consulting and engineering designed for enterprise scale - from advisory and offensive security to managed defense and advanced security platforms.
@@ -74,39 +76,60 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}
         >
           <Link
             to="/capabilities"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(107, 21, 48, 0.12)';
+              e.currentTarget.style.borderColor = '#8B1E3F';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.borderColor = '#6B1530';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
             style={{
               background: 'transparent',
-              color: COLORS.gold,
-              border: `1px solid ${ALPHAS.burgundy50}`,
-              borderTop: `2px solid ${COLORS.gold}`,
-              borderRadius: '0 0 10px 10px',
-              padding: '13px 28px',
+              color: '#FFFFFF',
+              border: `1px solid #6B1530`,
+              borderRadius: '4px',
+              padding: '14px 34px',
               fontWeight: 700,
               fontSize: '12px',
-              letterSpacing: '0.09em',
-              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
               textDecoration: 'none',
+              textTransform: 'uppercase',
+              transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
             }}
           >
             Explore Capabilities
           </Link>
           <Link
             to="/contact"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#8B1E3F';
+              e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.3)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#6B1530';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
             style={{
-              background: COLORS.burgundy,
-              color: COLORS.textOnDark,
-              borderRadius: '0 0 10px 10px',
-              borderTop: `2px solid ${ALPHAS.gold40}`,
-              padding: '13px 28px',
+              background: '#6B1530',
+              color: '#FFFFFF',
+              border: '1px solid transparent',
+              borderRadius: '4px',
+              padding: '14px 34px',
               fontWeight: 700,
-              fontSize: '12px',
-              letterSpacing: '0.09em',
-              textTransform: 'uppercase',
+              fontSize: '13px',
+              letterSpacing: '0.1em',
               textDecoration: 'none',
+              textTransform: 'uppercase',
+              transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
             }}
           >
             Talk to an Expert

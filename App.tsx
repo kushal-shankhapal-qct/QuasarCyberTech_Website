@@ -44,6 +44,9 @@ import NotFound from './src/pages/NotFound';
 
 const App: React.FC = () => {
   React.useEffect(() => {
+    // Force scroll to top on load
+    window.scrollTo(0, 0);
+    
     const theme = (themeConfig.themes as any)[themeConfig.activeTheme];
     if (theme) {
       Object.keys(theme).forEach(key => {
@@ -63,23 +66,23 @@ const App: React.FC = () => {
             <Route path="/products" element={<Products />} />
             <Route path="/platforms" element={<Platforms />} />
 
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/application-security" element={<ApplicationSecurity />} />
-            <Route path="/services/mobile-security" element={<MobileSecurity />} />
-            <Route path="/services/network-security" element={<NetworkSecurity />} />
-            <Route path="/services/cloud-security" element={<CloudSecurity />} />
-            <Route path="/services/red-team-adversary-simulation" element={<RedTeamAdversarySimulation />} />
-            <Route path="/services/managed-security-operations" element={<ManagedSecurityOperations />} />
-            <Route path="/services/incident-response" element={<IncidentResponse />} />
-            <Route path="/services/risk-compliance" element={<RiskCompliance />} />
-            <Route path="/services/architecture-engineering" element={<ArchitectureEngineering />} />
-            <Route path="/services/digital-risk-monitoring" element={<DigitalRiskMonitoring />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/resources/blogs" element={<Blogs />} />
-            <Route path="/resources/case-studies" element={<CaseStudies />} />
-            <Route path="/resources/advisories" element={<Advisories />} />
-            <Route path="/resources/infosec-dictionary" element={<InfosecDictionary />} />
-            <Route path="/resources/security-mindmap" element={<SecurityMindmap />} />
+            <Route path="/capabilities" element={<Services />} />
+            <Route path="/capabilities/application-security" element={<ApplicationSecurity />} />
+            <Route path="/capabilities/mobile-security" element={<MobileSecurity />} />
+            <Route path="/capabilities/network-security" element={<NetworkSecurity />} />
+            <Route path="/capabilities/cloud-security" element={<CloudSecurity />} />
+            <Route path="/capabilities/red-team-adversary-simulation" element={<RedTeamAdversarySimulation />} />
+            <Route path="/capabilities/managed-security-operations" element={<ManagedSecurityOperations />} />
+            <Route path="/capabilities/incident-response" element={<IncidentResponse />} />
+            <Route path="/capabilities/risk-compliance" element={<RiskCompliance />} />
+            <Route path="/capabilities/architecture-engineering" element={<ArchitectureEngineering />} />
+            <Route path="/capabilities/digital-risk-monitoring" element={<DigitalRiskMonitoring />} />
+            <Route path="/insights" element={<Resources />} />
+            <Route path="/insights/blogs" element={<Blogs />} />
+            <Route path="/insights/case-studies" element={<CaseStudies />} />
+            <Route path="/insights/advisories" element={<Advisories />} />
+            <Route path="/insights/infosec-dictionary" element={<InfosecDictionary />} />
+            <Route path="/insights/security-mindmap" element={<SecurityMindmap />} />
 
             <Route path="/industries" element={<Industries />} />
             <Route path="/industries/bfsi" element={<BFSI />} />

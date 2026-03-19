@@ -8,7 +8,7 @@ export default function HomeFinalCTA() {
     return (
         <section className="relative overflow-hidden text-left"
             style={{
-                background: 'radial-gradient(circle at 50% 20%, rgba(56,8,26,0.9) 0%, #040B1D 60%)',
+                background: GRADIENTS.HERO_BG,
                 paddingTop: themeConfig.cta?.paddingY || '100px',
                 paddingBottom: themeConfig.cta?.paddingY || '100px',
             }}>
@@ -18,15 +18,15 @@ export default function HomeFinalCTA() {
 
             <div className="max-w-[1440px] relative z-10 mx-auto"
                 style={{
-                    paddingLeft: themeConfig.global.sectionMarginLeft || '3rem',
-                    paddingRight: themeConfig.global.sectionMarginRight || '3rem',
+                    paddingLeft: 'max(48px, calc((100vw - 1200px) / 2))',
+                    paddingRight: 'max(48px, calc((100vw - 1200px) / 2))',
                 }}>
                 {/* Eyebrow */}
                 <p style={{ color: '#D6B05C', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
                     Ready to Begin?
                 </p>
                 <h2
-                    className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl mx-auto"
+                    className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl"
                     style={{
                         fontFamily: 'var(--font-heading)',
                         fontSize: '44px',
@@ -38,7 +38,7 @@ export default function HomeFinalCTA() {
                 </h2>
 
                 <p
-                    className="mb-14 max-w-2xl mx-auto font-medium leading-relaxed"
+                    className="mb-14 max-w-2xl font-medium leading-relaxed"
                     style={{
                         fontFamily: 'var(--font-body)',
                         fontSize: '17px',
@@ -48,17 +48,17 @@ export default function HomeFinalCTA() {
                     Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <div className="flex flex-col sm:flex-row items-center justify-start gap-6">
                     <Link to="/contact">
                         <button style={{
                             background: '#6B1530',
                             color: '#FFFFFF',
-                            padding: '14px 32px',
+                            padding: '14px 34px',
                             fontWeight: 700,
                             fontSize: '13px',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase',
-                            borderRadius: '4px 4px 12px 12px',
+                            borderRadius: '4px',
                             border: 'none',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
@@ -78,22 +78,24 @@ export default function HomeFinalCTA() {
                     <Link to="/capabilities">
                         <button style={{
                             background: 'transparent',
-                            color: '#6B1530',
-                            padding: '14px 32px',
+                            color: '#FFFFFF',
+                            padding: '14px 34px',
                             fontWeight: 700,
                             fontSize: '13px',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase',
-                            borderRadius: '4px 4px 12px 12px',
+                            borderRadius: '4px',
                             border: '1px solid #6B1530',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'rgba(107,21,48,0.1)';
+                            e.currentTarget.style.background = 'rgba(107,21,48,0.12)';
+                            e.currentTarget.style.borderColor = '#8B1E3F';
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.borderColor = '#6B1530';
                         }}
                         >
                             Explore Capabilities

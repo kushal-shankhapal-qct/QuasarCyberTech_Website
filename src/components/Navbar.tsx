@@ -44,6 +44,10 @@ const Navbar: React.FC = () => {
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastScrollY = useRef(0);
+  
+  // ── Refs for positioning ──
+  const navRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [dropdownPos, setDropdownPos] = useState<number>(0);
 
   // ── Scroll ──
   useEffect(() => {
@@ -53,9 +57,14 @@ const Navbar: React.FC = () => {
       setScrolled(y > NC.scroll.logoTextHideAt);
       if (NC.scroll.revealOnScrollUp && y > 200) {
         if (y > lastScrollY.current && !isHovered) {
-          setIsVisible(false);
-          setIsMobileOpen(false);
+          // Delayed hide logic
+          if (closeTimer.current) clearTimeout(closeTimer.current);
+          closeTimer.current = setTimeout(() => {
+            setIsVisible(false);
+            setIsMobileOpen(false);
+          }, 2000); // 2s delay before hiding on scroll
         } else {
+          if (closeTimer.current) clearTimeout(closeTimer.current);
           setIsVisible(true);
         }
       } else {
@@ -81,18 +90,45 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     if (!NC.scroll.autoHideOnHomepage && isHomepage) return;
     let tid: ReturnType<typeof setTimeout>;
-    if (scrolled && isVisible && !isHovered) {
+    // Check if we should autohide (scrolled, visible, not hovered, not mobile)
+    if (scrolled && isVisible && !isHovered && !isMobileOpen) {
       tid = setTimeout(() => {
-        if (!isHovered) { setIsVisible(false); setIsMobileOpen(false); }
-      }, NC.scroll.autoHideDelay);
+        if (!isHovered) {
+          setIsVisible(false);
+          setIsMobileOpen(false);
+        }
+      }, NC.scroll.autoHideDelay || 2000); 
     }
     return () => clearTimeout(tid);
-  }, [scrolled, isVisible, isHovered, isHomepage]);
+  }, [scrolled, isVisible, isHovered, isHomepage, isMobileOpen]);
 
-  // ── Dropdown open/close ──
+  // ── Calculate Dropdown Left ──
+  const updateDropdownPos = (id: string) => {
+    const el = navRefs.current[id];
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    
+    // Choose width based on menu type
+    let widthStr = NC.platformsMenu.width;
+    if (id === 'industries') widthStr = NC.industriesMenu.width;
+    if (id === 'company') widthStr = NC.companyMenu.width;
+    if (id === 'insights') widthStr = '220px'; 
+
+    const wNum = parseInt(widthStr);
+    
+    // Align left edge of dropdown with left edge of trigger text
+    const targetLeft = rect.left;
+    const maxL = window.innerWidth - wNum - 16;
+    
+    // For standard dropdowns, keep exactly below text
+    // (Special case for capabilities handled in render)
+    setDropdownPos(Math.min(targetLeft, maxL));
+  };
+
   const openDropdown = (id: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpenMenu(id);
+    updateDropdownPos(id);
   };
   const closeDropdown = () => {
     closeTimer.current = setTimeout(() => setOpenMenu(null), NC.dropdown.closeDelay);
@@ -114,37 +150,77 @@ const Navbar: React.FC = () => {
   const isActivePath = (href: string) =>
     location.pathname === href || (href !== '/' && location.pathname.startsWith(href));
 
-  // ── Active indicator ──
-  const renderActiveIndicator = () => {
-    const ai = NC.pill.link.activeIndicator;
-    if (ai.type === 'dot') {
-      return (
-        <span style={{
-          position: 'absolute',
-          bottom: '6px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: ai.dotSize,
-          height: ai.dotSize,
-          borderRadius: '50%',
-          background: ai.dotColor,
-        }} />
-      );
-    }
-    if (ai.type === 'line') {
-      return (
-        <span style={{
-          position: 'absolute',
-          bottom: '6px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: ai.lineWidth,
-          height: ai.lineHeight,
-          background: ai.lineColor,
-        }} />
-      );
-    }
-    return null;
+  // ── Column Header with Text-Width Underline ──
+  const ColumnHeader = ({ title }: { title: string }) => (
+    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '14px' }}>
+      <span style={{
+          color: NC.dropdown.columnHeader.color,
+          fontSize: NC.dropdown.columnHeader.fontSize,
+          fontWeight: NC.dropdown.columnHeader.fontWeight,
+          letterSpacing: NC.dropdown.columnHeader.letterSpacing,
+          textTransform: NC.dropdown.columnHeader.textTransform,
+          marginBottom: '10px',
+      }}>
+          {title}
+      </span>
+      <div style={{
+          height: NC.dropdown.columnHeader.separatorHeight,
+          width: '100%',
+          background: NC.dropdown.columnHeader.separatorColor,
+      }} />
+    </div>
+  );
+  // ── Dropdown Item Renderer ──
+  const renderDropdownItem = (sub: SubItem, hideIcon = false) => {
+    const dItem = NC.dropdown.item;
+    const isQstellar = sub.label.toLowerCase().includes('qstellar');
+    const isQpulseOrQleap = sub.label.toLowerCase().includes('qpulse') || sub.label.toLowerCase().includes('qleap');
+
+    return (
+      <Link
+        key={sub.href}
+        to={sub.href}
+        target={sub.isExternal ? '_blank' : undefined}
+        rel={sub.isExternal ? 'noopener noreferrer' : undefined}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          padding: `${dItem.paddingTop} 0`,
+          color: dItem.color,
+          textDecoration: 'none',
+          transition: `color ${dItem.transitionDuration}, padding-left ${dItem.transitionDuration}`,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = dItem.colorHover;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = dItem.color;
+        }}
+      >
+        {!hideIcon && (sub.icon ? (
+          <div style={{ 
+            width: isQstellar ? '32px' : isQpulseOrQleap ? '36px' : '28px', 
+            height: isQstellar ? '32px' : isQpulseOrQleap ? '36px' : '28px', 
+            background: isQstellar ? '#FFFFFF' : 'transparent',
+            borderRadius: isQstellar ? '6px' : '0px',
+            padding: isQstellar ? '4px' : '0px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
+          }}>
+            <img src={sub.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 1 }} />
+          </div>
+        ) : sub.LucideIcon ? (
+          <sub.LucideIcon size={18} color={NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />
+        ) : null)}
+        <div style={{ fontSize: dItem.fontSize, fontWeight: '500', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {sub.label}
+          {sub.isExternal && <span style={{ fontSize: '10px', opacity: 0.4 }}>↗</span>}
+        </div>
+      </Link>
+    );
   };
 
   // ── Dropdown accent line ──
@@ -155,17 +231,9 @@ const Navbar: React.FC = () => {
       height: NC.dropdown.topAccentHeight,
       background: NC.dropdown.topAccentColor,
       opacity: NC.dropdown.topAccentOpacity,
+      zIndex: 10,
     }} />
   );
-
-  // ── Link border radius based on position ──
-  const getLinkRadius = (index: number, total: number) => {
-    const L = NC.pill.link;
-    if (total === 1) return NC.pill.borderRadius;
-    if (index === 0) return L.borderRadiusFirst;
-    if (index === total - 1) return L.borderRadiusLast;
-    return L.borderRadiusMiddle;
-  };
 
   // ════════════════════════════════════════════════════════════════════════════
   return (
@@ -178,14 +246,14 @@ const Navbar: React.FC = () => {
         left: 0,
         right: 0,
         zIndex: NC.wrapper.zIndex,
-        // FIX 4: ALWAYS transparent — never changes
         background: NC.wrapper.background,
         backdropFilter: 'none',
         WebkitBackdropFilter: 'none',
         border: 'none',
         boxShadow: 'none',
-        // Fixed padding — never shifts
-        padding: NC.wrapper.padding,
+        paddingTop: (NC.wrapper as any).paddingTop || '18px',
+        paddingLeft: 'max(48px, calc((100vw - 1200px) / 2))',
+        paddingRight: 'max(48px, calc((100vw - 1200px) / 2))',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
@@ -197,61 +265,75 @@ const Navbar: React.FC = () => {
     >
       <style>{`@keyframes fadeSlideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}`}</style>
 
-      {/* ═══════════════ ZONE 1: LOGO ═══════════════ */}
-      <Link
-        to="/"
-        aria-label="QuasarCyberTech Home"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          textDecoration: 'none',
-          flexShrink: 0,
-          zIndex: 10,
-        }}
-      >
-        {/* FIX 6: Icon in 46px container — vertical center matches pill */}
-        <div style={{
-          height: NC.logoIcon.containerHeight,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}>
-          <img
-            src={logoIcon}
-            alt="QuasarCyberTech"
-            style={{
-              height: NC.logoIcon.height,
-              width: NC.logoIcon.width,
-              opacity: NC.logoIcon.opacity,
-            }}
-          />
-        </div>
-        {/* FIX 5+6: Text below 46px container — collapses independently, icon never moves */}
-        <div style={{
-          overflow: 'hidden',
-          maxHeight: scrolled ? '0px' : '28px',
-          opacity: scrolled ? 0 : NC.logoText.opacity,
-          transition: `max-height ${NC.logoText.transitionDuration} ${NC.logoText.transitionEasing}, opacity ${NC.logoText.transitionDuration} ${NC.logoText.transitionEasing}, margin-top ${NC.logoText.transitionDuration} ${NC.logoText.transitionEasing}`,
-          marginTop: scrolled ? '0px' : NC.logoText.marginTop,
-        }}>
-          <img
-            src={logoTextImg}
-            alt="QuasarCyberTech"
-            style={{
-              height: NC.logoText.height,
-              width: NC.logoText.width,
-              display: 'block',
-            }}
-          />
-        </div>
-      </Link>
+      <div style={{
+        transform: `translate(${NC.wrapper.logoContainerNudgeX || '0px'}, ${NC.wrapper.logoContainerNudgeY || '0px'})`,
+      }}>
+        <Link
+          to="/"
+          aria-label="QuasarCyberTech Home"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center', 
+            justifyContent: 'center',
+            textDecoration: 'none',
+            flexShrink: 0,
+            width: '180px', 
+            zIndex: 1002,
+          }}
+        >
+          <div style={{
+            height: NC.logoIcon.containerHeight,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transform: `translate(${NC.wrapper.logoIconNudgeX || '0px'}, ${NC.wrapper.logoIconNudgeY || '0px'})`,
+          }}>
+            <img
+              src={logoIcon}
+              alt="QuasarCyberTech"
+              style={{
+                height: NC.logoIcon.height,
+                width: NC.logoIcon.width,
+                opacity: NC.logoIcon.opacity,
+              }}
+            />
+          </div>
+          <AnimatePresence mode="wait">
+            {(!scrolled && openMenu !== 'capabilities') && (
+              <motion.div
+                initial={{ opacity: 0, y: -5, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                exit={{ opacity: 0, y: -5, height: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                style={{ 
+                  overflow: 'hidden',
+                  transform: `translate(${NC.wrapper.logoTextNudgeX || '0px'}, ${NC.wrapper.logoTextNudgeY || '0px'})`,
+                }}
+              >
+                <img
+                  src={logoTextImg}
+                  alt="QuasarCyberTech"
+                  style={{
+                    height: NC.logoText.height,
+                    width: NC.logoText.width,
+                    display: 'block',
+                    marginTop: NC.logoText.marginTop,
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Link>
+      </div>
 
       {/* ═══════════════ ZONE 2: NAV PILL ═══════════════ */}
-      {/* FIX 4: Pill goes from transparent (at-top) → clay (scrolled) */}
       <nav
         className="hidden lg:flex"
         style={{
+          position: 'absolute',
+          left: '50%',
+          transform: `translate(calc(-50% + ${NC.wrapper.pillNudgeX || '0px'}), ${NC.wrapper.pillNudgeY || '0px'})`,
           display: 'flex',
           alignItems: 'center',
           gap: NC.pill.gap,
@@ -265,23 +347,22 @@ const Navbar: React.FC = () => {
           boxShadow: scrolled ? NC.pill.boxShadowScrolled : NC.pill.boxShadowTop,
           flexShrink: 0,
           transition: NC.pill.transition,
+          zIndex: 1001,
         }}
       >
-        {navMenus.map((menu, index) => {
+        {navMenus.map((menu) => {
           const hasDropdown = Boolean(menu.subItems?.length || menu.megaMenuGroups?.length);
           const active = isActivePath(menu.href);
-          const isOpen = openMenu === menu.id;
           const isLinkHovered = hoveredLink === menu.id;
-          const radius = getLinkRadius(index, navMenus.length);
 
           return (
             <div
               key={menu.id}
+              ref={(el) => { navRefs.current[menu.id] = el; }}
               style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center' }}
               onMouseEnter={() => hasDropdown && openDropdown(menu.id)}
               onMouseLeave={() => hasDropdown && closeDropdown()}
             >
-              {/* FIX 2+3: Claymorphism inward press on hover — works even when active */}
               <Link
                 to={menu.href}
                 onMouseEnter={() => setHoveredLink(menu.id)}
@@ -289,282 +370,119 @@ const Navbar: React.FC = () => {
                 style={{
                   color: (active || isLinkHovered) ? NC.pill.link.colorActive : NC.pill.link.color,
                   fontSize: NC.pill.link.fontSize,
-                  fontWeight: active ? '600' : NC.pill.link.fontWeight,
+                  fontWeight: NC.pill.link.fontWeight, // No more 600 weight to avoid jitter
                   fontFamily: NC.pill.link.fontFamily,
                   letterSpacing: NC.pill.link.letterSpacing,
                   padding: `${NC.pill.link.paddingTop} ${NC.pill.link.paddingRight} ${NC.pill.link.paddingBottom} ${NC.pill.link.paddingLeft}`,
-                  height: NC.pill.link.height,
-                  textDecoration: NC.pill.link.textDecoration,
-                  textTransform: NC.pill.link.textTransform,
+                  height: '100%',
+                  textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
                   whiteSpace: 'nowrap',
                   position: 'relative',
-                  // Claymorphism hover
-                  background: isLinkHovered ? NC.pill.link.hoverBackground : 'transparent',
-                  boxShadow: isLinkHovered ? NC.pill.link.hoverBoxShadow : 'none',
-                  borderRadius: radius,
+                  background: 'transparent',
+                  borderRadius: '100px',
                   transition: 'all 0.15s ease',
                 }}
               >
                 {menu.label}
-
-                {/* Chevron — rotates when open */}
                 {hasDropdown && (
                   <ChevronDown
-                    size={parseInt(NC.pill.link.chevron.size)}
+                    size={10}
                     style={{
-                      color: NC.pill.link.chevron.color,
-                      marginLeft: NC.pill.link.chevron.marginLeft,
-                      transition: `transform ${NC.pill.link.chevron.transitionDuration} ease`,
-                      transform: isOpen ? `rotate(${NC.pill.link.chevron.rotateOnOpen})` : 'rotate(0deg)',
+                      opacity: 0.5,
+                      marginLeft: '2px',
+                      transition: 'transform 0.2s ease',
+                      transform: openMenu === menu.id ? 'rotate(180deg)' : 'rotate(0deg)',
                     }}
                   />
                 )}
-
-                {/* Active indicator (dot) */}
-                {active && renderActiveIndicator()}
               </Link>
-
-              {/* ── HOVER BRIDGE ── */}
-              {isOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: '-24px',
-                  right: '-24px',
-                  height: '28px',
-                  zIndex: 998,
-                }} />
-              )}
-
-              {/* ━━━━━━━━━━━ MEGA MENU (Capabilities) ━━━━━━━━━━━ */}
-              {menu.megaMenuGroups && isOpen && (
-                <div
-                  onMouseEnter={() => openDropdown(menu.id)}
-                  onMouseLeave={closeDropdown}
-                  style={{
-                    position: NC.megaMenu.position,
-                    top: NC.megaMenu.top,
-                    left: NC.megaMenu.left,
-                    right: NC.megaMenu.right,
-                    zIndex: 999,
-                    background: NC.dropdown.background,
-                    backdropFilter: NC.dropdown.backdropFilter,
-                    WebkitBackdropFilter: NC.dropdown.backdropFilter,
-                    borderRadius: NC.dropdown.borderRadius,
-                    boxShadow: NC.dropdown.boxShadow,
-                    padding: `${NC.megaMenu.paddingTop} ${NC.megaMenu.paddingHorizontal} ${NC.megaMenu.paddingBottom}`,
-                    display: 'grid',
-                    gridTemplateColumns: `repeat(${NC.megaMenu.columns}, 1fr)`,
-                    gap: NC.megaMenu.columnGap,
-                    animation: NC.dropdown.openAnimation,
-                    overflow: 'hidden',
-                  }}
-                >
-                  <DropdownAccent />
-                  {menu.megaMenuGroups.map((group) => (
-                    <div key={group.title}>
-                      <h4 style={{
-                        color: NC.dropdown.columnHeader.color,
-                        fontSize: NC.dropdown.columnHeader.fontSize,
-                        fontWeight: NC.dropdown.columnHeader.fontWeight,
-                        letterSpacing: NC.dropdown.columnHeader.letterSpacing,
-                        textTransform: NC.dropdown.columnHeader.textTransform,
-                        marginBottom: NC.dropdown.columnHeader.marginBottom,
-                        paddingBottom: NC.dropdown.columnHeader.paddingBottom,
-                        borderBottom: `${NC.dropdown.columnHeader.separatorHeight} solid ${NC.dropdown.columnHeader.separatorColor}`,
-                      }}>
-                        {group.title}
-                      </h4>
-                      {group.items.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          to={sub.href}
-                          style={{
-                            display: 'block',
-                            color: NC.dropdown.item.color,
-                            fontSize: NC.dropdown.item.fontSize,
-                            fontWeight: NC.dropdown.item.fontWeight,
-                            letterSpacing: NC.dropdown.item.letterSpacing,
-                            padding: `${NC.dropdown.item.paddingTop} ${NC.dropdown.item.paddingRight} ${NC.dropdown.item.paddingBottom} ${NC.dropdown.item.paddingLeft}`,
-                            textDecoration: NC.dropdown.item.textDecoration,
-                            transition: `color ${NC.dropdown.item.transitionDuration}, padding-left ${NC.dropdown.item.transitionDuration}`,
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.color = NC.dropdown.item.colorHover;
-                            e.currentTarget.style.paddingLeft = NC.dropdown.item.paddingLeftHover;
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.color = NC.dropdown.item.color;
-                            e.currentTarget.style.paddingLeft = NC.dropdown.item.paddingLeft;
-                          }}
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* ━━━━━━━━━━━ STANDARD DROPDOWN ━━━━━━━━━━━ */}
-              {menu.subItems && isOpen && (
-                <div
-                  onMouseEnter={() => openDropdown(menu.id)}
-                  onMouseLeave={closeDropdown}
-                  style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    minWidth: menu.subItems.length > 4 ? NC.industriesMenu.width : NC.platformsMenu.width,
-                    background: NC.dropdown.background,
-                    backdropFilter: NC.dropdown.backdropFilter,
-                    WebkitBackdropFilter: NC.dropdown.backdropFilter,
-                    borderRadius: NC.dropdown.borderRadius,
-                    boxShadow: NC.dropdown.boxShadow,
-                    padding: `${NC.dropdown.paddingTop} ${NC.dropdown.paddingRight} ${NC.dropdown.paddingBottom} ${NC.dropdown.paddingLeft}`,
-                    zIndex: 999,
-                    marginTop: '12px',
-                    animation: NC.dropdown.openAnimation,
-                    overflow: 'hidden',
-                    ...(menu.subItems.length > 4 ? {
-                      display: 'grid',
-                      gridTemplateColumns: `repeat(${NC.industriesMenu.gridColumns}, 1fr)`,
-                      gap: NC.industriesMenu.itemGap,
-                    } : {}),
-                  }}
-                >
-                  <DropdownAccent />
-                  {menu.subItems.map((sub) => {
-                    const hasLogo = Boolean(sub.icon || sub.LucideIcon);
-                    const di = NC.dropdown.iconItem;
-                    const dItem = NC.dropdown.item;
-
-                    const content = hasLogo ? (
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: di.gap,
-                        padding: `${di.paddingTop} ${di.paddingRight} ${di.paddingBottom} ${di.paddingLeft}`,
-                        borderRadius: di.borderRadius,
-                        background: di.background,
-                        border: di.border,
-                        transition: `background ${di.transitionDuration}, border ${di.transitionDuration}`,
-                      }}>
-                        {sub.icon ? (
-                          <img src={sub.icon} alt="" style={{ width: '22px', height: '22px', objectFit: 'contain', flexShrink: 0 }} />
-                        ) : sub.LucideIcon ? (
-                          <sub.LucideIcon size={parseInt(di.iconSize)} color={di.iconColor} strokeWidth={di.iconStrokeWidth} style={{ flexShrink: 0 }} />
-                        ) : null}
-                        <div>
-                          <div style={{ fontSize: di.labelFontSize, fontWeight: di.labelFontWeight, color: di.labelColor, lineHeight: 1.3 }}>
-                            {sub.label}
-                            {sub.isExternal && (
-                              <span style={{ fontSize: NC.dropdown.externalBadge.fontSize, color: NC.dropdown.externalBadge.color, marginLeft: NC.dropdown.externalBadge.marginLeft }}>
-                                {NC.dropdown.externalBadge.symbol}
-                              </span>
-                            )}
-                          </div>
-                          {sub.desc && (
-                            <div style={{ fontSize: di.subLabelFontSize, color: di.subLabelColor, marginTop: '2px', lineHeight: 1.4, maxWidth: '220px' }}>
-                              {sub.desc}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ) : (
-                      <div style={{ padding: `${dItem.paddingTop} ${dItem.paddingRight} ${dItem.paddingBottom} ${dItem.paddingLeft}` }}>
-                        <span style={{ fontSize: dItem.fontSize, fontWeight: dItem.fontWeight, color: dItem.color }}>
-                          {sub.label}
-                          {sub.isExternal && (
-                            <span style={{ fontSize: NC.dropdown.externalBadge.fontSize, color: NC.dropdown.externalBadge.color, marginLeft: NC.dropdown.externalBadge.marginLeft }}>
-                              {NC.dropdown.externalBadge.symbol}
-                            </span>
-                          )}
-                        </span>
-                      </div>
-                    );
-
-                    const linkStyle: React.CSSProperties = {
-                      textDecoration: 'none',
-                      display: 'block',
-                      borderRadius: hasLogo ? di.borderRadius : '6px',
-                      transition: `background ${di.transitionDuration}`,
-                    };
-
-                    const hoverIn = (e: React.MouseEvent<HTMLElement>) => {
-                      if (hasLogo) {
-                        e.currentTarget.style.background = di.backgroundHover;
-                        const inner = e.currentTarget.querySelector('div') as HTMLElement;
-                        if (inner) inner.style.border = di.borderHover;
-                      } else {
-                        const span = e.currentTarget.querySelector('span') as HTMLElement;
-                        if (span) {
-                          span.style.color = dItem.colorHover;
-                          span.parentElement!.style.paddingLeft = dItem.paddingLeftHover;
-                        }
-                      }
-                    };
-
-                    const hoverOut = (e: React.MouseEvent<HTMLElement>) => {
-                      if (hasLogo) {
-                        e.currentTarget.style.background = 'transparent';
-                        const inner = e.currentTarget.querySelector('div') as HTMLElement;
-                        if (inner) inner.style.border = di.border;
-                      } else {
-                        const span = e.currentTarget.querySelector('span') as HTMLElement;
-                        if (span) {
-                          span.style.color = dItem.color;
-                          span.parentElement!.style.paddingLeft = dItem.paddingLeft;
-                        }
-                      }
-                    };
-
-                    return sub.isExternal ? (
-                      <a key={sub.href} href={sub.href} target="_blank" rel="noopener noreferrer"
-                        style={linkStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}
-                      >{content}</a>
-                    ) : (
-                      <Link key={sub.href} to={sub.href}
-                        style={linkStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}
-                      >{content}</Link>
-                    );
-                  })}
-                </div>
-              )}
             </div>
           );
         })}
       </nav>
 
-      {/* ═══════════════ ZONE 3: CONTACT US PILL ═══════════════ */}
-      <div className="hidden lg:flex" style={{ flexShrink: 0, zIndex: 10 }}>
+      {/* ━━━━━━━━━━━ DROPDOWN OVERLAYS ━━━━━━━━━━━ */}
+      <AnimatePresence>
+        {openMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); }}
+            onMouseLeave={closeDropdown}
+            style={openMenu === 'capabilities' ? {
+              position: 'fixed' as const,
+              top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.dropdown.verticalOffset})`,
+              left: '50%',
+              x: `calc(-50% + ${NC.megaMenu.offsetX || '0px'})`,
+              width: 'min(1024px, 94vw)', 
+              background: NC.dropdown.background,
+              backdropFilter: NC.dropdown.backdropFilter,
+              WebkitBackdropFilter: NC.dropdown.backdropFilter,
+              border: NC.dropdown.border,
+              borderRadius: '0 0 16px 16px',
+              boxShadow: NC.dropdown.boxShadow,
+              zIndex: 999,
+              overflow: 'hidden',
+            } : {
+              position: 'fixed' as const,
+              top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.dropdown.verticalOffset})`,
+              left: `${dropdownPos}px`,
+              width: openMenu === 'industries' ? NC.industriesMenu.width : 
+                     openMenu === 'platforms' ? NC.platformsMenu.width : NC.companyMenu.width,
+              background: NC.dropdown.background,
+              backdropFilter: NC.dropdown.backdropFilter,
+              WebkitBackdropFilter: NC.dropdown.backdropFilter,
+              border: NC.dropdown.border,
+              borderRadius: NC.dropdown.borderRadius,
+              boxShadow: NC.dropdown.boxShadow,
+              padding: `${NC.dropdown.paddingTop} ${NC.dropdown.paddingLeft}`,
+              zIndex: 999,
+              overflow: 'hidden',
+            }}
+          >
+            <DropdownAccent />
+            {/* List Dropdowns (Platforms, Industries, Insights, Company) */}
+            {['platforms-ecosystem', 'industries', 'insights', 'company'].includes(openMenu) && (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {navMenus.find(m => m.id === openMenu)?.subItems?.map(item => renderDropdownItem(item))}
+              </div>
+            )}
+
+            {/* Mega Menu Content (Capabilities) */}
+            {openMenu === 'capabilities' && (
+              <div style={{
+                width: '100%',
+                margin: '0 auto',
+                padding: '24px 32px', // Reduced inner paddings
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '24px',
+              }}>
+                {navMenus.find(m => m.id === 'capabilities')?.megaMenuGroups?.map((group) => (
+                  <div key={group.title}>
+                    <ColumnHeader title={group.title} />
+                    {group.items.map(item => renderDropdownItem(item, true))}
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ═══════════════ ZONE 3: ACTION ═══════════════ */}
+      <div className="hidden lg:flex" style={{ 
+        flexShrink: 0, 
+        zIndex: 1002, 
+        transform: `translate(${NC.wrapper.contactNudgeX || '0px'}, ${NC.wrapper.contactNudgeY || '0px'})` 
+      }}>
         <Link
           to={NC.contactButton.href}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: NC.contactButton.height,
-            padding: `${NC.contactButton.paddingTop} ${NC.contactButton.paddingRight} ${NC.contactButton.paddingBottom} ${NC.contactButton.paddingLeft}`,
-            borderRadius: NC.contactButton.borderRadius,
-            background: NC.contactButton.background,
-            color: NC.contactButton.color,
-            fontSize: NC.contactButton.fontSize,
-            fontWeight: NC.contactButton.fontWeight,
-            fontFamily: NC.contactButton.fontFamily,
-            letterSpacing: NC.contactButton.letterSpacing,
-            textTransform: NC.contactButton.textTransform,
-            textDecoration: NC.contactButton.textDecoration,
-            border: NC.contactButton.border,
-            boxShadow: NC.contactButton.boxShadow,
-            whiteSpace: 'nowrap',
-            flexShrink: 0,
-            transition: `background ${NC.contactButton.transitionDuration} ease, box-shadow ${NC.contactButton.transitionDuration} ease`,
-          }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = NC.contactButton.backgroundHover;
             e.currentTarget.style.boxShadow = NC.contactButton.boxShadowHover;
@@ -572,6 +490,21 @@ const Navbar: React.FC = () => {
           onMouseLeave={(e) => {
             e.currentTarget.style.background = NC.contactButton.background;
             e.currentTarget.style.boxShadow = NC.contactButton.boxShadow;
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: NC.contactButton.height,
+            padding: `0 26px`,
+            borderRadius: NC.contactButton.borderRadius,
+            background: NC.contactButton.background,
+            color: NC.contactButton.color,
+            fontSize: NC.contactButton.fontSize,
+            fontWeight: NC.contactButton.fontWeight,
+            textDecoration: 'none',
+            transition: 'all 0.2s ease',
+            boxShadow: NC.contactButton.boxShadow,
           }}
         >
           {NC.contactButton.label}

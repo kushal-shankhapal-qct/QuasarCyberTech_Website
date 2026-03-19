@@ -9,8 +9,8 @@ export const COLORS = {
   darkBase: '#040B1D',
   deepCyberBlue: '#0B1F3B',
   softGrey: '#F5F7FA',
-    cardOnLight: '#FFFFFF',
-    cardOnDark: 'rgba(255,255,255,0.04)',
+  cardOnLight: '#FFFFFF',
+  cardOnDark: 'rgba(255,255,255,0.04)',
   pureWhite: '#FFFFFF',
 
   // Brand Accents — 3 purposes
@@ -22,8 +22,8 @@ export const COLORS = {
   textOnDark: '#FFFFFF',
   textOnLight: '#0B1F3B',
   textMuted: '#8B949E',
-    textSub: '#5A6478',
-    burgundyHover: '#8B1E3F',
+  textSub: '#5A6478',
+  burgundyHover: '#8B1E3F',
 
   // Legacy aliases (safe to remove when no component uses them)
   electricBlue: '#1F6FEB',
@@ -36,30 +36,30 @@ export const COLORS = {
 };
 
 export const ALPHAS = {
-    darkGlass: 'rgba(4, 11, 29, 0.88)',
-    darkGlassStrong: 'rgba(4, 11, 29, 0.97)',
-    deepBlueGlass: 'rgba(11, 31, 59, 0.7)',
-    white08: 'rgba(255, 255, 255, 0.08)',
-    white06: 'rgba(255, 255, 255, 0.06)',
-    white03: 'rgba(255, 255, 255, 0.03)',
-    white02: 'rgba(255, 255, 255, 0.02)',
-    teal12: 'rgba(43, 196, 182, 0.12)',
-    teal15: 'rgba(43, 196, 182, 0.15)',
-    teal18: 'rgba(43, 196, 182, 0.18)',
-    teal20: 'rgba(43, 196, 182, 0.2)',
-    teal07: 'rgba(43, 196, 182, 0.07)',
-    teal04: 'rgba(43, 196, 182, 0.04)',
-    teal08: 'rgba(43, 196, 182, 0.08)',
-    gold30: 'rgba(214, 176, 92, 0.3)',
-    gold40: 'rgba(214, 176, 92, 0.4)',
-    burgundy50: 'rgba(107, 21, 48, 0.5)',
+  darkGlass: 'rgba(4, 11, 29, 0.88)',
+  darkGlassStrong: 'rgba(4, 11, 29, 0.97)',
+  deepBlueGlass: 'rgba(11, 31, 59, 0.7)',
+  white08: 'rgba(255, 255, 255, 0.08)',
+  white06: 'rgba(255, 255, 255, 0.06)',
+  white03: 'rgba(255, 255, 255, 0.03)',
+  white02: 'rgba(255, 255, 255, 0.02)',
+  teal12: 'rgba(43, 196, 182, 0.12)',
+  teal15: 'rgba(43, 196, 182, 0.15)',
+  teal18: 'rgba(43, 196, 182, 0.18)',
+  teal20: 'rgba(43, 196, 182, 0.2)',
+  teal07: 'rgba(43, 196, 182, 0.07)',
+  teal04: 'rgba(43, 196, 182, 0.04)',
+  teal08: 'rgba(43, 196, 182, 0.08)',
+  gold30: 'rgba(214, 176, 92, 0.3)',
+  gold40: 'rgba(214, 176, 92, 0.4)',
+  burgundy50: 'rgba(107, 21, 48, 0.5)',
 };
 
 export const SHADOWS = {
-    nav: '0 4px 24px rgba(0, 0, 0, 0.5)',
-    dropdown: '0 24px 64px rgba(0,0,0,0.7)',
-    lightCard: '0 2px 20px rgba(11,31,59,0.07)',
-    lightCardHover: '0 12px 40px rgba(107,21,48,0.12)',
+  nav: '0 4px 24px rgba(0, 0, 0, 0.5)',
+  dropdown: '0 24px 64px rgba(0,0,0,0.7)',
+  lightCard: '0 2px 20px rgba(11,31,59,0.07)',
+  lightCardHover: '0 12px 40px rgba(107,21,48,0.12)',
 };
 
 // ─── CENTRALIZED BRAND CONTROLS ───
@@ -80,24 +80,24 @@ export const BRAND_CONTROLS = {
   heroSecondaryText: '#FFFFFF',
   heroSecondaryBorder: 'transparent',
 
-  // Trust Metrics
-  metricsNumberColor: '#6B1530',
-  metricsSymbolColor: '#D6B05C',
-  metricsUnderlineColor: '#D6B05C',
-  metricsLabelColor: '#0B1F3B',
+  // Trust Metrics (Refined: Burgundy accents, Blue/Black numbers)
+  metricsNumberColor: '#0B1F3B',      // Deep Cyber Blue (authoritative)
+  metricsSymbolColor: '#6B1530',      // Burgundy (+)
+  metricsUnderlineColor: '#6B1530',   // Burgundy underline
+  metricsLabelColor: '#5A6478',       // Muted text
 
   // QCT Framework
+  frameworkTitleFont: 'var(--font-heading)',
   frameworkLetterColor: '#2BC4B6',
-  frameworkBulletColor: '#D6B05C',
+  frameworkBulletColor: '#1F6FEB',
   frameworkArrowColor: '#2BC4B6',
 
   // Dropdowns — single source of truth
   dropdown: {
-    gap: '24px',                   // Increased gap to clear logo/header pod
+    gap: '24px',
     bg: 'rgb(11, 31, 59)',
     accentColor: '#2BC4B6',
-    accentHeight: '1px',           // Reduced thickness as requested
-    shadow: '0 20px 60px rgba(0, 0, 0, 0.7)',
+    accentHeight: '1px', shadow: '0 20px 60px rgba(0, 0, 0, 0.7)',
     borderRadius: '0 0 12px 12px', // Flat top, rounded bottom
   },
 
@@ -126,181 +126,389 @@ export const SECTION_BACKGROUNDS = {
   DARK: '#040B1D',
   DARK_ALT: '#0B1F3B',
   LIGHT: '#F5F7FA',
-    CARD_ON_LIGHT: '#FFFFFF',
-    CARD_ON_DARK: 'rgba(255, 255, 255, 0.04)',
+  CARD_ON_LIGHT: '#FFFFFF',
+  CARD_ON_DARK: 'rgba(255, 255, 255, 0.04)',
 };
 
 // ─── MAIN THEME CONFIG ───
 // Only contains values that are actually referenced by components.
 export const themeConfig = {
-    activeTheme: 'default',
-    themes: {
-        default: {
-            '--brand-primary': COLORS.burgundy,
-            '--brand-secondary': COLORS.teal,
-            '--accent-gold': COLORS.gold,
-            '--deep-cyber-blue': COLORS.deepCyberBlue,
-        }
+  activeTheme: 'default',
+  themes: {
+    default: {
+      '--brand-primary': COLORS.burgundy,
+      '--brand-secondary': COLORS.teal,
+      '--accent-gold': COLORS.gold,
+      '--deep-cyber-blue': COLORS.deepCyberBlue,
+    }
+  },
+
+  global: {
+    verticalSpacing: '100px',
+    interactiveEasing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+    sectionMarginLeft: '3rem',
+    sectionMarginRight: '3rem',
+    eyebrowMarginLeft: '3rem',
+    contentMarginLeft: '3rem',
+    containerPaddingX: '2rem',
+    lineThickness: '2.5px',
+    eyebrowIntegration: 'concept-a' as 'concept-a' | 'concept-b' | 'concept-c' | 'default',
+    eyebrowAccentColor: '#D6B05C',
+    eyebrowFont: 'var(--font-heading)',
+    eyebrowAccentLine: 'linear-gradient(90deg, #6B1530 0%, #D6B05C 100%)',
+    sectionTitleSize: '40px',
+    sectionTitleWeight: '700',
+    sectionTitleLineHeight: '1.2',
+    bodyTextSize: '15px',
+    bodyTextLineHeight: '1.6',
+    unifiedShadows: {
+      clayOuter: '6px 6px 12px rgba(0,0,0,0.15), -6px -6px 12px rgba(255,255,255,0.9)',
+      clayInner: 'inset 4px 4px 8px rgba(0,0,0,0.18), inset -4px -4px 8px rgba(255,255,255,0.9)',
+      cardSoft: '0 10px 30px rgba(0,0,0,0.06)',
+      cardHover: '0 16px 40px rgba(0,0,0,0.08)',
+      cardExtrude: '0 14px 28px rgba(0,0,0,0.07)',
+    }
+  },
+
+  // Enterprise Services (only cardHeight used)
+  services: {
+    cardHeight: '200px',
+  },
+
+  // Industry Snapshot
+  industry: {
+    paddingTop: '100px',
+    paddingBottom: '100px',
+  },
+
+  // Featured Insights
+  insights: {
+    paddingTop: '100px',
+    paddingBottom: '120px',
+  },
+
+  // Contact Page
+  contact: {
+    navStripHeight: '120px',
+    overlapMarginTop: '-40px',
+    heroPaddingTop: '180px',
+    heroPaddingBottom: '120px',
+    sectionPaddingTop: '80px',
+    sectionPaddingBottom: '80px',
+  },
+
+  // Final CTA
+  cta: {
+    paddingY: '100px',
+  },
+
+  // Footer
+  footer: {
+    logoScale: 3.5,
+    logoWidth: '150px',
+    backgroundColor: '#4E0E26',
+    textColor: 'rgba(255, 255, 255, 0.75)',
+    headingColor: '#D6B05C',
+    linkColor: 'rgba(255, 255, 255, 0.95)',
+    linkHoverColor: '#D6B05C',
+    iconColor: '#D6B05C',
+    iconBg: 'rgba(214, 176, 92, 0.05)',
+    iconHoverBg: '#D6B05C',
+    iconHoverText: '#4E0E26',
+    linkSpacing: '12px',
+    columnsMarginLeft: '2.5rem',
+    watermarkGlowRadius: '180px',
+    watermarkOffsetY: '60px',
+    textContrast: 'text-slate-700',
+    linkContrast: 'text-slate-500',
+    columnRatio: '3:5',
+    socialIconContrast: 'high',
+    watermarkHoverScale: 1.05,
+  },
+};
+
+// ─── NAVBAR CONFIG — Single source of truth for navbar ─────────────────────
+export const NAVBAR_CONFIG = {
+
+  // ─── WRAPPER (Visual placement) ───────────────────────────
+  wrapper: {
+    position: 'fixed' as const,
+    topDefault: '0px',
+    background: 'transparent',
+    zIndex: 1000,
+    gap: '40px',
+    paddingTop: '20px',
+    paddingLeft: '2em',
+    paddingRight: '2em',
+
+    // Granular Nudges
+    logoContainerNudgeX: '-1em',
+    logoContainerNudgeY: '0px',
+    logoIconNudgeX: '0px',
+    logoIconNudgeY: '0px',
+    logoTextNudgeX: '0px',
+    logoTextNudgeY: '0px',
+
+    pillNudgeX: '0em',
+    pillNudgeY: '5px',
+
+    contactNudgeX: '0px',
+    contactNudgeY: '5px',
+  },
+
+  // ─── LOGO ICON ─────────────────────────────────────────────
+  logoIcon: {
+    width: '56px',
+    height: '56px',
+    marginTop: '0px',
+    marginBottom: '0px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    opacity: 1,
+    containerHeight: '56px',
+  },
+
+  // ─── LOGO TEXT (image asset below icon) ────────────────────
+  logoText: {
+    width: 'auto',
+    height: '26px',
+    marginTop: '12px',
+    marginBottom: '0px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    opacity: 1,
+    collapseThreshold: 100,
+    transitionDuration: '0.3s',
+    transitionEasing: 'ease',
+  },
+
+  // ─── NAV PILL (middle pod) ──────────────────────────────────
+  pill: {
+    height: '46px',
+    paddingTop: '0px',
+    paddingBottom: '0px',
+    paddingLeft: '6px',
+    paddingRight: '6px',
+    borderRadius: '100px',
+    gap: '2px',
+
+    // Scrolled state (Clean, refined glass pod)
+    backgroundScrolled: 'rgba(10, 15, 28, 0.85)',
+    backdropFilterScrolled: 'blur(16px)',
+    borderScrolled: '1px solid rgba(255, 255, 255, 0.1)',
+    boxShadowScrolled: '0 4px 24px rgba(0, 0, 0, 0.3)',
+
+    // At-top state (fully transparent)
+    backgroundTop: 'rgba(10, 8, 22, 0.0)',
+    backdropFilterTop: 'none',
+    borderTop: '1px solid rgba(255,255,255,0.0)',
+    boxShadowTop: 'none',
+
+    // Transition
+    transition: 'background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease',
+
+    link: {
+      paddingTop: '0px',
+      paddingBottom: '0px',
+      paddingLeft: '16px',
+      paddingRight: '16px',
+      height: '100%',
+      borderRadius: '100px',
+      fontSize: '14px',
+      fontWeight: '450',
+      fontFamily: 'inherit',
+      letterSpacing: '0.015em',
+      color: 'rgba(255,255,255,0.80)',
+      colorHover: '#D6B05C',
+      colorActive: '#D6B05C',
+      textDecoration: 'none' as const,
+
+      // Clean hover (no neomorphism)
+      hoverBackground: 'rgba(255, 255, 255, 0.04)',
+      hoverBoxShadow: 'none',
+      // Edge border-radius for items inside the pill
+      borderRadiusFirst: '100px 20px 20px 100px',
+      borderRadiusLast: '20px 100px 100px 20px',
+      borderRadiusMiddle: '20px',
+      textTransform: 'none' as const,
+
+      activeIndicator: {
+        type: 'none' as 'dot' | 'line' | 'none',
+        dotSize: '3px',
+        dotColor: '#6B1530',
+        dotMarginTop: '2px',
+        lineHeight: '1.5px',
+        lineColor: '#6B1530',
+        lineWidth: '70%',
+      },
+
+      chevron: {
+        size: '10px',
+        color: 'rgba(255,255,255,0.35)',
+        marginLeft: '3px',
+        rotateOnOpen: '180deg',
+        transitionDuration: '0.2s',
+      },
+    },
+  },
+
+  // ─── CONTACT US BUTTON ──────────────────────────────────────
+  contactButton: {
+    height: '46px',
+    paddingTop: '0px',
+    paddingBottom: '0px',
+    paddingLeft: '26px',
+    paddingRight: '26px',
+    marginTop: '0px',
+    marginBottom: '0px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    borderRadius: '100px',
+    background: '#6B1530',
+    backgroundHover: '#8B1E3F',
+    color: '#FFFFFF',
+    colorHover: '#FFFFFF',
+    fontSize: '13px',
+    fontWeight: '600',
+    fontFamily: 'inherit',
+    letterSpacing: '0.03em',
+    textTransform: 'none' as const,
+    textDecoration: 'none' as const,
+    border: 'none',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    boxShadowHover: '0 4px 12px rgba(107,21,48,0.2)',
+    transitionDuration: '0.2s',
+    label: 'Contact Us',
+    href: '/contact',
+  },
+
+  // ─── SCROLL BEHAVIOR ────────────────────────────────────────
+  scroll: {
+    logoTextHideAt: 120, // synced with collapseThreshold
+    autoHideDelay: 4000, // increased
+    autoHideOnHomepage: false,
+    revealOnScrollUp: true,
+    revealOnMouseNearTop: true,
+    mouseRevealZone: 60,
+    hideTranslate: '-110%',
+    hideDuration: '500ms', // slower hide
+    revealDuration: '350ms', // slower reveal
+    easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+  },
+
+  // ─── DROPDOWNS — Shared Base ────────────────────────────────
+  dropdown: {
+    borderRadiusTop: '0px',
+    borderRadiusBottom: '16px',
+    borderRadius: '0 0 16px 16px',
+
+    background: 'linear-gradient(160deg, rgba(18, 10, 28, 0.97) 0%, rgba(10, 8, 22, 0.98) 60%, rgba(14, 8, 18, 0.99) 100%)',
+    backdropFilter: 'blur(28px) saturate(1.3)',
+
+    topAccentHeight: '1px',
+    topAccentColor: '#2BC4B6',
+    topAccentOpacity: 0.7,
+
+    border: '1px solid rgba(214, 176, 92, 0.08)',
+    borderTop: 'none',
+    boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 8px 24px rgba(0,0,0,0.4)',
+
+    openAnimation: 'fadeSlideDown 0.18s cubic-bezier(0.23,1,0.32,1)',
+    closeDelay: 150,
+    verticalOffset: '2em', // Gap between Navbar and Menu
+
+    paddingTop: '10px',
+    paddingBottom: '10px',
+    paddingLeft: '20px',
+    paddingRight: '0px',
+    itemGap: '2px',
+    columnGap: '48px',
+
+    columnHeader: {
+      fontSize: '11px',
+      fontWeight: '700',
+      letterSpacing: '0.16em',
+      textTransform: 'uppercase' as const,
+      color: '#2BC4B6',
+      marginBottom: '10px',
+      paddingBottom: '0px', // We'll manually handle underline width
+      separatorHeight: '1px',
+      separatorColor: 'rgba(43,196,182,0.18)',
     },
 
-    global: {
-        verticalSpacing: '100px',
-        interactiveEasing: 'cubic-bezier(0.23, 1, 0.32, 1)',
-        sectionMarginLeft: '3rem',
-        sectionMarginRight: '3rem',
-        eyebrowMarginLeft: '3rem',
-        contentMarginLeft: '3rem',
-        containerPaddingX: '2rem',
-        lineThickness: '2.5px',
-        eyebrowIntegration: 'concept-a' as 'concept-a' | 'concept-b' | 'concept-c' | 'default',
-        eyebrowAccentColor: '#D6B05C',
-        eyebrowFont: 'var(--font-heading)',
-        eyebrowAccentLine: 'linear-gradient(90deg, #6B1530 0%, #D6B05C 100%)',
-        sectionTitleSize: '40px',
-        sectionTitleWeight: '700',
-        sectionTitleLineHeight: '1.2',
-        bodyTextSize: '15px',
-        bodyTextLineHeight: '1.6',
-        unifiedShadows: {
-            clayOuter: '6px 6px 12px rgba(0,0,0,0.15), -6px -6px 12px rgba(255,255,255,0.9)',
-            clayInner: 'inset 4px 4px 8px rgba(0,0,0,0.18), inset -4px -4px 8px rgba(255,255,255,0.9)',
-            cardSoft: '0 10px 30px rgba(0,0,0,0.06)',
-            cardHover: '0 16px 40px rgba(0,0,0,0.08)',
-            cardExtrude: '0 14px 28px rgba(0,0,0,0.07)',
-        }
+    item: {
+      fontSize: '13px',
+      fontWeight: '400',
+      letterSpacing: '0.005em',
+      color: 'rgba(255,255,255,0.78)',
+      colorHover: '#2BC4B6',
+      paddingTop: '7px',
+      paddingBottom: '7px',
+      paddingLeft: '0px',
+      paddingLeftHover: '0px', // Removed jitter
+      paddingRight: '0px',
+      background: 'transparent',
+      backgroundHover: 'transparent',
+      textDecoration: 'none' as const,
+      transitionDuration: '0.15s',
     },
 
-    header: {
-        global: {
-            layoutStyle: 'floating',
-            marginTop: '1rem',
-            sideMargin: '2rem',
-            accentColor: '#6B1530',
-            flushAccentThickness: '3px',
-            pageBackgroundColor: '#F5F7FA',
-        },
-        logoSection: {
-            width: 'auto',
-            height: 'auto',
-            marginTop: '0px',
-            marginBottom: '0px',
-            marginLeft: '2rem',
-            marginRight: '0px',
-            paddingTop: '0px',
-            paddingBottom: '0px',
-            paddingLeft: '0px',
-            paddingRight: '0px',
-            offsetX: '0px',
-            offsetY: '0px',
-            scale: 1.03,
-            iconWidth: '4.5rem',
-            iconHeight: '4.5rem',
-            iconWidthMobile: '2.6rem',
-            iconHeightMobile: '2.6rem',
-            textHeight: '1.65rem',
-            textWidth: 'auto',
-            textMarginTop: '4px',
-            textHideOffset: '-10px',
-        },
-        navSection: {
-            marginTop: '0px',
-            offsetX: '15px',
-            scale: 0.95,
-            paddingX: '1.5rem',
-            paddingY: '0.8rem',
-            underlineThickness: '2px',
-            underlineMode: 'solid' as 'gradient' | 'solid' | 'none',
-            activeUnderlineColor: '#D6B05C',
-            hoverShadow: '0 6px 14px rgba(0,0,0,0.08)',
-            hoverOffsetY: '-1px',
-        },
-        contactSection: {
-            marginTop: '0px',
-            offsetX: '15px',
-            marginRight: '0px',
-            scale: 0.95,
-            paddingX: '1.3rem',
-            paddingY: '0.7rem',
-            accentLineColor: '#FFFFFF',
-            accentLineThickness: '2px',
-            hoverBgColor: '#FDFDFD',
-            hoverTextColor: '#6B1530',
-            hoverBorderColor: 'rgba(107, 21, 48, 0.2)',
-        },
-        dropdowns: {
-            shadow: BRAND_CONTROLS.dropdown.shadow,
-            borderRadius: BRAND_CONTROLS.dropdown.borderRadius,
-            topAccentThickness: BRAND_CONTROLS.dropdown.accentHeight,
-        },
-        visuals: {
-            glassBgColor: '11, 31, 59',
-            glassBgOpacity: 0.95,
-            glassBlurAmount: '16px',
-            glassBorderColor: 'rgba(255, 255, 255, 0.05)',
-            glassShadow: '0 0 1px rgba(0,0,0,0.15), 0 10px 25px -5px rgba(0,0,0,0.2), 0 4px 10px -5px rgba(0,0,0,0.1)',
-            glassInnerShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.05)',
-        },
-        interactions: {
-            hideSpeed: '400ms',
-            mouseRevealZone: 150,
-            autoHideDelay: 1500,
-            scrollBuffer: 250,
-        },
+    iconItem: {
+      paddingTop: '10px',
+      paddingBottom: '10px',
+      paddingLeft: '12px',
+      paddingRight: '12px',
+      borderRadius: '8px',
+      background: 'rgba(255,255,255,0.02)',
+      backgroundHover: 'rgba(43,196,182,0.06)',
+      border: '1px solid rgba(255,255,255,0.05)',
+      borderHover: '1px solid rgba(43,196,182,0.2)',
+      gap: '12px',
+      iconSize: '18px',
+      iconColor: '#2BC4B6',
+      iconStrokeWidth: 1.5,
+      labelFontSize: '13px',
+      labelFontWeight: '500',
+      labelColor: 'rgba(255,255,255,0.85)',
+      subLabelFontSize: '11px',
+      subLabelColor: 'rgba(255,255,255,0.4)',
+      transitionDuration: '0.15s',
     },
 
-    // Enterprise Services (only cardHeight used)
-    services: {
-        cardHeight: '200px',
+    externalBadge: {
+      symbol: '↗',
+      fontSize: '10px',
+      color: 'rgba(255,255,255,0.3)',
+      marginLeft: '4px',
     },
+  },
 
-    // Industry Snapshot
-    industry: {
-        paddingTop: '100px',
-        paddingBottom: '100px',
-    },
+  // ─── CAPABILITIES MEGA MENU ─────────────────────────────────
+  megaMenu: {
+    paddingTop: '16px',
+    paddingBottom: '16px',
+    paddingHorizontal: 'max(48px, calc((100vw - 1400px) / 2))',
+    columns: 4,
+    columnGap: '48px',
+    offsetX: '0px', // Nudge Capabilities menu left/right
+  },
 
-    // Featured Insights
-    insights: {
-        paddingTop: '100px',
-        paddingBottom: '120px',
-    },
+  // ─── PLATFORMS DROPDOWN ─────────────────────────────────────
+  platformsMenu: {
+    width: '360px',
+    itemLayout: 'list' as const,
+  },
 
-    // Contact Page
-    contact: {
-        navStripHeight: '120px',
-        overlapMarginTop: '-40px',
-        heroPaddingTop: '180px',
-        heroPaddingBottom: '120px',
-        sectionPaddingTop: '80px',
-        sectionPaddingBottom: '80px',
-    },
+  // ─── INDUSTRIES DROPDOWN ────────────────────────────────────
+  industriesMenu: {
+    width: '320px',
+    layout: 'single-column' as const,
+    itemGap: '8px',
+  },
 
-    // Final CTA
-    cta: {
-        paddingY: '100px',
-    },
-
-    // Footer
-    footer: {
-        logoScale: 3.5,
-        logoWidth: '150px',
-        backgroundColor: '#4E0E26',
-        textColor: 'rgba(255, 255, 255, 0.75)',
-        headingColor: '#D6B05C',
-        linkColor: 'rgba(255, 255, 255, 0.95)',
-        linkHoverColor: '#D6B05C',
-        iconColor: '#D6B05C',
-        iconBg: 'rgba(214, 176, 92, 0.05)',
-        iconHoverBg: '#D6B05C',
-        iconHoverText: '#4E0E26',
-        linkSpacing: '12px',
-        columnsMarginLeft: '2.5rem',
-        watermarkGlowRadius: '180px',
-        watermarkOffsetY: '60px',
-        textContrast: 'text-slate-700',
-        linkContrast: 'text-slate-500',
-        columnRatio: '3:5',
-        socialIconContrast: 'high',
-        watermarkHoverScale: 1.05,
-    },
+  // ─── COMPANY DROPDOWN ───────────────────────────────────────
+  companyMenu: {
+    width: '240px',
+    itemLayout: 'list' as const,
+  },
 };

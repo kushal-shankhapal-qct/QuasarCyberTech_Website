@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ALPHAS, COLORS, SECTION_BACKGROUNDS } from '../config/themeConfig';
+import { ALPHAS, COLORS, SECTION_BACKGROUNDS, BRAND_CONTROLS } from '../config/themeConfig';
 
 const stages = [
   {
@@ -53,19 +53,26 @@ export default function QCTSecureFramework() {
       <h2
         style={{
           color: COLORS.textOnDark,
-          fontWeight: 900,
-          fontSize: 'clamp(30px, 4.2vw, 44px)',
-          lineHeight: 1.08,
-          marginBottom: '14px',
+          fontFamily: BRAND_CONTROLS.frameworkTitleFont,
+          fontWeight: 800,
+          fontSize: 'clamp(28px, 3.8vw, 38px)',
+          lineHeight: 1.15,
+          marginBottom: '16px',
         }}
       >
-        THE QCT <span style={{ color: COLORS.teal }}>SECURE</span> FRAMEWORK
+        THE QCT <br /> <span style={{ color: COLORS.teal }}>SECURE</span> FRAMEWORK
       </h2>
       <p style={{ color: COLORS.textMuted, maxWidth: '760px', fontSize: '15px', lineHeight: 1.7, marginBottom: '34px' }}>
         QuasarCyberTech delivers cybersecurity programs through a structured lifecycle designed to strengthen enterprise cyber resilience.
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '10px' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', 
+        gap: '10px',
+        alignItems: 'start',
+        minHeight: '480px' // Section length stable for expansion
+      }}>
         {stages.map((stage, i) => {
           const expanded = active === i;
           return (
@@ -75,18 +82,19 @@ export default function QCTSecureFramework() {
                 onMouseLeave={() => setActive(null)}
                 style={{
                   borderRadius: '0 0 16px 16px',
-                  borderTop: `3px solid ${expanded ? COLORS.burgundy : COLORS.teal}`,
+                  borderTop: `3px solid ${COLORS.teal}`,
                   border: `1px solid ${ALPHAS.teal12}`,
                   borderTopWidth: '3px',
-                  background: expanded ? ALPHAS.teal07 : ALPHAS.white03,
+                  background: expanded ? ALPHAS.teal08 : ALPHAS.white03,
                   padding: '24px 18px',
                   transition: 'all 0.3s ease',
                   cursor: 'default',
+                  height: '100%',
                 }}
               >
                 <div style={{ color: COLORS.teal, fontSize: '56px', fontWeight: 900, lineHeight: 1, opacity: 1 }}>{stage.letter}</div>
                 <div style={{ color: COLORS.textOnDark, fontWeight: 700, fontSize: '16px', marginTop: '10px' }}>{stage.name}</div>
-                <div style={{ color: COLORS.gold, fontSize: '12px', fontWeight: 500, marginTop: '6px' }}>{stage.descriptor}</div>
+                <div style={{ color: COLORS.teal, fontSize: '12px', fontWeight: 600, marginTop: '6px', opacity: 0.9 }}>{stage.descriptor}</div>
                 <div
                   style={{
                     maxHeight: expanded ? '220px' : '0px',

@@ -34,16 +34,15 @@ const CountUp = ({ end, suffix, label, delay, duration }: { end: number; suffix:
         };
     }, [end, duration, delay, isInView]);
 
-    // Helper to render suffix with specific symbol coloring for "x7"
+    // Helper to render suffix with specific symbol coloring
     const renderSuffix = () => {
-        // For "×7", make the "7" burgundy like the numbers, but keep "×" gold and smaller
         if (suffix === '×7') {
             return (
-                <span className="flex items-baseline ml-1">
-                    <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsSymbolColor }}>
+                <span className="flex items-center ml-1">
+                    <span className="text-3xl md:text-4xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsSymbolColor }}>
                         ×
                     </span>
-                    <span className="text-5xl md:text-6xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsNumberColor }}>
+                    <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsNumberColor }}>
                         7
                     </span>
                 </span>
@@ -62,7 +61,7 @@ const CountUp = ({ end, suffix, label, delay, duration }: { end: number; suffix:
                 <div className="relative mb-2 flex flex-row items-end justify-center">
                     <div className="relative inline-flex flex-col items-center">
                         <div className="flex flex-row items-center">
-                            <span className="text-5xl md:text-6xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsNumberColor }}>
+                            <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsNumberColor }}>
                                 {end > 999 ? count.toLocaleString() : count}
                             </span>
                             {renderSuffix()}

@@ -9,6 +9,7 @@ import IndustrySnapshot from '../components/IndustrySnapshot';
 import FeaturedInsights from '../components/FeaturedInsights';
 import LeadershipVision from '../components/LeadershipVision';
 import HomeFinalCTA from '../components/HomeFinalCTA';
+import Certifications from '../components/Certifications';
 
 import Footer from '../components/Footer';
 
@@ -28,6 +29,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustIndicators />
+        <Certifications />
         <QCTSecureFramework />
         <EnterpriseServices />
         <PlatformHighlights />

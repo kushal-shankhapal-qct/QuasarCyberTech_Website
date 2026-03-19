@@ -49,15 +49,6 @@ export default function FeaturedInsights() {
     const prev = () => {
         setCurrentIndex((prev) => (prev - 1 + insights.length) % insights.length);
     };
-    const [currentIndex, setCurrentIndex] = React.useState(0);
-
-    const next = () => {
-        setCurrentIndex((prev) => (prev + 1) % insights.length);
-    };
-
-    const prev = () => {
-        setCurrentIndex((prev) => (prev - 1 + insights.length) % insights.length);
-    };
 
     return (
         <section
@@ -154,7 +145,6 @@ export default function FeaturedInsights() {
                                 </div>
                             </div>
                         ))}
-                    </div>
                     </div>
                 </div>
             </div>
