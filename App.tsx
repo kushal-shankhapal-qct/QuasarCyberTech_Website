@@ -11,32 +11,16 @@ import About from './src/pages/About';
 import WhoWeAre from './src/pages/WhoWeAre';
 import Products from './src/pages/Products';
 import Platforms from './src/pages/Platforms';
-
 import Services from './src/pages/Services';
-import ApplicationSecurity from './src/pages/services/ApplicationSecurity';
-import MobileSecurity from './src/pages/services/MobileSecurity';
-import NetworkSecurity from './src/pages/services/NetworkSecurity';
-import CloudSecurity from './src/pages/services/CloudSecurity';
-import RedTeamAdversarySimulation from './src/pages/services/RedTeamAdversarySimulation';
-import ManagedSecurityOperations from './src/pages/services/ManagedSecurityOperations';
-import IncidentResponse from './src/pages/services/IncidentResponse';
-import RiskCompliance from './src/pages/services/RiskCompliance';
-import ArchitectureEngineering from './src/pages/services/ArchitectureEngineering';
-import DigitalRiskMonitoring from './src/pages/services/DigitalRiskMonitoring';
+import Industries from './src/pages/Industries';
+import CapabilityPage from './src/pages/CapabilityPage';
+import IndustryPage from './src/pages/IndustryPage';
 import Resources from './src/pages/Resources';
 import Blogs from './src/pages/resources/Blogs';
 import CaseStudies from './src/pages/resources/CaseStudies';
 import Advisories from './src/pages/resources/Advisories';
 import InfosecDictionary from './src/pages/resources/InfosecDictionary';
 import SecurityMindmap from './src/pages/resources/SecurityMindmap';
-
-import Industries from './src/pages/Industries';
-import BFSI from './src/pages/industries/BFSI';
-import Healthcare from './src/pages/industries/Healthcare';
-import Manufacturing from './src/pages/industries/Manufacturing';
-import SaaS from './src/pages/industries/SaaS';
-import Government from './src/pages/industries/Government';
-import Retail from './src/pages/industries/Retail';
 
 import Careers from './src/pages/Careers';
 import Contact from './src/pages/Contact';
@@ -67,16 +51,8 @@ const App: React.FC = () => {
             <Route path="/platforms" element={<Platforms />} />
 
             <Route path="/capabilities" element={<Services />} />
-            <Route path="/capabilities/application-security" element={<ApplicationSecurity />} />
-            <Route path="/capabilities/mobile-security" element={<MobileSecurity />} />
-            <Route path="/capabilities/network-security" element={<NetworkSecurity />} />
-            <Route path="/capabilities/cloud-security" element={<CloudSecurity />} />
-            <Route path="/capabilities/red-team-adversary-simulation" element={<RedTeamAdversarySimulation />} />
-            <Route path="/capabilities/managed-security-operations" element={<ManagedSecurityOperations />} />
-            <Route path="/capabilities/incident-response" element={<IncidentResponse />} />
-            <Route path="/capabilities/risk-compliance" element={<RiskCompliance />} />
-            <Route path="/capabilities/architecture-engineering" element={<ArchitectureEngineering />} />
-            <Route path="/capabilities/digital-risk-monitoring" element={<DigitalRiskMonitoring />} />
+            <Route path="/capabilities/:slug" element={<CapabilityPage />} />
+            
             <Route path="/insights" element={<Resources />} />
             <Route path="/insights/blogs" element={<Blogs />} />
             <Route path="/insights/case-studies" element={<CaseStudies />} />
@@ -85,12 +61,7 @@ const App: React.FC = () => {
             <Route path="/insights/security-mindmap" element={<SecurityMindmap />} />
 
             <Route path="/industries" element={<Industries />} />
-            <Route path="/industries/bfsi" element={<BFSI />} />
-            <Route path="/industries/healthcare" element={<Healthcare />} />
-            <Route path="/industries/manufacturing" element={<Manufacturing />} />
-            <Route path="/industries/saas" element={<SaaS />} />
-            <Route path="/industries/government" element={<Government />} />
-            <Route path="/industries/retail" element={<Retail />} />
+            <Route path="/industries/:slug" element={<IndustryPage />} />
 
             <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />

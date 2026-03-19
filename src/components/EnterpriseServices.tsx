@@ -55,7 +55,12 @@ export default function EnterpriseServices() {
 
   return (
     <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '80px max(24px, calc((100vw - 1200px) / 2))' }}>
-      <div style={{ textAlign: 'left', marginBottom: '40px' }}>
+      <div style={{ 
+        maxWidth: '1040px', 
+        margin: '0 auto', 
+        textAlign: 'left', 
+        marginBottom: '40px' 
+      }}>
         <h2 style={{ color: COLORS.textOnLight, fontWeight: 900, fontSize: 'clamp(28px, 3.8vw, 38px)', lineHeight: 1.08, marginBottom: '10px' }}>
           Core <span style={{ color: COLORS.teal }}>Capabilities</span>
         </h2>
@@ -68,7 +73,8 @@ export default function EnterpriseServices() {
         display: 'grid', 
         gridTemplateColumns: 'repeat(3, 1fr)', 
         gap: '24px',
-        maxWidth: '1040px', // Tightened from 1200px
+        maxWidth: '1040px',
+        margin: '0 auto', // Center the grid
       }}>
         {services.map((service, index) => (
           <Link
@@ -142,6 +148,41 @@ export default function EnterpriseServices() {
             </div>
           </Link>
         ))}
+      </div>
+
+      <div style={{ marginTop: '56px', textAlign: 'center' }}>
+        <Link 
+          to="/capabilities"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '12px',
+            background: COLORS.burgundy,
+            color: '#FFFFFF',
+            padding: '16px 42px',
+            borderRadius: '4px',
+            fontWeight: 700,
+            fontSize: '14px',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = COLORS.burgundyHover;
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 12px 24px rgba(107, 21, 48, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = COLORS.burgundy;
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 16px rgba(107, 21, 48, 0.2)';
+          }}
+        >
+          Explore all capabilities
+          <ArrowRight size={18} />
+        </Link>
       </div>
     </section>
   );

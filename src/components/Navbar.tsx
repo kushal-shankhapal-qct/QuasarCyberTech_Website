@@ -274,11 +274,11 @@ const Navbar: React.FC = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center', 
+            alignItems: 'center', // Center them relative to each other
             justifyContent: 'center',
             textDecoration: 'none',
             flexShrink: 0,
-            width: '180px', 
+            width: '180px', // Fixed width to enable centering
             zIndex: 1002,
           }}
         >
@@ -317,6 +317,7 @@ const Navbar: React.FC = () => {
                   style={{
                     height: NC.logoText.height,
                     width: NC.logoText.width,
+                    objectFit: 'contain',
                     display: 'block',
                     marginTop: NC.logoText.marginTop,
                   }}
@@ -333,7 +334,7 @@ const Navbar: React.FC = () => {
         style={{
           position: 'absolute',
           left: '50%',
-          transform: `translate(calc(-50% + ${NC.wrapper.pillNudgeX || '0px'}), ${NC.wrapper.pillNudgeY || '0px'})`,
+          transform: `translate(calc(-50% + ${NC.pill.nudgeX || '0px'}), ${NC.pill.nudgeY || '0px'})`,
           display: 'flex',
           alignItems: 'center',
           gap: NC.pill.gap,
@@ -344,6 +345,7 @@ const Navbar: React.FC = () => {
           backdropFilter: scrolled ? NC.pill.backdropFilterScrolled : NC.pill.backdropFilterTop,
           WebkitBackdropFilter: scrolled ? NC.pill.backdropFilterScrolled : NC.pill.backdropFilterTop,
           border: scrolled ? NC.pill.borderScrolled : NC.pill.borderTop,
+          borderTop: scrolled ? (NC.pill.borderTopScrolled || NC.pill.borderScrolled) : NC.pill.borderTop,
           boxShadow: scrolled ? NC.pill.boxShadowScrolled : NC.pill.boxShadowTop,
           flexShrink: 0,
           transition: NC.pill.transition,

@@ -70,8 +70,8 @@ export default function QCTSecureFramework() {
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', 
         gap: '10px',
-        alignItems: 'start',
-        minHeight: '480px' // Section length stable for expansion
+        alignItems: 'stretch',
+        minHeight: '400px' // Section length stable for expansion
       }}>
         {stages.map((stage, i) => {
           const expanded = active === i;
@@ -89,7 +89,10 @@ export default function QCTSecureFramework() {
                   padding: '24px 18px',
                   transition: 'all 0.3s ease',
                   cursor: 'default',
-                  height: '100%',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '260px',
                 }}
               >
                 <div style={{ color: COLORS.teal, fontSize: '56px', fontWeight: 900, lineHeight: 1, opacity: 1 }}>{stage.letter}</div>

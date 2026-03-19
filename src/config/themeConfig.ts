@@ -227,6 +227,46 @@ export const themeConfig = {
   },
 };
 
+// ─── NAVBAR MATERIAL MODES (RANKED) ───
+export type NavbarMaterialMode = 'integrated-warm-dark' | 'structural-accent' | 'faint-burgundy';
+
+export const ACTIVE_NAVBAR_MATERIAL: NavbarMaterialMode = 'faint-burgundy';
+
+export const NAVBAR_MATERIALS = {
+  'integrated-warm-dark': {
+    // Rank 1: Deep Cyber Glass
+    background: 'linear-gradient(180deg, rgba(11, 31, 59, 0.98) 0%, rgba(4, 11, 29, 1) 100%)',
+    backdropFilter: 'blur(12px)',
+    border: 'none',
+    borderTop: 'none',
+    accentColor: 'transparent',
+    accentOpacity: 0,
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+  },
+  'structural-accent': {
+    // Rank 2: Structural Teal Accent
+    background: 'rgba(4, 11, 29, 1)',
+    backdropFilter: 'none',
+    border: 'none',
+    borderTop: `1px solid ${COLORS.teal}`,
+    accentColor: COLORS.teal,
+    accentOpacity: 0.8,
+    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
+  },
+  'faint-burgundy': {
+    // Rank 3: Deep Blood-Dark Gradient (Current Choice)
+    background: 'radial-gradient(circle at 20% 0%, rgba(56, 8, 26, 1) 0%, rgba(4, 11, 29, 1) 100%)',
+    backdropFilter: 'none',
+    border: 'none',
+    borderTop: 'none',
+    accentColor: 'transparent',
+    accentOpacity: 0,
+    boxShadow: '0 12px 48px rgba(0, 0, 0, 0.7)',
+  }
+};
+
+const material = NAVBAR_MATERIALS[ACTIVE_NAVBAR_MATERIAL];
+
 // ─── NAVBAR CONFIG — Single source of truth for navbar ─────────────────────
 export const NAVBAR_CONFIG = {
 
@@ -241,16 +281,13 @@ export const NAVBAR_CONFIG = {
     paddingLeft: '2em',
     paddingRight: '2em',
 
-    // Granular Nudges
-    logoContainerNudgeX: '-1em',
+    logoContainerNudgeX: '-2.2em',
     logoContainerNudgeY: '0px',
     logoIconNudgeX: '0px',
     logoIconNudgeY: '0px',
     logoTextNudgeX: '0px',
     logoTextNudgeY: '0px',
 
-    pillNudgeX: '0em',
-    pillNudgeY: '5px',
 
     contactNudgeX: '0px',
     contactNudgeY: '5px',
@@ -270,9 +307,9 @@ export const NAVBAR_CONFIG = {
 
   // ─── LOGO TEXT (image asset below icon) ────────────────────
   logoText: {
-    width: 'auto',
-    height: '26px',
-    marginTop: '12px',
+    width: '160px',
+    height: 'auto',
+    marginTop: '10px',
     marginBottom: '0px',
     marginLeft: '0px',
     marginRight: '0px',
@@ -290,13 +327,16 @@ export const NAVBAR_CONFIG = {
     paddingLeft: '6px',
     paddingRight: '6px',
     borderRadius: '100px',
-    gap: '2px',
+    gap: '0.6em',
+    nudgeX: '-10px',
+    nudgeY: '5px',
 
-    // Scrolled state (Clean, refined glass pod)
-    backgroundScrolled: 'rgba(10, 15, 28, 0.85)',
-    backdropFilterScrolled: 'blur(16px)',
-    borderScrolled: '1px solid rgba(255, 255, 255, 0.1)',
-    boxShadowScrolled: '0 4px 24px rgba(0, 0, 0, 0.3)',
+    // Scrolled state (Dynamic Material Direction — Claymorphism)
+    backgroundScrolled: material.background,
+    backdropFilterScrolled: material.backdropFilter,
+    borderScrolled: material.border,
+    borderTopScrolled: material.borderTop,
+    boxShadowScrolled: material.boxShadow,
 
     // At-top state (fully transparent)
     backgroundTop: 'rgba(10, 8, 22, 0.0)',
@@ -402,16 +442,16 @@ export const NAVBAR_CONFIG = {
     borderRadiusBottom: '16px',
     borderRadius: '0 0 16px 16px',
 
-    background: 'linear-gradient(160deg, rgba(18, 10, 28, 0.97) 0%, rgba(10, 8, 22, 0.98) 60%, rgba(14, 8, 18, 0.99) 100%)',
-    backdropFilter: 'blur(28px) saturate(1.3)',
+    background: material.background,
+    backdropFilter: material.backdropFilter,
 
     topAccentHeight: '1px',
-    topAccentColor: '#2BC4B6',
-    topAccentOpacity: 0.7,
+    topAccentColor: material.accentColor,
+    topAccentOpacity: material.accentOpacity,
 
-    border: '1px solid rgba(214, 176, 92, 0.08)',
-    borderTop: 'none',
-    boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 8px 24px rgba(0,0,0,0.4)',
+    border: material.border,
+    borderTop: material.borderTop,
+    boxShadow: material.boxShadow,
 
     openAnimation: 'fadeSlideDown 0.18s cubic-bezier(0.23,1,0.32,1)',
     closeDelay: 150,

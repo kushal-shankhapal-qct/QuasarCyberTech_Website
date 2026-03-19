@@ -4,7 +4,7 @@ import { useInView, motion } from 'framer-motion';
 import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, BRAND_CONTROLS } from '../config/themeConfig';
 
 /* ───────── COUNT-UP COMPONENT ───────── */
-const CountUp = ({ end, suffix, label, delay, duration }: { end: number; suffix: string; label: string; delay: number; duration: number }) => {
+const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end: number; suffix: string; label: string; delay: number; duration: number; isDark?: boolean }) => {
     const [count, setCount] = React.useState(0);
     const ref = React.useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
@@ -61,7 +61,7 @@ const CountUp = ({ end, suffix, label, delay, duration }: { end: number; suffix:
                 <div className="relative mb-2 flex flex-row items-end justify-center">
                     <div className="relative inline-flex flex-col items-center">
                         <div className="flex flex-row items-center">
-                            <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: BRAND_CONTROLS.metricsNumberColor }}>
+                            <span className="text-4xl md:text-5xl font-black tabular-nums leading-none" style={{ color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor }}>
                                 {end > 999 ? count.toLocaleString() : count}
                             </span>
                             {renderSuffix()}
@@ -87,7 +87,7 @@ const CountUp = ({ end, suffix, label, delay, duration }: { end: number; suffix:
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '0.15em',
-                        color: BRAND_CONTROLS.metricsLabelColor,
+                        color: isDark ? 'rgba(255,255,255,0.5)' : BRAND_CONTROLS.metricsLabelColor,
                         lineHeight: '1.4'
                     }}
                 >
@@ -98,7 +98,7 @@ const CountUp = ({ end, suffix, label, delay, duration }: { end: number; suffix:
     );
 };
 
-export default function TrustIndicators() {
+export default function TrustIndicators({ isDark = false }: { isDark?: boolean }) {
     const metrics = [
         { value: 120, suffix: '+', label: 'Security Engagements' },
         { value: 15, suffix: '+', label: 'Countries Served' },
@@ -110,9 +110,9 @@ export default function TrustIndicators() {
         <section
             className="relative w-full z-[0]"
             style={{
-                background: SECTION_BACKGROUNDS.LIGHT,
-                paddingTop: '100px',
-                paddingBottom: '100px',
+                background: isDark ? 'transparent' : SECTION_BACKGROUNDS.LIGHT,
+                paddingTop: isDark ? '0px' : '100px',
+                paddingBottom: isDark ? '0px' : '100px',
             }}
         >
             {/* Subtle dot grid texture */}
@@ -140,7 +140,7 @@ export default function TrustIndicators() {
                                 <div className="hidden sm:block lg:hidden absolute right-0 top-0 bottom-0 w-px bg-[#0B1F3B] opacity-[0.1]" />
                             )}
                             
-                            <CountUp end={metric.value} suffix={metric.suffix} label={metric.label} delay={0.1 + (idx * 0.05)} duration={1.5} />
+                            <CountUp end={metric.value} suffix={metric.suffix} label={metric.label} delay={0.1 + (idx * 0.05)} duration={1.5} isDark={isDark} />
                         </div>
                     ))}
                 </div>
