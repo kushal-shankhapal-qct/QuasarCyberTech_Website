@@ -229,7 +229,9 @@ export default function FeaturedInsights() {
                 {/* Change 4 — Standard CTA below cards */}
                 <div style={{
                     display: 'flex',
+                    justifyContent: 'center',
                     marginTop: '48px',
+                    width: '100%'
                 }}>
                     <a href="/insights" style={{
                         background: COLORS.burgundy,

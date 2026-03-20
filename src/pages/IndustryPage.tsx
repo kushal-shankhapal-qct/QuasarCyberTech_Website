@@ -7,9 +7,8 @@ import PlaceholderImage from '../components/PlaceholderImage';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, ALPHAS } from '../config/themeConfig';
+import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY } from '../config/themeConfig';
 import { industriesData } from '../data/industriesData';
-import saasConceptImg from '../assets/saas-concept-collage.jpg';
 
 const IndustryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -29,71 +28,97 @@ const IndustryPage: React.FC = () => {
           minHeight: '100vh',
           background: GRADIENTS.HERO_BG,
           display: 'flex',
-          alignItems: 'center',
-          padding: '140px 2.5em 80px',
+          flexDirection: 'column',
+          justifyContent: 'flex-end', // Anchor content to bottom
+          alignItems: 'flex-start',
+          paddingLeft: '2.5em',
+          paddingRight: '2em',
+          paddingBottom: '3em',
+          paddingTop: '0em',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', gap: '120px', alignItems: 'center', width: '100%' }}>
-          {/* Left Column (58%) */}
-          <div style={{ flex: '0 0 58%', position: 'relative', zIndex: 2 }}>
-            {/* Breadcrumb */}
-            <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '32px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ maxWidth: '720px', position: 'relative', zIndex: 1 }}>
+          {/* Left Column Content */}
+          <div style={{ width: '100%' }}>
+            <div style={{ fontSize: '13px', color: COLORS.textMuted, marginBottom: '32px', display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
               <span style={{ color: COLORS.teal }}>›</span>
               <Link to="/industries" style={{ color: 'inherit', textDecoration: 'none' }}>Industries</Link>
               <span style={{ color: COLORS.teal }}>›</span>
-              <span style={{ color: '#FFFFFF' }}>{industry.name}</span>
+              <span style={{ color: 'rgba(255,255,255,0.7)' }}>{industry.name}</span>
             </div>
 
-            <p style={{ color: COLORS.teal, fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
-              {industry.eyebrow}
-            </p>
-            <h1 style={{ color: COLORS.textOnDark, fontWeight: 800, fontSize: 'clamp(32px, 5.5vw, 52px)', lineHeight: 1.05, marginBottom: '28px', letterSpacing: '-0.03em' }}>
+            <h1 style={{ 
+              ...TYPOGRAPHY.heroTitle,
+              fontFamily: TYPOGRAPHY.fontHeading,
+              color: COLORS.textOnDark, 
+              marginBottom: '28px' 
+            }}>
               {industry.title} <br /><span style={{ color: COLORS.teal }}>{industry.highlight}</span>
             </h1>
-            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '17px', lineHeight: 1.6, maxWidth: '520px', marginBottom: '42px' }}>
+            <p style={{ 
+              ...TYPOGRAPHY.bodyLarge,
+              color: 'rgba(255,255,255,0.76)', 
+              textAlign: 'justify',
+              maxWidth: '100%', 
+              marginBottom: '42px' 
+            }}>
               {industry.subtitle}
             </p>
 
             <div style={{ display: 'flex', gap: '18px' }}>
-              <Link to="/contact" style={{ background: COLORS.burgundy, color: '#FFFFFF', padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '12px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <Link to="/contact" style={{ 
+                ...TYPOGRAPHY.buttonLarge,
+                background: COLORS.burgundy, 
+                color: '#FFFFFF', 
+                border: '1px solid transparent',
+                padding: '14px 34px', 
+                borderRadius: '4px', 
+                textDecoration: 'none', 
+                transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)', 
+              }}>
                 Talk to an Expert
               </Link>
             </div>
           </div>
+        </div>
 
-          {/* Right Column (38%) */}
-          <div style={{ flex: '0 0 38%' }}>
-            {industry.slug === 'saas' ? (
-              <div style={{ 
-                height: '320px',
-                borderRadius: '0 0 24px 24px',
-                borderTop: `4px solid ${COLORS.burgundy}`,
-                overflow: 'hidden',
-                position: 'relative',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
-              }}>
-                <img 
-                  src={saasConceptImg} 
-                  alt={industry.name} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover',
-                    filter: 'brightness(0.6) saturate(0.7)'
-                  }} 
-                />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'rgba(4, 11, 29, 0.45)',
-                  mixBlendMode: 'multiply'
-                }} />
-              </div>
-            ) : (
-              <PlaceholderImage Icon={industry.icon} height="400px" label={industry.name} />
-            )}
-          </div>
+        {/* Right-side Graphic Zone (Floating absolute to keep text aligned to left margin) */}
+        <div style={{ 
+          position: 'absolute', 
+          right: '60px', // Site standard buffer
+          bottom: '3em',
+          width: 'min(40vw, 420px)',
+          height: '400px',
+          zIndex: 0
+        }}>
+          <div style={{ 
+              height: '100%',
+              borderRadius: '0 0 24px 24px',
+              borderTop: `4px solid ${COLORS.burgundy}`,
+              overflow: 'hidden',
+              position: 'relative',
+              boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
+            }}>
+              <img 
+                src={industry.image} 
+                alt={industry.name} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover',
+                  filter: 'brightness(0.75) saturate(0.9)'
+                }} 
+              />
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'rgba(4, 11, 29, 0.35)',
+                mixBlendMode: 'multiply'
+              }} />
+            </div>
         </div>
       </section>
 

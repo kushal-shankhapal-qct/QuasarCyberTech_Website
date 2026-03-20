@@ -112,18 +112,25 @@ export default function EnterpriseServices() {
                 cursor: 'pointer',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-2px) scale(1.0)'; 
+                e.currentTarget.style.transform = 'translateY(-4px) scale(1.0)'; 
                 e.currentTarget.style.boxShadow = SHADOWS.lightCardHover;
                 e.currentTarget.style.borderLeftColor = COLORS.burgundy;
                 
                 const img = e.currentTarget.querySelector('.photo-element') as HTMLElement;
-                if (img) img.style.transform = 'scale(1.02)';
+                if (img) img.style.transform = 'scale(1.04)';
 
                 const overlay = e.currentTarget.querySelector('.overlay-deepen-layer') as HTMLElement;
-                if (overlay) overlay.style.opacity = '0.6';
+                if (overlay) overlay.style.opacity = '0';
 
-                const arrow = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
-                if (arrow) arrow.style.transform = 'translateX(4px)';
+                const arrowContainer = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
+                if (arrowContainer) {
+                  arrowContainer.style.transform = 'translateX(4px)';
+                  const svg = arrowContainer.querySelector('svg');
+                  if (svg) svg.style.stroke = COLORS.burgundy;
+                }
+
+                const label = e.currentTarget.querySelector('.svc-label') as HTMLElement;
+                if (label) label.style.color = COLORS.burgundy;
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = `scale(${LAYOUT_CONTROLS.card.capabilityCardScale})`;
@@ -136,8 +143,15 @@ export default function EnterpriseServices() {
                 const overlay = e.currentTarget.querySelector('.overlay-deepen-layer') as HTMLElement;
                 if (overlay) overlay.style.opacity = '0';
 
-                const arrow = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
-                if (arrow) arrow.style.transform = 'translateX(0px)';
+                const arrowContainer = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
+                if (arrowContainer) {
+                  arrowContainer.style.transform = 'translateX(0px)';
+                  const svg = arrowContainer.querySelector('svg');
+                  if (svg) svg.style.stroke = COLORS.teal;
+                }
+
+                const label = e.currentTarget.querySelector('.svc-label') as HTMLElement;
+                if (label) label.style.color = COLORS.teal;
               }}
             >
               {/* Image zone */}
@@ -186,19 +200,20 @@ export default function EnterpriseServices() {
               {/* Card body */}
               <div style={{ padding: '16px 18px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <p style={{
+                  <p className="svc-label" style={{
                     color: COLORS.teal,
                     fontSize: '11px',
                     fontWeight: 600,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
                     fontFamily: TYPOGRAPHY.fontBody,
-                    margin: 0
+                    margin: 0,
+                    transition: 'color 0.4s ease'
                   }}>
                     SVC.0{index + 1}
                   </p>
-                  <div className="card-arrow-icon" style={{ transition: 'transform 0.3s ease', display: 'flex' }}>
-                    <ArrowRight size={16} color={COLORS.teal} />
+                  <div className="card-arrow-icon" style={{ transition: 'all 0.3s ease', display: 'flex' }}>
+                    <ArrowRight size={16} color={COLORS.teal} style={{ transition: 'stroke 0.4s ease' }} />
                   </div>
                 </div>
 

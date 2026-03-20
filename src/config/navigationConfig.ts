@@ -21,9 +21,10 @@ import {
   Globe
 } from 'lucide-react';
 
-import qPulseLogo from '../assets/Logos/QPulse_Logo.png';
+import qPulseLogo from '../assets/Logos/Screenshots/QPulse/Screenshot 2026-03-03 124218.png';
 import qStellarLogo from '../assets/logos copy/Platforms/QStelllar_fulllogo_transparent_No_Buffer.png';
 import qLeapLogo from '../assets/logos copy/Platforms/QLeap_Logo.png';
+import qrgtLogo from '../assets/logos copy/Platforms/QRGT.png';
 
 export const navigationConfig = [
   { label: 'Home', href: '/' },
@@ -79,8 +80,9 @@ export const navigationConfig = [
     dropdownWidth: 'w-[450px]',
     dropdownOffset: '-translate-x-[30%]',
     subItems: [
-      { label: 'QRGT', href: '/platforms/qrgt', desc: 'Penetration Testing as a Service (PTaaS) platform.', LucideIcon: Target },
-      { label: 'QStellar', href: 'https://qstellar.quasarcybertech.com', desc: 'Asset intelligence platform.', icon: qStellarLogo, isExternal: true },
+      { label: 'QStellar', href: 'https://qstellar.co', desc: 'AI-powered asset intelligence platform.', icon: qStellarLogo, isExternal: true },
+      { label: 'QPulse', href: 'https://qpulse.quasarcybertech.com', desc: 'Cybersecurity insights and research portal.', icon: qPulseLogo, isExternal: true },
+      { label: 'QRGT', href: '/platforms#qrgt', desc: 'Penetration Testing as a Service (PTaaS) platform.', icon: qrgtLogo },
       { label: 'QLeap', href: 'https://qleap-ed.com', desc: 'Cybersecurity training ecosystem.', icon: qLeapLogo, isExternal: true }
     ]
   },

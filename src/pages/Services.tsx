@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
@@ -6,7 +6,7 @@ import SectionHeader from '../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, TYPOGRAPHY, themeConfig, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS, GRADIENTS, ALPHAS } from '../config/themeConfig';
 import { capabilitiesData } from '../data/capabilitiesData';
 
 import svc1 from '../assets/logos copy/SVCs_Set_2/SVC_1.png';
@@ -16,32 +16,73 @@ import svc4 from '../assets/logos copy/SVCs_Set_2/SVC_4.png';
 import svc5 from '../assets/logos copy/SVCs_Set_2/SVC_5.png';
 import svc6 from '../assets/logos copy/SVCs_Set_2/SVC_6.png';
 
-const svcImages = [svc1, svc2, svc3, svc4, svc5, svc6];
+// Capability Photos
+import imgAdvisory from "../assets/capabilities/Cyber Advisory & Risk Governance.jpg";
+import imgCompliance from "../assets/capabilities/Compliance & Regulatory Assurance.jpg";
+import imgOffensive from "../assets/capabilities/Offensive Security Engineering.jpg";
+import imgCloud from "../assets/capabilities/Cloud & Infrastructure Security.jpg";
+import imgManagedDefense from "../assets/capabilities/Managed Defense Operations_2.jpeg";
+import imgIntelligence from "../assets/capabilities/Cyber Intelligence & Security Research.webp";
+
+const svcImagesLabels = [
+  { img: svc1, code: 'SVC.01', name: 'Cyber Advisory & Risk Governance' },
+  { img: svc2, code: 'SVC.02', name: 'Compliance & Regulatory Assurance' },
+  { img: svc3, code: 'SVC.03', name: 'Offensive Security Engineering' },
+  { img: svc4, code: 'SVC.04', name: 'Cloud & Infrastructure Security' },
+  { img: svc5, code: 'SVC.05', name: 'Managed Defense Operations' },
+  { img: svc6, code: 'SVC.06', name: 'Intelligence & Security Research' },
+];
+
+const capPhotos = [imgAdvisory, imgCompliance, imgOffensive, imgCloud, imgManagedDefense, imgIntelligence];
 
 const ServicesOverview: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   return (
     <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh' }}>
       <Navbar />
-      
-      {/* ─── SECTION 1: HERO (DARK) ─── */}
+
+      {/* ─── SECTION 1: HERO (Two Column) ─── */}
+      {/* ─── SECTION 1: HERO (Two Column) ─── */}
       <section
         style={{
-          background: '#0B1F3B',
-          backgroundImage: `
-            linear-gradient(rgba(43, 196, 182, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(43, 196, 182, 0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-          padding: '160px 2.5em 100px',
-          minHeight: '360px',
+          background: GRADIENTS.HERO_BG,
+          minHeight: '100vh',
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
+          justifyContent: 'flex-end', // Anchor content to bottom
+          alignItems: 'flex-start',
+          paddingLeft: '2.5em',
+          paddingRight: '2em',
+          paddingBottom: '3em',
+          paddingTop: '0em',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
-          {/* Left Column / Single Column */}
-          <div style={{ maxWidth: '680px' }}>
-            {/* Breadcrumb — sits INSIDE hero, ABOVE h1 */}
+        <div style={{
+          width: '100%',
+          paddingLeft: '2.5em',
+          paddingRight: '2em',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '48px',
+          boxSizing: 'border-box',
+          zIndex: 2
+        }} className="hero-columns-container">
+          <style>{`
+            @media (max-width: 1024px) {
+              .hero-columns-container { flex-direction: column !important; align-items: flex-start !important; }
+              .constellation-wrapper { margin-top: 100px !important; margin-left: 0 !important; transform: scale(0.8) !important; align-self: center !important; }
+            }
+          `}</style>
+
+          {/* Left Column */}
+          <div style={{ maxWidth: '720px' }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -55,232 +96,267 @@ const ServicesOverview: React.FC = () => {
               <span style={{ color: 'rgba(255,255,255,0.7)' }}>Capabilities</span>
             </div>
 
-            <h1 style={{ 
-              color: COLORS.textOnDark, 
-              fontWeight: 800, 
-              fontSize: 'clamp(36px, 6vw, 56px)', 
-              lineHeight: 1.05, 
-              marginBottom: '28px', 
-              letterSpacing: '-0.03em',
-              fontFamily: TYPOGRAPHY.fontHeading
+            <h1 style={{
+              ...TYPOGRAPHY.heroTitle,
+              fontFamily: TYPOGRAPHY.fontHeading,
+              color: COLORS.textOnDark,
+              marginBottom: '28px',
             }}>
-              Our Core <span style={{ color: COLORS.teal }}>Capabilities</span>
+              Our Core <span style={{ color: COLORS.gold }}>Capabilities</span>
             </h1>
-            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '18px', lineHeight: 1.6, maxWidth: '560px', marginBottom: '42px' }}>
+            <p style={{ 
+              ...TYPOGRAPHY.bodyLarge,
+              color: 'rgba(255,255,255,0.76)', 
+              textAlign: 'justify',
+              maxWidth: '100%', 
+              marginBottom: '42px',
+            }}>
               QuasarCyberTech delivers end-to-end cybersecurity services spanning advisory, engineering, offensive validation, cloud security, and managed defense.
             </p>
-            
-            <div style={{ display: 'flex', gap: '18px' }}>
-              <Link to="/contact" style={{ background: COLORS.burgundy, color: '#FFFFFF', padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '12px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+
+            <div style={{ display: 'flex' }}>
+              <Link to="/contact" style={{ 
+                ...TYPOGRAPHY.buttonLarge,
+                background: COLORS.burgundy, 
+                color: '#FFFFFF', 
+                border: '1px solid transparent',
+                padding: '14px 34px', 
+                borderRadius: '4px', 
+                textDecoration: 'none', 
+                transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
+              }}>
                 Talk to a Security Expert
               </Link>
             </div>
+          </div>
+
+          {/* Right Column — SVC Grid (Refined) */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 170px)',
+            gap: '12px',
+            paddingTop: '32px'
+          }}>
+            {svcImagesLabels.map((svc) => (
+              <div key={svc.code} style={{
+                width: '170px',
+                position: 'relative',
+                overflow: 'hidden',
+                borderLeft: `3px solid ${COLORS.gold}`,
+                borderRadius: '0 12px 12px 0',
+                background: '#040B1D',
+                cursor: 'default',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+              }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.filter = 'brightness(1.1)';
+                  e.currentTarget.style.borderLeftColor = '#FFFFFF';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.filter = 'brightness(1)';
+                  e.currentTarget.style.borderLeftColor = COLORS.gold;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {/* Image Top */}
+                <div style={{ height: '84px', overflow: 'hidden' }}>
+                  <img src={svc.img} alt={svc.code} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 }} />
+                </div>
+                {/* Name Below */}
+                <div style={{
+                  background: COLORS.burgundy,
+                  padding: '8px 10px',
+                  minHeight: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  borderTop: '1px solid rgba(255,255,255,0.05)'
+                }}>
+                  <span style={{
+                    fontSize: '0.62rem',
+                    fontWeight: 700,
+                    color: 'rgba(255,255,255,0.9)',
+                    lineHeight: 1.2,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.02em',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    {svc.name}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
         {/* ─── SECTION 2: CAPABILITIES GRID (LIGHT) ─── */}
-        <section id="pillars" style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '120px 2.5em' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <SectionHeader 
+        <section id="pillars" style={{
+          background: SECTION_BACKGROUNDS.LIGHT,
+          backgroundImage: `
+            linear-gradient(rgba(11, 31, 59, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(11, 31, 59, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+          padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`
+        }}>
+          <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+            <SectionHeader
               title="Cybersecurity"
               highlight="Capabilities"
               subtitle="Full-spectrum protection designed for the modern digital enterprise."
             />
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', marginTop: '64px' }}>
-              {capabilitiesData.map((cap, i) => (
-                <motion.div
-                  key={cap.slug}
-                  whileHover={{ y: -8 }}
-                  style={{
-                    borderRadius: '0 0 16px 16px',
-                    borderTop: `3px solid ${COLORS.burgundy}`,
-                    background: COLORS.cardOnLight,
-                    boxShadow: SHADOWS.lightCard,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  {/* Image Zone */}
-                  <div style={{ 
-                    height: '160px', 
-                    position: 'relative',
-                    overflow: 'hidden',
-                    background: themeConfig.services.imageBg,
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    padding: themeConfig.services.imagePadding,
-                  }}>
-                    <img 
-                      src={svcImages[i]} 
-                      alt={cap.name}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '24px', marginTop: '64px' }}>
+              {capabilitiesData.map((cap, i) => {
+                return (
+                  <Link
+                    key={cap.slug}
+                    to={`/capabilities/${cap.slug}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <motion.article
+                      whileHover={{ y: -4 }}
                       style={{
-                        width: '100%',
+                        background: '#FFFFFF',
+                        borderTop: `4px solid ${COLORS.teal}`,
+                        borderRadius: '0 0 8px 8px',
                         height: '100%',
-                        objectFit: 'contain',
-                        objectPosition: 'center',
-                        display: 'block',
-                        transform: `scale(${themeConfig.services.imageScale})`,
-                        transition: 'transform 0.3s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        transition: 'box-shadow 0.3s ease',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                       }}
-                    />
-                  </div>
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = '0 12px 32px rgba(11,31,59,0.12)';
+                        e.currentTarget.style.borderTopColor = COLORS.burgundy;
+                        const img = e.currentTarget.querySelector('.card-photo') as HTMLImageElement;
+                        if (img) img.style.transform = 'scale(1.04)';
+                        const overlay = e.currentTarget.querySelector('.card-overlay') as HTMLDivElement;
+                        if (overlay) overlay.style.opacity = '0.6';
 
-                  {/* Body */}
-                  <div style={{ padding: '16px 18px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <p style={{ 
-                      color: COLORS.teal, 
-                      fontSize: '11px', 
-                      fontWeight: 600, 
-                      letterSpacing: '0.1em', 
-                      textTransform: 'uppercase', 
-                      marginBottom: '8px' 
-                    }}>
-                      SVC.0{i + 1}
-                    </p>
-                    <h3 style={{ 
-                      color: COLORS.textOnLight, 
-                      fontWeight: 700, 
-                      fontSize: '16px', 
-                      lineHeight: 1.3,
-                      marginBottom: '10px' 
-                    }}>
-                      {cap.name}
-                    </h3>
-                    <p style={{ 
-                      color: COLORS.textSub, 
-                      fontSize: '14px', 
-                      lineHeight: 1.65, 
-                      marginBottom: '18px', 
-                      flex: 1 
-                    }}>
-                      {cap.description}
-                    </p>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 'auto' }}>
-                      <Link to={`/capabilities/${cap.slug}`} style={{ color: COLORS.teal }}>
-                        <ArrowRight size={16} />
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                        // Internal elements burgundy
+                        const label = e.currentTarget.querySelector('.cap-label') as HTMLParagraphElement;
+                        if (label) label.style.color = COLORS.burgundy;
+                        const explore = e.currentTarget.querySelector('.cap-explore') as HTMLDivElement;
+                        if (explore) {
+                          explore.style.color = COLORS.burgundy;
+                          explore.style.borderBottomColor = COLORS.burgundy;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)';
+                        e.currentTarget.style.borderTopColor = COLORS.teal;
+                        const img = e.currentTarget.querySelector('.card-photo') as HTMLImageElement;
+                        if (img) img.style.transform = 'scale(1)';
+                        const overlay = e.currentTarget.querySelector('.card-overlay') as HTMLDivElement;
+                        if (overlay) overlay.style.opacity = '1';
+
+                        // Revert internal elements
+                        const label = e.currentTarget.querySelector('.cap-label') as HTMLParagraphElement;
+                        if (label) label.style.color = COLORS.teal;
+                        const explore = e.currentTarget.querySelector('.cap-explore') as HTMLDivElement;
+                        if (explore) {
+                          explore.style.color = COLORS.teal;
+                          explore.style.borderBottomColor = COLORS.teal;
+                        }
+                      }}
+                    >
+                      {/* Photo Area */}
+                      <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
+                        <img
+                          className="card-photo"
+                          src={capPhotos[i]}
+                          alt={cap.name}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                            transition: 'transform 0.4s ease',
+                          }}
+                        />
+                        <div
+                          className="card-overlay"
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(160deg, rgba(107,15,43,0.15) 0%, rgba(11,31,59,0.25) 100%)',
+                            transition: 'opacity 0.4s ease',
+                            pointerEvents: 'none'
+                          }}
+                        />
+                      </div>
+
+                      {/* Body */}
+                      <div style={{ padding: '20px 24px 24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                          <p className="cap-label" style={{
+                            color: COLORS.teal,
+                            fontSize: '11px',
+                            fontWeight: 600,
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            margin: 0,
+                            transition: 'color 0.3s ease'
+                          }}>
+                            SVC.0{i + 1}
+                          </p>
+                          <div className="cap-explore" style={{
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            color: COLORS.teal,
+                            letterSpacing: '0.04em',
+                            textTransform: 'uppercase',
+                            borderBottom: `2px solid ${COLORS.teal}`,
+                            paddingBottom: '2px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            transition: 'all 0.3s ease'
+                          }}>
+                            Explore Capability <ArrowRight size={14} />
+                          </div>
+                        </div>
+
+                        <h3 style={{
+                          color: '#0B1F3B',
+                          fontWeight: 700,
+                          fontSize: '17px',
+                          lineHeight: 1.3,
+                          marginBottom: '10px',
+                          fontFamily: TYPOGRAPHY.fontHeading
+                        }}>
+                          {cap.name}
+                        </h3>
+                        <p style={{
+                          color: '#4a5568',
+                          fontSize: '0.875rem',
+                          lineHeight: 1.6,
+                          marginBottom: '18px',
+                          flex: 1
+                        }}>
+                          {cap.description}
+                        </p>
+                      </div>
+                    </motion.article>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* ─── SECTION 3: WHY QCT (DARK) ─── */}
-        <section style={{ background: SECTION_BACKGROUNDS.DARK, padding: '120px 2.5em' }}>
-          <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', gap: '80px', alignItems: 'flex-start' }}>
-              <div style={{ flex: '0 0 55%' }}>
-                <SectionHeader 
-                  isDark
-                  title="Enterprise Security,"
-                  highlight="Consulting-Led"
-                  highlightColor={COLORS.gold}
-                  subtitle="Every engagement focuses on business outcomes, not just technical checkboxes."
-                />
-
-                {/* Trust Metrics — replaces pills */}
-                <div style={{ display: 'flex', gap: '48px', marginTop: '32px' }}>
-                  {[
-                    { value: '120', symbol: '+', label: 'Engagements' },
-                    { value: '15', symbol: '+', label: 'Countries' },
-                    { value: '6', symbol: '', label: 'Capability Pillars' },
-                  ].map(metric => (
-                    <div key={metric.label}>
-                      <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                        <span style={{ color: COLORS.textOnDark, fontSize: '36px', fontWeight: 800, fontFamily: TYPOGRAPHY.fontHeading }}>{metric.value}</span>
-                        {metric.symbol && <span style={{ color: COLORS.gold, fontSize: '24px', fontWeight: 800 }}>{metric.symbol}</span>}
-                      </div>
-                      <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '4px' }}>{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            {/* Right Column — Placeholder Image */}
-            <div style={{ 
-              flex: '0 0 40%', 
-              height: '320px',
-              position: 'relative',
-              borderRadius: '0 0 24px 24px',
-              borderTop: `4px solid ${COLORS.burgundy}`,
-              background: 'linear-gradient(135deg, rgba(11,31,59,0.5) 0%, rgba(4,11,29,0.7) 100%)',
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <div style={{ 
-                textAlign: 'center', 
-                color: 'rgba(255,255,255,0.15)', 
-                fontSize: '11px', 
-                fontWeight: 600, 
-                textTransform: 'uppercase', 
-                letterSpacing: '0.1em',
-                padding: '40px'
-              }}>
-                [CISO executive presentation security strategy boardroom dark]
-                <div style={{ marginTop: '8px', fontSize: '10px', opacity: 0.5 }}>PLACEHOLDER IMAGE ZONE</div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px', marginTop: '80px' }}>
-            {[
-              { label: 'Consulting-Led Approach', desc: 'Every engagement begins with understanding your business context, not selling tools.' },
-              { label: 'Full-Spectrum Coverage', desc: 'Advisory to offensive to managed defense — all delivered through the QCT SECURE Framework.' },
-              { label: 'Platform-Powered Delivery', desc: 'QRGT, QStellar, and QPulse extend consulting into continuous operations and intelligence.' }
-            ].map(item => (
-              <div key={item.label} style={{ 
-                background: 'rgba(255,255,255,0.05)', 
-                borderTop: `3px solid ${COLORS.teal}`, 
-                padding: '32px 28px', 
-                borderRadius: '0 0 12px 12px' 
-              }}>
-                <h4 style={{ color: COLORS.textOnDark, fontWeight: 700, fontSize: '17px', marginBottom: '12px' }}>{item.label}</h4>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: 1.6 }}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SECTION 4: SECURE FRAMEWORK REF (LIGHT) ─── */}
-      <section style={{ background: '#FFFFFF', padding: '100px 2.5em' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <SectionHeader 
-            title="The QCT"
-            highlight="SECURE Framework"
-            highlightColor={COLORS.teal}
-            subtitle="Every capability is delivered through a structured cybersecurity lifecycle designed for enterprise resilience."
-            maxWidth="700px"
-          />
-          
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', margin: '48px 0' }}>
-            {['S', 'E', 'C', 'U', 'R', 'E'].map((letter, idx) => (
-              <div key={letter+idx} style={{ padding: '16px', border: `1px solid rgba(43,196,182,0.15)`, borderRadius: '12px', width: '90px', textAlign: 'center' }}>
-                <div style={{ color: COLORS.teal, fontSize: '40px', fontWeight: 900, fontFamily: TYPOGRAPHY.fontHeading }}>{letter}</div>
-                <div style={{ fontSize: '10px', color: COLORS.textOnLight, fontWeight: 700, marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  {['Strategize', 'Evaluate', 'Challenge', 'Upgrade', 'Respond', 'Evolve'][idx]}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <Link to="/#framework" style={{ color: COLORS.teal, fontWeight: 700, textDecoration: 'none', fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            Explore the Framework <ArrowRight size={16} />
-          </Link>
-        </div>
-      </section>
-
-      <CTASection />
-      <Footer />
+        <CTASection showMetrics={false} />
+        <Footer />
       </div>
     </div>
   );

@@ -8,18 +8,22 @@ import TrustIndicators from './TrustIndicators';
 interface CTASectionProps {
   title?: string;
   subtitle?: string;
+  showMetrics?: boolean;
+  showEyebrow?: boolean;
 }
 
 const CTASection: React.FC<CTASectionProps> = ({ 
   title = "Secure Your Digital Enterprise", 
-  subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations." 
+  subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.",
+  showMetrics = true,
+  showEyebrow = true
 }) => {
   return (
     <section
       style={{
         position: 'relative',
         background: GRADIENTS.HERO_BG,
-        padding: '120px 2.5em',
+        padding: '120px 2.5em 60px', // Reduced bottom padding
         overflow: 'hidden',
         fontFamily: TYPOGRAPHY.fontBody
       }}
@@ -28,9 +32,11 @@ const CTASection: React.FC<CTASectionProps> = ({
         
         {/* Upper CTA Content */}
         <div style={{ maxWidth: '800px' }}>
-          <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, marginBottom: '20px' }}>
-            READY TO BEGIN?
-          </p>
+          {showEyebrow && (
+            <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, marginBottom: '20px' }}>
+              READY TO BEGIN?
+            </p>
+          )}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -108,9 +114,11 @@ const CTASection: React.FC<CTASectionProps> = ({
         </div>
 
         {/* Lower Trust Metrics */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '60px' }}>
-          <TrustIndicators isDark />
-        </div>
+        {showMetrics && (
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '60px' }}>
+            <TrustIndicators isDark />
+          </div>
+        )}
       </div>
 
     </section>

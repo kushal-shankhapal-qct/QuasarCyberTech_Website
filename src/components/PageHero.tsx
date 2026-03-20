@@ -26,18 +26,24 @@ const PageHero: React.FC<PageHeroProps> = ({
   return (
     <section
       style={{
-        minHeight: isOverview ? '80vh' : '100vh',
+        minHeight: isOverview ? '85vh' : '100vh',
         background: GRADIENTS.HERO_BG,
         display: 'flex',
-        alignItems: 'center',
-        padding: '160px 2.5em 80px',
+        flexDirection: 'column',
+        justifyContent: 'flex-end', // Anchor content to bottom
+        alignItems: 'flex-start',
+        paddingLeft: '2.5em',
+        paddingRight: '2em',
+        paddingBottom: '3em',
+        paddingTop: '0em',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        fontFamily: TYPOGRAPHY.fontBody,
       }}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%', display: 'flex', gap: '80px', alignItems: 'center' }}>
-        {/* Left Column (60%) */}
-        <div style={{ flex: imageKeyword ? '0 0 60%' : '1 1 auto', maxWidth: imageKeyword ? 'auto' : '800px' }}>
+      <div style={{ maxWidth: '720px', position: 'relative', zIndex: 1 }}>
+        {/* Left Column Content */}
+        <div style={{ width: '100%' }}>
           
           {/* Breadcrumb - SIT INSIDE hero content at top */}
           <div style={{
@@ -60,99 +66,101 @@ const PageHero: React.FC<PageHeroProps> = ({
           </div>
 
           <h1 style={{ 
+            ...TYPOGRAPHY.heroTitle,
+            fontFamily: TYPOGRAPHY.fontHeading,
             color: COLORS.textOnDark, 
-            fontWeight: 800, 
-            fontSize: 'clamp(36px, 6vw, 56px)', 
-            lineHeight: 1.05, 
             marginBottom: '28px', 
-            letterSpacing: '-0.03em',
-            fontFamily: TYPOGRAPHY.fontHeading
           }}>
             {title} <span style={{ color: COLORS.teal }}>{highlight}</span>
           </h1>
           
           <p style={{ 
-            color: 'rgba(255,255,255,0.75)', 
-            fontSize: '18px', 
-            lineHeight: 1.6, 
-            maxWidth: '560px', 
-            marginBottom: '48px',
-            fontFamily: TYPOGRAPHY.fontBody
+            ...TYPOGRAPHY.bodyLarge,
+            color: 'rgba(255,255,255,0.76)', 
+            textAlign: 'justify',
+            maxWidth: '100%', 
+            marginBottom: '42px',
           }}>
             {subtitle}
           </p>
 
-          <div style={{ display: 'flex', gap: '18px' }}>
+          <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
             <Link to={isOverview ? "#pillars" : categoryHref} style={{ 
+              ...TYPOGRAPHY.buttonLarge,
               background: 'transparent', 
-              border: `1px solid ${COLORS.burgundy}`, 
-              color: COLORS.gold, 
-              padding: '14px 34px', 
+              color: '#FFFFFF',
+              border: `1px solid #6B1530`, 
               borderRadius: '4px', 
-              fontWeight: 700, 
-              fontSize: '12px', 
+              padding: '14px 34px', 
               textDecoration: 'none', 
-              textTransform: 'uppercase', 
-              letterSpacing: '0.08em' 
+              transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)', 
             }}>
               {isOverview ? "Explore Services" : "Explore Related"}
             </Link>
             <Link to="/contact" style={{ 
-              background: COLORS.burgundy, 
+              ...TYPOGRAPHY.buttonLarge,
+              background: '#6B1530', 
               color: '#FFFFFF', 
+              border: '1px solid transparent',
               padding: '14px 34px', 
               borderRadius: '4px', 
-              fontWeight: 700, 
-              fontSize: '12px', 
               textDecoration: 'none', 
-              textTransform: 'uppercase', 
-              letterSpacing: '0.08em' 
+              transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)', 
             }}>
               Talk to an Expert
             </Link>
           </div>
         </div>
 
-        {/* Right Column (Placeholder Image Zone) */}
-        {imageKeyword && (
-          <div style={{ 
-            flex: '0 0 40%', 
+      </div>
+
+      {/* Right-side Graphic Zone (Floating absolute to keep text aligned to left margin) */}
+      {imageKeyword && (
+        <div
+          style={{
+            position: 'absolute',
+            right: '2em',
+            bottom: '3em',
+            width: 'min(40vw, 420px)',
             height: isOverview ? '360px' : '380px',
-            position: 'relative',
             borderRadius: '0 0 24px 24px',
-            borderTop: `4px solid ${COLORS.burgundy}`,
+            borderTop: `4px solid #6B1530`,
             background: 'rgba(255,255,255,0.03)',
             overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
+            boxShadow: '0 30px 60px rgba(0,0,0,0.3)',
+            zIndex: 0
+          }}
+        >
+          <div style={{ 
+            textAlign: 'center', 
+            color: 'rgba(255,255,255,0.15)', 
+            fontSize: '11px', 
+            fontWeight: 600, 
+            textTransform: 'uppercase', 
+            letterSpacing: '0.1em',
+            padding: '40px',
+            position: 'relative',
+            zIndex: 2
           }}>
-            <div style={{ 
-              textAlign: 'center', 
-              color: 'rgba(255,255,255,0.15)', 
-              fontSize: '11px', 
-              fontWeight: 600, 
-              textTransform: 'uppercase', 
-              letterSpacing: '0.1em',
-              padding: '40px'
-            }}>
-              [{imageKeyword}]
-              <div style={{ marginTop: '8px', fontSize: '10px', opacity: 0.5 }}>
-                TREATMENT: BRIGHTNESS(0.6) SATURATE(0.65) + RGBA(4,11,29,0.4) OVERLAY
-              </div>
+            [{imageKeyword}]
+            <div style={{ marginTop: '8px', fontSize: '10px', opacity: 0.5 }}>
+              TREATMENT: BRIGHTNESS(0.6) SATURATE(0.65) + RGBA(4,11,29,0.4) OVERLAY
             </div>
-            
-            {/* Scrim Overlay */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'rgba(4, 11, 29, 0.4)',
-              mixBlendMode: 'multiply'
-            }} />
           </div>
-        )}
-      </div>
+          
+          {/* Scrim Overlay */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(4, 11, 29, 0.4)',
+            mixBlendMode: 'multiply',
+            zIndex: 1
+          }} />
+        </div>
+      )}
     </section>
   );
 };

@@ -22,7 +22,7 @@ export const COLORS = {
   textOnDark: '#FFFFFF',
   textOnLight: '#0B1F3B',
   textMuted: '#8B949E',
-  textSub: '#5A6478',
+  textSub: '#374151', // Darkened from #5A6478 for better authority and readability
   burgundyHover: '#8B1E3F',
 
   // Legacy aliases (safe to remove when no component uses them)
@@ -382,7 +382,7 @@ export const NAVBAR_VARIANTS = {
   A: {
     // Option A: Warm Obsidian (Recommended for Hero context)
     pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
-    dropdownBackground: 'rgba(18, 8, 16, 0.99)',
+    dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
     dropdownBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
     backdropFilter: 'none',
@@ -390,7 +390,7 @@ export const NAVBAR_VARIANTS = {
   B: {
     // Option B: Deep Navy Slate (Technical/Cold)
     pillBackground: 'linear-gradient(180deg, rgb(14, 22, 48), rgb(8, 14, 32))',
-    dropdownBackground: 'rgb(9, 15, 35)',
+    dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(255, 255, 255, 0.06)',
     dropdownBorderTop: '1px solid rgba(255, 255, 255, 0.06)',
     backdropFilter: 'none',
@@ -398,7 +398,7 @@ export const NAVBAR_VARIANTS = {
   C: {
     // Option C: Branded Dark with Teal Structural Accent
     pillBackground: 'linear-gradient(180deg, rgba(14, 18, 42, 0.95), rgba(8, 10, 28, 0.97))',
-    dropdownBackground: 'rgb(10, 12, 28)',
+    dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(43, 196, 182, 0.2)',
     dropdownBorderTop: '1.5px solid rgba(43, 196, 182, 0.45)',
     backdropFilter: 'none',
@@ -406,14 +406,14 @@ export const NAVBAR_VARIANTS = {
   recommended: {
     // Recommended: Warm Pill + Cool/Teal Dropdown
     pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
-    dropdownBackground: 'rgb(10, 12, 28)',
+    dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
     dropdownBorderTop: '1.5px solid rgba(43, 196, 182, 0.45)',
     backdropFilter: 'none',
   },
   current: {
-    pillBackground: 'radial-gradient(circle at 20% 0%, rgba(56, 8, 26, 1) 0%, rgba(4, 11, 29, 1) 100%)',
-    dropdownBackground: 'radial-gradient(circle at 20% 0%, rgba(56, 8, 26, 1) 0%, rgba(4, 11, 29, 1) 100%)',
+    pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
+    dropdownBackground: '#1C0D14',
     pillBorderTop: 'none',
     dropdownBorderTop: 'none',
     backdropFilter: 'none',
@@ -609,8 +609,8 @@ export const NAVBAR_CONFIG = {
 
     paddingTop: '10px',
     paddingBottom: '10px',
-    paddingLeft: '20px',
-    paddingRight: '0px',
+    paddingLeft: '28px',
+    paddingRight: '28px',
     itemGap: '2px',
     columnGap: '48px',
 
@@ -619,7 +619,7 @@ export const NAVBAR_CONFIG = {
       fontWeight: '700',
       letterSpacing: '0.16em',
       textTransform: 'uppercase' as const,
-      color: '#2BC4B6',
+      color: '#D6B05C',
       marginBottom: '10px',
       paddingBottom: '0px', // We'll manually handle underline width
       separatorHeight: '1px',
@@ -631,7 +631,7 @@ export const NAVBAR_CONFIG = {
       fontWeight: '400',
       letterSpacing: '0.005em',
       color: 'rgba(255,255,255,0.78)',
-      colorHover: '#2BC4B6',
+      colorHover: '#D6B05C',
       paddingTop: '7px',
       paddingBottom: '7px',
       paddingLeft: '0px',
@@ -677,7 +677,7 @@ export const NAVBAR_CONFIG = {
   megaMenu: {
     paddingTop: '16px',
     paddingBottom: '16px',
-    paddingHorizontal: 'max(48px, calc((100vw - 1400px) / 2))',
+    paddingHorizontal: '28px',
     columns: 4,
     columnGap: '48px',
     offsetX: '0px', // Nudge Capabilities menu left/right
@@ -685,7 +685,7 @@ export const NAVBAR_CONFIG = {
 
   // ─── PLATFORMS DROPDOWN ─────────────────────────────────────
   platformsMenu: {
-    width: '360px',
+    width: '380px',
     itemLayout: 'list' as const,
   },
 

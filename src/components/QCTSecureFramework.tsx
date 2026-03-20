@@ -52,18 +52,18 @@ export default function QCTSecureFramework() {
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
-    <section 
+    <section
       id="secure-framework"
       style={{
-      background: COLORS.darkBase,
-      padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} 360px`, // Synchronized rhythm
-      overflow: 'visible',          // MUST be visible — never hidden
-      position: 'relative',
-      fontFamily: TYPOGRAPHY.fontBody,
-      zIndex: 1,
-    }}>
-      <SectionHeader 
-        isDark 
+        background: COLORS.darkBase,
+        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} 360px`, // Synchronized rhythm
+        overflow: 'visible',          // MUST be visible — never hidden
+        position: 'relative',
+        fontFamily: TYPOGRAPHY.fontBody,
+        zIndex: 1,
+      }}>
+      <SectionHeader
+        isDark
         title="The QCT"
         highlight="SECURE"
         suffix="Framework"
@@ -102,12 +102,13 @@ export default function QCTSecureFramework() {
               <div style={{
                 borderRadius: activeCard === i ? '0' : '0 0 18px 18px',
                 background: activeCard === i ? 'rgba(8, 16, 38, 1)' : 'rgba(255,255,255,0.05)',
-                border: `1px solid rgba(43,196,182,${activeCard === i ? '0.25' : '0.12'})`,
-                borderTop: activeCard === i ? `3px solid ${COLORS.burgundy}` : `3px solid ${COLORS.teal}`,
-                borderBottom: activeCard === i ? '1px solid rgba(8, 16, 38, 1)' : `1px solid rgba(43,196,182,0.12)`,
+                borderLeft: '1px solid rgba(43, 196, 182, 0.3)',
+                borderRight: '1px solid rgba(43, 196, 182, 0.3)',
+                borderTop: activeCard === i ? `3px solid #6B1530` : `3px solid ${COLORS.teal}`,
+                borderBottom: activeCard === i ? 'none' : '1px solid rgba(43, 196, 182, 0.3)',
                 padding: LAYOUT_CONTROLS.card.frameworkCardPadding,
                 textAlign: 'center',
-                transition: 'all 0.2s ease',
+                transition: 'background 0.2s ease, border-top 0.2s ease, border-radius 0.1s ease',
                 minHeight: '220px', // Standard height across all cards
                 display: 'flex',
                 flexDirection: 'column',
@@ -117,7 +118,7 @@ export default function QCTSecureFramework() {
                   : 'none',
                 zIndex: activeCard === i ? 60 : 1,
               }}>
-                
+
                 {/* Stage Number */}
                 <div style={{
                   color: 'rgba(255, 255, 255, 0.18)',
@@ -136,13 +137,14 @@ export default function QCTSecureFramework() {
                   fontSize: LAYOUT_CONTROLS.card.frameworkLetterSize,
                   fontWeight: 900,
                   fontFamily: TYPOGRAPHY.fontHeading,
-                  color: COLORS.teal,
+                  color: activeCard === i ? '#6B1530' : COLORS.teal,
                   lineHeight: 1,
                   userSelect: 'none',
+                  transition: 'color 0.2s ease',
                 }}>
                   {stage.letter}
                 </div>
-                
+
                 {/* Stage name */}
                 <div style={{
                   color: COLORS.textOnDark,
@@ -153,13 +155,13 @@ export default function QCTSecureFramework() {
                 }}>
                   {stage.name}
                 </div>
-                
+
                 {/* Chevron */}
                 <div style={{
                   marginTop: '16px',
                   display: 'flex',
                   justifyContent: 'center',
-                  color: COLORS.teal,
+                  color: activeCard === i ? '#6B1530' : COLORS.teal,
                   opacity: activeCard === i ? 1 : 0.35,
                   transform: activeCard === i ? 'rotate(180deg)' : 'rotate(0deg)',
                   transition: 'transform 0.3s ease, opacity 0.2s ease',
@@ -167,26 +169,26 @@ export default function QCTSecureFramework() {
                   <ChevronDown size={14} />
                 </div>
               </div>
-              
+
               {/* DROPDOWN — absolute, outside card flow entirely */}
               <div style={{
                 position: 'absolute',    // float over content below
-                top: '100%',             // attach to bottom of card
+                top: 'calc(100% - 1.5px)', // attach to bottom of card
                 left: 0,                 // match card border exactly
                 right: 0,                // match card border exactly
                 zIndex: 50,
-                
+
                 background: 'rgba(8, 16, 38, 1)',
-                borderLeft: '1px solid rgba(43,196,182,0.25)',
-                borderRight: '1px solid rgba(43,196,182,0.25)',
-                borderBottom: '1px solid rgba(43,196,182,0.25)',
+                borderLeft: '1px solid rgba(43, 196, 182, 0.3)',
+                borderRight: '1px solid rgba(43, 196, 182, 0.3)',
+                borderBottom: '1px solid rgba(43, 196, 182, 0.3)',
                 borderRadius: '0 0 16px 16px',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
-                
+
                 maxHeight: activeCard === i ? '320px' : '0px',
                 overflow: 'hidden',
                 transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-                
+
                 paddingTop: activeCard === i ? '0px' : '0',  // Controlled by internal element paddings when expanded
                 paddingBottom: activeCard === i ? '20px' : '0',
                 paddingLeft: '16px',

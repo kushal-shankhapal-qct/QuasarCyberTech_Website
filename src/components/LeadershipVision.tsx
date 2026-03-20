@@ -86,35 +86,38 @@ export default function LeadershipVision() {
                         className="flex-1 flex flex-col items-start"
                         style={{ paddingLeft: '20px' }}
                     >
-                        <blockquote
-                            style={{
-                                ...TYPOGRAPHY.pageTitle,
-                                fontFamily: TYPOGRAPHY.fontHeading,
-                                color: COLORS.deepCyberBlue,
-                                borderLeft: `6px solid ${COLORS.burgundy}`,
-                                paddingLeft: '32px',
-                                fontStyle: 'italic',
-                                fontSize: 'clamp(24px, 2.5vw, 32px)',
-                                fontWeight: 800,
-                                lineHeight: 1.3,
-                                marginBottom: '40px'
-                            }}
-                        >
-                            "Our mission is to engineer high-resilience security ecosystems that empower enterprises to innovate without fear."
-                        </blockquote>
-                        <div style={{
-                            ...TYPOGRAPHY.bodyLarge,
-                            color: COLORS.textSub,
-                            maxWidth: '680px',
-                            textAlign: 'justify',
-                            lineHeight: 1.7
-                        }}>
-                            <p style={{ marginBottom: '24px' }}>
-                                QuasarCyberTech was founded on the principle that cybersecurity should be an engineering discipline, not just a defensive posture. In an era of rapid digital evolution, we believe in building security that scales with your ambition.
-                            </p>
-                            <p>
-                                From our signature SECURE framework to our evolving platform ecosystem, every solution we deliver is designed to provide continuous visibility, accelerated remediation, and unwavering governance for the modern enterprise.
-                            </p>
+                        <div style={{ maxWidth: '780px' }}> {/* Shared container to sync Quote and Para widths */}
+                            <blockquote
+                                style={{
+                                    ...TYPOGRAPHY.pageTitle,
+                                    fontFamily: TYPOGRAPHY.fontHeading,
+                                    color: COLORS.deepCyberBlue,
+                                    borderLeft: `6px solid ${COLORS.burgundy}`,
+                                    paddingLeft: '32px',
+                                    fontStyle: 'italic',
+                                    fontSize: 'clamp(24px, 2.5vw, 32px)',
+                                    fontWeight: 800,
+                                    lineHeight: 1.3,
+                                    marginBottom: '40px',
+                                    width: '100%'
+                                }}
+                            >
+                                "Our mission is to engineer high-resilience security ecosystems that empower enterprises to innovate without fear."
+                            </blockquote>
+                            <div style={{
+                                ...TYPOGRAPHY.bodyLarge,
+                                color: COLORS.textSub,
+                                textAlign: 'justify',
+                                lineHeight: 1.7,
+                                fontWeight: 400 // Slightly firmer weight
+                            }}>
+                                <p style={{ marginBottom: '24px' }}>
+                                    QuasarCyberTech was founded on the principle that cybersecurity should be an engineering discipline, not just a defensive posture. In an era of rapid digital evolution, we believe in building security that scales with your ambition.
+                                </p>
+                                <p>
+                                    From our signature SECURE framework to our evolving platform ecosystem, every solution we deliver is designed to provide continuous visibility, accelerated remediation, and unwavering governance for the modern enterprise.
+                                </p>
+                            </div>
                         </div>
                     </motion.div>
                 </div>

@@ -3,21 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
-import ind01 from '../assets/Banking_and_Financial Services.jpg';
-import ind02 from '../assets/CyberLock.jpg';
-import ind03 from '../assets/saas-concept-collage.jpg';
-import ind04 from '../assets/industries/ind_04.png';
-import ind05 from '../assets/industries/ind_05.png';
-import ind06 from '../assets/Managed_IT_Services.jpg';
-
-const industriesData = [
-  { name: 'Banking & Financial Services', category: 'FINANCIAL', desc: 'Secure governance and technical validation for RBI guidelines and international standards.', image: ind01, slug: 'banking' },
-  { name: 'FinTech & Digital Payments', category: 'PAYMENTS', desc: 'Security for cloud-native microservices, APIs, and high-velocity transaction logic.', image: ind02, slug: 'fintech' },
-  { name: 'SaaS & Technology Platforms', category: 'CLOUD NATIVE', desc: 'End-to-end security for software providers, from code integrity to cloud isolation.', image: ind03, slug: 'saas' },
-  { name: 'E-commerce & Digital Platforms', category: 'LOGISTICS', desc: 'Protection of high-volume marketplaces against bot attacks and payment fraud.', image: ind04, slug: 'ecommerce' },
-  { name: 'Healthcare & HealthTech', category: 'HEALTHCARE', desc: 'Safeguarding personal data and ensuring integrity of clinical and medical ecosystems.', image: ind05, slug: 'healthcare' },
-  { name: 'Enterprise & Manufacturing', category: 'INDUSTRIAL', desc: 'Operational resilience and convergence security for IT and Industrial OT environments.', image: ind06, slug: 'enterprise' },
-];
+import { industriesData } from '../data/industriesData';
 
 export default function IndustrySnapshot() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -51,7 +37,7 @@ export default function IndustrySnapshot() {
                 <article
                   style={{
                     background: '#FFFFFF',
-                    borderTop: `4px solid ${COLORS.burgundy}`,
+                    borderTop: `4px solid ${isHovered ? COLORS.burgundy : COLORS.teal}`,
                     borderRadius: '0 0 8px 8px',
                     height: '100%',
                     display: 'flex',
@@ -92,23 +78,6 @@ export default function IndustrySnapshot() {
 
                   {/* Card body */}
                   <div style={{ padding: '20px 24px 24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <p style={{
-                        color: COLORS.teal,
-                        fontSize: '0.72rem',
-                        fontWeight: 600,
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase',
-                        fontFamily: TYPOGRAPHY.fontBody,
-                        margin: 0
-                      }}>
-                        {industry.category}
-                      </p>
-                      <div className="card-arrow-icon" style={{ transition: 'transform 0.3s ease', transform: isHovered ? 'translateX(4px)' : 'none' }}>
-                        <ArrowRight size={16} color={COLORS.teal} />
-                      </div>
-                    </div>
-
                     <h3 style={{
                       color: '#0B1F3B',
                       fontWeight: 700,
@@ -127,17 +96,18 @@ export default function IndustrySnapshot() {
                       margin: '0 0 18px 0',
                       flex: 1
                     }}>
-                      {industry.desc}
+                      {industry.description}
                     </p>
                     
                     <div style={{ 
-                      color: COLORS.teal, 
+                      color: isHovered ? COLORS.burgundy : COLORS.teal, 
                       fontSize: '0.78rem', 
                       fontWeight: 600,
                       marginTop: 'auto',
                       display: 'flex', 
                       alignItems: 'center', 
-                      gap: '4px'
+                      gap: '4px',
+                      transition: 'color 0.3s ease'
                     }}>
                       Explore Industry <span style={{ transition: 'transform 0.2s ease', transform: isHovered ? 'translateX(3px)' : 'none' }}>→</span>
                     </div>

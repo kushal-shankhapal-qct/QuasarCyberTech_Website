@@ -22,76 +22,165 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
     setExpandedMobile(expandedMobile === index ? null : index);
   };
 
+  // Logic to handle specific description override for Strategy Consulting
+  const getDisplayDescription = (svc: Service) => {
+    if (svc.name === "Cybersecurity Strategy Consulting") {
+      return "Building multi-year security roadmaps aligned with your business growth objectives. We work with leadership teams to define risk tolerance, prioritize investments, and establish a governance structure that scales with your organization.";
+    }
+    return svc.description;
+  };
+
   return (
-    <div className="service-area-panel" style={{ marginTop: '64px' }}>
+    <div className="service-area-panel">
       {/* ─── DESKTOP VIEW ─── */}
-      <div className="hidden md:flex" style={{ display: 'flex', minHeight: '520px', borderRadius: '16px', overflow: 'hidden', background: '#0B1F3B', border: '1px solid rgba(255,255,255,0.05)' }}>
-        {/* Left Panel (35%) */}
-        <div style={{ flex: '0 0 35%', borderRight: '1px solid rgba(255,255,255,0.1)', padding: '20px 0' }}>
+      <div className="hidden md:flex" style={{ 
+        display: 'flex', 
+        alignItems: 'stretch', // Stretch to match heights
+        minHeight: '400px', 
+        borderRadius: '4px', 
+        overflow: 'hidden', 
+        border: '1px solid rgba(43,196,182,0.12)',
+        background: '#040B1D'
+      }}>
+        {/* Left Panel (Service List) */}
+        <div style={{ 
+          flex: '0 0 35%', 
+          borderRight: '1px solid rgba(43,196,182,0.12)', 
+          padding: 0 
+        }}>
           {services.map((svc, i) => (
             <div
               key={i}
               onMouseEnter={() => setActiveIndex(i)}
               onClick={() => setActiveIndex(i)}
               style={{
-                padding: '24px 32px',
+                minHeight: '80px', // Increased height for tactical presence
+                padding: '16px 28px',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                position: 'relative',
-                borderLeft: activeIndex === i ? `4px solid ${COLORS.burgundy}` : '4px solid transparent',
-                background: activeIndex === i ? 'rgba(255,255,255,0.03)' : 'transparent',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
-                opacity: activeIndex === i ? 1 : 0.5,
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '16px',
+                background: activeIndex === i ? 'rgba(43,196,182,0.06)' : 'transparent',
+                borderLeft: activeIndex === i ? '3px solid #6B1530' : '3px solid transparent',
+                borderBottom: '1px solid rgba(255,255,255,0.07)',
+                position: 'relative'
               }}
-              onMouseOver={(e) => { if (activeIndex !== i) e.currentTarget.style.opacity = '1'; }}
-              onMouseOut={(e) => { if (activeIndex !== i) e.currentTarget.style.opacity = '0.5'; }}
+              onMouseOver={(e) => { 
+                if (activeIndex !== i) {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                  const nameEl = e.currentTarget.querySelector('.service-name') as HTMLSpanElement;
+                  if (nameEl) nameEl.style.color = 'rgba(255,255,255,0.80)';
+                }
+              }}
+              onMouseOut={(e) => { 
+                if (activeIndex !== i) {
+                  e.currentTarget.style.background = 'transparent';
+                  const nameEl = e.currentTarget.querySelector('.service-name') as HTMLSpanElement;
+                  if (nameEl) nameEl.style.color = 'rgba(255,255,255,0.50)';
+                }
+              }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <span style={{ color: COLORS.teal, fontSize: '14px', fontWeight: 700, fontFamily: TYPOGRAPHY.fontHeading }}>
+                <span style={{ 
+                  color: activeIndex === i ? '#2BC4B6' : 'rgba(43,196,182,0.45)', 
+                  fontSize: '0.72rem', 
+                  fontWeight: 700, 
+                  fontFamily: 'monospace',
+                  minWidth: '28px'
+                }}>
                   {(i + 1).toString().padStart(2, '0')}
                 </span>
-                <span style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 600 }}>
+                <span 
+                  className="service-name"
+                  style={{ 
+                    color: activeIndex === i ? '#ffffff' : 'rgba(255,255,255,0.50)', 
+                    fontSize: '1rem', 
+                    fontWeight: activeIndex === i ? 600 : 500,
+                    transition: 'color 0.2s ease'
+                  }}
+                >
                   {svc.name}
                 </span>
               </div>
+              {activeIndex === i && <ArrowRight size={14} color="#2BC4B6" />}
             </div>
           ))}
         </div>
 
-        {/* Right Panel (65%) */}
-        <div style={{ flex: '1', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+        {/* Right Panel (Detail View) */}
+        <div style={{ flex: '0 0 65%', position: 'relative', display: 'flex', flexDirection: 'column', background: '#0d2137' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
             >
-              {/* Service Image */}
-              <div style={{ height: '260px', width: '100%', background: '#1a2f4a', overflow: 'hidden' }}>
-                {services[activeIndex].image ? (
+              {/* Image Area */}
+              <div style={{ height: '200px', width: '100%', position: 'relative', overflow: 'hidden' }}>
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(135deg, #0d1f35 0%, #1a0a14 100%)',
+                  zIndex: 0
+                }} />
+                {services[activeIndex].image && (
                   <img 
                     src={services[activeIndex].image} 
                     alt={services[activeIndex].name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 1 }}
                   />
-                ) : null}
+                )}
+                <div style={{ 
+                  position: 'absolute', 
+                  bottom: 0, 
+                  left: 0, 
+                  right: 0, 
+                  height: '60%',
+                  background: 'linear-gradient(to bottom, transparent 40%, #0d2137 100%)',
+                  zIndex: 2
+                }} />
               </div>
 
-              {/* Service Details */}
-              <div style={{ padding: '48px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h3 style={{ color: '#FFFFFF', fontSize: '28px', fontWeight: 800, marginBottom: '20px', fontFamily: TYPOGRAPHY.fontHeading }}>
+              {/* Text Area */}
+              <div style={{ padding: '28px 36px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <h3 style={{ color: '#FFFFFF', fontSize: '1.4rem', fontWeight: 700, marginBottom: '14px', fontFamily: TYPOGRAPHY.fontHeading }}>
                   {services[activeIndex].name}
                 </h3>
-                <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '16px', lineHeight: 1.7, marginBottom: '32px', maxWidth: '500px' }}>
-                  {services[activeIndex].description}
+                <p style={{ color: 'rgba(255,255,255,0.70)', fontSize: '0.95rem', lineHeight: 1.75, marginBottom: '24px' }}>
+                  {getDisplayDescription(services[activeIndex])}
                 </p>
-                <Link to="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: COLORS.teal, fontWeight: 700, textDecoration: 'none', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Talk to an Expert <ArrowRight size={16} />
-                </Link>
+                <div style={{ marginTop: 'auto' }}>
+                  <Link 
+                    to="/contact" 
+                    style={{ 
+                      display: 'inline-flex', 
+                      alignItems: 'center', 
+                      gap: '8px', 
+                      color: '#2BC4B6', 
+                      fontWeight: 700, 
+                      textDecoration: 'none', 
+                      fontSize: '0.78rem', 
+                      textTransform: 'uppercase', 
+                      letterSpacing: '0.08em',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      const icon = e.currentTarget.querySelector('svg');
+                      if (icon) icon.style.transform = 'translateX(4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      const icon = e.currentTarget.querySelector('svg');
+                      if (icon) icon.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    TALK TO AN EXPERT <ArrowRight size={16} style={{ transition: 'transform 0.3s ease' }} />
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>

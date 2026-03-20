@@ -1,21 +1,13 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2, Target } from 'lucide-react';
 import qStellarLogoImg from '../assets/Logos/Cropped_QStelllar_fulllogo_transparent.png';
-import qLeapLogoImg from '../assets/logos copy/Platforms/QLeap_Logo.png';
+import qPulseLogoImg from '../assets/Logos/QPulse_Logo_No_Buffer.png';
+import qrgtLogoImg from '../assets/logos copy/Platforms/QRGT.png';
 import qStellarScreenshot from '../assets/Logos/Screenshots/QStellar/Screenshot 2026-03-03 124540.png';
 import { ALPHAS, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from '../config/themeConfig';
 
 import SectionHeader from './SectionHeader';
-
 const platforms = [
-  {
-    name: 'QRGT',
-    badge: 'PTAAS PLATFORM',
-    subtitle: 'Penetration Testing as a Service (PTaaS) platform',
-    highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
-    ctaText: 'Explore QRGT Platform',
-    link: '/platforms/qrgt',
-  },
   {
     name: 'QStellar',
     badge: 'ASSET INTELLIGENCE',
@@ -28,14 +20,23 @@ const platforms = [
     external: true,
   },
   {
-    name: 'QLeap',
-    badge: 'TRAINING',
-    subtitle: 'Cybersecurity training and talent development initiative from QuasarCyberTech',
-    logo: qLeapLogoImg,
-    highlights: ['SOC analyst training programs', 'Enterprise cybersecurity education', 'Certification and talent development programs', 'Industry-ready cybersecurity workforce training'],
-    ctaText: 'Visit QLeap',
-    link: 'https://qleap-ed.com',
+    name: 'QPulse',
+    badge: 'THREAT INTELLIGENCE',
+    subtitle: 'Enterprise-grade threat intelligence and security research portal',
+    logo: qPulseLogoImg, // I'll need to import this
+    highlights: ['Real-time threat analytics', 'Global threat feed ingestion', 'Vulnerability research and analysis', 'Strategic security intelligence'],
+    ctaText: 'Explore QPulse Portal',
+    link: 'https://qpulse.quasarcybertech.com',
     external: true,
+  },
+  {
+    name: 'QRGT',
+    badge: 'PTAAS PLATFORM',
+    subtitle: 'Continuous, governed Penetration Testing as a Service (PTaaS) platform',
+    logo: qrgtLogoImg,
+    highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
+    ctaText: 'Explore QRGT Platform',
+    link: '/platforms/qrgt',
   },
 ];
 
@@ -94,7 +95,7 @@ export default function PlatformHighlights() {
                 <img 
                   src={platform.screenshot} 
                   alt={platform.name} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', opacity: 0.8 }} 
                 />
               ) : (
                 /* Mock UI Lines */
@@ -116,18 +117,26 @@ export default function PlatformHighlights() {
               background: '#FFFFFF',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
+              paddingLeft: '32px',
               borderBottom: '1px solid rgba(11,31,59,0.08)',
             }}>
               {platform.logo ? (
                 <img
                   src={platform.logo}
                   alt={platform.name}
-                  style={{
+                  style={platform.name === 'QRGT' ? {
+                    maxHeight: '44px',
+                    maxWidth: '160px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    objectPosition: 'left center',
+                  } : {
                     maxHeight: '36px',
                     maxWidth: '140px',
                     width: 'auto',
                     objectFit: 'contain',
+                    objectPosition: 'left center',
                   }}
                 />
               ) : (
@@ -156,15 +165,27 @@ export default function PlatformHighlights() {
               
               <ul style={{ listStyle: 'none', margin: '0 0 24px 0', padding: 0, display: 'grid', gap: '12px', flexGrow: 1 }}>
                 {platform.highlights.map((highlight) => (
-                  <li key={highlight} style={{ 
-                    display: 'flex', 
-                    gap: '12px', 
-                    color: COLORS.textMuted, 
-                    ...TYPOGRAPHY.bodySmall,
-                    lineHeight: 1.5 
-                  }}>
-                    <CheckCircle2 size={16} color={COLORS.gold} style={{ flexShrink: 0, marginTop: '2px' }} />
-                    <span style={{ opacity: 0.85 }}>{highlight}</span>
+                  <li key={highlight} 
+                    style={{ 
+                      display: 'flex', 
+                      gap: '12px', 
+                      color: 'rgba(255,255,255,0.9)', 
+                      ...TYPOGRAPHY.bodySmall,
+                      fontWeight: 500,
+                      lineHeight: 1.5,
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      const icon = e.currentTarget.firstChild as HTMLElement;
+                      if (icon) icon.style.color = COLORS.burgundy;
+                    }}
+                    onMouseLeave={(e) => {
+                      const icon = e.currentTarget.firstChild as HTMLElement;
+                      if (icon) icon.style.color = COLORS.teal;
+                    }}
+                  >
+                    <CheckCircle2 size={16} color={COLORS.teal} style={{ flexShrink: 0, marginTop: '2px', transition: 'color 0.2s ease' }} />
+                    <span style={{ opacity: 1 }}>{highlight}</span>
                   </li>
                 ))}
               </ul>

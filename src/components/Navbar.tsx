@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X, BookOpen, ExternalLink, ArrowRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -124,6 +124,14 @@ const Navbar: React.FC = () => {
     // (Special case for capabilities handled in render)
     setDropdownPos(Math.min(targetLeft, maxL));
   };
+  
+  // ─── Capability Header Routes ───
+  const capabilityHeaderRoutes = [
+    '/capabilities/cyber-advisory-risk-governance',
+    '/capabilities/offensive-security-engineering',
+    '/capabilities/cloud-infrastructure-security',
+    '/capabilities/managed-defense-operations'
+  ];
 
   const openDropdown = (id: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -150,33 +158,57 @@ const Navbar: React.FC = () => {
   const isActivePath = (href: string) =>
     location.pathname === href || (href !== '/' && location.pathname.startsWith(href));
 
-  // ── Column Header with Text-Width Underline ──
-  const ColumnHeader = ({ title }: { title: string }) => (
-    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '16px' }}>
-      <span style={{
-          color: NC.dropdown.columnHeader.color,
-          fontSize: NC.dropdown.columnHeader.fontSize,
-          fontWeight: NC.dropdown.columnHeader.fontWeight,
-          letterSpacing: NC.dropdown.columnHeader.letterSpacing,
-          textTransform: NC.dropdown.columnHeader.textTransform,
-          marginBottom: '8px',
-          display: 'inline-block'
-      }}>
-          {title}
-      </span>
-      <div style={{
-          height: NC.dropdown.columnHeader.separatorHeight,
-          width: '100%',
-          background: NC.dropdown.columnHeader.separatorColor,
-          display: 'inline-block'
-      }} />
-    </div>
-  );
-  // ── Dropdown Item Renderer ──
-  const renderDropdownItem = (sub: SubItem, hideIcon = false) => {
+  // ─── Column Header with Text-Width Underline ───
+  const ColumnHeader = ({ title, href }: { title: string; href: string }) => {
+    const [h, setH] = useState(false);
+    return (
+      <Link 
+        to={href}
+        onMouseEnter={() => setH(true)}
+        onMouseLeave={() => setH(false)}
+        style={{ 
+          display: 'inline-flex', 
+          flexDirection: 'column', 
+          alignItems: 'flex-start', 
+          marginBottom: '16px', 
+          textDecoration: 'none', 
+          cursor: 'pointer' 
+        }}
+      >
+        <span style={{
+            color: NC.dropdown.columnHeader.color,
+            fontSize: NC.dropdown.columnHeader.fontSize,
+            fontWeight: NC.dropdown.columnHeader.fontWeight,
+            letterSpacing: NC.dropdown.columnHeader.letterSpacing,
+            textTransform: NC.dropdown.columnHeader.textTransform,
+            marginBottom: '8px',
+            display: 'inline-block',
+            textDecoration: h ? 'underline' : 'none',
+            transition: 'color 0.15s ease'
+        }}>
+            {title}
+        </span>
+        <div style={{
+            height: NC.dropdown.columnHeader.separatorHeight,
+            width: '100%',
+            background: h ? NC.dropdown.columnHeader.color : NC.dropdown.columnHeader.separatorColor,
+            display: 'inline-block',
+            transition: 'background 0.2s ease'
+        }} />
+      </Link>
+    );
+  };
+  // ─── Dropdown Item Renderer ───
+  const renderDropdownItem = (sub: SubItem, hideIcon = false, isPlatformItem = false) => {
     const dItem = NC.dropdown.item;
-    const isQstellar = sub.label.toLowerCase().includes('qstellar');
-    const isQpulseOrQleap = sub.label.toLowerCase().includes('qpulse') || sub.label.toLowerCase().includes('qleap');
+    const isInsights = openMenu === 'insights';
+    const isQrgt = sub.label === 'QRGT';
+    const isQpulse = sub.label === 'QPulse';
+    
+    // External arrow symbol
+    const ExternalArrow = () => (
+      <span style={{ fontSize: '0.7rem', opacity: 0.35, marginLeft: 'auto', fontWeight: 700 }}>↗</span>
+    );
 
     return (
       <Link
@@ -187,10 +219,11 @@ const Navbar: React.FC = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '12px',
-          padding: `${dItem.paddingTop} 0`,
+          gap: isPlatformItem ? '14px' : '12px',
+          padding: isPlatformItem ? '12px 0' : `${dItem.paddingTop} 0`,
           color: dItem.color,
           textDecoration: 'none',
+          borderBottom: isPlatformItem ? '1px solid rgba(255,255,255,0.06)' : 'none',
           transition: `color ${dItem.transitionDuration}, padding-left ${dItem.transitionDuration}`,
         }}
         onMouseEnter={(e) => {
@@ -202,24 +235,46 @@ const Navbar: React.FC = () => {
       >
         {!hideIcon && (sub.icon ? (
           <div style={{ 
-            width: isQstellar ? '32px' : isQpulseOrQleap ? '36px' : '28px', 
-            height: isQstellar ? '32px' : isQpulseOrQleap ? '36px' : '28px', 
-            background: isQstellar ? '#FFFFFF' : 'transparent',
-            borderRadius: isQstellar ? '6px' : '0px',
-            padding: isQstellar ? '4px' : '0px',
+            width: isPlatformItem ? '32px' : isInsights ? '28px' : '28px', 
+            height: isPlatformItem ? '32px' : isInsights ? '28px' : '28px', 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0
+            flexShrink: 0,
+            overflow: (isQrgt || isQpulse) ? 'hidden' : 'visible',
+            borderRadius: isPlatformItem ? '2px' : '0'
           }}>
-            <img src={sub.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 1 }} />
+            <img 
+              src={sub.icon} 
+              alt="" 
+              style={{ 
+                height: isQrgt ? '100%' : isQpulse ? '100%' : isPlatformItem ? '110%' : '100%', 
+                width: isQrgt ? '100%' : isQpulse ? 'auto' : 'auto', 
+                maxWidth: isPlatformItem ? '140px' : '100px', 
+                objectFit: isQrgt ? 'cover' : 'contain', 
+                opacity: 1 
+              }} 
+            />
           </div>
-        ) : sub.LucideIcon ? (
-          <sub.LucideIcon size={18} color={NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />
+        ) : sub.LucideIcon || (isInsights && sub.label.includes('Articles')) ? (
+          (() => {
+            const Icon = sub.label.includes('Articles') ? BookOpen : sub.LucideIcon;
+            return <Icon size={isInsights ? 20 : 18} color={isInsights ? '#2BC4B6' : NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />;
+          })()
         ) : null)}
-        <div style={{ fontSize: dItem.fontSize, fontWeight: '500', display: 'flex', alignItems: 'center', gap: '6px' }}>
+        
+        <div style={{ 
+          fontSize: isPlatformItem ? '0.9rem' : dItem.fontSize, 
+          fontWeight: isPlatformItem ? '500' : '500', 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '6px',
+          color: isPlatformItem ? 'rgba(255,255,255,0.80)' : 'inherit',
+          width: isPlatformItem ? '100%' : 'auto'
+        }}>
           {sub.label}
-          {sub.isExternal && <span style={{ fontSize: '10px', opacity: 0.4 }}>↗</span>}
+          {sub.isExternal && isPlatformItem && <ExternalArrow />}
+          {sub.isExternal && !isPlatformItem && <span style={{ fontSize: '10px', opacity: 0.4 }}>↗</span>}
         </div>
       </Link>
     );
@@ -437,7 +492,7 @@ const Navbar: React.FC = () => {
               top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.dropdown.verticalOffset})`,
               left: `${dropdownPos}px`,
               width: openMenu === 'industries' ? NC.industriesMenu.width : 
-                     openMenu === 'platforms' ? NC.platformsMenu.width : NC.companyMenu.width,
+                     openMenu === 'platforms-ecosystem' ? NC.platformsMenu.width : NC.companyMenu.width,
               background: NC.dropdown.background,
               backdropFilter: NC.dropdown.backdropFilter,
               WebkitBackdropFilter: NC.dropdown.backdropFilter,
@@ -453,26 +508,68 @@ const Navbar: React.FC = () => {
             {/* List Dropdowns (Platforms, Industries, Insights, Company) */}
             {['platforms-ecosystem', 'industries', 'insights', 'company'].includes(openMenu) && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {navMenus.find(m => m.id === openMenu)?.subItems?.map(item => renderDropdownItem(item))}
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {navMenus.find(m => m.id === openMenu)?.subItems?.map(item => 
+                    renderDropdownItem(item, false, openMenu === 'platforms-ecosystem')
+                  )}
+                </div>
+                
+                {/* Footer Link for Platforms */}
+                {openMenu === 'platforms-ecosystem' && (
+                  <Link 
+                    to="/platforms" 
+                    style={{ 
+                      marginTop: '12px', 
+                      textAlign: 'right', 
+                      fontSize: '0.78rem', 
+                      color: 'rgba(255,255,255,0.45)', 
+                      textDecoration: 'none', 
+                      transition: 'color 0.2s ease' 
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#D6B05C'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    Explore Ecosystem →
+                  </Link>
+                )}
               </div>
             )}
 
             {/* Mega Menu Content (Capabilities) */}
             {openMenu === 'capabilities' && (
-              <div style={{
-                width: '100%',
-                margin: '0 auto',
-                padding: '24px 32px', // Reduced inner paddings
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '24px',
-              }}>
-                {navMenus.find(m => m.id === 'capabilities')?.megaMenuGroups?.map((group) => (
-                  <div key={group.title}>
-                    <ColumnHeader title={group.title} />
-                    {group.items.map(item => renderDropdownItem(item, true))}
-                  </div>
-                ))}
+              <div style={{ width: '100%' }}>
+                <div style={{
+                  width: '100%',
+                  margin: '0 auto',
+                  padding: '24px 32px', // Reduced inner paddings
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '24px',
+                }}>
+                  {navMenus.find(m => m.id === 'capabilities')?.megaMenuGroups?.map((group, idx) => (
+                    <div key={group.title}>
+                      <ColumnHeader title={group.title} href={capabilityHeaderRoutes[idx]} />
+                      {group.items.map(item => renderDropdownItem(item, true))}
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Footer Link for Mega Menu */}
+                <div style={{ padding: '0 32px 24px', textAlign: 'right' }}>
+                  <Link 
+                    to="/capabilities" 
+                    style={{ 
+                      fontSize: '0.78rem', 
+                      color: 'rgba(255,255,255,0.45)', 
+                      textDecoration: 'none', 
+                      transition: 'color 0.2s ease' 
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#D6B05C'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    View All Capabilities →
+                  </Link>
+                </div>
               </div>
             )}
           </motion.div>
