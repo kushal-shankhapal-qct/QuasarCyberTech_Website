@@ -37,38 +37,38 @@ export const navigationConfig = [
       {
         title: 'Advisory & Governance',
         items: [
-          { label: 'Cyber Advisory & Risk Governance', href: '/capabilities/risk-compliance', desc: 'Strategic cybersecurity leadership and risk management.', LucideIcon: Shield },
-          { label: 'Security Architecture Review', href: '/capabilities/architecture-engineering', desc: 'Validating infrastructure security and design principles.', LucideIcon: BookOpen },
-          { label: 'Zero Trust Architecture Design', href: '/capabilities/architecture-engineering', desc: 'Implementing identity-centric security models.', LucideIcon: Server },
-          { label: 'Security Program Development', href: '/capabilities/risk-compliance', desc: 'Building comprehensive security roadmaps.', LucideIcon: ClipboardCheck }
+          { label: 'Cyber Advisory & Risk Governance', href: '/capabilities/cyber-advisory-risk-governance', desc: 'Strategic cybersecurity leadership and risk management.', LucideIcon: Shield },
+          { label: 'Security Architecture Review', href: '/capabilities/cyber-advisory-risk-governance#architecture-review', desc: 'Validating infrastructure security and design principles.', LucideIcon: BookOpen },
+          { label: 'Zero Trust Architecture Design', href: '/capabilities/cyber-advisory-risk-governance#zero-trust', desc: 'Implementing identity-centric security models.', LucideIcon: Server },
+          { label: 'Security Program Development', href: '/capabilities/cyber-advisory-risk-governance#program-development', desc: 'Building comprehensive security roadmaps.', LucideIcon: ClipboardCheck }
         ]
       },
       {
         title: 'Security Engineering',
         items: [
-          { label: 'Offensive Security Engineering', href: '/capabilities/red-team-adversary-simulation', desc: 'Advanced penetration testing and adversary simulation.', LucideIcon: Target },
-          { label: 'Web / Mobile / API Security Testing', href: '/capabilities/application-security', desc: 'Full-stack application security validation.', LucideIcon: Code },
-          { label: 'Red Team & Adversary Simulation', href: '/capabilities/red-team-adversary-simulation', desc: 'Enterprise-wide offensive security testing.', LucideIcon: Activity },
-          { label: 'Secure Code Review', href: '/capabilities/application-security', desc: 'Deep-dive source code security analysis.', LucideIcon: FileText },
-          { label: 'LLM & AI Security Testing', href: '/capabilities/application-security', desc: 'Specialized testing for AI/ML security risks.', LucideIcon: Brain }
+          { label: 'Offensive Security Engineering', href: '/capabilities/offensive-security-engineering', desc: 'Advanced penetration testing and adversary simulation.', LucideIcon: Target },
+          { label: 'Web / Mobile / API Security Testing', href: '/capabilities/offensive-security-engineering#web-mobile-api', desc: 'Full-stack application security validation.', LucideIcon: Code },
+          { label: 'Red Team & Adversary Simulation', href: '/capabilities/offensive-security-engineering#red-team', desc: 'Enterprise-wide offensive security testing.', LucideIcon: Activity },
+          { label: 'Secure Code Review', href: '/capabilities/offensive-security-engineering#code-review', desc: 'Deep-dive source code security analysis.', LucideIcon: FileText },
+          { label: 'LLM & AI Security Testing', href: '/capabilities/offensive-security-engineering#llm-ai', desc: 'Specialized testing for AI/ML security risks.', LucideIcon: Brain }
         ]
       },
       {
         title: 'Cloud & Infrastructure',
         items: [
-          { label: 'Cloud Security Assessments', href: '/capabilities/cloud-security', desc: 'Multi-cloud security configuration and risk analysis.', LucideIcon: Cloud },
-          { label: 'Kubernetes & Container Security', href: '/capabilities/cloud-security', desc: 'Securing cloud-native orchestration and clusters.', LucideIcon: Database },
-          { label: 'Cloud Security Posture Management (CSPM)', href: '/capabilities/cloud-security', desc: 'Automated governance for cloud environments.', LucideIcon: Server },
-          { label: 'Infrastructure Security Reviews', href: '/capabilities/network-security', desc: 'Network and core infrastructure security validation.', LucideIcon: Network }
+          { label: 'Cloud Security Assessments', href: '/capabilities/cloud-infrastructure-security', desc: 'Multi-cloud security configuration and risk analysis.', LucideIcon: Cloud },
+          { label: 'Kubernetes & Container Security', href: '/capabilities/cloud-infrastructure-security#kubernetes', desc: 'Securing cloud-native orchestration and clusters.', LucideIcon: Database },
+          { label: 'Cloud Security Posture Management (CSPM)', href: '/capabilities/cloud-infrastructure-security#cspm', desc: 'Automated governance for cloud environments.', LucideIcon: Server },
+          { label: 'Infrastructure Security Reviews', href: '/capabilities/cloud-infrastructure-security#infrastructure', desc: 'Network and core infrastructure security validation.', LucideIcon: Network }
         ]
       },
       {
         title: 'Managed Defense',
         items: [
-          { label: 'Managed SOC', href: '/capabilities/managed-security-operations', desc: '24/7 security monitoring and incident detection.', LucideIcon: Activity },
-          { label: 'Threat Detection & Monitoring', href: '/capabilities/digital-risk-monitoring', desc: 'Real-time monitoring and event correlation.', LucideIcon: Eye },
-          { label: 'Incident Response', href: '/capabilities/incident-response', desc: 'Rapid containment and remediation of security threats.', LucideIcon: AlertTriangle },
-          { label: 'Threat Hunting', href: '/capabilities/red-team-adversary-simulation', desc: 'Proactive searching for hidden security threats.', LucideIcon: Search }
+          { label: 'Managed SOC', href: '/capabilities/managed-defense-operations', desc: '24/7 security monitoring and incident detection.', LucideIcon: Activity },
+          { label: 'Threat Detection & Monitoring', href: '/capabilities/managed-defense-operations#threat-detection', desc: 'Real-time monitoring and event correlation.', LucideIcon: Eye },
+          { label: 'Incident Response', href: '/capabilities/managed-defense-operations#incident-response', desc: 'Rapid containment and remediation of security threats.', LucideIcon: AlertTriangle },
+          { label: 'Threat Hunting', href: '/capabilities/managed-defense-operations#threat-hunting', desc: 'Proactive searching for hidden security threats.', LucideIcon: Search }
         ]
       }
     ]

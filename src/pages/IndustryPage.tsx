@@ -9,6 +9,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, ALPHAS } from '../config/themeConfig';
 import { industriesData } from '../data/industriesData';
+import saasConceptImg from '../assets/saas-concept-collage.jpg';
 
 const IndustryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -32,9 +33,9 @@ const IndustryPage: React.FC = () => {
           padding: '140px 2.5em 80px',
         }}
       >
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '80px', alignItems: 'center' }}>
-          {/* Left Column (55%) */}
-          <div style={{ flex: '0 0 55%' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', gap: '120px', alignItems: 'center', width: '100%' }}>
+          {/* Left Column (58%) */}
+          <div style={{ flex: '0 0 58%', position: 'relative', zIndex: 2 }}>
             {/* Breadcrumb */}
             <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '32px', display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
@@ -47,10 +48,10 @@ const IndustryPage: React.FC = () => {
             <p style={{ color: COLORS.teal, fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
               {industry.eyebrow}
             </p>
-            <h1 style={{ color: COLORS.textOnDark, fontWeight: 800, fontSize: 'clamp(36px, 6vw, 56px)', lineHeight: 1.05, marginBottom: '28px', letterSpacing: '-0.03em' }}>
+            <h1 style={{ color: COLORS.textOnDark, fontWeight: 800, fontSize: 'clamp(32px, 5.5vw, 52px)', lineHeight: 1.05, marginBottom: '28px', letterSpacing: '-0.03em' }}>
               {industry.title} <br /><span style={{ color: COLORS.teal }}>{industry.highlight}</span>
             </h1>
-            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '18px', lineHeight: 1.6, maxWidth: '520px', marginBottom: '42px' }}>
+            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '17px', lineHeight: 1.6, maxWidth: '520px', marginBottom: '42px' }}>
               {industry.subtitle}
             </p>
 
@@ -61,9 +62,37 @@ const IndustryPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column (45%) */}
-          <div style={{ flex: '0 0 45%' }}>
-            <PlaceholderImage Icon={industry.icon} height="400px" label={industry.name} />
+          {/* Right Column (38%) */}
+          <div style={{ flex: '0 0 38%' }}>
+            {industry.slug === 'saas' ? (
+              <div style={{ 
+                height: '320px',
+                borderRadius: '0 0 24px 24px',
+                borderTop: `4px solid ${COLORS.burgundy}`,
+                overflow: 'hidden',
+                position: 'relative',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
+              }}>
+                <img 
+                  src={saasConceptImg} 
+                  alt={industry.name} 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover',
+                    filter: 'brightness(0.6) saturate(0.7)'
+                  }} 
+                />
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'rgba(4, 11, 29, 0.45)',
+                  mixBlendMode: 'multiply'
+                }} />
+              </div>
+            ) : (
+              <PlaceholderImage Icon={industry.icon} height="400px" label={industry.name} />
+            )}
           </div>
         </div>
       </section>
@@ -148,7 +177,17 @@ const IndustryPage: React.FC = () => {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', gap: '80px', alignItems: 'flex-start' }}>
             <div style={{ flex: '0 0 45%' }}>
-              <PlaceholderImage label="Industry Delivery Photography" height="380px" />
+              {industry.slug === 'banking' ? (
+                <div style={{ borderRadius: '12px', overflow: 'hidden', height: '380px', boxShadow: SHADOWS.lightCard }}>
+                  <img 
+                    src="https://images.pexels.com/photos/5497951/pexels-photo-5497951.jpeg" 
+                    alt="Banking Security" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                </div>
+              ) : (
+                <PlaceholderImage label="Industry Delivery Photography" height="380px" />
+              )}
             </div>
             <div style={{ flex: '0 0 50%' }}>
               <SectionHeader 

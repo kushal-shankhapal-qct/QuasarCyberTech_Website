@@ -44,7 +44,7 @@ const CTASection: React.FC<CTASectionProps> = ({
               marginBottom: '24px',
             }}
           >
-            Secure Your Digital<br />Enterprise
+            <span style={{ color: COLORS.gold }}>Secure</span> Your Digital<br />Enterprise
           </motion.h2>
 
           <motion.p

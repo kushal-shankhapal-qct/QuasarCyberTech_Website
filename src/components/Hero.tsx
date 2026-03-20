@@ -11,20 +11,25 @@ const Hero: React.FC = () => {
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
-        alignItems: 'flex-start', // Move down
+        flexDirection: 'column',
+        justifyContent: 'flex-end', // Anchor content to bottom
+        alignItems: 'flex-start',
         background: GRADIENTS.HERO_BG,
         overflow: 'hidden',
-        padding: '14em 2em 2em 2em', // 2.5em gap from edges
+        paddingLeft: '2em',
+        paddingRight: '2em',
+        paddingBottom: '4em', // Giving some breathing room above the 2em bottom line for buttons
+        paddingTop: '120px',
         fontFamily: TYPOGRAPHY.fontBody,
       }}
     >
       <div
         style={{
           position: 'absolute',
-          right: '-23.5%',
+          right: '-24%',
           top: '44%',
           transform: 'translateY(-45%)',
-          width: 'min(52vw, 560px)',
+          width: 'min(52vw, 580px)',
           aspectRatio: '1 / 1',
           pointerEvents: 'none',
           opacity: 0.88,

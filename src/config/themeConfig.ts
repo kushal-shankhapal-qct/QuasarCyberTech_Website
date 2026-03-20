@@ -7,7 +7,7 @@
 export const COLORS = {
   // Backgrounds
   darkBase: '#040B1D',
-  deepCyberBlue: '#0B1F3B',
+  deepCyberBlue: '#040B1D',
   softGrey: '#F5F7FA',
   cardOnLight: '#FFFFFF',
   cardOnDark: 'rgba(255,255,255,0.04)',
@@ -60,6 +60,76 @@ export const SHADOWS = {
   dropdown: '0 24px 64px rgba(0,0,0,0.7)',
   lightCard: '0 2px 20px rgba(11,31,59,0.07)',
   lightCardHover: '0 12px 40px rgba(107,21,48,0.12)',
+  darkCard: '0 20px 50px rgba(0,0,0,0.5)',
+};
+
+// ─── CENTRALIZED LAYOUT CONTROLS ───
+// Single place to tune all sizing across the site
+export const LAYOUT_CONTROLS = {
+  // ─── GLOBAL SCALING ────────────────────────────────────────
+  globalScale: 0.9,                            // Scales down everything below Hero sections
+
+  // ─── SECTION SPACING ───────────────────────────────────────
+  section: {
+    paddingTop: '64px',                        // Consistent spacing above content
+    paddingBottom: '64px',                     // Symmetrical spacing below
+    paddingX: '2.5rem',                        // Synchronized with Hero left-line
+    gapBetweenHeaderAndContent: '48px',        // Strict rhythm
+  },
+
+  // ─── CARD SIZING ───────────────────────────────────────────
+  card: {
+    // Capability cards (light section)
+    capabilityImageZoneHeight: '210px',        // Matches new photo height
+    capabilityBodyPadding: '16px 18px 20px',   // was 20px 22px 24px
+    capabilityCardRadius: '32px',              // Book-page "more roundness"
+    capabilityAccentThickness: '4px',          // Balanced accent stripe
+    capabilityCardScale: 0.985,                // Subtle "scale down" factor
+    capabilityCardShadow: '0 4px 20px rgba(0,0,0,0.06)', // Subtle default lift shadow
+
+    // Industry cards (full-bg image style)
+    industryCardHeight: '240px',               // was 280px
+
+    // Platform cards
+    platformImageZoneHeight: '140px',          // was 160px
+    platformLogoStripHeight: '60px',           // was 72px
+
+    // Insight cards
+    insightImageZoneHeight: '140px',           // was 160px
+
+    // Dark section service cards (framework expansion, capability service cards)
+    serviceCardPadding: '16px 18px',           // was 20px 22px
+
+    // Framework cards
+    frameworkCardPadding: '20px 14px 16px',    // was 28px 16px 20px
+    frameworkLetterSize: '60px',               // was 72px
+    frameworkStageNameSize: '14px',            // was 15px
+  },
+
+  // ─── GRID GAPS ─────────────────────────────────────────────
+  grid: {
+    capabilityGap: '28px',                     // Increased for better breathing room
+    industryGap: '16px',
+    platformGap: '16px',
+    insightGap: '20px',
+  },
+
+  // ─── TYPOGRAPHY SCALE ──────────────────────────────────────
+  type: {
+    sectionH2: 'clamp(24px, 3vw, 36px)',       // was clamp(28px, 3.5vw, 40px)
+    sectionSubtitle: '15px',                   // was 16px
+    cardTitle: '15px',                         // was 16-17px
+    cardBody: '13px',                          // was 14px
+    metricNumber: 'clamp(36px, 4vw, 52px)',    // was clamp(44px, 5vw, 64px)
+  },
+
+  // ─── FOOTER LOGO ───────────────────────────────────────────
+  footer: {
+    logoMarginTop: '-48px',                    // how far logo protrudes above footer top
+    logoSize: '72px',                          // diameter of logo circle container
+    logoImageSize: '48px',                     // icon image size inside circle
+    columnPaddingTop: '24px',                  // space between logo and first contact item
+  },
 };
 
 // ─── CENTRALIZED BRAND CONTROLS ───
@@ -197,7 +267,7 @@ export const GRADIENTS = {
 // ─── SECTION BACKGROUNDS ───
 export const SECTION_BACKGROUNDS = {
   DARK: '#040B1D',
-  DARK_ALT: '#0B1F3B',
+  DARK_ALT: '#040B1D',
   LIGHT: '#F5F7FA',
   CARD_ON_LIGHT: '#FFFFFF',
   CARD_ON_DARK: 'rgba(255, 255, 255, 0.04)',
@@ -219,11 +289,11 @@ export const themeConfig = {
   global: {
     verticalSpacing: '100px',
     interactiveEasing: 'cubic-bezier(0.23, 1, 0.32, 1)',
-    sectionMarginLeft: '3rem',
-    sectionMarginRight: '3rem',
-    eyebrowMarginLeft: '3rem',
-    contentMarginLeft: '3rem',
-    containerPaddingX: '2rem',
+    sectionMarginLeft: '2em',
+    sectionMarginRight: '2em',
+    eyebrowMarginLeft: '2em',
+    contentMarginLeft: '2em',
+    containerPaddingX: '2em',
     lineThickness: '2.5px',
     eyebrowIntegration: 'concept-a' as 'concept-a' | 'concept-b' | 'concept-c' | 'default',
     eyebrowAccentColor: '#D6B05C',
@@ -243,9 +313,12 @@ export const themeConfig = {
     }
   },
 
-  // Enterprise Services (only cardHeight used)
+  // Enterprise Services
   services: {
     cardHeight: '200px',
+    imageBg: '#F0F1F6',
+    imageScale: 1.15, // High-fidelity zoom control
+    imagePadding: '14px',
   },
 
   // Industry Snapshot
@@ -363,7 +436,7 @@ export const NAVBAR_CONFIG = {
     paddingLeft: '2em',
     paddingRight: '2em',
 
-    logoContainerNudgeX: '-1.9em',
+    logoContainerNudgeX: '0px',
     logoContainerNudgeY: '0px',
     logoIconNudgeX: '0px',
     logoIconNudgeY: '0px',
@@ -502,8 +575,8 @@ export const NAVBAR_CONFIG = {
   // ─── SCROLL BEHAVIOR ────────────────────────────────────────
   scroll: {
     logoTextHideAt: 120, // synced with collapseThreshold
-    autoHideDelay: 4000, // increased
-    autoHideOnHomepage: false,
+    autoHideDelay: 2000,
+    autoHideOnHomepage: true,
     revealOnScrollUp: true,
     revealOnMouseNearTop: true,
     mouseRevealZone: 60,

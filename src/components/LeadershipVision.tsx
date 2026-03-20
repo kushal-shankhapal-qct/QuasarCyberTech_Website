@@ -3,36 +3,37 @@ import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY } from '../config/themeConfig';
 import SectionHeader from './SectionHeader';
-import logoIcon from '../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
 
 export default function LeadershipVision() {
     return (
         <section 
             style={{ 
                 background: SECTION_BACKGROUNDS.LIGHT,
-                padding: '120px max(24px, calc((100vw - 1200px) / 2))',
+                padding: '120px 2em',
                 overflow: 'hidden',
                 fontFamily: TYPOGRAPHY.fontBody
             }}
         >
-            <div className="max-w-[1200px] mx-auto">
+            <div className="w-full">
                 <SectionHeader 
-                    eyebrow="LEADERSHIP & VISION"
                     title="BUILDING THE FUTURE OF"
-                    highlight="CYBERSECURITY ENGINEERING"
+                    highlight="CYBERSECURITY"
+                    suffix="ENGINEERING"
+                    highlightColor={COLORS.teal}
                     subtitle="QuasarCyberTech is led by a vision to transform cybersecurity from a defensive posture into a proactive engineering discipline."
                     maxWidth="760px"
                 />
 
-                <div className="flex flex-col lg:flex-row gap-20 items-center mt-12">
+
+                <div className="flex flex-col lg:flex-row gap-20 items-start mt-12">
                     {/* ─── PLACEMENT 7: FOUNDER PHOTO PLACEHOLDER ─── */}
                     <motion.div 
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         style={{
-                            width: '420px',
-                            height: '480px',
+                            width: '280px',
+                            height: '320px',
                             background: `linear-gradient(160deg, ${COLORS.deepCyberBlue} 0%, rgba(20,10,18,0.95) 100%)`,
                             borderRadius: '0 0 24px 24px',
                             borderTop: `3px solid ${COLORS.burgundy}`,
@@ -46,16 +47,6 @@ export default function LeadershipVision() {
                             flexShrink: 0
                         }}
                     >
-                        {/* Background: large fingerprint icon, very faint */}
-                        <img src={logoIcon} style={{
-                            position: 'absolute',
-                            width: '320px', 
-                            opacity: 0.05,
-                            transform: 'rotate(-15deg)',
-                            top: '10%',
-                            left: '10%'
-                        }} alt="" />
-                        
                         {/* Foreground: name placeholder */}
                         <div style={{ position: 'relative', textAlign: 'center', zIndex: 1 }}>
                             <div style={{

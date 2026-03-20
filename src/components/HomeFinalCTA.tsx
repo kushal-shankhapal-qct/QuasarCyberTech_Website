@@ -16,15 +16,12 @@ export default function HomeFinalCTA() {
             {/* Hex grid pattern overlay */}
             <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, rgba(43,196,182,0.15) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
-            <div className="max-w-[1440px] relative z-10 mx-auto"
+            <div className="w-full relative z-10"
                 style={{
-                    paddingLeft: 'max(48px, calc((100vw - 1200px) / 2))',
-                    paddingRight: 'max(48px, calc((100vw - 1200px) / 2))',
+                    paddingLeft: '2em',
+                    paddingRight: '2em',
                 }}>
-                {/* Eyebrow */}
-                <p style={{ color: '#D6B05C', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
-                    Ready to Begin?
-                </p>
+                {/* Eyebrow Removed */}
                 <h2
                     className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl"
                     style={{
@@ -33,8 +30,8 @@ export default function HomeFinalCTA() {
                         color: '#FFFFFF',
                     }}
                 >
-                    Secure Your Digital <br />
-                    <span style={{ color: '#D6B05C' }}>Enterprise</span>
+                    <span style={{ color: COLORS.gold }}>Secure</span> Your Digital <br />
+                    Enterprise
                 </h2>
 
                 <p

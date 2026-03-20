@@ -38,18 +38,18 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
     const renderSuffix = () => {
         if (suffix === '×7') {
             return (
-                <span className="flex items-center ml-1">
-                    <span style={{ ...TYPOGRAPHY.metricNumber, fontSize: '32px', color: BRAND_CONTROLS.metricsSymbolColor }}>
+                <span className="flex items-center">
+                    <span style={{ ...TYPOGRAPHY.metricNumber, color: BRAND_CONTROLS.metricsSymbolColor }}>
                         ×
                     </span>
-                    <span style={{ ...TYPOGRAPHY.metricNumber, fontSize: '42px', color: BRAND_CONTROLS.metricsNumberColor }}>
+                    <span style={{ ...TYPOGRAPHY.metricNumber, color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor }}>
                         7
                     </span>
                 </span>
             );
         }
         return (
-            <span style={{ ...TYPOGRAPHY.metricNumber, fontSize: '32px', color: BRAND_CONTROLS.metricsSymbolColor, marginLeft: '4px' }}>
+            <span style={{ ...TYPOGRAPHY.metricNumber, color: BRAND_CONTROLS.metricsSymbolColor, marginLeft: '4px' }}>
                 {suffix}
             </span>
         );
@@ -107,15 +107,13 @@ export default function TrustIndicators({ isDark = false }: { isDark?: boolean }
             className="relative w-full z-[0]"
             style={{
                 background: isDark ? 'transparent' : SECTION_BACKGROUNDS.LIGHT,
-                paddingTop: isDark ? '0px' : '100px',
-                paddingBottom: isDark ? '0px' : '100px',
+                paddingTop: isDark ? '0px' : '70px',
+                paddingBottom: isDark ? '0px' : '70px',
             }}
         >
-            {/* Subtle dot grid texture */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0B1F3B 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
             
             <div
-                className="w-full max-w-7xl mx-auto relative z-[15] flex flex-col justify-center"
+                className="w-full relative z-[15] flex flex-col justify-center"
                 style={{
                     paddingLeft: themeConfig.global.containerPaddingX,
                     paddingRight: themeConfig.global.containerPaddingX,
@@ -135,8 +133,16 @@ export default function TrustIndicators({ isDark = false }: { isDark?: boolean }
                             {idx % 2 === 0 && (
                                 <div className="hidden sm:block lg:hidden absolute right-0 top-0 bottom-0 w-px bg-[#0B1F3B] opacity-[0.1]" />
                             )}
-                            
                             <CountUp end={metric.value} suffix={metric.suffix} label={metric.label} delay={0.1 + (idx * 0.05)} duration={1.5} isDark={isDark} />
+
+                             {/* Refinement 2: Gradient Bottom Separators for Mobile/Tablet Wrap */}
+                             {(idx < metrics.length - 1) && (
+                                 <div className="lg:hidden absolute bottom-0 left-[15%] right-[15%] h-px" 
+                                      style={{ 
+                                          background: 'linear-gradient(90deg, transparent 0%, rgba(11,31,59,0.12) 20%, rgba(11,31,59,0.12) 80%, transparent 100%)' 
+                                      }} 
+                                 />
+                             )}
                         </div>
                     ))}
                 </div>

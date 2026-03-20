@@ -33,27 +33,132 @@ export default function FeaturedInsights() {
         <section
             style={{
                 background: SECTION_BACKGROUNDS.DARK,
-                padding: '120px max(24px, calc((100vw - 1200px) / 2))',
+                padding: '120px 2em',
                 overflow: 'hidden',
                 fontFamily: TYPOGRAPHY.fontBody
             }}
         >
-            <div className="max-w-[1200px] mx-auto">
-                <SectionHeader 
-                    isDark 
-                    eyebrow="RESOURCES & RESEARCH"
-                    title="CYBERSECURITY"
-                    highlight="INSIGHTS & RESEARCH"
-                    subtitle="Curated intelligence, research insights, and security perspectives from the QuasarCyberTech ecosystem."
-                    maxWidth="740px"
-                />
+            <div className="w-full">
+                {/* Change 1 — Section header */}
+                <div style={{ marginBottom: '48px' }}>
+                    <h2 style={{ 
+                        color: COLORS.textOnDark, 
+                        fontWeight: 900, 
+                        fontSize: 'clamp(32px, 5vw, 48px)', 
+                        lineHeight: 1.1, 
+                        marginBottom: '10px',
+                        fontFamily: TYPOGRAPHY.fontHeading 
+                    }}>
+                        <span style={{ color: COLORS.teal }}>Cybersecurity</span> Insights & Research
+                    </h2>
+                    <p style={{ color: COLORS.textMuted, fontSize: '16px', maxWidth: '560px', marginTop: '12px', lineHeight: 1.6 }}>
+                        Curated intelligence, research insights, and security perspectives 
+                        from the QuasarCyberTech ecosystem.
+                    </p>
+                </div>
+
+                {/* Change 2 — QPulse placeholder zone (add ABOVE existing cards) */}
+                <div style={{
+                    border: `1px solid rgba(43,196,182,0.2)`,
+                    borderTop: `3px solid ${COLORS.teal}`,
+                    borderRadius: '0 0 16px 16px',
+                    background: 'rgba(43,196,182,0.03)',
+                    padding: '32px',
+                    marginBottom: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '20px',
+                }}>
+                    {/* Left: QPulse branding + description */}
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                            <span style={{
+                                background: 'rgba(43,196,182,0.12)',
+                                border: `1px solid rgba(43,196,182,0.3)`,
+                                color: COLORS.teal,
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                letterSpacing: '0.1em',
+                                textTransform: 'uppercase',
+                                padding: '4px 12px',
+                                borderRadius: '4px',
+                            }}>
+                                QPulse
+                            </span>
+                            <span style={{ color: COLORS.textMuted, fontSize: '12px' }}>
+                                Live Intelligence Feed
+                            </span>
+                        </div>
+                        <p style={{
+                            color: 'rgba(255,255,255,0.55)',
+                            fontSize: '14px',
+                            lineHeight: 1.6,
+                            maxWidth: '480px',
+                            margin: 0,
+                        }}>
+                            QPulse is QuasarCyberTech's cybersecurity intelligence portal — 
+                            publishing curated threat analysis, vulnerability advisories, and 
+                            industry insights. Live feed integration coming soon.
+                        </p>
+                    </div>
+
+                    {/* Right: CTA to QPulse */}
+                    <a
+                        href="https://qpulse.quasarcybertech.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            background: 'transparent',
+                            color: COLORS.teal,
+                            border: `1px solid rgba(43,196,182,0.4)`,
+                            borderTop: `2px solid ${COLORS.teal}`,
+                            borderRadius: '0 0 8px 8px',
+                            padding: '12px 24px',
+                            fontSize: '13px',
+                            fontWeight: 600,
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
+                        }}
+                    >
+                        Visit QPulse Portal ↗
+                    </a>
+                </div>
+
+                {/* Change 3 — Divider label */}
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    marginBottom: '32px',
+                }}>
+                    <span style={{
+                        color: COLORS.textMuted,
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        whiteSpace: 'nowrap',
+                    }}>
+                        Featured Articles
+                    </span>
+                    <div style={{
+                        flex: 1,
+                        height: '1px',
+                        background: 'rgba(255,255,255,0.08)',
+                    }} />
+                </div>
 
                 <div 
                     style={{ 
                         display: 'grid', 
                         gridTemplateColumns: 'repeat(3, 1fr)', 
                         gap: '32px',
-                        marginTop: '48px'
                     }}
                 >
                     {insights.map((item, idx) => {
@@ -119,6 +224,38 @@ export default function FeaturedInsights() {
                             </div>
                         );
                     })}
+                </div>
+
+                {/* Change 4 — Standard CTA below cards */}
+                <div style={{
+                    display: 'flex',
+                    marginTop: '48px',
+                }}>
+                    <a href="/insights" style={{
+                        background: COLORS.burgundy,
+                        color: '#fff',
+                        padding: '14px 34px',
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        textDecoration: 'none',
+                        borderRadius: '4px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        transition: 'background 0.3s ease, transform 0.3s ease',
+                    }}
+                    onMouseEnter={e => {
+                        e.currentTarget.style.background = '#8B1E3F';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={e => {
+                        e.currentTarget.style.background = COLORS.burgundy;
+                        e.currentTarget.style.transform = 'translateY(0)';
+                    }}>
+                        Explore All Insights →
+                    </a>
                 </div>
             </div>
         </section>

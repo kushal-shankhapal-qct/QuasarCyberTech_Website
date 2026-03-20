@@ -180,7 +180,7 @@ const Navbar: React.FC = () => {
 
     return (
       <Link
-        key={sub.href}
+        key={`${sub.label}-${sub.href}`}
         to={sub.href}
         target={sub.isExternal ? '_blank' : undefined}
         rel={sub.isExternal ? 'noopener noreferrer' : undefined}
@@ -254,8 +254,8 @@ const Navbar: React.FC = () => {
         border: 'none',
         boxShadow: 'none',
         paddingTop: (NC.wrapper as any).paddingTop || '18px',
-        paddingLeft: 'max(48px, calc((100vw - 1200px) / 2))',
-        paddingRight: 'max(48px, calc((100vw - 1200px) / 2))',
+        paddingLeft: NC.wrapper.paddingLeft,
+        paddingRight: NC.wrapper.paddingRight,
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
@@ -558,7 +558,7 @@ const Navbar: React.FC = () => {
                   {menu.subItems && (
                     <div style={{ paddingLeft: '16px' }}>
                       {menu.subItems.map((sub) => (
-                        <Link key={sub.href} to={sub.href} onClick={() => setIsMobileOpen(false)}
+                        <Link key={`${sub.label}-${sub.href}`} to={sub.href} onClick={() => setIsMobileOpen(false)}
                           style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '13px', padding: '6px 0', textDecoration: 'none' }}
                         >{sub.label}</Link>
                       ))}

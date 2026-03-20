@@ -1,23 +1,101 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams, useNavigate, Link, Navigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
 import SectionHeader from '../components/SectionHeader';
-import PlaceholderImage from '../components/PlaceholderImage';
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
-import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, ALPHAS } from '../config/themeConfig';
+import ServiceAreaPanel from '../components/ServiceAreaPanel';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { 
+  ArrowRight, 
+  CheckCircle2, 
+  Compass, 
+  ClipboardList, 
+  PenTool, 
+  ShieldCheck,
+  ChevronRight
+} from 'lucide-react';
+import { 
+  COLORS, 
+  GRADIENTS, 
+  SHADOWS, 
+  SECTION_BACKGROUNDS, 
+  ALPHAS, 
+  TYPOGRAPHY, 
+  LAYOUT_CONTROLS 
+} from '../config/themeConfig';
 import { capabilitiesData } from '../data/capabilitiesData';
+
+// Photo Imports for Hero (Specific overrides)
+import imgAdvisory from "../assets/capabilities/Cyber Advisory & Risk Governance.jpg";
+import imgCompliance from "../assets/capabilities/Compliance & Regulatory Assurance.jpg";
+import imgOffensive from "../assets/capabilities/Offensive Security Engineering.jpg";
+import imgCloud from "../assets/capabilities/Cloud & Infrastructure Security.jpg";
+import imgManagedDefense from "../assets/capabilities/Managed Defense Operations_2.jpeg";
+import imgIntelligence from "../assets/capabilities/Cyber Intelligence & Security Research.webp";
+
+const heroImages: Record<string, string> = {
+  'cyber-advisory-risk-governance': imgAdvisory,
+  'compliance-regulatory-assurance': imgCompliance,
+  'offensive-security-engineering': imgOffensive,
+  'cloud-infrastructure-security': imgCloud,
+  'managed-defense-operations': imgManagedDefense,
+  'cyber-intelligence-security-research': imgIntelligence,
+};
+
+const deliveryIcons = [Compass, ClipboardList, PenTool, ShieldCheck];
 
 const CapabilityPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const capability = capabilitiesData.find(c => c.slug === slug);
   const navigate = useNavigate();
+  const capability = capabilitiesData.find(c => c.slug === slug);
+  const [counts, setCounts] = useState<Record<number, number>>({});
+  const metricsRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(metricsRef, { once: true, amount: 0.3 });
+
+  // 1. Scroll to top on navigation
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [slug]);
+
+  // 7. Trust Metrics Animation Logic
+  useEffect(() => {
+    if (isInView && capability) {
+      capability.overview.metrics.forEach((metric, idx) => {
+        // Only animate if it's a number ending in +
+        if (metric.value.includes('+') && metric.value !== '24/7') {
+          const target = parseInt(metric.value.replace('+', ''));
+          let current = 0;
+          const duration = 2000; // 2 seconds
+          const stepTime = Math.abs(Math.floor(duration / target));
+          
+          const timer = setInterval(() => {
+            current += 1;
+            setCounts(prev => ({ ...prev, [idx]: current }));
+            if (current >= target) clearInterval(timer);
+          }, stepTime);
+        } else {
+          // Static text like "24/7"
+          setCounts(prev => ({ ...prev, [idx]: -1 })); // Flag for static
+        }
+      });
+    }
+  }, [isInView, capability]);
 
   if (!capability) {
     return <Navigate to="/capabilities" />;
   }
+
+  const handleFrameworkNavigation = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/');
+    setTimeout(() => {
+      const el = document.getElementById('secure-framework');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  };
+
+  const heroImage = heroImages[capability.slug];
 
   return (
     <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh' }}>
@@ -26,29 +104,32 @@ const CapabilityPage: React.FC = () => {
       {/* ─── SECTION 1: HERO (DARK) ─── */}
       <section
         style={{
-          minHeight: '100vh',
+          minHeight: '85vh', // Slightly reduced height
           background: GRADIENTS.HERO_BG,
           display: 'flex',
           alignItems: 'center',
-          padding: '140px 2.5em 80px',
+          padding: `180px ${LAYOUT_CONTROLS.section.paddingX} 80px`, // Increased top, using standard X
         }}
       >
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '80px', alignItems: 'center' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%', display: 'flex', gap: '80px', alignItems: 'center' }}>
           {/* Left Column (55%) */}
           <div style={{ flex: '0 0 55%' }}>
-            {/* Breadcrumb */}
-            <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '32px', display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
-              <span style={{ color: COLORS.teal }}>›</span>
-              <Link to="/capabilities" style={{ color: 'inherit', textDecoration: 'none' }}>Capabilities</Link>
-              <span style={{ color: COLORS.teal }}>›</span>
-              <span style={{ color: '#FFFFFF' }}>{capability.name}</span>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '24px',
+              fontSize: '12px',
+              fontFamily: TYPOGRAPHY.fontBody,
+            }}>
+              <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
+              <span style={{ color: COLORS.teal, opacity: 0.6 }}>›</span>
+              <Link to="/capabilities" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Capabilities</Link>
+              <span style={{ color: COLORS.teal, opacity: 0.6 }}>›</span>
+              <span style={{ color: 'rgba(255,255,255,0.7)' }}>{capability.name}</span>
             </div>
 
-            <p style={{ color: COLORS.teal, fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
-              {capability.eyebrow}
-            </p>
-            <h1 style={{ color: COLORS.textOnDark, fontWeight: 800, fontSize: 'clamp(36px, 6vw, 56px)', lineHeight: 1.05, marginBottom: '28px', letterSpacing: '-0.03em' }}>
+            <h1 style={{ color: COLORS.textOnDark, fontWeight: 800, fontSize: 'clamp(36px, 6vw, 56px)', lineHeight: 1.05, marginBottom: '28px', letterSpacing: '-0.03em', fontFamily: TYPOGRAPHY.fontHeading }}>
               {capability.title} <span style={{ color: COLORS.teal }}>{capability.highlight}</span>
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '18px', lineHeight: 1.6, maxWidth: '520px', marginBottom: '42px' }}>
@@ -59,46 +140,64 @@ const CapabilityPage: React.FC = () => {
               <Link to="/contact" style={{ background: COLORS.burgundy, color: '#FFFFFF', padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '12px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Talk to an Expert
               </Link>
-              <Link to="/capabilities" style={{ background: 'transparent', border: `1px solid ${COLORS.gold}`, color: COLORS.gold, padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '12px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Explore Related
-              </Link>
             </div>
           </div>
 
           {/* Right Column (45%) */}
-          <div style={{ flex: '0 0 45%' }}>
-            <PlaceholderImage Icon={capability.icon} height="400px" label={capability.name} />
+          <div style={{ 
+            flex: '0 0 45%', 
+            height: '420px',
+            position: 'relative',
+            borderRadius: '24px',
+            overflow: 'hidden',
+            boxShadow: SHADOWS.darkCard,
+            paddingRight: LAYOUT_CONTROLS.section.paddingX // Added as requested
+          }}>
+            {heroImage && (
+              <img 
+                src={heroImage} 
+                alt={capability.name} 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+              />
+            )}
+            <div style={{ 
+              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, 
+              background: 'linear-gradient(135deg, rgba(11,31,59,0.4) 0%, rgba(4,11,29,0.2) 100%)',
+              pointerEvents: 'none'
+            }} />
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 2: OVERVIEW / VALUE (LIGHT) ─── */}
-      <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '120px 2.5em' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '80px' }}>
+      {/* ─── SECTION 2: OVERVIEW / TRUST (LIGHT) ─── */}
+      <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '100px 2.5em' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '80px', alignItems: 'flex-start' }}>
           <div style={{ flex: '0 0 60%' }}>
             <SectionHeader 
-              eyebrow="BUSINESS VALUE"
               title={capability.overview.heading}
               highlight={capability.overview.highlight}
             />
             {capability.overview.body.map((p, i) => (
-              <p key={i} style={{ color: COLORS.textSub, fontSize: '16px', lineHeight: 1.7, marginBottom: '20px' }}>{p}</p>
+              <p key={i} style={{ color: COLORS.textSub, fontSize: '17px', lineHeight: 1.75, marginBottom: '24px' }}>{p}</p>
             ))}
-            
-            <div style={{ display: 'flex', gap: '10px', marginTop: '32px', flexWrap: 'wrap' }}>
-              {capability.overview.outcomes.map(o => (
-                <span key={o} style={{ border: `1px solid ${ALPHAS.teal20}`, color: COLORS.teal, background: ALPHAS.teal04, fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '4px', letterSpacing: '0.04em' }}>{o}</span>
-              ))}
-            </div>
           </div>
 
-          <div style={{ flex: '0 0 35%' }}>
-            <div style={{ borderTop: `4px solid ${COLORS.burgundy}`, background: COLORS.cardOnLight, borderRadius: '0 0 16px 16px', boxShadow: SHADOWS.lightCard, padding: '40px 32px' }}>
-              <p style={{ color: COLORS.teal, fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '32px' }}>PROOF POINTS</p>
+          {/* Metrics Panel */}
+          <div ref={metricsRef} style={{ flex: '0 0 35%' }}>
+            <div style={{ 
+              borderLeft: `4px solid ${COLORS.burgundy}`, 
+              background: COLORS.cardOnLight, 
+              borderRadius: '0 12px 12px 0', 
+              boxShadow: SHADOWS.lightCard, 
+              padding: '48px' 
+            }}>
+              <p style={{ color: COLORS.teal, fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '40px' }}>TRUST METRICS</p>
               {capability.overview.metrics.map((m, i) => (
-                <div key={i} style={{ marginBottom: i === capability.overview.metrics.length - 1 ? 0 : '32px' }}>
-                  <div style={{ color: COLORS.burgundy, fontSize: '32px', fontWeight: 800, marginBottom: '4px' }}>{m.value}</div>
-                  <div style={{ color: COLORS.textSub, fontSize: '14px', fontWeight: 500 }}>{m.label}</div>
+                <div key={i} style={{ marginBottom: i === capability.overview.metrics.length - 1 ? 0 : '40px' }}>
+                  <div style={{ color: COLORS.burgundy, fontSize: '36px', fontWeight: 800, marginBottom: '4px', fontFamily: TYPOGRAPHY.fontHeading }}>
+                    {counts[i] === -1 ? m.value : (counts[i] ? `${counts[i]}+` : (m.value.includes('+') ? '0+' : m.value))}
+                  </div>
+                  <div style={{ color: COLORS.textSub, fontSize: '14px', fontWeight: 600, letterSpacing: '0.01em' }}>{m.label}</div>
                 </div>
               ))}
             </div>
@@ -106,78 +205,108 @@ const CapabilityPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── SECTION 3: CORE SERVICES (DARK) ─── */}
-      <section style={{ background: SECTION_BACKGROUNDS.DARK, padding: '120px 2.5em' }}>
+      {/* ─── SECTION 3: SERVICE AREAS (DARK) ─── */}
+      <section style={{ background: SECTION_BACKGROUNDS.DARK, padding: '100px 2.5em' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SectionHeader 
             isDark
-            eyebrow="CORE SERVICES"
             title="Service"
             highlight="Areas"
-            subtitle="Specialized services delivered within this capability pillar."
+            highlightColor={COLORS.teal}
+            subtitle="Deeply specialized security services tailored for absolute defense."
           />
-
-          <div style={{ display: 'grid', gridTemplateColumns: capability.services.length > 3 ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)', gap: '24px', marginTop: '64px' }}>
-            {capability.services.map(svc => (
-              <div key={svc.name} style={{ borderTop: `3px solid ${COLORS.teal}`, borderRadius: '0 0 12px 12px', background: 'rgba(255,255,255,0.03)', border: `1px solid ${ALPHAS.teal12}`, padding: '24px' }}>
-                <div style={{ width: '40px', height: '40px', background: ALPHAS.teal08, border: `1px solid ${ALPHAS.teal20}`, borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                  <svc.icon size={20} color={COLORS.teal} strokeWidth={1.5} />
-                </div>
-                <h4 style={{ color: COLORS.textOnDark, fontWeight: 700, fontSize: '17px', marginBottom: '10px' }}>{svc.name}</h4>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13.5px', lineHeight: 1.65 }}>{svc.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textAlign: 'center', marginTop: '64px', fontStyle: 'italic' }}>
-            All services delivered within the QCT SECURE Framework
-          </p>
+          
+          <ServiceAreaPanel services={capability.services} />
         </div>
       </section>
 
       {/* ─── SECTION 4: DELIVERY APPROACH (LIGHT) ─── */}
-      <section style={{ background: '#FFFFFF', padding: '120px 2.5em' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+      <section style={{ background: '#FFFFFF', padding: '100px 2.5em' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <SectionHeader 
-            eyebrow="METHODOLOGY"
             title="Delivery"
             highlight="Approach"
-            subtitle="How QuasarCyberTech ensures operational excellence within this capability."
+            subtitle="A structured methodology ensuring predictive security outcomes."
           />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '80px', position: 'relative' }}>
-            {/* Connector Line */}
-            <div style={{ position: 'absolute', top: '24px', left: '10%', right: '10%', height: '1px', background: COLORS.teal, opacity: 0.15, zIndex: 0 }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '100px', position: 'relative' }}>
+            {/* 5c. Horizontal Connecting Line */}
+            <div style={{ 
+              position: 'absolute', 
+              top: '52px', // Vertical offset to hit center of icon+number area
+              left: '12.5%', 
+              right: '12.5%', 
+              height: '1px', 
+              borderTop: '1px dashed rgba(43, 196, 182, 0.3)', 
+              zIndex: 0 
+            }} />
             
-            {capability.delivery.map((step, idx) => (
-              <div key={step.step} style={{ textAlign: 'center', width: '20%', zIndex: 1, background: '#FFFFFF' }}>
-                <div style={{ color: COLORS.teal, fontSize: '48px', fontWeight: 800, lineHeight: 1, marginBottom: '20px' }}>{step.step}</div>
-                <h4 style={{ color: COLORS.textOnLight, fontWeight: 700, fontSize: '16px', marginBottom: '10px' }}>{step.title}</h4>
-                <p style={{ color: COLORS.textSub, fontSize: '13px', lineHeight: 1.6 }}>{step.description}</p>
-              </div>
-            ))}
+            {capability.delivery.map((step, idx) => {
+              const Icon = deliveryIcons[idx];
+              return (
+                <div key={step.step} style={{ textAlign: 'center', width: '22%', zIndex: 1, background: '#FFFFFF', padding: '0 10px' }}>
+                  {/* 5a. Lucide Icon */}
+                  <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
+                    {Icon && <Icon size={22} color={COLORS.teal} strokeWidth={1.5} />}
+                  </div>
+                  <div style={{ color: COLORS.burgundy, fontSize: '32px', fontWeight: 800, lineHeight: 1, marginBottom: '16px', fontFamily: TYPOGRAPHY.fontHeading }}>{step.step}</div>
+                  <h4 style={{ color: COLORS.textOnLight, fontWeight: 700, fontSize: '16px', marginBottom: '12px' }}>{step.title}</h4>
+                  {/* 5b. Descriptions style */}
+                  <p style={{ color: 'rgba(8,16,38,0.75)', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>{step.description}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '80px' }}>
+            <Link 
+              to="/" 
+              onClick={handleFrameworkNavigation}
+              style={{ 
+                color: COLORS.teal, 
+                fontWeight: 700, 
+                textDecoration: 'none', 
+                fontSize: '15px', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px' 
+              }}
+            >
+              Delivered within the QCT SECURE Framework <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ─── SECTION 5: INDUSTRIES (DARK) ─── */}
-      <section style={{ background: SECTION_BACKGROUNDS.DARK, padding: '120px 2.5em' }}>
+      <section style={{ background: SECTION_BACKGROUNDS.DARK, padding: '100px 2.5em' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SectionHeader 
             isDark
-            eyebrow="INDUSTRIES"
             title="Industry"
             highlight="Applications"
-            subtitle={`QuasarCyberTech delivers ${capability.name} across enterprise sectors.`}
+            highlightColor={COLORS.teal}
+            subtitle={`Proven sector-specific expertise in delivering ${capability.name}.`}
           />
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginTop: '64px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', marginTop: '64px' }}>
             {capability.industries.map(ind => (
-              <div key={ind.slug} style={{ borderTop: `3px solid ${COLORS.teal}`, borderRadius: '0 0 14px 14px', background: 'rgba(255,255,255,0.03)', border: `1px solid ${ALPHAS.teal12}`, padding: '24px', display: 'flex', flexDirection: 'column' }}>
-                <h4 style={{ color: COLORS.textOnDark, fontWeight: 700, fontSize: '17px', marginBottom: '12px' }}>{ind.name}</h4>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13.5px', lineHeight: 1.6, marginBottom: '24px', flex: 1 }}>{ind.useCase}</p>
-                <Link to={`/industries/${ind.slug}`} style={{ color: COLORS.teal, fontSize: '13.5px', fontWeight: 600, textDecoration: 'none' }}>
-                  Explore Industry →
+              <div key={ind.slug} style={{ 
+                borderRadius: '0 16px 16px 0', 
+                background: 'rgba(255,255,255,0.02)', 
+                borderLeft: `4px solid ${COLORS.teal}`,
+                padding: '32px', 
+                display: 'flex', 
+                flexDirection: 'column',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderLeftColor = COLORS.burgundy; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderLeftColor = COLORS.teal; }}
+              >
+                <h4 style={{ color: COLORS.textOnDark, fontWeight: 700, fontSize: '18px', marginBottom: '16px' }}>{ind.name}</h4>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: 1.6, marginBottom: '28px', flex: 1 }}>{ind.useCase}</p>
+                <Link to={`/industries/${ind.slug}`} style={{ color: COLORS.teal, fontSize: '14px', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  Explore Industry <ChevronRight size={14} />
                 </Link>
               </div>
             ))}
@@ -190,21 +319,20 @@ const CapabilityPage: React.FC = () => {
         <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '120px 2.5em' }}>
           <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
             <SectionHeader 
-              eyebrow="ECOSYSTEM"
-              title="Powered by the"
-              highlight="QCT Platform"
+              title="Powered by the QCT"
+              highlight="Platform Ecosystem"
               subtitle="Innovation engineered to extend consulting into continuous visibility."
             />
             
-            <div style={{ borderTop: `3px solid ${COLORS.burgundy}`, background: '#FFFFFF', borderRadius: '0 0 16px 16px', boxShadow: SHADOWS.lightCard, padding: '40px', marginTop: '40px' }}>
-              <h3 style={{ color: COLORS.textOnLight, fontWeight: 800, fontSize: '24px', marginBottom: '8px' }}>{capability.platformLink.name}</h3>
-              <p style={{ color: COLORS.textSub, fontSize: '14px', marginBottom: '32px' }}>{capability.platformLink.subtitle}</p>
+            <div style={{ borderLeft: `6px solid ${COLORS.burgundy}`, background: '#FFFFFF', borderRadius: '0 16px 16px 0', boxShadow: '0 20px 50px rgba(0,0,0,0.08)', padding: '48px', marginTop: '48px' }}>
+              <h3 style={{ color: COLORS.textOnLight, fontWeight: 800, fontSize: '26px', marginBottom: '12px', fontFamily: TYPOGRAPHY.fontHeading }}>{capability.platformLink.name}</h3>
+              <p style={{ color: COLORS.textSub, fontSize: '15px', marginBottom: '32px', fontWeight: 500 }}>{capability.platformLink.subtitle}</p>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '40px', textAlign: 'left' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px', textAlign: 'left' }}>
                 {capability.platformLink.highlights.map(h => (
-                  <div key={h} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <CheckCircle2 size={18} color={COLORS.teal} />
-                    <span style={{ color: COLORS.textOnLight, fontSize: '14px', fontWeight: 500 }}>{h}</span>
+                  <div key={h} style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+                    <CheckCircle2 size={20} color={COLORS.teal} />
+                    <span style={{ color: COLORS.textOnLight, fontSize: '15px', fontWeight: 500 }}>{h}</span>
                   </div>
                 ))}
               </div>
@@ -217,7 +345,7 @@ const CapabilityPage: React.FC = () => {
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
-                  gap: '10px', 
+                  gap: '12px', 
                   background: COLORS.burgundy, 
                   color: '#FFFFFF', 
                   padding: '16px 36px', 
@@ -226,7 +354,7 @@ const CapabilityPage: React.FC = () => {
                   fontSize: '13px', 
                   textDecoration: 'none', 
                   textTransform: 'uppercase', 
-                  letterSpacing: '0.1em' 
+                  letterSpacing: '0.12em' 
                 }}
               >
                 {capability.platformLink.ctaLabel}

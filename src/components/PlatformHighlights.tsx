@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle2, Target } from 'lucide-react';
 import qStellarLogoImg from '../assets/Logos/Cropped_QStelllar_fulllogo_transparent.png';
 import qLeapLogoImg from '../assets/logos copy/Platforms/QLeap_Logo.png';
+import qStellarScreenshot from '../assets/Logos/Screenshots/QStellar/Screenshot 2026-03-03 124540.png';
 import { ALPHAS, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from '../config/themeConfig';
 
 import SectionHeader from './SectionHeader';
@@ -20,6 +21,7 @@ const platforms = [
     badge: 'ASSET INTELLIGENCE',
     subtitle: 'AI-powered asset intelligence and vulnerability management platform',
     logo: qStellarLogoImg,
+    screenshot: qStellarScreenshot,
     highlights: ['Asset discovery and visibility', 'Vulnerability intelligence and prioritization', 'Risk-based security decision support', 'AI-assisted security operations visibility'],
     ctaText: 'Visit QStellar Website',
     link: 'https://qstellar.co',
@@ -41,14 +43,16 @@ export default function PlatformHighlights() {
   return (
     <section style={{ 
       background: SECTION_BACKGROUNDS.DARK_ALT, 
-      padding: '120px max(24px, calc((100vw - 1200px) / 2))',
+      padding: '120px 2em',
       fontFamily: TYPOGRAPHY.fontBody
     }}>
       <SectionHeader 
         isDark 
-        eyebrow="ECOSYSTEM & TOOLS"
-        title="SECURITY"
-        highlight="PLATFORMS & ECOSYSTEM"
+        eyebrow=""
+        title=""
+        highlight="Security"
+        suffix="Platforms & Ecosystem"
+        highlightColor={COLORS.teal}
         subtitle="Platforms and initiatives within the QuasarCyberTech ecosystem that support continuous security operations, visibility, and cyber resilience."
         maxWidth="740px"
       />
@@ -86,52 +90,62 @@ export default function PlatformHighlights() {
               overflow: 'hidden',
               position: 'relative',
             }}>
-              {/* Mock UI Lines */}
-              <div style={{ padding: '20px', opacity: 0.25 }}>
-                <div style={{ height: '8px', width: '60%', background: COLORS.teal, borderRadius: '4px', marginBottom: '12px' }} />
-                <div style={{ height: '6px', width: '85%', background: 'rgba(255,255,255,0.3)', borderRadius: '4px', marginBottom: '8px' }} />
-                <div style={{ height: '6px', width: '45%', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', marginBottom: '8px' }} />
-                <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
-                  <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
-                  <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
+              {platform.screenshot ? (
+                <img 
+                  src={platform.screenshot} 
+                  alt={platform.name} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} 
+                />
+              ) : (
+                /* Mock UI Lines */
+                <div style={{ padding: '20px', opacity: 0.25 }}>
+                  <div style={{ height: '8px', width: '60%', background: COLORS.teal, borderRadius: '4px', marginBottom: '12px' }} />
+                  <div style={{ height: '6px', width: '85%', background: 'rgba(255,255,255,0.3)', borderRadius: '4px', marginBottom: '8px' }} />
+                  <div style={{ height: '6px', width: '45%', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', marginBottom: '8px' }} />
+                  <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
+                    <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
+                    <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
+                  </div>
                 </div>
-              </div>
-              
-              {/* Platform name badge — bottom left */}
-              <div style={{
-                position: 'absolute', bottom: '16px', left: '20px',
-                background: 'rgba(43,196,182,0.15)',
-                border: `1px solid ${ALPHAS.teal20}`,
-                color: COLORS.teal,
-                ...TYPOGRAPHY.eyebrow,
-                fontSize: '10px',
-                padding: '4px 12px', borderRadius: '4px',
-                backdropFilter: 'blur(4px)',
-              }}>
-                {platform.badge}
-              </div>
+              )}
+            </div>
+            <div style={{
+              width: '100%',
+              height: '72px',
+              background: '#FFFFFF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderBottom: '1px solid rgba(11,31,59,0.08)',
+            }}>
+              {platform.logo ? (
+                <img
+                  src={platform.logo}
+                  alt={platform.name}
+                  style={{
+                    maxHeight: '36px',
+                    maxWidth: '140px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                  }}
+                />
+              ) : (
+                <span style={{
+                  color: '#040B1D',
+                  fontSize: '18px',
+                  fontWeight: 800,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  fontFamily: TYPOGRAPHY.fontHeading,
+                }}>
+                  {platform.name}
+                </span>
+              )}
             </div>
 
             <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <div style={{ minHeight: '52px', display: 'flex', alignItems: 'center', marginBottom: '14px' }}>
-                {platform.logo ? (
-                  <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '6px', padding: '8px 12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <img src={platform.logo} alt={platform.name} style={{ height: '32px', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                ) : (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <Target size={24} color={COLORS.teal} />
-                    <h3 style={{ 
-                      ...TYPOGRAPHY.cardTitle,
-                      color: COLORS.textOnDark, 
-                      fontSize: '24px', 
-                      margin: 0, 
-                      letterSpacing: '-0.02em' 
-                    }}>{platform.name}</h3>
-                  </div>
-                )}
-              </div>
+
 
               <p style={{ 
                 ...TYPOGRAPHY.bodyBase,

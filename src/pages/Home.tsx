@@ -13,7 +13,7 @@ import Certifications from '../components/Certifications';
 
 import Footer from '../components/Footer';
 
-import { themeConfig } from '../config/themeConfig';
+import { themeConfig, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 export default function Home() {
   return (
@@ -28,17 +28,21 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <TrustIndicators />
-        <Certifications />
-        <QCTSecureFramework />
-        <EnterpriseServices />
-        <PlatformHighlights />
-        <IndustrySnapshot />
-        <FeaturedInsights />
-        <LeadershipVision />
-        <HomeFinalCTA />
+        <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
+          <TrustIndicators />
+          <Certifications />
+          <QCTSecureFramework />
+          <EnterpriseServices />
+          <PlatformHighlights />
+          <IndustrySnapshot />
+          <FeaturedInsights />
+          <LeadershipVision />
+          <HomeFinalCTA />
+        </div>
       </main>
-      <Footer />
+      <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
+        <Footer />
+      </div>
     </div>
   );
 }

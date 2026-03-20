@@ -1,253 +1,261 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { ALPHAS, COLORS, SECTION_BACKGROUNDS, SHADOWS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, SECTION_BACKGROUNDS, SHADOWS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
-// Import SVC Images from Set 2
-import svc1 from '../assets/logos copy/SVCs_Set_2/SVC_1.png';
-import svc2 from '../assets/logos copy/SVCs_Set_2/SVC_2.png';
-import svc3 from '../assets/logos copy/SVCs_Set_2/SVC_3.png';
-import svc4 from '../assets/logos copy/SVCs_Set_2/SVC_4.png';
-import svc5 from '../assets/logos copy/SVCs_Set_2/SVC_5.png';
-import svc6 from '../assets/logos copy/SVCs_Set_2/SVC_6.png';
+// Photo Imports
+import imgAdvisory       from "../assets/capabilities/Cyber Advisory & Risk Governance.jpg";
+import imgCompliance     from "../assets/capabilities/Compliance & Regulatory Assurance.jpg";
+import imgOffensive      from "../assets/capabilities/Offensive Security Engineering.jpg";
+import imgCloud          from "../assets/capabilities/Cloud & Infrastructure Security.jpg";
+import imgManagedDefense from "../assets/capabilities/Managed Defense Operations_2.jpeg";
+import imgIntelligence   from "../assets/capabilities/Cyber Intelligence & Security Research.webp";
 
 const services = [
   {
     title: 'Cyber Advisory & Risk Governance',
     desc: 'Security strategy, governance frameworks, architecture design, and vCISO advisory services.',
-    href: '/capabilities/cyber-advisory',
-    img: svc1,
+    href: '/capabilities/cyber-advisory-risk-governance',
+    img: imgAdvisory,
   },
   {
     title: 'Compliance & Regulatory Assurance',
     desc: 'Regulatory readiness and compliance programs including RBI, ISO 27001, SOC2, and global standards.',
-    href: '/capabilities/compliance',
-    img: svc2,
+    href: '/capabilities/compliance-regulatory-assurance',
+    img: imgCompliance,
   },
   {
     title: 'Offensive Security Engineering',
     desc: 'Advanced penetration testing, red teaming, application security testing, and AI security validation.',
-    href: '/capabilities/offensive-security',
-    img: svc3,
+    href: '/capabilities/offensive-security-engineering',
+    img: imgOffensive,
   },
   {
     title: 'Cloud & Infrastructure Security',
     desc: 'Cloud security architecture, configuration assessments, container security, and CSPM.',
-    href: '/capabilities/cloud-security',
-    img: svc4,
+    href: '/capabilities/cloud-infrastructure-security',
+    img: imgCloud,
   },
   {
     title: 'Managed Defense Operations',
     desc: 'Continuous monitoring, SOC operations, incident response, and threat detection services.',
-    href: '/capabilities/managed-defense',
-    img: svc5,
+    href: '/capabilities/managed-defense-operations',
+    img: imgManagedDefense,
   },
   {
     title: 'Cyber Intelligence & Security Research',
     desc: 'Threat intelligence, dark web monitoring, vulnerability research, and security advisories.',
-    href: '/capabilities/cyber-intelligence',
-    img: svc6,
+    href: '/capabilities/cyber-intelligence-security-research',
+    img: imgIntelligence,
   },
 ];
 
-import SectionHeader from './SectionHeader';
-
 export default function EnterpriseServices() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
     <section style={{ 
       background: SECTION_BACKGROUNDS.LIGHT, 
-      padding: '120px max(24px, calc((100vw - 1200px) / 2))',
+      padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`,
       fontFamily: TYPOGRAPHY.fontBody
     }}>
-      {/* ─── PLACEMENT 3: TWO-COLUMN SECTION ENTRY ─── */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: '60% 40%', 
-        gap: '48px',
-        alignItems: 'center', 
-        marginBottom: '64px',
-        maxWidth: '1040px',
-        margin: '0 auto 64px auto'
-      }}>
-        <div>
-          <SectionHeader 
-            eyebrow="OUR EXPERTISE"
-            title="CORE"
-            highlight="CAPABILITIES"
-            subtitle="QuasarCyberTech delivers end-to-end cybersecurity services spanning advisory, engineering, offensive validation, cloud security, and managed defense."
-            maxWidth="640px"
-          />
-          <Link 
+      <div style={{ width: '100%', margin: '0' }}>
+        {/* ─── NEW SINGLE-COLUMN HEADER ─── */}
+        <div style={{ marginBottom: '48px' }}>
+          <h2 style={{
+            fontFamily: TYPOGRAPHY.fontHeading,
+            fontSize: 'clamp(28px, 3.5vw, 40px)',
+            fontWeight: 700,
+            color: COLORS.textOnLight,
+            marginBottom: '16px',
+            lineHeight: 1.2,
+            letterSpacing: '-0.01em',
+          }}>
+            Core <span style={{ color: COLORS.teal }}>Capabilities</span>
+          </h2>
+          <p style={{
+            fontFamily: TYPOGRAPHY.fontBody,
+            fontSize: '16px',
+            color: COLORS.textSub,
+            maxWidth: '520px',
+            lineHeight: 1.7,
+            margin: 0,
+          }}>
+            QuasarCyberTech delivers end-to-end cybersecurity services spanning
+            advisory, engineering, offensive validation, cloud security, and managed defense.
+          </p>
+        </div>
+
+        {/* ─── 3x2 SERVICE GRID ─── */}
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(3, 1fr)', 
+          gap: LAYOUT_CONTROLS.grid.capabilityGap,
+          width: '100%',
+          margin: '0', 
+        }}>
+          {services.map((service, index) => (
+            <Link
+              to={service.href}
+              key={service.title}
+              className="capability-card group"
+              style={{
+                borderRadius: `0 ${LAYOUT_CONTROLS.card.capabilityCardRadius} ${LAYOUT_CONTROLS.card.capabilityCardRadius} 0`, 
+                borderLeft: `${LAYOUT_CONTROLS.card.capabilityAccentThickness} solid ${COLORS.teal}`, 
+                background: COLORS.cardOnLight,
+                boxShadow: LAYOUT_CONTROLS.card.capabilityCardShadow, 
+                overflow: 'hidden',
+                transform: `scale(${LAYOUT_CONTROLS.card.capabilityCardScale})`, 
+                transition: 'transform 0.4s ease, box-shadow 0.4s ease, border-left-color 0.4s ease',
+                textDecoration: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-2px) scale(1.0)'; 
+                e.currentTarget.style.boxShadow = SHADOWS.lightCardHover;
+                e.currentTarget.style.borderLeftColor = COLORS.burgundy;
+                
+                const img = e.currentTarget.querySelector('.photo-element') as HTMLElement;
+                if (img) img.style.transform = 'scale(1.02)';
+
+                const overlay = e.currentTarget.querySelector('.overlay-deepen-layer') as HTMLElement;
+                if (overlay) overlay.style.opacity = '0.6';
+
+                const arrow = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
+                if (arrow) arrow.style.transform = 'translateX(4px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = `scale(${LAYOUT_CONTROLS.card.capabilityCardScale})`;
+                e.currentTarget.style.boxShadow = LAYOUT_CONTROLS.card.capabilityCardShadow;
+                e.currentTarget.style.borderLeftColor = COLORS.teal;
+
+                const img = e.currentTarget.querySelector('.photo-element') as HTMLElement;
+                if (img) img.style.transform = 'scale(1.0)';
+
+                const overlay = e.currentTarget.querySelector('.overlay-deepen-layer') as HTMLElement;
+                if (overlay) overlay.style.opacity = '0';
+
+                const arrow = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
+                if (arrow) arrow.style.transform = 'translateX(0px)';
+              }}
+            >
+              {/* Image zone */}
+              <div style={{
+                height: '210px', 
+                overflow: 'hidden',
+                position: 'relative',
+                display: 'flex',
+                background: '#0B1F3B',
+              }}>
+                <img
+                  className="photo-element"
+                  src={service.img}
+                  alt={service.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    display: 'block',
+                    transition: 'transform 0.4s ease',
+                  }}
+                />
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'linear-gradient(160deg, rgba(107, 15, 43, 0.15) 0%, rgba(11, 31, 59, 0.25) 100%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+                <div 
+                  className="overlay-deepen-layer"
+                  style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'linear-gradient(160deg, rgb(107, 15, 43) 0%, rgb(11, 31, 59) 100%)',
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    transition: 'opacity 0.4s ease',
+                    mixBlendMode: 'multiply'
+                  }}
+                />
+              </div>
+
+              {/* Card body */}
+              <div style={{ padding: '16px 18px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <p style={{
+                  color: COLORS.teal,
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  fontFamily: TYPOGRAPHY.fontBody,
+                  margin: '0 0 8px 0',
+                }}>
+                  SVC.0{index + 1}
+                </p>
+                <h3 style={{
+                  color: COLORS.textOnLight,
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  lineHeight: 1.3,
+                  fontFamily: TYPOGRAPHY.fontHeading,
+                  margin: '0 0 10px 0',
+                }}>
+                  {service.title}
+                </h3>
+                <p style={{
+                  color: COLORS.textSub,
+                  fontSize: '14px',
+                  lineHeight: 1.65,
+                  fontFamily: TYPOGRAPHY.fontBody,
+                  margin: '0 0 18px 0',
+                  flex: 1
+                }}>
+                  {service.desc}
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 'auto', overflow: 'visible' }}>
+                  <div className="card-arrow-icon" style={{ transition: 'transform 0.3s ease', display: 'flex' }}>
+                    <ArrowRight size={16} color={COLORS.teal} />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* ─── CENTERED BOTTOM CTA ─── */}
+        <div className="capabilities-cta" style={{
+          marginTop: '48px',
+          display: 'flex',
+          justifyContent: 'center', // Centered alignment
+        }}>
+          <Link
             to="/capabilities"
             style={{
+              background: COLORS.burgundy,
+              color: '#FFFFFF',
+              padding: '12px 28px', 
+              fontSize: '13px',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              color: COLORS.teal,
-              ...TYPOGRAPHY.navLink,
-              fontSize: '14px',
-              textDecoration: 'none',
-              marginTop: '4px',
-              borderBottom: `2px solid ${ALPHAS.teal20}`,
-              paddingBottom: '2px',
-              transition: 'all 0.2s ease'
+              borderRadius: '8px', 
+              transition: 'background 0.2s ease',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = COLORS.burgundy;
-              e.currentTarget.style.borderColor = COLORS.burgundy;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = COLORS.teal;
-              e.currentTarget.style.borderColor = ALPHAS.teal20;
-            }}
+            onMouseEnter={e => { e.currentTarget.style.background = COLORS.burgundyHover; }}
+            onMouseLeave={e => { e.currentTarget.style.background = COLORS.burgundy; }}
           >
-            Explore All Capabilities <ArrowRight size={16} />
+            Explore All Capabilities <ArrowRight size={14} />
           </Link>
         </div>
-        
-        {/* RIGHT COLUMN: Image Zone */}
-        <div style={{
-          width: '100%',
-          height: '240px',
-          background: `linear-gradient(135deg, ${COLORS.deepCyberBlue} 10%, rgba(4,11,29,0.85) 100%)`,
-          borderRadius: '0 0 24px 24px',
-          borderTop: `3px solid ${ALPHAS.teal20}`,
-          overflow: 'hidden',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08)'
-        }}>
-          {/* Placeholder Pattern */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            backgroundImage: 'radial-gradient(circle, rgba(43,196,182,0.06) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-          }} />
-          <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-            <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.textMuted, fontSize: '10px' }}>
-              Cybersecurity Team / Technical Assessment
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(3, 1fr)', 
-        gap: '24px',
-        maxWidth: '1040px',
-        margin: '0 auto', // Center the grid
-      }}>
-        {services.map((service, index) => (
-          <Link
-            to={service.href}
-            key={service.title}
-            style={{
-              borderRadius: '10px',
-              background: COLORS.cardOnLight,
-              boxShadow: SHADOWS.lightCard,
-              overflow: 'hidden',
-              transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
-              textDecoration: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
-              border: '1px solid rgba(0,0,0,0.04)'
-            }}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <div
-              style={{
-                height: '150px',
-                background: '#F1F4FB', // New requested background
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-                overflow: 'hidden',
-                padding: '16px', // Reduced padding to "zoom in"
-              }}
-            >
-              <img 
-                src={service.img} 
-                alt={service.title} 
-                style={{ 
-                  maxWidth: '100%', 
-                  maxHeight: '100%', 
-                  objectFit: 'contain',
-                  opacity: 0.95,
-                  transition: 'transform 0.5s ease',
-                  transform: hoveredIndex === index ? 'scale(1.05)' : 'scale(1)'
-                }} 
-              />
-              <div style={{ 
-                position: 'absolute', 
-                inset: 0, 
-                background: 'linear-gradient(to bottom, transparent, rgba(11, 31, 59, 0.02))' 
-              }} />
-            </div>
-
-            <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, fontSize: '9px' }}>
-                  SVC.{String(index + 1).padStart(2, '0')}
-                </p>
-                <div style={{ 
-                  opacity: hoveredIndex === index ? 1 : 0, 
-                  transform: hoveredIndex === index ? 'translateX(0)' : 'translateX(-8px)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <ArrowRight size={16} color={COLORS.teal} />
-                </div>
-              </div>
-              <h3 style={{ ...TYPOGRAPHY.cardTitle, color: COLORS.textOnLight, fontSize: '16px', marginBottom: '10px', lineHeight: 1.3 }}>
-                {service.title}
-              </h3>
-              <p style={{ ...TYPOGRAPHY.bodySmall, color: COLORS.textSub, lineHeight: 1.6, marginBottom: '0' }}>
-                {service.desc}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      <div style={{ marginTop: '56px', textAlign: 'center' }}>
-        <Link 
-          to="/capabilities"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '12px',
-            ...TYPOGRAPHY.buttonLarge,
-            background: COLORS.burgundy,
-            color: '#FFFFFF',
-            padding: '16px 42px',
-            borderRadius: '4px',
-            textDecoration: 'none',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = COLORS.burgundyHover;
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 12px 24px rgba(107, 21, 48, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = COLORS.burgundy;
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 8px 16px rgba(107, 21, 48, 0.2)';
-          }}
-        >
-          Explore all capabilities
-          <ArrowRight size={18} />
-        </Link>
       </div>
     </section>
   );
 }
-

@@ -1,110 +1,215 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
-import { themeConfig, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import fullLogo from '../assets/logos copy/QuasarCyberTech/QuasarCyberTech_Logo_Over.png';
+import watermarkLogo from '../assets/Logos/No_Text_Quasar_CyberTech_Logo.png';
+
+const footerColumns = [
+  {
+    title: 'Capabilities',
+    links: [
+      { label: 'Cyber Advisory & Risk Governance', href: '/capabilities/cyber-advisory-risk-governance' },
+      { label: 'Compliance & Regulatory Assurance', href: '/capabilities/compliance-regulatory-assurance' },
+      { label: 'Offensive Security Engineering', href: '/capabilities/offensive-security-engineering' },
+      { label: 'Cloud & Infrastructure Security', href: '/capabilities/cloud-infrastructure-security' },
+      { label: 'Managed Defense Operations', href: '/capabilities/managed-defense-operations' },
+      { label: 'Cyber Intelligence & Security Research', href: '/capabilities/cyber-intelligence-security-research' },
+    ],
+  },
+  {
+    title: 'Platforms',
+    links: [
+      { label: 'QRGT', href: '/platforms/qrgt', external: false },
+      { label: 'QStellar', href: 'https://qstellar.co', external: true },
+      { label: 'QLeap', href: 'https://qleap-ed.com', external: true },
+      { label: 'QPulse', href: '/insights', external: false },
+    ],
+  },
+  {
+    title: 'Industries',
+    links: [
+      { label: 'Banking & Financial Services', href: '/industries/banking' },
+      { label: 'FinTech & Digital Payments', href: '/industries/fintech' },
+      { label: 'SaaS & Technology', href: '/industries/saas' },
+      { label: 'E-commerce & Digital', href: '/industries/ecommerce' },
+      { label: 'Healthcare & HealthTech', href: '/industries/healthcare' },
+      { label: 'Enterprise & Manufacturing', href: '/industries/enterprise' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About QuasarCyberTech', href: '/company/about' },
+      { label: 'Leadership & Vision', href: '/company/leadership' },
+      { label: 'Advisory Board', href: '/company/advisory-board' },
+      { label: 'Insights', href: '/insights' },
+      { label: 'Careers', href: '/company/careers' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  },
+];
+
+const socialLinks = [
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/quasar-cybertech', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/quasarcybertech/', label: 'Instagram' },
+  { icon: Facebook, href: 'https://www.facebook.com/people/Quasar-CyberTech/61565781868474/', label: 'Facebook' }
+];
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-
-  const footerLinks = [
-    {
-      title: 'Products',
-      links: [
-        { label: 'QPulse', href: '/products' },
-        { label: 'QStellar', href: '/products' },
-      ]
-    },
-    {
-      title: 'Services',
-      links: [
-        { label: 'Application Security', href: '/services/application-security' },
-        { label: 'Network Security', href: '/services/network-security' },
-        { label: 'Cloud Security', href: '/services/cloud-security' },
-        { label: 'Red Team & Adversary Simulation', href: '/services/red-team-adversary-simulation' },
-        { label: 'Managed Security Operations', href: '/services/managed-security-operations' },
-        { label: 'Incident Response & Threat Hunting', href: '/services/incident-response' },
-        { label: 'Risk & Compliance', href: '/services/risk-compliance' },
-        { label: 'Architecture & Engineering', href: '/services/architecture-engineering' },
-        { label: 'Digital Risk & Monitoring', href: '/services/digital-risk-monitoring' }
-      ]
-    },
-    {
-      title: 'Company',
-      links: [
-        { label: 'About Us', href: '/about' },
-        { label: 'Careers', href: '/careers' },
-        { label: 'Contact', href: '/contact' },
-        { label: 'Blog', href: '/resources/blogs' }
-      ]
-    }
-  ];
-
-  const socialLinks = [
-    { icon: Linkedin, href: 'https://www.linkedin.com/company/quasar-cybertech', label: 'LinkedIn' },
-    { icon: Instagram, href: 'https://www.instagram.com/quasarcybertech/', label: 'Instagram' },
-    { icon: Facebook, href: 'https://www.facebook.com/people/Quasar-CyberTech/61565781868474/', label: 'Facebook' }
-  ];
+  const [hoveredLink, setHoveredLink] = useState<{ col: number, idx: number } | null>(null);
 
   return (
-    <footer className="relative overflow-hidden" style={{ backgroundColor: themeConfig.footer.backgroundColor, fontFamily: TYPOGRAPHY.fontBody }}>
-      {/* ───── CENTERED Q WATERMARK ───── */}
+    <footer style={{
+      background: COLORS.darkBase,
+      borderTop: '1px solid rgba(43,196,182,0.15)',
+      fontFamily: TYPOGRAPHY.fontBody,
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* ───── WATERMARK ───── */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none z-0"
-        style={{ scale: 2.2 }}
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-20%, -45%)',
+          pointerEvents: 'none',
+          opacity: 0.07,
+          zIndex: 0,
+          scale: 2.6
+        }}
       >
         <img
-          src="/src/assets/Logos/icon_nobuffer.png"
+          src={watermarkLogo}
           alt="Watermark"
-          className="w-[400px] h-auto grayscale"
+          style={{ width: '400px', height: 'auto', filter: 'grayscale(100%)' }}
         />
       </div>
 
-      <div className="max-w-[1280px] mx-auto px-8 pt-16 pb-8 relative z-10">
+      <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
-        {/* ───── MAIN FOOTER GRID (4 Columns) ───── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+        {/* ───── MAIN FOOTER GRID (5 Columns) ───── */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.6fr 1.2fr 1fr 1fr 1fr',
+          gap: '48px',
+          padding: '64px 2em 48px'
+        }}>
 
           {/* COLUMN 1: Branding & Details */}
-          <div className="flex flex-col items-start justify-start text-left">
-            <div className="mb-10 flex justify-start w-full">
+          <div>
+            <div style={{ textAlign: 'center', marginBottom: '36px' }}>
               <img
-                src="/src/assets/Logos/fulllogo_transparent_nobuffer.png"
-                alt="Quasar CyberTech"
-                className="w-auto brightness-200"
-                style={{ height: `${20 * (themeConfig.footer?.logoScale || 2.5)}px` }}
+                src={fullLogo}
+                alt="QuasarCyberTech"
+                style={{
+                  height: '120px',
+                  width: 'auto',
+                  display: 'inline-block',
+                }}
               />
             </div>
 
-            {/* Address & Contact - Vertical Stack */}
-            <div className="flex flex-col gap-3 items-start justify-start mb-8 w-full" style={{ color: themeConfig.footer.textColor }}>
-              <span style={{ ...TYPOGRAPHY.bodySmall, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', gap: '16px' }}>
-                <div
-                  className="w-8 h-8 rounded-full flex flex-shrink-0 items-center justify-center opacity-80"
-                  style={{ backgroundColor: themeConfig.footer.iconBg, color: themeConfig.footer.iconColor }}>
-                  <MapPin size={14} />
+            {/* Address & Contact */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '32px' }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center', color: 'rgba(255,255,255,0.65)', fontSize: '13px' }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  backgroundColor: 'rgba(214, 176, 92, 0.05)',
+                  color: COLORS.gold,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <MapPin size={18} />
                 </div>
                 Nashik, MH – 422009
-              </span>
-              <a href="mailto:contactus@quasarcybertech.com" style={{ ...TYPOGRAPHY.bodySmall, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', gap: '16px', color: themeConfig.footer.textColor, textDecoration: 'none' }}>
-                <div
-                  className="w-8 h-8 rounded-full flex flex-shrink-0 items-center justify-center opacity-80"
-                  style={{ backgroundColor: themeConfig.footer.iconBg, color: themeConfig.footer.iconColor }}>
-                  <Mail size={14} />
+              </div>
+              <a href="mailto:contactus@quasarcybertech.com" style={{
+                display: 'flex',
+                gap: '16px',
+                alignItems: 'center',
+                color: 'rgba(255,255,255,0.65)',
+                fontSize: '13px',
+                textDecoration: 'none',
+                transition: 'color 0.2s ease'
+              }}
+                onMouseEnter={(e) => {
+                  const icon = e.currentTarget.firstChild as HTMLElement;
+                  icon.style.backgroundColor = COLORS.gold;
+                  icon.style.color = '#4E0E26';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  const icon = e.currentTarget.firstChild as HTMLElement;
+                  icon.style.backgroundColor = 'rgba(214, 176, 92, 0.05)';
+                  icon.style.color = COLORS.gold;
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)';
+                }}
+              >
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  backgroundColor: 'rgba(214, 176, 92, 0.05)',
+                  color: COLORS.gold,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s ease'
+                }}>
+                  <Mail size={18} />
                 </div>
                 contactus@quasarcybertech.com
               </a>
-              <a href="tel:+910000000000" style={{ ...TYPOGRAPHY.bodySmall, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', gap: '16px', color: themeConfig.footer.textColor, textDecoration: 'none' }}>
-                <div
-                  className="w-8 h-8 rounded-full flex flex-shrink-0 items-center justify-center opacity-80"
-                  style={{ backgroundColor: themeConfig.footer.iconBg, color: themeConfig.footer.iconColor }}>
-                  <Phone size={14} />
+              <a href="tel:+910000000000" style={{
+                display: 'flex',
+                gap: '16px',
+                alignItems: 'center',
+                color: 'rgba(255,255,255,0.65)',
+                fontSize: '13px',
+                textDecoration: 'none',
+                transition: 'color 0.2s ease'
+              }}
+                onMouseEnter={(e) => {
+                  const icon = e.currentTarget.firstChild as HTMLElement;
+                  icon.style.backgroundColor = COLORS.gold;
+                  icon.style.color = '#4E0E26';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  const icon = e.currentTarget.firstChild as HTMLElement;
+                  icon.style.backgroundColor = 'rgba(214, 176, 92, 0.05)';
+                  icon.style.color = COLORS.gold;
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.65)';
+                }}
+              >
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  backgroundColor: 'rgba(214, 176, 92, 0.05)',
+                  color: COLORS.gold,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.3s ease'
+                }}>
+                  <Phone size={18} />
                 </div>
                 +91 00000 00000
               </a>
             </div>
 
-            {/* Socials */}
-            <div className="flex gap-4 justify-start">
+            {/* Socials - Keep style as-is */}
+            <div style={{ display: 'flex', gap: '16px' }}>
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -113,19 +218,28 @@ const Footer: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all duration-300 hover:-translate-y-1 shadow-sm"
                     style={{
-                      borderColor: 'rgba(255,255,255,0.05)',
-                      backgroundColor: themeConfig.footer.iconBg,
-                      color: themeConfig.footer.iconColor
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.05)',
+                      backgroundColor: 'rgba(214, 176, 92, 0.05)',
+                      color: COLORS.gold,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.3s ease',
+                      textDecoration: 'none'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = themeConfig.footer.iconHoverBg || '#D6B05C';
-                      e.currentTarget.style.color = themeConfig.footer.iconHoverText || '#4E0E26';
+                      e.currentTarget.style.backgroundColor = COLORS.gold;
+                      e.currentTarget.style.color = '#4E0E26'; // Match origin social text color
+                      e.currentTarget.style.transform = 'translateY(-4px)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = themeConfig.footer.iconBg || 'rgba(214, 176, 92, 0.05)';
-                      e.currentTarget.style.color = themeConfig.footer.iconColor || '#D6B05C';
+                      e.currentTarget.style.backgroundColor = 'rgba(214, 176, 92, 0.05)';
+                      e.currentTarget.style.color = COLORS.gold;
+                      e.currentTarget.style.transform = 'translateY(0)';
                     }}
                   >
                     <Icon size={18} />
@@ -135,42 +249,68 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* COLUMNS 2, 3, 4: Categories */}
-          {footerLinks.map((category) => (
-            <div
-              key={category.title}
-              className="flex flex-col items-start"
-              style={{ paddingLeft: themeConfig.footer.columnsMarginLeft || '0px' }}
-            >
-              <h3
-                style={{ ...TYPOGRAPHY.eyebrow, color: themeConfig.footer.headingColor, fontSize: '10.5px', marginBottom: '32px' }}
-              >
-                {category.title}
+          {/* COLUMNS 2-5: Nav Columns */}
+          {footerColumns.map((col, cIdx) => (
+            <div key={col.title}>
+              <h3 style={{
+                color: COLORS.gold,
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                marginBottom: '20px',
+                paddingBottom: '10px',
+                borderBottom: '1px solid rgba(43,196,182,0.18)',
+                display: 'inline-block',
+                width: '100%'
+              }}>
+                {col.title}
               </h3>
-              <ul className="flex flex-col" style={{ gap: themeConfig.footer.linkSpacing || '16px' }}>
-                {category.links.map((link) => (
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                {col.links.map((link, lIdx) => (
                   <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      style={{ 
-                        ...TYPOGRAPHY.navLink,
-                        color: themeConfig.footer.linkColor, 
-                        fontSize: '14.5px',
-                        textDecoration: 'none',
-                        transition: 'all 0.3s ease',
-                        display: 'inline-block'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = themeConfig.footer.linkHoverColor || '#D6B05C';
-                        e.currentTarget.style.transform = 'translateX(4px)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = themeConfig.footer.linkColor || 'rgba(255, 255, 255, 0.95)';
-                        e.currentTarget.style.transform = 'translateX(0)';
-                      }}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
+                        onMouseLeave={() => setHoveredLink(null)}
+                        style={{
+                          color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? COLORS.teal : 'rgba(255,255,255,0.65)',
+                          fontSize: '13px',
+                          fontWeight: 400,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          textDecoration: 'none',
+                          paddingLeft: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '4px' : '0',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        {link.label}
+                        <span style={{ fontSize: '10px', opacity: 0.5 }}>↗</span>
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
+                        onMouseLeave={() => setHoveredLink(null)}
+                        style={{
+                          color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? COLORS.teal : 'rgba(255,255,255,0.65)',
+                          fontSize: '13px',
+                          fontWeight: 400,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          textDecoration: 'none',
+                          paddingLeft: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '4px' : '0',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -178,28 +318,30 @@ const Footer: React.FC = () => {
           ))}
         </div>
 
-        {/* ───── LOWER SECTION (3-Tier Strip) ───── */}
-        <div className="pt-8 border-t border-white/5 relative z-10">
-          <div
-            className="flex flex-col md:flex-row items-center justify-between gap-6"
-            style={{ ...TYPOGRAPHY.bodySmall, color: themeConfig.footer.textColor, fontSize: '13px' }}
-          >
-            {/* LEFT: Copyright */}
-            <div className="text-center md:text-left order-2 md:order-1">
-              &copy; {currentYear} QuasarCyberTech. All rights reserved.
-            </div>
+        {/* ───── BOTTOM BAR ───── */}
+        <div style={{
+          padding: '20px 2em',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '24px',
+          color: 'rgba(255,255,255,0.45)',
+          fontSize: '13px'
+        }}>
+          <div>
+            &copy; {currentYear} QuasarCyberTech. All rights reserved.
+          </div>
 
-            {/* MIDDLE: Legals */}
-            <div className="flex justify-center flex-wrap gap-6 md:gap-8 order-1 md:order-2">
-              <Link to="/privacy" className="hover:text-[#D6B05C] transition-colors" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy</Link>
-              <Link to="/terms" className="hover:text-[#D6B05C] transition-colors" style={{ color: 'inherit', textDecoration: 'none' }}>Terms</Link>
-              <Link to="/cookies" className="hover:text-[#D6B05C] transition-colors" style={{ color: 'inherit', textDecoration: 'none' }}>Cookies</Link>
-            </div>
+          <div style={{ display: 'flex', gap: '24px' }}>
+            <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</Link>
+            <Link to="/terms" style={{ color: 'inherit', textDecoration: 'none' }}>Terms & Conditions</Link>
+            <Link to="/cookies" style={{ color: 'inherit', textDecoration: 'none' }}>Cookie Preference</Link>
+          </div>
 
-            {/* RIGHT: Motto */}
-            <div className="text-center md:text-right order-3">
-              Engineering Cyber Resilience for a Digital First World
-            </div>
+          <div style={{ opacity: 0.8 }}>
+            Engineering Cyber Resilience for a Digital First World
           </div>
         </div>
       </div>
