@@ -185,17 +185,23 @@ export default function EnterpriseServices() {
 
               {/* Card body */}
               <div style={{ padding: '16px 18px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <p style={{
-                  color: COLORS.teal,
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  fontFamily: TYPOGRAPHY.fontBody,
-                  margin: '0 0 8px 0',
-                }}>
-                  SVC.0{index + 1}
-                </p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <p style={{
+                    color: COLORS.teal,
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    fontFamily: TYPOGRAPHY.fontBody,
+                    margin: 0
+                  }}>
+                    SVC.0{index + 1}
+                  </p>
+                  <div className="card-arrow-icon" style={{ transition: 'transform 0.3s ease', display: 'flex' }}>
+                    <ArrowRight size={16} color={COLORS.teal} />
+                  </div>
+                </div>
+
                 <h3 style={{
                   color: COLORS.textOnLight,
                   fontWeight: 700,
@@ -216,11 +222,6 @@ export default function EnterpriseServices() {
                 }}>
                   {service.desc}
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 'auto', overflow: 'visible' }}>
-                  <div className="card-arrow-icon" style={{ transition: 'transform 0.3s ease', display: 'flex' }}>
-                    <ArrowRight size={16} color={COLORS.teal} />
-                  </div>
-                </div>
               </div>
             </Link>
           ))}

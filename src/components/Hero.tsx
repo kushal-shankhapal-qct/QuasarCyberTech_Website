@@ -16,10 +16,10 @@ const Hero: React.FC = () => {
         alignItems: 'flex-start',
         background: GRADIENTS.HERO_BG,
         overflow: 'hidden',
-        paddingLeft: '2em',
+        paddingLeft: '2.5em',
         paddingRight: '2em',
-        paddingBottom: '4em', // Giving some breathing room above the 2em bottom line for buttons
-        paddingTop: '120px',
+        paddingBottom: '3em', // Giving some breathing room above the 2em bottom line for buttons
+        paddingTop: '0em',
         fontFamily: TYPOGRAPHY.fontBody,
       }}
     >

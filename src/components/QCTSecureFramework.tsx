@@ -49,7 +49,7 @@ const stages = [
 ];
 
 export default function QCTSecureFramework() {
-  const [activeCard, setActiveCard] = useState<number | null>(0);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
     <section 

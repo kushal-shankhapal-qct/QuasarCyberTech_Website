@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
           display: 'grid',
           gridTemplateColumns: '1.6fr 1.2fr 1fr 1fr 1fr',
           gap: '48px',
-          padding: '64px 2em 48px'
+          padding: '48px 2em 48px'
         }}>
 
           {/* COLUMN 1: Branding & Details */}
