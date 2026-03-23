@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
           right: '-24%',
           top: '44%',
           transform: 'translateY(-45%)',
-          width: 'min(52vw, 580px)',
+          width: 'min(52vw, 560px)',
           aspectRatio: '1 / 1',
           pointerEvents: 'none',
           opacity: 0.88,

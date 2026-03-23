@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { COLORS, SECTION_BACKGROUNDS, SHADOWS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import CapabilityCardSimple from './capabilities/cards/CapabilityCardSimple';
 
 // Photo Imports
 import imgAdvisory       from "../assets/capabilities/Cyber Advisory & Risk Governance.jpg";
@@ -69,7 +70,7 @@ export default function EnterpriseServices() {
             lineHeight: 1.2,
             letterSpacing: '-0.01em',
           }}>
-            Core <span style={{ color: COLORS.teal }}>Capabilities</span>
+            Core <span style={{ color: COLORS.burgundy }}>Capabilities</span>
           </h2>
           <p style={{
             fontFamily: TYPOGRAPHY.fontBody,
@@ -93,152 +94,13 @@ export default function EnterpriseServices() {
           margin: '0', 
         }}>
           {services.map((service, index) => (
-            <Link
-              to={service.href}
+            <CapabilityCardSimple
               key={service.title}
-              className="capability-card group"
-              style={{
-                borderRadius: `0 ${LAYOUT_CONTROLS.card.capabilityCardRadius} ${LAYOUT_CONTROLS.card.capabilityCardRadius} 0`, 
-                borderLeft: `${LAYOUT_CONTROLS.card.capabilityAccentThickness} solid ${COLORS.teal}`, 
-                background: COLORS.cardOnLight,
-                boxShadow: LAYOUT_CONTROLS.card.capabilityCardShadow, 
-                overflow: 'hidden',
-                transform: `scale(${LAYOUT_CONTROLS.card.capabilityCardScale})`, 
-                transition: 'transform 0.4s ease, box-shadow 0.4s ease, border-left-color 0.4s ease',
-                textDecoration: 'none',
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px) scale(1.0)'; 
-                e.currentTarget.style.boxShadow = SHADOWS.lightCardHover;
-                e.currentTarget.style.borderLeftColor = COLORS.burgundy;
-                
-                const img = e.currentTarget.querySelector('.photo-element') as HTMLElement;
-                if (img) img.style.transform = 'scale(1.04)';
-
-                const overlay = e.currentTarget.querySelector('.overlay-deepen-layer') as HTMLElement;
-                if (overlay) overlay.style.opacity = '0';
-
-                const arrowContainer = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
-                if (arrowContainer) {
-                  arrowContainer.style.transform = 'translateX(4px)';
-                  const svg = arrowContainer.querySelector('svg');
-                  if (svg) svg.style.stroke = COLORS.burgundy;
-                }
-
-                const label = e.currentTarget.querySelector('.svc-label') as HTMLElement;
-                if (label) label.style.color = COLORS.burgundy;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = `scale(${LAYOUT_CONTROLS.card.capabilityCardScale})`;
-                e.currentTarget.style.boxShadow = LAYOUT_CONTROLS.card.capabilityCardShadow;
-                e.currentTarget.style.borderLeftColor = COLORS.teal;
-
-                const img = e.currentTarget.querySelector('.photo-element') as HTMLElement;
-                if (img) img.style.transform = 'scale(1.0)';
-
-                const overlay = e.currentTarget.querySelector('.overlay-deepen-layer') as HTMLElement;
-                if (overlay) overlay.style.opacity = '0';
-
-                const arrowContainer = e.currentTarget.querySelector('.card-arrow-icon') as HTMLElement;
-                if (arrowContainer) {
-                  arrowContainer.style.transform = 'translateX(0px)';
-                  const svg = arrowContainer.querySelector('svg');
-                  if (svg) svg.style.stroke = COLORS.teal;
-                }
-
-                const label = e.currentTarget.querySelector('.svc-label') as HTMLElement;
-                if (label) label.style.color = COLORS.teal;
-              }}
-            >
-              {/* Image zone */}
-              <div style={{
-                height: '210px', 
-                overflow: 'hidden',
-                position: 'relative',
-                display: 'flex',
-                background: '#0B1F3B',
-              }}>
-                <img
-                  className="photo-element"
-                  src={service.img}
-                  alt={service.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    display: 'block',
-                    transition: 'transform 0.4s ease',
-                  }}
-                />
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    background: 'linear-gradient(160deg, rgba(107, 15, 43, 0.15) 0%, rgba(11, 31, 59, 0.25) 100%)',
-                    pointerEvents: 'none',
-                  }}
-                />
-                <div 
-                  className="overlay-deepen-layer"
-                  style={{
-                    position: 'absolute',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    background: 'linear-gradient(160deg, rgb(107, 15, 43) 0%, rgb(11, 31, 59) 100%)',
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    transition: 'opacity 0.4s ease',
-                    mixBlendMode: 'multiply'
-                  }}
-                />
-              </div>
-
-              {/* Card body */}
-              <div style={{ padding: '16px 18px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <p className="svc-label" style={{
-                    color: COLORS.teal,
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    fontFamily: TYPOGRAPHY.fontBody,
-                    margin: 0,
-                    transition: 'color 0.4s ease'
-                  }}>
-                    SVC.0{index + 1}
-                  </p>
-                  <div className="card-arrow-icon" style={{ transition: 'all 0.3s ease', display: 'flex' }}>
-                    <ArrowRight size={16} color={COLORS.teal} style={{ transition: 'stroke 0.4s ease' }} />
-                  </div>
-                </div>
-
-                <h3 style={{
-                  color: COLORS.textOnLight,
-                  fontWeight: 700,
-                  fontSize: '16px',
-                  lineHeight: 1.3,
-                  fontFamily: TYPOGRAPHY.fontHeading,
-                  margin: '0 0 10px 0',
-                }}>
-                  {service.title}
-                </h3>
-                <p style={{
-                  color: COLORS.textSub,
-                  fontSize: '14px',
-                  lineHeight: 1.65,
-                  fontFamily: TYPOGRAPHY.fontBody,
-                  margin: '0 0 18px 0',
-                  flex: 1
-                }}>
-                  {service.desc}
-                </p>
-              </div>
-            </Link>
+              title={service.title}
+              desc={service.desc}
+              href={service.href}
+              img={service.img}
+            />
           ))}
         </div>
 

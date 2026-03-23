@@ -134,7 +134,7 @@ const CapabilityPage: React.FC = () => {
                   {' '}
                 </span>
               ))} 
-              <span style={{ color: COLORS.teal }}>{capability.highlight}</span>
+              <span style={{ color: COLORS.gold }}>{capability.highlight}</span>
             </h1>
             <p style={{ 
               ...TYPOGRAPHY.bodyLarge,
@@ -201,44 +201,70 @@ const CapabilityPage: React.FC = () => {
       </section>
 
       <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
-        {/* ─── SECTION 2: CAPABILITY OVERVIEW (LIGHT) ─── */}
-        <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '120px 2.5em' }}>
-          <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
-            <div>
-              <p style={{ 
-                color: '#2BC4B6', 
-                fontSize: '0.85rem', 
-                fontWeight: 700, 
-                textTransform: 'uppercase', 
-                letterSpacing: '0.12em', 
-                marginBottom: '24px'
-              }}>
-                CAPABILITY OVERVIEW
-              </p>
-              {capability.overview.body.map((p, i) => (
-                <p key={i} style={{ color: COLORS.textSub, fontSize: '17px', lineHeight: 1.8, marginBottom: '24px', textAlign: 'justify' }}>{p}</p>
-              ))}
-            </div>
-
-            {/* Proof Point Cards */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {capability.overview.proofPoints.map((point, i) => (
-                <div key={i} style={{ 
-                  background: '#0B1F3B', 
-                  padding: '20px 24px', 
-                  borderRadius: '0 4px 4px 0', 
-                  borderLeft: `4px solid #2BC4B6`,
-                  boxShadow: SHADOWS.darkCard
+        {/* ─── CAPABILITY OVERVIEW SECTION (Redesigned) ─── */}
+      <section 
+        className="section-padding" 
+        style={{ 
+          background: '#F5F7FA',
+          backgroundImage: `repeating-linear-gradient(135deg, rgba(43,196,182,0.035) 0px, rgba(43,196,182,0.035) 1px, transparent 1px, transparent 56px)`,
+          padding: '72px 60px',
+          position: 'relative'
+        }}
+      >
+        <div className="container-custom" style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', gap: '60px', alignItems: 'start' }}>
+          {/* Left Column (55%) */}
+          <div style={{ flex: '0 0 55%' }}>
+            <h2 style={{ 
+              fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', 
+              fontWeight: 700, 
+              color: '#0B1F3B', 
+              marginBottom: '20px',
+              fontFamily: TYPOGRAPHY.fontHeading 
+            }}>
+              About This <span style={{ color: COLORS.teal }}>Capability</span>
+            </h2>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {capability.overview.body.map((paragraph, i) => (
+                <p key={i} style={{ 
+                  fontSize: '1rem', 
+                  lineHeight: 1.75, 
+                  color: '#374151',
+                  textAlign: 'left'
                 }}>
-                  <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.95rem', fontWeight: 500, lineHeight: 1.6, margin: 0 }}>{point.value}</p>
-                </div>
+                  {paragraph}
+                </p>
               ))}
             </div>
           </div>
-        </section>
+
+          {/* Right Column (45%) */}
+          <div style={{ flex: '0 0 45%', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {capability.overview.proofPoints.map((point, i) => (
+              <div 
+                key={i} 
+                style={{ 
+                  background: '#0B1F3B',
+                  padding: '20px 24px',
+                  borderLeft: `4px solid ${COLORS.teal}`,
+                  borderRadius: '0 6px 6px 0',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div style={{ color: COLORS.teal, fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '8px', opacity: 0.9 }}>
+                  {point.label}
+                </div>
+                <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: '1rem', lineHeight: 1.6, fontWeight: 400 }}>
+                  {point.value}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
         {/* ─── SECTION 3: SERVICE AREAS (DARK) ─── */}
-        <section style={{ background: SECTION_BACKGROUNDS.DARK, padding: '72px 2.5em' }}>
+        <section style={{ background: GRADIENTS.DARK_SECTION_BG_FRAMEWORK, padding: '72px 2.5em' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
             <div style={{ marginBottom: '40px' }}>
               <h2 style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '32px', margin: 0, fontFamily: TYPOGRAPHY.fontHeading }}>
@@ -265,7 +291,7 @@ const CapabilityPage: React.FC = () => {
                 left: '12.5%', 
                 right: '12.5%', 
                 height: '1px', 
-                borderTop: '1px dashed rgba(43, 196, 182, 0.3)', 
+                borderTop: '1px dashed rgba(214, 176, 92, 0.3)', 
                 zIndex: 0 
               }} />
               
@@ -305,12 +331,38 @@ const CapabilityPage: React.FC = () => {
         </section>
 
         {/* ─── SECTION 5: PLATFORM LINKAGE (DARK) ─── */}
-        <section style={{ background: '#0B1F3B', padding: '120px 2.5em', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '80px', alignItems: 'center' }}>
-            <div style={{ flex: '0 0 50%' }}>
-              <p style={{ color: COLORS.teal, fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '16px' }}>PLATFORM SUPPORT</p>
-              <h2 style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '32px', marginBottom: '20px', fontFamily: TYPOGRAPHY.fontHeading }}>{capability.platformLink.heading}</h2>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '17px', lineHeight: 1.7, marginBottom: '32px' }}>{capability.platformLink.body}</p>
+        <section className="section-padding" style={{ background: GRADIENTS.DARK_SECTION_BG_FRAMEWORK }}>
+        <div className="container-custom" style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div style={{ 
+            background: '#0B1F3B', 
+            borderRadius: '16px', 
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            // md: 'row', // This is likely a TailwindCSS class, not valid in inline style
+            alignItems: 'center',
+            minHeight: '280px',
+            border: '1px solid rgba(43,196,182,0.1)'
+          }}>
+            <div style={{ flex: 1, padding: '48px 60px' }}>
+              <h2 style={{ 
+                color: '#FFFFFF', 
+                fontSize: '1.8rem', 
+                fontWeight: 700, 
+                marginBottom: '16px',
+                fontFamily: TYPOGRAPHY.fontHeading
+              }}>
+                {capability.platformLink.heading}
+              </h2>
+              <p style={{ 
+                color: 'rgba(255,255,255,0.7)', 
+                fontSize: '1rem', 
+                lineHeight: 1.6, 
+                marginBottom: '32px',
+                maxWidth: '600px'
+              }}>
+                {capability.platformLink.body}
+              </p>
               <a 
                 href={capability.platformLink.ctaLink}
                 target={capability.platformLink.isExternal ? "_blank" : "_self"}
@@ -318,50 +370,36 @@ const CapabilityPage: React.FC = () => {
                 style={{ 
                   color: COLORS.teal, 
                   fontWeight: 700, 
-                  textDecoration: 'none', 
-                  fontSize: '15px', 
-                  display: 'inline-flex', 
-                  alignItems: 'center', 
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
                   gap: '8px',
-                  borderBottom: `2px solid ${COLORS.teal}`,
-                  paddingBottom: '4px'
+                  fontSize: '0.9rem',
+                  transition: 'all 0.3s ease'
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                onMouseLeave={(e) => e.currentTarget.style.color = COLORS.teal}
               >
                 {capability.platformLink.ctaLabel} <ArrowRight size={16} />
               </a>
             </div>
-            {/* Visual Placeholder for Platform Card */}
+            {/* Logo/Icon Container */}
             <div style={{ 
-              flex: '1', 
-              background: 'rgba(255,255,255,0.03)', 
-              borderRadius: '20px', 
-              padding: '40px', 
-              border: '1px solid rgba(255,255,255,0.08)',
-              position: 'relative',
-              overflow: 'hidden'
+              flex: '0 0 320px', 
+              height: '100%', 
+              background: 'rgba(255,255,255,0.02)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '40px'
             }}>
-               <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(43,196,182,0.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
-               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                 <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: COLORS.teal, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                   <Layers color="#0B1F3B" size={24} />
-                 </div>
-                 <div>
-                   <h4 style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 700, margin: 0 }}>{capability.platformLink.name}</h4>
-                   <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', margin: 0 }}>Enterprise Security Intelligence</p>
-                 </div>
-               </div>
-               <div style={{ height: '2px', background: 'rgba(255,255,255,0.05)', marginBottom: '24px' }} />
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                 {["Continuous Asset Visibility", "AI-Driven Risk Scoring", "Automated Remediation Workflows"].map(item => (
-                   <div key={item} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                     <CheckCircle2 size={16} color={COLORS.teal} />
-                     <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px' }}>{item}</span>
-                   </div>
-                 ))}
-               </div>
+              <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(43,196,182,0.08)', display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center' }}>
+                {capability.icon && <capability.icon size={48} color={COLORS.teal} />}
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* ─── SECTION 6: INDUSTRIES (LIGHT) ─── */}
         <section style={{ background: SECTION_BACKGROUNDS.LIGHT, padding: '120px 2.5em' }}>

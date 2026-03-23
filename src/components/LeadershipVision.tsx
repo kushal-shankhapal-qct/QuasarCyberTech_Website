@@ -19,7 +19,8 @@ export default function LeadershipVision() {
                     title="BUILDING THE FUTURE OF"
                     highlight="CYBERSECURITY"
                     suffix="ENGINEERING"
-                    highlightColor={COLORS.teal}
+                    isDark={false}
+                    highlightColor={COLORS.burgundy}
                     subtitle="QuasarCyberTech is led by a vision to transform cybersecurity from a defensive posture into a proactive engineering discipline."
                     maxWidth="760px"
                 />
@@ -67,7 +68,7 @@ export default function LeadershipVision() {
                                 zIndex: 2
                             }}>
                                 <div>
-                                    <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, fontSize: '11px', marginBottom: '4px' }}>
+                                    <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.burgundy, fontSize: '11px', marginBottom: '4px' }}>
                                         Founder & CEO
                                     </p>
                                     <h4 style={{ ...TYPOGRAPHY.cardTitle, color: '#FFFFFF', fontSize: '20px', margin: 0 }}>

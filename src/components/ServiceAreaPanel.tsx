@@ -35,12 +35,14 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
       {/* ─── DESKTOP VIEW ─── */}
       <div className="hidden md:flex" style={{ 
         display: 'flex', 
-        alignItems: 'stretch', // Stretch to match heights
-        minHeight: '400px', 
+        alignItems: 'stretch', 
+        minHeight: '520px', 
         borderRadius: '4px', 
         overflow: 'hidden', 
-        border: '1px solid rgba(43,196,182,0.12)',
-        background: '#040B1D'
+        border: '1px solid rgba(43,196,182,0.15)',
+        background: '#040B1D',
+        position: 'relative',
+        zIndex: 1
       }}>
         {/* Left Panel (Service List) */}
         <div style={{ 
@@ -54,8 +56,8 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
               onMouseEnter={() => setActiveIndex(i)}
               onClick={() => setActiveIndex(i)}
               style={{
-                minHeight: '80px', // Increased height for tactical presence
-                padding: '16px 28px',
+                minHeight: '72px', 
+                padding: '20px 28px',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 display: 'flex',
@@ -84,7 +86,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <span style={{ 
-                  color: activeIndex === i ? '#2BC4B6' : 'rgba(43,196,182,0.45)', 
+                  color: activeIndex === i ? '#D6B05C' : 'rgba(214, 176, 92, 0.45)', 
                   fontSize: '0.72rem', 
                   fontWeight: 700, 
                   fontFamily: 'monospace',
@@ -104,7 +106,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                   {svc.name}
                 </span>
               </div>
-              {activeIndex === i && <ArrowRight size={14} color="#2BC4B6" />}
+              {activeIndex === i && <ArrowRight size={14} color="#D6B05C" />}
             </div>
           ))}
         </div>
@@ -121,7 +123,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
               style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               {/* Image Area */}
-              <div style={{ height: '200px', width: '100%', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ height: '300px', width: '100%', position: 'relative', overflow: 'hidden' }}>
                 <div style={{
                   position: 'absolute',
                   inset: 0,
@@ -132,7 +134,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                   <img 
                     src={services[activeIndex].image} 
                     alt={services[activeIndex].name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 1 }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', position: 'relative', zIndex: 1 }}
                   />
                 )}
                 <div style={{ 
@@ -140,18 +142,18 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                   bottom: 0, 
                   left: 0, 
                   right: 0, 
-                  height: '60%',
-                  background: 'linear-gradient(to bottom, transparent 40%, #0d2137 100%)',
+                  height: '30%',
+                  background: 'linear-gradient(to bottom, transparent 0%, rgba(13, 33, 55, 0.6) 100%)',
                   zIndex: 2
                 }} />
               </div>
 
-              {/* Text Area */}
-              <div style={{ padding: '28px 36px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ color: '#FFFFFF', fontSize: '1.4rem', fontWeight: 700, marginBottom: '14px', fontFamily: TYPOGRAPHY.fontHeading }}>
+              {/* Text Area (Left Aligned) */}
+              <div style={{ padding: '32px 36px', flex: 1, display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                <h3 style={{ color: '#FFFFFF', fontSize: '1.5rem', fontWeight: 700, marginBottom: '14px', fontFamily: TYPOGRAPHY.fontHeading }}>
                   {services[activeIndex].name}
                 </h3>
-                <p style={{ color: 'rgba(255,255,255,0.70)', fontSize: '0.95rem', lineHeight: 1.75, marginBottom: '24px' }}>
+                <p style={{ color: 'rgba(255,255,255,0.70)', fontSize: '1rem', lineHeight: 1.8, marginBottom: '24px', textAlign: 'left' }}>
                   {getDisplayDescription(services[activeIndex])}
                 </p>
                 <div style={{ marginTop: 'auto' }}>
@@ -161,7 +163,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                       display: 'inline-flex', 
                       alignItems: 'center', 
                       gap: '8px', 
-                      color: '#2BC4B6', 
+                      color: '#D6B05C', 
                       fontWeight: 700, 
                       textDecoration: 'none', 
                       fontSize: '0.78rem', 
@@ -178,7 +180,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                       if (icon) icon.style.transform = 'translateX(0)';
                     }}
                   >
-                    TALK TO AN EXPERT <ArrowRight size={16} style={{ transition: 'transform 0.3s ease' }} />
+                    TALK TO AN EXPERT <ArrowRight size={16} />
                   </Link>
                 </div>
               </div>

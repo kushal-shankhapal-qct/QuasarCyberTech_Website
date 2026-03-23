@@ -159,3 +159,18 @@
   align-items: center;
   justify-content: center;
 }
+
+@keyframes secureTickerLeft1 {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes secureTickerRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes secureTickerLeft2 {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

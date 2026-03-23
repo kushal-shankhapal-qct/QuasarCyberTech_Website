@@ -8,7 +8,7 @@ import logoIcon from '../assets/logos copy/QuasarCyberTech/icononly_transparent_
 import logoTextImg from '../assets/logos copy/QuasarCyberTech/Qtextonly_Light.png';
 
 // Config — single source of truth
-import { NAVBAR_CONFIG as NC } from '../config/themeConfig';
+import { NAVBAR_CONFIG as NC, COLORS, TYPOGRAPHY } from '../config/themeConfig';
 import { navigationConfig } from '../config/navigationConfig';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -235,41 +235,52 @@ const Navbar: React.FC = () => {
       >
         {!hideIcon && (sub.icon ? (
           <div style={{ 
-            width: isPlatformItem ? '32px' : isInsights ? '28px' : '28px', 
-            height: isPlatformItem ? '32px' : isInsights ? '28px' : '28px', 
+            width: isPlatformItem ? '42px' : isInsights ? '32px' : '32px', 
+            height: isPlatformItem ? '42px' : isInsights ? '32px' : '32px', 
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             flexShrink: 0,
-            overflow: (isQrgt || isQpulse) ? 'hidden' : 'visible',
+            overflow: 'visible',
             borderRadius: isPlatformItem ? '2px' : '0'
           }}>
-            <img 
-              src={sub.icon} 
-              alt="" 
-              style={{ 
-                height: isQrgt ? '100%' : isQpulse ? '100%' : isPlatformItem ? '110%' : '100%', 
-                width: isQrgt ? '100%' : isQpulse ? 'auto' : 'auto', 
-                maxWidth: isPlatformItem ? '140px' : '100px', 
-                objectFit: isQrgt ? 'cover' : 'contain', 
-                opacity: 1 
-              }} 
-            />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', height: '100%' }}>
+              <div style={sub.label === 'QStellar' ? {
+                background: '#FFFFFF',
+                padding: '6px',
+                borderRadius: '4px',
+                display: 'flex',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center'
+              } : { height: '100%', display: 'flex', alignItems: 'center' }}>
+                <img 
+                  src={sub.icon} 
+                  alt="" 
+                  style={{ 
+                    height: '100%',
+                    width: 'auto',
+                    objectFit: 'contain', 
+                    opacity: 1 
+                  }} 
+                />
+              </div>
+            </div>
           </div>
         ) : sub.LucideIcon || (isInsights && sub.label.includes('Articles')) ? (
           (() => {
             const Icon = sub.label.includes('Articles') ? BookOpen : sub.LucideIcon;
-            return <Icon size={isInsights ? 20 : 18} color={isInsights ? '#2BC4B6' : NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />;
+            return <Icon size={isInsights ? 20 : 18} color={isInsights ? '#D6B05C' : NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />;
           })()
         ) : null)}
         
         <div style={{ 
-          fontSize: isPlatformItem ? '0.9rem' : dItem.fontSize, 
+          fontSize: dItem.fontSize, 
           fontWeight: isPlatformItem ? '500' : '500', 
           display: 'flex', 
           alignItems: 'center', 
           gap: '6px',
-          color: isPlatformItem ? 'rgba(255,255,255,0.80)' : 'inherit',
+          color: 'inherit',
           width: isPlatformItem ? '100%' : 'auto'
         }}>
           {sub.label}
@@ -499,7 +510,7 @@ const Navbar: React.FC = () => {
               border: NC.dropdown.border,
               borderRadius: NC.dropdown.borderRadius,
               boxShadow: NC.dropdown.boxShadow,
-              padding: `${NC.dropdown.paddingTop} ${NC.dropdown.paddingLeft}`,
+              padding: `${NC.dropdown.paddingTop} ${NC.dropdown.paddingRight} ${NC.dropdown.paddingBottom} ${NC.dropdown.paddingLeft}`,
               zIndex: 999,
               overflow: 'hidden',
             }}
@@ -514,22 +525,24 @@ const Navbar: React.FC = () => {
                   )}
                 </div>
                 
-                {/* Footer Link for Platforms */}
-                {openMenu === 'platforms-ecosystem' && (
+                {/* Footer Link for Platforms/Industries */}
+                {(openMenu === 'platforms-ecosystem' || openMenu === 'industries') && (
                   <Link 
-                    to="/platforms" 
+                    to={openMenu === 'platforms-ecosystem' ? "/platforms" : "/industries"} 
                     style={{ 
-                      marginTop: '12px', 
-                      textAlign: 'right', 
+                      marginTop: '24px', 
+                      textAlign: 'left', 
                       fontSize: '0.78rem', 
-                      color: 'rgba(255,255,255,0.45)', 
+                      color: '#D6B05C', 
+                      fontWeight: 600,
                       textDecoration: 'none', 
-                      transition: 'color 0.2s ease' 
+                      transition: 'opacity 0.2s ease',
+                      opacity: 0.8
                     }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#D6B05C'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '0.8'}
                   >
-                    Explore Ecosystem →
+                    {openMenu === 'platforms-ecosystem' ? 'Explore Ecosystem →' : 'Explore All Industries →'}
                   </Link>
                 )}
               </div>
@@ -555,17 +568,19 @@ const Navbar: React.FC = () => {
                 </div>
                 
                 {/* Footer Link for Mega Menu */}
-                <div style={{ padding: '0 32px 24px', textAlign: 'right' }}>
+                <div style={{ padding: '0 32px 24px', textAlign: 'left' }}>
                   <Link 
                     to="/capabilities" 
                     style={{ 
                       fontSize: '0.78rem', 
-                      color: 'rgba(255,255,255,0.45)', 
+                      color: '#D6B05C', 
+                      fontWeight: 600,
                       textDecoration: 'none', 
-                      transition: 'color 0.2s ease' 
+                      transition: 'opacity 0.2s ease',
+                      opacity: 0.8
                     }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#D6B05C'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '0.8'}
                   >
                     View All Capabilities →
                   </Link>

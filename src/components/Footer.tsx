@@ -60,34 +60,37 @@ const socialLinks = [
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [hoveredLink, setHoveredLink] = useState<{ col: number, idx: number } | null>(null);
+  const SHOW_WATERMARK = false; // Watermark visibility toggled in code
 
   return (
     <footer style={{
-      background: '#6B1530',
-      borderTop: '1px solid rgba(255,255,255,0.15)',
+      background: '#1A0A10',
+      borderTop: '2px solid rgba(107, 21, 48, 0.60)',
       fontFamily: TYPOGRAPHY.fontBody,
       position: 'relative',
       overflow: 'hidden'
     }}>
       {/* ───── WATERMARK ───── */}
-      <div
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-20%, -45%)',
-          pointerEvents: 'none',
-          opacity: 0.04,
-          zIndex: 0,
-          scale: 2.6
-        }}
-      >
-        <img
-          src={watermarkLogo}
-          alt="Watermark"
-          style={{ width: '400px', height: 'auto', filter: 'brightness(0) invert(1)' }}
-        />
-      </div>
+      {SHOW_WATERMARK && (
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-20%, -45%)',
+            pointerEvents: 'none',
+            opacity: 0.04,
+            zIndex: 0,
+            scale: 2.6
+          }}
+        >
+          <img
+            src={watermarkLogo}
+            alt="Watermark"
+            style={{ width: '400px', height: 'auto', filter: 'brightness(0) invert(1)' }}
+          />
+        </div>
+      )}
 
       <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
@@ -100,53 +103,84 @@ const Footer: React.FC = () => {
         }}>
 
           {/* COLUMN 1: Branding & Details */}
-          <div>
-            <div style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              gap: '12px',
-              marginBottom: '40px',
-              textAlign: 'center'
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            {/* Logo (Top, Big and Centered) */}
+            <div style={{
+              marginBottom: '32px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '12px'
             }}>
               <img
                 src={logoIcon}
-                alt="QuasarCyberTech"
+                alt="QuasarCyberTech Icon"
                 style={{
-                  height: '48px',
+                  height: '64px', // Sized proportionally
                   width: 'auto',
-                  filter: 'brightness(1.1) sepia(0.3) saturate(1.4)'
+                  filter: 'brightness(1.1) saturate(1.2)'
                 }}
               />
               <img
                 src={logoTextImg}
-                alt="QuasarCyberTech"
+                alt="QuasarCyberTech Text"
                 style={{
-                  height: '24px',
-                  width: 'auto',
-                  marginBottom: '4px'
+                  width: '180px', // Sized proportionally to text logo in navbar
+                  height: 'auto',
+                  filter: 'brightness(1.1)'
                 }}
               />
-              <span style={{ 
-                color: '#D6B05C', 
-                fontSize: '15px', 
-                fontWeight: 700, 
-                letterSpacing: '0.05em',
-                marginTop: '-8px'
-              }}>QuasarCyberTech</span>
             </div>
 
-            {/* Address & Contact */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '32px' }}>
-              <a 
+            {/* Socials (Middle, Horizontal) */}
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '32px', justifyContent: 'center' }}>
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(214, 176, 92, 0.25)',
+                      backgroundColor: 'rgba(214, 176, 92, 0.06)',
+                      color: '#D6B05C',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.3s ease',
+                      textDecoration: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(214, 176, 92, 0.15)';
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(214, 176, 92, 0.06)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    <Icon size={18} />
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* Address & Contact (Bottom, Vertical) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'flex-start', width: '100%' }}>
+              <a
                 href="https://maps.app.goo.gl/GZa9schp9LXZgKpx8"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ 
-                  display: 'flex', 
-                  gap: '16px', 
-                  alignItems: 'center', 
-                  color: 'rgba(255,255,255,0.7)', 
+                style={{
+                  display: 'flex',
+                  gap: '16px',
+                  alignItems: 'center',
+                  color: 'rgba(255,255,255,0.7)',
                   fontSize: '0.9rem',
                   textDecoration: 'none',
                   transition: 'color 0.2s ease'
@@ -158,9 +192,9 @@ const Footer: React.FC = () => {
                   width: '40px',
                   height: '40px',
                   borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  color: '#ffffff',
+                  border: '1px solid rgba(214, 176, 92, 0.25)',
+                  backgroundColor: 'rgba(214, 176, 92, 0.06)',
+                  color: '#D6B05C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -180,12 +214,12 @@ const Footer: React.FC = () => {
               }}
                 onMouseEnter={(e) => {
                   const icon = e.currentTarget.firstChild as HTMLElement;
-                  icon.style.backgroundColor = 'rgba(255,255,255,0.20)';
+                  icon.style.backgroundColor = 'rgba(214, 176, 92, 0.15)';
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
                 onMouseLeave={(e) => {
                   const icon = e.currentTarget.firstChild as HTMLElement;
-                  icon.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                  icon.style.backgroundColor = 'rgba(214, 176, 92, 0.06)';
                   e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
                 }}
               >
@@ -193,9 +227,9 @@ const Footer: React.FC = () => {
                   width: '40px',
                   height: '40px',
                   borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  color: '#ffffff',
+                  border: '1px solid rgba(214, 176, 92, 0.25)',
+                  backgroundColor: 'rgba(214, 176, 92, 0.06)',
+                  color: '#D6B05C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -216,12 +250,12 @@ const Footer: React.FC = () => {
               }}
                 onMouseEnter={(e) => {
                   const icon = e.currentTarget.firstChild as HTMLElement;
-                  icon.style.backgroundColor = 'rgba(255,255,255,0.20)';
+                  icon.style.backgroundColor = 'rgba(214, 176, 92, 0.15)';
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
                 onMouseLeave={(e) => {
                   const icon = e.currentTarget.firstChild as HTMLElement;
-                  icon.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                  icon.style.backgroundColor = 'rgba(214, 176, 92, 0.06)';
                   e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
                 }}
               >
@@ -229,9 +263,9 @@ const Footer: React.FC = () => {
                   width: '40px',
                   height: '40px',
                   borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  color: '#ffffff',
+                  border: '1px solid rgba(214, 176, 92, 0.25)',
+                  backgroundColor: 'rgba(214, 176, 92, 0.06)',
+                  color: '#D6B05C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -241,44 +275,6 @@ const Footer: React.FC = () => {
                 </div>
                 +91 97306 91190
               </a>
-            </div>
-
-            {/* Socials */}
-            <div style={{ display: 'flex', gap: '16px' }}>
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.20)',
-                      backgroundColor: 'rgba(255,255,255,0.10)',
-                      color: '#ffffff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      transition: 'all 0.3s ease',
-                      textDecoration: 'none'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.20)';
-                      e.currentTarget.style.transform = 'translateY(-4px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.10)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              })}
             </div>
           </div>
 
@@ -317,7 +313,7 @@ const Footer: React.FC = () => {
                           alignItems: 'center',
                           gap: '4px',
                           textDecoration: 'none',
-                          paddingLeft: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '4px' : '0',
+                          transform: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? 'translateX(4px)' : 'translateX(0)',
                           transition: 'all 0.2s ease'
                         }}
                       >
@@ -337,7 +333,7 @@ const Footer: React.FC = () => {
                           alignItems: 'center',
                           gap: '4px',
                           textDecoration: 'none',
-                          paddingLeft: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '4px' : '0',
+                          transform: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? 'translateX(4px)' : 'translateX(0)',
                           transition: 'all 0.2s ease'
                         }}
                       >

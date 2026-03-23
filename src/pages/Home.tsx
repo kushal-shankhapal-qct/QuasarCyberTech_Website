@@ -10,6 +10,7 @@ import FeaturedInsights from '../components/FeaturedInsights';
 import LeadershipVision from '../components/LeadershipVision';
 import HomeFinalCTA from '../components/HomeFinalCTA';
 import Certifications from '../components/Certifications';
+import Testimonials from '../components/Testimonials';
 
 import Footer from '../components/Footer';
 
@@ -37,6 +38,7 @@ export default function Home() {
           <IndustrySnapshot />
           <FeaturedInsights />
           <LeadershipVision />
+          <Testimonials />
           <HomeFinalCTA />
         </div>
       </main>

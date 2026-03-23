@@ -7,8 +7,10 @@ import PlaceholderImage from '../components/PlaceholderImage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ShieldAlert, Bug, Eye, Cloud, Zap, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { industriesData } from '../data/industriesData';
+
+const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
 
 const IndustriesOverview: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -59,9 +61,12 @@ const IndustriesOverview: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              marginBottom: '24px',
+              position: 'absolute',
+              top: LAYOUT_CONTROLS.breadcrumbs.top,
+              left: LAYOUT_CONTROLS.breadcrumbs.left,
               fontSize: '12px',
               fontFamily: TYPOGRAPHY.fontBody,
+              zIndex: 10,
             }}>
               <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
               <span style={{ color: COLORS.teal, opacity: 0.6 }}>›</span>
@@ -114,9 +119,9 @@ const IndustriesOverview: React.FC = () => {
                 width: '170px',
                 position: 'relative',
                 overflow: 'hidden',
-                borderLeft: `3px solid ${COLORS.gold}`,
-                borderRadius: '0 12px 12px 0',
-                background: '#040B1D',
+                borderLeft: `4px solid ${COLORS.gold}`,
+                borderRadius: `0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS} 0`,
+                background: '#ffffff',
                 cursor: 'default',
                 transition: 'all 0.3s ease',
                 boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
@@ -133,22 +138,22 @@ const IndustriesOverview: React.FC = () => {
                 }}
               >
                 {/* Image Top */}
-                <div style={{ height: '90px', width: '100%', overflow: 'hidden' }}>
+                <div style={{ height: '90px', width: '100%', overflow: 'hidden', borderRadius: `0 ${CARD_ROUNDNESS} 0 0` }}>
                   <img src={ind.image} alt={ind.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 {/* Name Below */}
                 <div style={{
-                  background: COLORS.burgundy,
+                  background: '#ffffff',
                   padding: '10px 12px',
                   minHeight: '48px',
                   display: 'flex',
                   alignItems: 'center',
-                  borderTop: '1px solid rgba(255,255,255,0.08)'
+                  borderRadius: `0 0 ${CARD_ROUNDNESS} 0`
                 }}>
                   <span style={{
                     fontSize: '0.65rem',
                     fontWeight: 700,
-                    color: '#FFFFFF',
+                    color: '#0B1F3B',
                     lineHeight: 1.2,
                     textTransform: 'uppercase',
                     letterSpacing: '0.04em',
@@ -189,9 +194,9 @@ const IndustriesOverview: React.FC = () => {
               <div
                 key={ind.slug}
                 style={{
-                  borderRadius: '0 0 16px 16px',
-                  borderTop: `3px solid ${COLORS.teal}`,
-                  background: COLORS.cardOnLight,
+                  borderRadius: `0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS} 0`,
+                  borderLeft: `4px solid ${COLORS.teal}`,
+                  background: '#ffffff',
                   boxShadow: SHADOWS.lightCard,
                   overflow: 'hidden',
                   display: 'flex',
@@ -201,7 +206,7 @@ const IndustriesOverview: React.FC = () => {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = '0 12px 32px rgba(11,31,59,0.12)';
-                  e.currentTarget.style.borderTopColor = COLORS.burgundy;
+                  e.currentTarget.style.borderLeftColor = COLORS.burgundy;
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   
                   const explore = e.currentTarget.querySelector('.ind-explore') as HTMLAnchorElement;
@@ -209,7 +214,7 @@ const IndustriesOverview: React.FC = () => {
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = SHADOWS.lightCard;
-                  e.currentTarget.style.borderTopColor = COLORS.teal;
+                  e.currentTarget.style.borderLeftColor = COLORS.teal;
                   e.currentTarget.style.transform = 'translateY(0)';
                   
                   const explore = e.currentTarget.querySelector('.ind-explore') as HTMLAnchorElement;
@@ -217,7 +222,7 @@ const IndustriesOverview: React.FC = () => {
                 }}
               >
                 {/* Image Zone */}
-                <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
+                <div style={{ height: '210px', overflow: 'hidden', position: 'relative', borderRadius: `0 ${CARD_ROUNDNESS} 0 0` }}>
                   <img
                     src={ind.image}
                     alt={ind.name}
@@ -241,44 +246,30 @@ const IndustriesOverview: React.FC = () => {
                 </div>
 
                 {/* Body */}
-                <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <h3 style={{ color: COLORS.textOnLight, fontWeight: 700, fontSize: '20px', marginBottom: '12px', fontFamily: TYPOGRAPHY.fontHeading }}>
+                <div style={{ 
+                  padding: '18px 20px 16px', 
+                  flex: 1, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  background: '#ffffff', 
+                  borderRadius: `0 0 ${CARD_ROUNDNESS} 0` 
+                }}>
+                  <h3 style={{ 
+                    color: COLORS.textOnLight, 
+                    fontWeight: 700, 
+                    fontSize: '17px', 
+                    marginBottom: '8px', 
+                    fontFamily: TYPOGRAPHY.fontHeading,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}>
                     {ind.name}
+                    <ArrowRight size={14} className="ind-arrow" style={{ transition: 'all 0.3s ease', color: COLORS.teal }} />
                   </h3>
-                  <p style={{ color: COLORS.textSub, fontSize: '15.5px', lineHeight: 1.6, marginBottom: '24px' }}>
+                  <p style={{ color: COLORS.textSub, fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
                     {ind.description}
                   </p>
-                  
-                  {/* Action at the bottom */}
-                  <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid rgba(11,31,59,0.05)' }}>
-                    <Link 
-                      className="ind-explore"
-                      to={`/industries/${ind.slug}`} 
-                      style={{ 
-                        fontSize: '0.8rem', 
-                        fontWeight: 600, 
-                        color: COLORS.teal, 
-                        textTransform: 'uppercase', 
-                        letterSpacing: '0.04em',
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: '6px',
-                        textDecoration: 'none',
-                        width: 'fit-content',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        const icon = e.currentTarget.querySelector('svg');
-                        if (icon) icon.style.transform = 'translateX(4px)';
-                      }}
-                      onMouseLeave={(e) => {
-                        const icon = e.currentTarget.querySelector('svg');
-                        if (icon) icon.style.transform = 'translateX(0)';
-                      }}
-                    >
-                      Explore Industry <ArrowRight size={16} style={{ transition: 'transform 0.3s ease' }} />
-                    </Link>
-                  </div>
                 </div>
               </div>
             ))}

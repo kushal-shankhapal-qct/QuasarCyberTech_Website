@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
-import { ALPHAS, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { ALPHAS, COLORS, SECTION_BACKGROUNDS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { ChevronDown } from 'lucide-react';
 import SectionHeader from './SectionHeader';
+
+const TICKER_CONFIG = {
+  gapBetweenRows: '2px',        // gap between each of the 5 rows
+  verticalOffset: '-15px',      // move entire strip up (negative) or down (positive)
+  rowHeight: '34px',           // height of each row
+  fontSize: '0.84rem',          // all rows same size
+  binaryOpacity: 0.26,          // rgba alpha for binary rows
+  cveOpacity: 0.26,             // rgba alpha for CVE rows
+  binarySpeed1: '45s',
+  binarySpeed2: '45s',
+  cveSpeed1: '80s',
+  cveSpeed2: '80s',
+  cveSpeed3: '80s',
+};
 
 const stages = [
   {
@@ -55,8 +69,8 @@ export default function QCTSecureFramework() {
     <section
       id="secure-framework"
       style={{
-        background: COLORS.darkBase,
-        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} 360px`, // Synchronized rhythm
+        background: GRADIENTS.DARK_SECTION_BG_FRAMEWORK,
+        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} 360px`,
         overflow: 'visible',          // MUST be visible — never hidden
         position: 'relative',
         fontFamily: TYPOGRAPHY.fontBody,
@@ -67,7 +81,7 @@ export default function QCTSecureFramework() {
         title="The QCT"
         highlight="SECURE"
         suffix="Framework"
-        highlightColor={COLORS.teal}
+        highlightColor={COLORS.gold}
         subtitle="QuasarCyberTech delivers cybersecurity programs through a structured lifecycle designed to strengthen enterprise cyber resilience."
         maxWidth="760px"
       />
@@ -79,7 +93,7 @@ export default function QCTSecureFramework() {
         gap: '0px',                  // remove gap — arrows handle spacing
         overflow: 'visible',         // critical — allows dropdown to extend below
         position: 'relative',        // establishes stacking context
-        zIndex: 1,
+        zIndex: 2,
         marginTop: '64px',
       }}>
         {stages.map((stage, i) => (
@@ -101,11 +115,11 @@ export default function QCTSecureFramework() {
               {/* VISIBLE CARD — fixed height, never changes */}
               <div style={{
                 borderRadius: activeCard === i ? '0' : '0 0 18px 18px',
-                background: activeCard === i ? 'rgba(8, 16, 38, 1)' : 'rgba(255,255,255,0.05)',
-                borderLeft: '1px solid rgba(43, 196, 182, 0.3)',
-                borderRight: '1px solid rgba(43, 196, 182, 0.3)',
-                borderTop: activeCard === i ? `3px solid #6B1530` : `3px solid ${COLORS.teal}`,
-                borderBottom: activeCard === i ? 'none' : '1px solid rgba(43, 196, 182, 0.3)',
+                background: activeCard === i ? 'rgba(8, 16, 38, 1)' : 'rgba(6, 12, 28, 1)',
+                borderLeft: '1px solid rgba(214, 176, 92, 0.3)',
+                borderRight: '1px solid rgba(214, 176, 92, 0.3)',
+                borderTop: activeCard === i ? `3px solid ${COLORS.gold}` : `3px solid ${COLORS.burgundy}`,
+                borderBottom: activeCard === i ? 'none' : '1px solid rgba(214, 176, 92, 0.3)',
                 padding: LAYOUT_CONTROLS.card.frameworkCardPadding,
                 textAlign: 'center',
                 transition: 'background 0.2s ease, border-top 0.2s ease, border-radius 0.1s ease',
@@ -137,7 +151,7 @@ export default function QCTSecureFramework() {
                   fontSize: LAYOUT_CONTROLS.card.frameworkLetterSize,
                   fontWeight: 900,
                   fontFamily: TYPOGRAPHY.fontHeading,
-                  color: activeCard === i ? '#6B1530' : COLORS.teal,
+                  color: activeCard === i ? COLORS.gold : COLORS.burgundy,
                   lineHeight: 1,
                   userSelect: 'none',
                   transition: 'color 0.2s ease',
@@ -161,8 +175,8 @@ export default function QCTSecureFramework() {
                   marginTop: '16px',
                   display: 'flex',
                   justifyContent: 'center',
-                  color: activeCard === i ? '#6B1530' : COLORS.teal,
-                  opacity: activeCard === i ? 1 : 0.35,
+                  color: COLORS.gold,
+                  opacity: activeCard === i ? 1 : 0.45,
                   transform: activeCard === i ? 'rotate(180deg)' : 'rotate(0deg)',
                   transition: 'transform 0.3s ease, opacity 0.2s ease',
                 }}>
@@ -179,9 +193,9 @@ export default function QCTSecureFramework() {
                 zIndex: 50,
 
                 background: 'rgba(8, 16, 38, 1)',
-                borderLeft: '1px solid rgba(43, 196, 182, 0.3)',
-                borderRight: '1px solid rgba(43, 196, 182, 0.3)',
-                borderBottom: '1px solid rgba(43, 196, 182, 0.3)',
+                borderLeft: '1px solid rgba(214, 176, 92, 0.3)',
+                borderRight: '1px solid rgba(214, 176, 92, 0.3)',
+                borderBottom: '1px solid rgba(214, 176, 92, 0.3)',
                 borderRadius: '0 0 16px 16px',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
 
@@ -195,15 +209,14 @@ export default function QCTSecureFramework() {
                 paddingRight: '16px',
                 opacity: activeCard === i ? 1 : 0,
               }}>
-                {/* Descriptor appears first inside expanded zone */}
                 <div style={{
-                  color: 'rgba(43, 196, 182, 0.65)',
-                  fontSize: '11px',
-                  fontWeight: 500,
+                  color: COLORS.gold,
+                  fontSize: '13px',
+                  fontWeight: 600,
                   textAlign: 'center',
                   paddingTop: '12px',
                   paddingBottom: '14px',
-                  borderBottom: '1px solid rgba(43,196,182,0.12)',
+                  borderBottom: '1px solid rgba(214, 176, 92, 0.12)',
                   marginBottom: '14px',
                   lineHeight: 1.4,
                   opacity: activeCard === i ? 1 : 0,
@@ -228,18 +241,20 @@ export default function QCTSecureFramework() {
                         fontSize: '12px',
                         fontFamily: TYPOGRAPHY.fontBody,
                         padding: '5px 0 5px 12px',
-                        borderLeft: `2px solid ${COLORS.teal}`,
+                        borderLeft: `2px solid ${COLORS.burgundy}`,
                         marginBottom: '8px',
                         lineHeight: 1.5,
                         textDecoration: 'none',
                         transition: 'color 0.15s ease, padding-left 0.15s ease',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.color = COLORS.teal;
+                        e.currentTarget.style.color = COLORS.gold;
+                        e.currentTarget.style.borderLeftColor = COLORS.gold;
                         e.currentTarget.style.paddingLeft = '16px';
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.color = 'rgba(255,255,255,0.72)';
+                        e.currentTarget.style.borderLeftColor = COLORS.burgundy;
                         e.currentTarget.style.paddingLeft = '12px';
                       }}
                     >
@@ -260,8 +275,8 @@ export default function QCTSecureFramework() {
                 flexShrink: 0,
                 paddingTop: '40px',              // vertically align with letter zone
                 color: activeCard === i
-                  ? COLORS.teal                  // brighten when left card is active
-                  : 'rgba(43, 196, 182, 0.3)',   // dim default
+                  ? COLORS.gold                  // brighten when left card is active
+                  : 'rgba(214, 176, 92, 0.3)',   // dim default
                 fontSize: '18px',
                 transition: 'color 0.25s ease',
                 userSelect: 'none',
@@ -271,6 +286,101 @@ export default function QCTSecureFramework() {
             )}
           </React.Fragment>
         ))}
+      </div>
+
+      <div style={{
+        position: 'absolute',
+        top: 'calc(100% - 180px)',
+        left: 0,
+        right: 0,
+        transform: `translateY(calc(-50% + ${TICKER_CONFIG.verticalOffset}))`,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: TICKER_CONFIG.gapBetweenRows,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        userSelect: 'none',
+        zIndex: 1,
+        opacity: 1,
+      }}>
+
+        {/* CSS Keyframes injected here for new rows */}
+        <style>{`
+          @keyframes tickerScrollRight2 {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(0); }
+          }
+          @keyframes tickerScrollLeft3 {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+          }
+          @keyframes tickerScrollRight3 {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(0); }
+          }
+        `}</style>
+
+        {/* ROW A — CVE, scrolls RIGHT, cveSpeed1 */}
+        <div style={{ height: TICKER_CONFIG.rowHeight, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+          <span style={{
+            display: 'inline-block', whiteSpace: 'nowrap', fontFamily: 'monospace',
+            fontSize: TICKER_CONFIG.fontSize, color: `rgba(214, 176, 92, ${TICKER_CONFIG.cveOpacity})`,
+            letterSpacing: '0.06em', willChange: 'transform',
+            animation: `secureTickerRight ${TICKER_CONFIG.cveSpeed1} linear infinite`,
+          }}>
+            CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) ·
+          </span>
+        </div>
+
+        {/* ROW B — Binary, scrolls LEFT, binarySpeed1 */}
+        <div style={{ height: TICKER_CONFIG.rowHeight, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+          <span style={{
+            display: 'inline-block', whiteSpace: 'nowrap', fontFamily: 'monospace',
+            fontSize: TICKER_CONFIG.fontSize, color: `rgba(214, 176, 92, ${TICKER_CONFIG.binaryOpacity})`,
+            letterSpacing: '0.12em', willChange: 'transform',
+            animation: `secureTickerLeft1 ${TICKER_CONFIG.binarySpeed1} linear infinite`,
+          }}>
+            0100110100110100101100100111000111001010001011011010101001010101111100000000111110011001011001101110001100011100100000010111111000111100110000110100110100110100101100100111000111001010001011011010101001010101111100000000111110011001011001101110001100011100100000010111111000111100110000110100110100110100101100100111000111001010001011011010101001010101111100000000111110011001011001101110001100011100100000010111111000111100110000110100110100110100101100100111000111001010001011011010101001010101111100000000111110011001011001101110001100011100100000010111111000111100
+          </span>
+        </div>
+
+        {/* ROW C — CVE, scrolls RIGHT, cveSpeed2 */}
+        <div style={{ height: TICKER_CONFIG.rowHeight, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+          <span style={{
+            display: 'inline-block', whiteSpace: 'nowrap', fontFamily: 'monospace',
+            fontSize: TICKER_CONFIG.fontSize, color: `rgba(214, 176, 92, ${TICKER_CONFIG.cveOpacity})`,
+            letterSpacing: '0.06em', willChange: 'transform',
+            animation: `tickerScrollRight3 ${TICKER_CONFIG.cveSpeed2} linear infinite`,
+          }}>
+            CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) ·
+          </span>
+        </div>
+
+        {/* ROW D — Binary, scrolls LEFT, binarySpeed2 */}
+        <div style={{ height: TICKER_CONFIG.rowHeight, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+          <span style={{
+            display: 'inline-block', whiteSpace: 'nowrap', fontFamily: 'monospace',
+            fontSize: TICKER_CONFIG.fontSize, color: `rgba(214, 176, 92, ${TICKER_CONFIG.binaryOpacity})`,
+            letterSpacing: '0.12em', willChange: 'transform',
+            animation: `secureTickerLeft2 ${TICKER_CONFIG.binarySpeed2} linear infinite`,
+          }}>
+            1100101001110001001011011010101001010101111100001001100101100110111000110001110001001101000011000110100110100110100101100100111000110100110100110100101100100111000111001010001011011010101001010101111100001001100101100110111000110001110001001101000011000111001010001011011010101001010101111100001001100101100110111000110001110001001101000011000111001010001011011010101001010101111100001001100101100110111000110001110001001101000011000110100110100110100101100100111000110100110100110100101100100111000111001010001011011010101
+          </span>
+        </div>
+
+        {/* ROW E — CVE, scrolls RIGHT, cveSpeed3 */}
+        <div style={{ height: TICKER_CONFIG.rowHeight, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+          <span style={{
+            display: 'inline-block', whiteSpace: 'nowrap', fontFamily: 'monospace',
+            fontSize: TICKER_CONFIG.fontSize, color: `rgba(214, 176, 92, ${TICKER_CONFIG.cveOpacity})`,
+            letterSpacing: '0.06em', willChange: 'transform',
+            animation: `tickerScrollRight3 ${TICKER_CONFIG.cveSpeed3} linear infinite`,
+          }}>
+            CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) · CVE-2021-44228 (Log4Shell) · CVE-2021-34527 (PrintNightmare) · CVE-2022-30190 (Follina) · CVE-2023-44487 (HTTP/2 Rapid Reset) · CVE-2024-3400 (PAN-OS RCE) · CVE-2023-23397 (Outlook Zero-Day) · CVE-2022-22965 (Spring4Shell) · CVE-2023-20198 (Cisco IOS XE) · CVE-2024-21762 (FortiOS SSL) · CVE-2021-26855 (ProxyLogon) · CVE-2022-1388 (F5 BIG-IP) · CVE-2023-4966 (Citrix Bleed) ·
+          </span>
+        </div>
+
       </div>
     </section>
   );

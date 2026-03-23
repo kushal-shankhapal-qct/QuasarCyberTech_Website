@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
-import SectionEyebrow from './shared/SectionEyebrow';
-import { themeConfig, COLORS, SECTION_BACKGROUNDS } from '../config/themeConfig';
+import { themeConfig, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS, ALPHAS, GRADIENTS } from '../config/themeConfig';
+import SectionHeader from './SectionHeader';
 
 export default function Testimonials() {
     const testimonials = [
@@ -24,105 +24,102 @@ export default function Testimonials() {
         <section
             className="relative z-[20] overflow-hidden w-full transition-colors duration-700"
             style={{
-                background: SECTION_BACKGROUNDS.LIGHT,
-                paddingTop: `calc(${themeConfig.global.verticalSpacing} * 0.5)`,
-                paddingBottom: themeConfig.global.verticalSpacing
+                background: GRADIENTS.DARK_SECTION_BG_TESTIMONIALS,
+                padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`,
+                fontFamily: TYPOGRAPHY.fontBody
             }}
         >
+            <div className="w-full">
+                {/* ─── Standardized Header for Dark Section ─── */}
+                <SectionHeader 
+                    isDark 
+                    title="Trusted by"
+                    highlight="Enterprise Leaders"
+                    suffix="Across Industries"
+                    highlightColor={COLORS.gold}
+                    maxWidth="740px"
+                />
 
-
-            <div 
-                className="max-w-[1440px] mx-auto relative z-10"
-                style={{
-                    paddingLeft: themeConfig.global.sectionMarginLeft || '4rem',
-                    paddingRight: themeConfig.global.sectionMarginRight || '4rem',
-                }}
-            >
-                <div className="text-left mb-16 relative">
-                    <SectionEyebrow
-                        text="WHAT OUR CLIENTS SAY"
-                        noBox
-                        className="absolute -top-[10px]"
-                        style={{ left: '0rem' }}
-                    />
-                    <div style={{ marginLeft: '2.5rem', paddingTop: '10px' }}>
-                        <h2
-                            style={{
-                                fontFamily: 'var(--font-heading)',
-                                fontWeight: 800,
-                                fontSize: themeConfig.global.sectionTitleSize || '40px',
-                                color: COLORS.deepCyberBlue,
-                                lineHeight: themeConfig.global.sectionTitleLineHeight || '1.1',
-                                marginBottom: '12px',
-                            }}
-                        >
-                            Trusted by <span style={{ color: COLORS.burgundy }}>Enterprise Leaders</span><br />
-                            Across Industries
-                        </h2>
-                    </div>
-                </div>
-
-                <div 
-                    className="grid grid-cols-1 md:grid-cols-2 gap-10"
-                    style={{
-                        paddingLeft: themeConfig.global.contentMarginLeft || '6.5rem',
-                        paddingRight: themeConfig.global.sectionMarginRight || '4rem',
-                    }}
-                >
-                    {testimonials.map((testimonial, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: idx * 0.2 }}
-                            className={`relative px-8 py-6 flex flex-col bg-white group transition-all duration-700 overflow-hidden rounded-[32px] md:rounded-y-none ${idx === 0 ? 'md:rounded-l-none md:rounded-r-[40px]' : 'md:rounded-r-none md:rounded-l-[40px]'}`}
-                            style={{
-                                border: '1px solid rgba(0,0,0,0.06)',
-                                background: 'linear-gradient(135deg, #ffffff 0%, #f6f6f7 100%)',
-                                minHeight: '240px',
-                                boxShadow: themeConfig.global.unifiedShadows?.cardSoft || '0 10px 30px rgba(0,0,0,0.06)',
-                            }}
-                        >
-                             {/* Sharp Vertical Accent Line (Left for card 0, Right for card 1) */}
-                            <div
-                                className="absolute top-0 bottom-0 w-[5px] transition-all duration-500"
+                {/* ─── Grid ─── */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: LAYOUT_CONTROLS.grid.capabilityGap,
+                }}>
+                    {testimonials.map((testimonial, idx) => {
+                        const [isHovered, setIsHovered] = useState(false);
+                        return (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
+                                className={`relative px-8 py-8 flex flex-col group transition-all duration-500 overflow-hidden ${idx === 0 ? 'md:rounded-l-none md:rounded-r-[40px]' : 'md:rounded-r-none md:rounded-l-[40px]'} rounded-[32px] md:rounded-y-none`}
                                 style={{
-                                    background: COLORS.teal,
-                                    left: idx === 0 ? '0' : 'auto',
-                                    right: idx === 1 ? '0' : 'auto'
-                                }}
-                            />
-
-                            <div className="mb-6 relative">
-                                <Quote className="w-10 h-10" style={{ color: COLORS.teal }} fill="currentColor" fillOpacity={0.15} />
-                            </div>
-
-                            <p className="text-[14.5px] text-[#4A4A5A] leading-relaxed mb-5 flex-grow font-medium italic opacity-90 group-hover:opacity-100 transition-opacity text-justify px-2">
-                                "{testimonial.quote}"
-                            </p>
-
-                            <div
-                                className="flex items-center gap-4 mt-auto p-4 rounded-xl transition-all duration-300"
-                                style={{
-                                    backgroundColor: '#F8F9FA',
-                                    border: '1px solid rgba(0,0,0,0.03)',
-                                    boxShadow: 'inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.7)',
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.boxShadow = 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.8)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.boxShadow = 'inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.7)';
+                                    border: `1px solid ${ALPHAS.white06}`,
+                                    background: COLORS.cardOnDark,
+                                    minHeight: '260px',
+                                    boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.4)' : '0 10px 30px rgba(0,0,0,0.2)',
+                                    transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
                                 }}
                             >
-                                <div className="flex flex-col">
-                                    <span className="text-[15px] font-black text-[#0A0A0F] group-hover:text-[#6B1530] transition-colors">{testimonial.name}</span>
-                                    <span className="text-[12px] font-bold text-[#6B1530] uppercase tracking-wider">{testimonial.role}</span>
+                                {/* Sharp Vertical Accent Line */}
+                                <div
+                                    className="absolute top-0 bottom-0 w-[5px] transition-colors duration-500"
+                                    style={{
+                                        background: COLORS.gold,
+                                        left: idx === 0 ? '0' : 'auto',
+                                        right: idx === 1 ? '0' : 'auto'
+                                    }}
+                                />
+
+                                <div className="mb-8 relative">
+                                    <Quote 
+                                        className="w-10 h-10 transition-colors duration-500" 
+                                        style={{ color: COLORS.gold }} 
+                                        fill="currentColor" 
+                                        fillOpacity={0.15} 
+                                    />
                                 </div>
-                            </div>
-                        </motion.div>
-                    ))}
+
+                                <p className="text-[14.5px] leading-relaxed mb-8 flex-grow font-medium italic transition-opacity text-justify px-2"
+                                    style={{
+                                        color: 'rgba(255, 255, 255, 0.9)',
+                                        opacity: isHovered ? 1 : 0.95
+                                    }}
+                                >
+                                    "{testimonial.quote}"
+                                </p>
+
+                                {/* Author Block */}
+                                <div
+                                    className="flex items-center gap-4 mt-auto p-4 rounded-xl transition-all duration-300"
+                                    style={{
+                                        backgroundColor: isHovered ? 'rgba(214, 176, 92, 0.05)' : 'rgba(255,255,255,0.03)',
+                                        border: `1px solid ${ALPHAS.white06}`,
+                                    }}
+                                >
+                                    <div className="flex flex-col">
+                                        <span 
+                                            className="text-[15px] font-black transition-colors duration-300"
+                                            style={{ color: COLORS.gold }}
+                                        >
+                                            {testimonial.name}
+                                        </span>
+                                        <span 
+                                            className="text-[12px] font-bold uppercase tracking-wider transition-colors duration-300"
+                                            style={{ color: '#FFFFFF' }}
+                                        >
+                                            {testimonial.role}
+                                        </span>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

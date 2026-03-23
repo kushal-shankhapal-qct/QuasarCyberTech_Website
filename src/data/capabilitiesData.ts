@@ -99,8 +99,8 @@ export const capabilitiesData: CapabilityData[] = [
     platformLink: {
       name: 'QStellar',
       heading: 'Supported by QStellar',
-      body: 'QuasarCyberTech integrates asset visibility and risk intelligence from QStellar to support advisory engagements with continuous security posture data.',
-      ctaLabel: 'Explore QStellar',
+      body: 'QStellar supports advisory engagements with continuous asset visibility and risk posture intelligence.',
+      ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
@@ -153,8 +153,8 @@ export const capabilitiesData: CapabilityData[] = [
     platformLink: {
       name: 'QStellar',
       heading: 'Supported by QStellar',
-      body: 'QuasarCyberTech integrates asset visibility and risk intelligence from QStellar to support advisory engagements with continuous security posture data.',
-      ctaLabel: 'Explore QStellar',
+      body: 'QStellar provides continuous compliance posture monitoring to support regulatory assurance programs.',
+      ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
@@ -207,11 +207,11 @@ export const capabilitiesData: CapabilityData[] = [
     ],
     platformLink: {
       name: 'QRGT',
-      heading: 'Powered by QRGT',
+      heading: 'Supported by QRGT',
       body: 'QRGT enables continuous penetration testing with governed remediation tracking for application security programs.',
-      ctaLabel: 'Explore QRGT Platform',
-      ctaLink: '#',
-      isExternal: true
+      ctaLabel: 'Explore QRGT Platform →',
+      ctaLink: '/platforms#qrgt',
+      isExternal: false
     },
     finalCTA: {
       heading: "Think Like an Adversary, Build Like an Expert",
@@ -262,8 +262,8 @@ export const capabilitiesData: CapabilityData[] = [
     platformLink: {
       name: 'QStellar',
       heading: 'Supported by QStellar',
-      body: 'QuasarCyberTech integrates asset visibility and risk intelligence from QStellar to support advisory engagements with continuous security posture data.',
-      ctaLabel: 'Explore QStellar',
+      body: 'QStellar delivers asset discovery and vulnerability intelligence across cloud and hybrid infrastructure environments.',
+      ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
@@ -316,8 +316,8 @@ export const capabilitiesData: CapabilityData[] = [
     platformLink: {
       name: 'QStellar',
       heading: 'Supported by QStellar',
-      body: 'QuasarCyberTech integrates asset visibility and risk intelligence from QStellar to support advisory engagements with continuous security posture data.',
-      ctaLabel: 'Explore QStellar',
+      body: 'QStellar integrates with managed defense operations to provide real-time asset visibility and automated risk workflows.',
+      ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
@@ -369,11 +369,11 @@ export const capabilitiesData: CapabilityData[] = [
     ],
     platformLink: {
       name: 'QPulse',
-      heading: 'Visit QPulse',
-      body: 'QuasarCyberTech integrates asset visibility and risk intelligence from QPulse to support advisory engagements.',
-      ctaLabel: 'Visit QPulse portal',
-      ctaLink: '/insights',
-      isExternal: false
+      heading: 'Supported by QPulse',
+      body: 'QPulse delivers curated threat intelligence and security research to support intelligence-driven security programs.',
+      ctaLabel: 'Visit QPulse →',
+      ctaLink: 'https://qpulse.quasarcybertech.com',
+      isExternal: true
     },
     finalCTA: {
       heading: "Turn Intelligence into Strategy",

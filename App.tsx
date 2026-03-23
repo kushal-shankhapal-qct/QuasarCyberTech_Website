@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { themeConfig } from './src/config/themeConfig';
+import { DevToggleProvider } from './src/devToggles';
+import DevTogglePanel from './src/components/DevTogglePanel';
 
 import Home from './src/pages/Home';
 import About from './src/pages/About';
@@ -41,8 +43,9 @@ const App: React.FC = () => {
 
   return (
     <Theme appearance="inherit" radius="large" scaling="100%">
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <main className="min-h-screen font-sans">
+      <DevToggleProvider>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <main className="min-h-screen font-sans">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -67,6 +70,7 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <DevTogglePanel />
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -76,6 +80,7 @@ const App: React.FC = () => {
           />
         </main>
       </Router>
+      </DevToggleProvider>
     </Theme>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, SECTION_BACKGROUNDS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
 import SectionHeader from './SectionHeader';
 
 const insights = [
@@ -32,7 +32,7 @@ export default function FeaturedInsights() {
     return (
         <section
             style={{
-                background: SECTION_BACKGROUNDS.DARK,
+                background: GRADIENTS.DARK_SECTION_BG_INSIGHTS,
                 padding: '120px 2em',
                 overflow: 'hidden',
                 fontFamily: TYPOGRAPHY.fontBody
@@ -49,7 +49,7 @@ export default function FeaturedInsights() {
                         marginBottom: '10px',
                         fontFamily: TYPOGRAPHY.fontHeading 
                     }}>
-                        <span style={{ color: COLORS.teal }}>Cybersecurity</span> Insights & Research
+                        <span style={{ color: COLORS.gold }}>Cybersecurity</span> Insights & Research
                     </h2>
                     <p style={{ color: COLORS.textMuted, fontSize: '16px', maxWidth: '560px', marginTop: '12px', lineHeight: 1.6 }}>
                         Curated intelligence, research insights, and security perspectives 
@@ -60,7 +60,7 @@ export default function FeaturedInsights() {
                 {/* Change 2 — QPulse placeholder zone (add ABOVE existing cards) */}
                 <div style={{
                     border: `1px solid rgba(43,196,182,0.2)`,
-                    borderTop: `3px solid ${COLORS.teal}`,
+                    borderTop: `3px solid ${COLORS.gold}`,
                     borderRadius: '0 0 16px 16px',
                     background: 'rgba(43,196,182,0.03)',
                     padding: '32px',
@@ -77,7 +77,7 @@ export default function FeaturedInsights() {
                             <span style={{
                                 background: 'rgba(43,196,182,0.12)',
                                 border: `1px solid rgba(43,196,182,0.3)`,
-                                color: COLORS.teal,
+                                color: COLORS.gold,
                                 fontSize: '11px',
                                 fontWeight: 700,
                                 letterSpacing: '0.1em',
@@ -111,9 +111,9 @@ export default function FeaturedInsights() {
                         rel="noopener noreferrer"
                         style={{
                             background: 'transparent',
-                            color: COLORS.teal,
-                            border: `1px solid rgba(43,196,182,0.4)`,
-                            borderTop: `2px solid ${COLORS.teal}`,
+                            color: COLORS.gold,
+                            border: `1px solid rgba(214,176,92,0.4)`,
+                            borderTop: `2px solid ${COLORS.gold}`,
                             borderRadius: '0 0 8px 8px',
                             padding: '12px 24px',
                             fontSize: '13px',
@@ -162,33 +162,35 @@ export default function FeaturedInsights() {
                     }}
                 >
                     {insights.map((item, idx) => {
-                        // Color tints based on type
                         const tint = item.type === 'threat' 
                             ? 'rgba(107,21,48,0.4)' 
                             : item.type === 'tech' 
                                 ? 'rgba(43,196,182,0.12)' 
                                 : 'rgba(214,176,92,0.12)';
                         
-                        const accent = item.type === 'threat' 
-                            ? COLORS.burgundy 
-                            : item.type === 'tech' 
-                                ? COLORS.teal 
-                                : COLORS.gold;
+                        // Default to gold top border. Burgundy on hover.
+                        const defaultAccent = COLORS.gold;
 
                         return (
                             <div key={idx}
                                 style={{
                                     borderRadius: '0 0 16px 16px',
-                                    borderTop: `3px solid ${accent}`,
+                                    borderTop: `3px solid ${defaultAccent}`,
                                     background: 'rgba(255,255,255,0.04)',
                                     overflow: 'hidden',
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    transition: 'transform 0.3s ease',
+                                    transition: 'transform 0.3s ease, border-top-color 0.3s ease',
                                     boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
                                 }}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-8px)';
+                                    e.currentTarget.style.borderTopColor = COLORS.burgundy;
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.borderTopColor = defaultAccent;
+                                }}
                             >
                                 {/* Image zone - different color temperature per card */}
                                 <div style={{ 
@@ -205,7 +207,7 @@ export default function FeaturedInsights() {
                                 </div>
 
                                 <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                                    <div style={{ ...TYPOGRAPHY.eyebrow, color: accent, fontSize: '10px', marginBottom: '12px' }}>
+                                    <div style={{ ...TYPOGRAPHY.eyebrow, color: defaultAccent, fontSize: '10px', marginBottom: '12px' }}>
                                         {item.category}
                                     </div>
                                     <h3 style={{ ...TYPOGRAPHY.cardTitle, color: '#FFFFFF', fontSize: '18px', marginBottom: '14px', lineHeight: 1.35 }}>
@@ -216,7 +218,7 @@ export default function FeaturedInsights() {
                                     </p>
                                     <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                                         <div style={{ color: COLORS.gold, fontSize: '11px', fontWeight: 600 }}>{item.date}</div>
-                                        <Link to={item.href} style={{ color: COLORS.teal, fontSize: '12px', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                        <Link to={item.href} style={{ color: COLORS.gold, fontSize: '12px', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                             Read on QPulse <ArrowRight size={14} />
                                         </Link>
                                     </div>

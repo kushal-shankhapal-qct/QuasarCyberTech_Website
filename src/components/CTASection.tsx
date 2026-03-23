@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, GRADIENTS, TYPOGRAPHY, SECTION_BACKGROUNDS } from '../config/themeConfig';
 import TrustIndicators from './TrustIndicators';
 
 interface CTASectionProps {
@@ -10,19 +10,24 @@ interface CTASectionProps {
   subtitle?: string;
   showMetrics?: boolean;
   showEyebrow?: boolean;
+  theme?: 'light' | 'dark';
 }
 
 const CTASection: React.FC<CTASectionProps> = ({ 
   title = "Secure Your Digital Enterprise", 
   subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.",
   showMetrics = true,
-  showEyebrow = true
+  showEyebrow = true,
+  theme = 'light'
 }) => {
+  const isDark = theme === 'dark';
+
   return (
     <section
       style={{
         position: 'relative',
-        background: GRADIENTS.HERO_BG,
+        background: isDark ? 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)' : SECTION_BACKGROUNDS.LIGHT,
+        borderTop: isDark ? '1px solid rgba(214,176,92,0.15)' : 'none',
         padding: '120px 2.5em 60px', // Reduced bottom padding
         overflow: 'hidden',
         fontFamily: TYPOGRAPHY.fontBody
@@ -32,7 +37,7 @@ const CTASection: React.FC<CTASectionProps> = ({
         
         {/* Upper CTA Content */}
         <div style={{ maxWidth: '800px' }}>
-          {showEyebrow && (
+          {showEyebrow && !isDark && (
             <p style={{ ...TYPOGRAPHY.eyebrow, color: COLORS.teal, marginBottom: '20px' }}>
               READY TO BEGIN?
             </p>
@@ -45,12 +50,12 @@ const CTASection: React.FC<CTASectionProps> = ({
             style={{
               ...TYPOGRAPHY.sectionTitle,
               fontFamily: TYPOGRAPHY.fontHeading,
-              color: COLORS.textOnDark,
+              color: isDark ? '#ffffff' : COLORS.deepCyberBlue,
               lineHeight: 1.1,
               marginBottom: '24px',
             }}
           >
-            <span style={{ color: COLORS.gold }}>Secure</span> Your Digital<br />Enterprise
+            <span style={{ color: isDark ? COLORS.gold : COLORS.burgundy }}>Secure</span> Your Digital<br />Enterprise
           </motion.h2>
 
           <motion.p
@@ -60,7 +65,7 @@ const CTASection: React.FC<CTASectionProps> = ({
             viewport={{ once: true }}
             style={{
               ...TYPOGRAPHY.bodyLarge,
-              color: 'rgba(255, 255, 255, 0.7)',
+              color: isDark ? 'rgba(255,255,255,0.60)' : 'rgba(8, 16, 38, 0.7)',
               maxWidth: '600px',
               marginBottom: '40px',
             }}
@@ -98,14 +103,27 @@ const CTASection: React.FC<CTASectionProps> = ({
               style={{
                 ...TYPOGRAPHY.buttonLarge,
                 background: 'transparent',
-                border: `1px solid ${COLORS.gold}`,
-                color: COLORS.gold,
+                border: isDark ? '1.5px solid rgba(255,255,255,0.35)' : `1px solid ${COLORS.burgundy}`,
+                color: isDark ? 'rgba(255,255,255,0.80)' : COLORS.burgundy,
                 padding: '16px 36px',
                 borderRadius: '4px',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (isDark) {
+                  e.currentTarget.style.borderColor = COLORS.gold;
+                  e.currentTarget.style.color = COLORS.gold;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (isDark) {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)';
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.80)';
+                }
               }}
             >
               Explore Capabilities
@@ -116,7 +134,7 @@ const CTASection: React.FC<CTASectionProps> = ({
         {/* Lower Trust Metrics */}
         {showMetrics && (
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '60px' }}>
-            <TrustIndicators isDark />
+            <TrustIndicators isDark={false} />
           </div>
         )}
       </div>

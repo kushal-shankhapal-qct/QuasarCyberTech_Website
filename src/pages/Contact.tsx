@@ -183,14 +183,14 @@ const Contact: React.FC = () => {
                 justifyContent: 'center',
                 gap: '20px'
               }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(43,196,182,0.1)', color: '#2BC4B6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px' }}>
+                <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(214, 176, 92, 0.1)', color: '#D6B05C', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px' }}>
                   ✓
                 </div>
                 <h3 style={{ color: '#0B1F3B', fontWeight: 800, margin: 0, fontSize: '1.2rem' }}>Message Sent</h3>
                 <p style={{ color: '#4a5568', margin: 0, fontSize: '0.95rem' }}>Our team will be in touch within 24 hours.</p>
                 <button
                   onClick={() => setFormSubmitted(false)}
-                  style={{ background: 'transparent', border: 'none', color: '#2BC4B6', fontWeight: 700, cursor: 'pointer', marginTop: '20px', fontSize: '0.9rem', textDecoration: 'underline' }}
+                  style={{ background: 'transparent', border: 'none', color: '#D6B05C', fontWeight: 700, cursor: 'pointer', marginTop: '20px', fontSize: '0.9rem', textDecoration: 'underline' }}
                 >
                   Send another message
                 </button>
@@ -241,16 +241,16 @@ const Contact: React.FC = () => {
                     }}
                     onMouseEnter={e => {
                       const title = e.currentTarget.querySelector('h4') as HTMLElement;
-                      if (title) title.style.color = '#2BC4B6';
+                      if (title) title.style.color = '#D6B05C';
                     }}
                     onMouseLeave={e => {
                       const title = e.currentTarget.querySelector('h4') as HTMLElement;
                       if (title) title.style.color = '#ffffff';
                     }}
                   >
-                    <div style={{ color: '#2BC4B6', marginTop: '2px' }}> <MapPin size={18} /> </div>
+                    <div style={{ color: '#D6B05C', marginTop: '2px' }}> <MapPin size={18} /> </div>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', color: '#2BC4B6', textTransform: 'uppercase', marginBottom: '6px' }}>OUR OFFICE</span>
+                      <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', color: '#D6B05C', textTransform: 'uppercase', marginBottom: '6px' }}>OUR OFFICE</span>
                       <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#ffffff', margin: '0 0 4px 0', transition: 'color 0.2s ease' }}>Quasar CyberTech Private Limited</h4>
                       <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.65)', margin: 0 }}>Nashik, MH – 422009, India</p>
                     </div>

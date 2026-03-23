@@ -14,9 +14,11 @@ export const COLORS = {
   pureWhite: '#FFFFFF',
 
   // Brand Accents — 3 purposes
-  teal: '#2BC4B6',       // UI layer: framework icons/letters, dropdown accent, interactive borders
-  burgundy: '#6B1530',   // Action layer: buttons, nav active, card accents
-  gold: '#D6B05C',       // Emphasis layer: nav text, metric symbols, text highlights on DARK
+  teal: '#2BC4B6',       // UI layer: secondary/tertiary data viz elements
+  burgundy: '#6B1530',   // Action layer: buttons, nav active, card accents, borders
+  gold: '#D6B05C',       // Emphasis layer: nav text, primary interactive accents
+  accent: '#D6B05C',
+  accentHover: '#C9A84C',
 
   // Text
   textOnDark: '#FFFFFF',
@@ -50,6 +52,10 @@ export const ALPHAS = {
   teal07: 'rgba(43, 196, 182, 0.07)',
   teal04: 'rgba(43, 196, 182, 0.04)',
   teal08: 'rgba(43, 196, 182, 0.08)',
+  gold08: 'rgba(214, 176, 92, 0.08)',
+  gold12: 'rgba(214, 176, 92, 0.12)',
+  gold15: 'rgba(214, 176, 92, 0.15)',
+  gold20: 'rgba(214, 176, 92, 0.20)',
   gold30: 'rgba(214, 176, 92, 0.3)',
   gold40: 'rgba(214, 176, 92, 0.4)',
   burgundy50: 'rgba(107, 21, 48, 0.5)',
@@ -82,7 +88,7 @@ export const LAYOUT_CONTROLS = {
     // Capability cards (light section)
     capabilityImageZoneHeight: '210px',        // Matches new photo height
     capabilityBodyPadding: '16px 18px 20px',   // was 20px 22px 24px
-    capabilityCardRadius: '32px',              // Book-page "more roundness"
+    capabilityCardRadius: '20px',              // Synced to user preference (was 32px)
     capabilityAccentThickness: '4px',          // Balanced accent stripe
     capabilityCardScale: 0.985,                // Subtle "scale down" factor
     capabilityCardShadow: '0 4px 20px rgba(0,0,0,0.06)', // Subtle default lift shadow
@@ -130,6 +136,12 @@ export const LAYOUT_CONTROLS = {
     logoImageSize: '48px',                     // icon image size inside circle
     columnPaddingTop: '24px',                  // space between logo and first contact item
   },
+
+  // ─── BREADCRUMB POSITIONING ────────────────────────────────
+  breadcrumbs: {
+    top: '135px',                              // Absolute top position
+    left: '2.5em',                             // Aligned to hero content left
+  },
 };
 
 // ─── CENTRALIZED BRAND CONTROLS ───
@@ -158,9 +170,9 @@ export const BRAND_CONTROLS = {
 
   // QCT Framework
   frameworkTitleFont: 'var(--font-heading)',
-  frameworkLetterColor: '#2BC4B6',
-  frameworkBulletColor: '#1F6FEB',
-  frameworkArrowColor: '#2BC4B6',
+  frameworkLetterColor: '#D6B05C',
+  frameworkBulletColor: '#6B1530',
+  frameworkArrowColor: '#D6B05C',
 
   // Dropdowns — single source of truth
   dropdown: {
@@ -199,7 +211,7 @@ const TYPOGRAPHY_VARIANTS = {
     fontHeading: "'Ubuntu', sans-serif",
     fontBody: "'DM Sans', sans-serif",
     trackingHeadline: '-0.01em',
-    trackingBody: '0.005em',
+    trackingBody: '0.003em',
     trackingButton: '0.1em',
     trackingEyebrow: '0.15em',
     bodyWeight: 300,
@@ -239,7 +251,7 @@ export const TYPOGRAPHY = {
   sectionTitle: { fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 700, lineHeight: 1.2, letterSpacing: T.trackingHeadline },
   cardTitle: { fontSize: '17px', fontWeight: 700, lineHeight: 1.3, letterSpacing: '0em', fontFamily: T.fontHeading },
 
-  bodyLarge: { fontSize: '16px', fontWeight: T.bodyWeight, lineHeight: 1.6, letterSpacing: T.trackingBody },
+  bodyLarge: { fontSize: '16px', fontWeight: T.bodyWeight, wordSpacing: '4px', lineHeight: 1.5, letterSpacing: T.trackingBody },
   bodyBase: { fontSize: '15px', fontWeight: T.bodyWeight, lineHeight: 1.65, letterSpacing: T.trackingBody },
   bodySmall: { fontSize: '13px', fontWeight: T.bodyWeight, lineHeight: 1.6, letterSpacing: T.trackingBody },
 
@@ -260,14 +272,19 @@ export const GRADIENTS = {
   ACCENT: 'linear-gradient(90deg, #6B1530 0%, #D6B05C 100%)',
   BRAND_ACCENT: 'linear-gradient(90deg, #6B1530 0%, #D6B05C 100%)',
   LIGHT_SECTION_BG: '#F5F7FA',
-  DARK_SECTION_BG: '#040B1D',
+  DARK_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  DARK_SECTION_BG_FRAMEWORK: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  DARK_SECTION_BG_PLATFORMS: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  DARK_SECTION_BG_INSIGHTS: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  DARK_SECTION_BG_LEADERSHIP: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  DARK_SECTION_BG_TESTIMONIALS: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   CYBER_ACCENT: '#2BC4B6',
 };
 
 // ─── SECTION BACKGROUNDS ───
 export const SECTION_BACKGROUNDS = {
-  DARK: '#040B1D',
-  DARK_ALT: '#040B1D',
+  DARK: '#06010A',
+  DARK_ALT: '#06010A',
   LIGHT: '#F5F7FA',
   CARD_ON_LIGHT: '#FFFFFF',
   CARD_ON_DARK: 'rgba(255, 255, 255, 0.04)',
@@ -280,7 +297,7 @@ export const themeConfig = {
   themes: {
     default: {
       '--brand-primary': COLORS.burgundy,
-      '--brand-secondary': COLORS.teal,
+      '--brand-secondary': COLORS.gold,
       '--accent-gold': COLORS.gold,
       '--deep-cyber-blue': COLORS.deepCyberBlue,
     }
@@ -381,41 +398,41 @@ export const ACTIVE_NAVBAR_VARIANT: NavbarVariant = 'recommended';
 export const NAVBAR_VARIANTS = {
   A: {
     // Option A: Warm Obsidian (Recommended for Hero context)
-    pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
+    pillBackground: '#1C0D14',
     dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
-    dropdownBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
+    dropdownBorderTop: '2px solid rgba(214, 176, 92, 0.45)',
     backdropFilter: 'none',
   },
   B: {
     // Option B: Deep Navy Slate (Technical/Cold)
-    pillBackground: 'linear-gradient(180deg, rgb(14, 22, 48), rgb(8, 14, 32))',
+    pillBackground: '#1C0D14',
     dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(255, 255, 255, 0.06)',
-    dropdownBorderTop: '1px solid rgba(255, 255, 255, 0.06)',
+    dropdownBorderTop: '2px solid rgba(214, 176, 92, 0.45)',
     backdropFilter: 'none',
   },
   C: {
     // Option C: Branded Dark with Teal Structural Accent
-    pillBackground: 'linear-gradient(180deg, rgba(14, 18, 42, 0.95), rgba(8, 10, 28, 0.97))',
+    pillBackground: '#1C0D14',
     dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(43, 196, 182, 0.2)',
-    dropdownBorderTop: '1.5px solid rgba(43, 196, 182, 0.45)',
+    dropdownBorderTop: '2px solid rgba(214, 176, 92, 0.45)',
     backdropFilter: 'none',
   },
   recommended: {
     // Recommended: Warm Pill + Cool/Teal Dropdown
-    pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
+    pillBackground: '#1C0D14',
     dropdownBackground: '#1C0D14',
     pillBorderTop: '1px solid rgba(255, 255, 255, 0.08)',
-    dropdownBorderTop: '1.5px solid rgba(43, 196, 182, 0.45)',
+    dropdownBorderTop: '2px solid rgba(214, 176, 92, 0.45)',
     backdropFilter: 'none',
   },
   current: {
-    pillBackground: 'linear-gradient(160deg, rgba(28, 12, 22, 0.94), rgba(12, 8, 18, 0.96))',
+    pillBackground: '#1C0D14',
     dropdownBackground: '#1C0D14',
     pillBorderTop: 'none',
-    dropdownBorderTop: 'none',
+    dropdownBorderTop: '2px solid rgba(214, 176, 92, 0.45)',
     backdropFilter: 'none',
   }
 };
@@ -592,25 +609,25 @@ export const NAVBAR_CONFIG = {
     borderRadiusBottom: '16px',
     borderRadius: '0 0 16px 16px',
 
-    background: navMaterial.dropdownBackground,
-    backdropFilter: navMaterial.backdropFilter,
+    background: '#1C0D14',
+    backdropFilter: 'none',
 
     topAccentHeight: '1.5px', // Option C uses 1.5px
-    topAccentColor: COLORS.teal,
+    topAccentColor: '#D6B05C',
     topAccentOpacity: 0, // Hidden if using borderTop directly
 
-    border: '1px solid rgba(255,255,255,0.05)',
-    borderTop: navMaterial.dropdownBorderTop,
-    boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+    border: '2px solid rgba(214, 176, 92, 0.25)',
+    borderTop: '2px solid rgba(214, 176, 92, 0.50)',
+    boxShadow: '0 24px 80px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(214, 176, 92, 0.12)',
 
     openAnimation: 'fadeSlideDown 0.18s cubic-bezier(0.23,1,0.32,1)',
     closeDelay: 150,
     verticalOffset: '2em', // Gap between Navbar and Menu
 
-    paddingTop: '10px',
-    paddingBottom: '10px',
-    paddingLeft: '28px',
-    paddingRight: '28px',
+    paddingTop: '24px',
+    paddingBottom: '24px',
+    paddingLeft: '32px',
+    paddingRight: '32px',
     itemGap: '2px',
     columnGap: '48px',
 
@@ -623,7 +640,7 @@ export const NAVBAR_CONFIG = {
       marginBottom: '10px',
       paddingBottom: '0px', // We'll manually handle underline width
       separatorHeight: '1px',
-      separatorColor: 'rgba(43,196,182,0.18)',
+      separatorColor: 'rgba(214, 176, 92, 0.15)',
     },
 
     item: {
@@ -650,12 +667,12 @@ export const NAVBAR_CONFIG = {
       paddingRight: '12px',
       borderRadius: '8px',
       background: 'rgba(255,255,255,0.02)',
-      backgroundHover: 'rgba(43,196,182,0.06)',
+      backgroundHover: 'rgba(214, 176, 92, 0.06)',
       border: '1px solid rgba(255,255,255,0.05)',
-      borderHover: '1px solid rgba(43,196,182,0.2)',
+      borderHover: '1px solid rgba(214, 176, 92, 0.2)',
       gap: '12px',
       iconSize: '18px',
-      iconColor: '#2BC4B6',
+      iconColor: '#D6B05C',
       iconStrokeWidth: 1.5,
       labelFontSize: '13px',
       labelFontWeight: '500',

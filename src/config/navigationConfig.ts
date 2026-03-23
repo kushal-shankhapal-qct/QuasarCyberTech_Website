@@ -21,7 +21,7 @@ import {
   Globe
 } from 'lucide-react';
 
-import qPulseLogo from '../assets/Logos/Screenshots/QPulse/Screenshot 2026-03-03 124218.png';
+import qPulseLogo from '../assets/Logos/QPulse_Logo_No_Buffer.png';
 import qStellarLogo from '../assets/logos copy/Platforms/QStelllar_fulllogo_transparent_No_Buffer.png';
 import qLeapLogo from '../assets/logos copy/Platforms/QLeap_Logo.png';
 import qrgtLogo from '../assets/logos copy/Platforms/QRGT.png';

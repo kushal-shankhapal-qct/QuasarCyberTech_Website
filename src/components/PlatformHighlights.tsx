@@ -4,7 +4,8 @@ import qStellarLogoImg from '../assets/Logos/Cropped_QStelllar_fulllogo_transpar
 import qPulseLogoImg from '../assets/Logos/QPulse_Logo_No_Buffer.png';
 import qrgtLogoImg from '../assets/logos copy/Platforms/QRGT.png';
 import qStellarScreenshot from '../assets/Logos/Screenshots/QStellar/Screenshot 2026-03-03 124540.png';
-import { ALPHAS, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from '../config/themeConfig';
+import qPulseScreenshot from '../assets/logos copy/Platforms/QPulse_New.png';
+import { ALPHAS, COLORS, GRADIENTS, SECTION_BACKGROUNDS, TYPOGRAPHY } from '../config/themeConfig';
 
 import SectionHeader from './SectionHeader';
 const platforms = [
@@ -18,16 +19,20 @@ const platforms = [
     ctaText: 'Visit QStellar Website',
     link: 'https://qstellar.co',
     external: true,
+    styles: { logoHeight: '36px', screenshotFit: 'cover' as const }
   },
   {
     name: 'QPulse',
     badge: 'THREAT INTELLIGENCE',
     subtitle: 'Enterprise-grade threat intelligence and security research portal',
-    logo: qPulseLogoImg, // I'll need to import this
+    logo: qPulseLogoImg,
+    screenshot: qPulseScreenshot,
+    showTextLabel: true,
     highlights: ['Real-time threat analytics', 'Global threat feed ingestion', 'Vulnerability research and analysis', 'Strategic security intelligence'],
     ctaText: 'Explore QPulse Portal',
     link: 'https://qpulse.quasarcybertech.com',
     external: true,
+    styles: { logoHeight: '38px', screenshotFit: 'cover' as const }
   },
   {
     name: 'QRGT',
@@ -37,13 +42,14 @@ const platforms = [
     highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
     ctaText: 'Explore QRGT Platform',
     link: '/platforms/qrgt',
+    styles: { logoHeight: '44px', screenshotFit: 'cover' as const }
   },
 ];
 
 export default function PlatformHighlights() {
   return (
     <section style={{ 
-      background: SECTION_BACKGROUNDS.DARK_ALT, 
+      background: GRADIENTS.DARK_SECTION_BG_PLATFORMS, 
       padding: '120px 2em',
       fontFamily: TYPOGRAPHY.fontBody
     }}>
@@ -53,7 +59,7 @@ export default function PlatformHighlights() {
         title=""
         highlight="Security"
         suffix="Platforms & Ecosystem"
-        highlightColor={COLORS.teal}
+        highlightColor={COLORS.gold}
         subtitle="Platforms and initiatives within the QuasarCyberTech ecosystem that support continuous security operations, visibility, and cyber resilience."
         maxWidth="740px"
       />
@@ -64,9 +70,9 @@ export default function PlatformHighlights() {
             key={platform.name}
             style={{
               borderRadius: '0 0 16px 16px',
-              borderTop: `3px solid ${COLORS.teal}`,
+              borderTop: `3px solid ${COLORS.burgundy}`,
               background: COLORS.cardOnDark,
-              border: `1px solid ${ALPHAS.teal12}`,
+              border: `1px solid rgba(214, 176, 92, 0.3)`,
               borderTopWidth: '3px',
               display: 'flex',
               flexDirection: 'column',
@@ -80,7 +86,7 @@ export default function PlatformHighlights() {
             }}
             onMouseLeave={(event) => {
               event.currentTarget.style.transform = 'translateY(0)';
-              event.currentTarget.style.borderTopColor = COLORS.teal;
+              event.currentTarget.style.borderTopColor = COLORS.gold;
             }}
           >
             {/* ─── PLACEMENT 4: SCREENSHOT ZONE ─── */}
@@ -95,12 +101,18 @@ export default function PlatformHighlights() {
                 <img 
                   src={platform.screenshot} 
                   alt={platform.name} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', opacity: 0.8 }} 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: platform.styles?.screenshotFit || 'cover', 
+                    objectPosition: 'top', 
+                    opacity: 0.8 
+                  }} 
                 />
               ) : (
                 /* Mock UI Lines */
                 <div style={{ padding: '20px', opacity: 0.25 }}>
-                  <div style={{ height: '8px', width: '60%', background: COLORS.teal, borderRadius: '4px', marginBottom: '12px' }} />
+                  <div style={{ height: '8px', width: '60%', background: COLORS.gold, borderRadius: '4px', marginBottom: '12px' }} />
                   <div style={{ height: '6px', width: '85%', background: 'rgba(255,255,255,0.3)', borderRadius: '4px', marginBottom: '8px' }} />
                   <div style={{ height: '6px', width: '45%', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', marginBottom: '8px' }} />
                   <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
@@ -122,23 +134,31 @@ export default function PlatformHighlights() {
               borderBottom: '1px solid rgba(11,31,59,0.08)',
             }}>
               {platform.logo ? (
-                <img
-                  src={platform.logo}
-                  alt={platform.name}
-                  style={platform.name === 'QRGT' ? {
-                    maxHeight: '44px',
-                    maxWidth: '160px',
-                    width: 'auto',
-                    objectFit: 'contain',
-                    objectPosition: 'left center',
-                  } : {
-                    maxHeight: '36px',
-                    maxWidth: '140px',
-                    width: 'auto',
-                    objectFit: 'contain',
-                    objectPosition: 'left center',
-                  }}
-                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <img
+                    src={platform.logo}
+                    alt={platform.name}
+                    style={{
+                      maxHeight: platform.styles?.logoHeight || '36px',
+                      maxWidth: '160px',
+                      width: 'auto',
+                      objectFit: 'contain',
+                      objectPosition: 'left center',
+                    }}
+                  />
+                  {platform.showTextLabel && (
+                    <span style={{
+                      color: '#040B1D',
+                      fontSize: '1.4rem',
+                      fontWeight: 800,
+                      letterSpacing: '0.02em',
+                      fontFamily: TYPOGRAPHY.fontHeading,
+                      opacity: 0.9
+                    }}>
+                      {platform.name}
+                    </span>
+                  )}
+                </div>
               ) : (
                 <span style={{
                   color: '#040B1D',
@@ -166,6 +186,7 @@ export default function PlatformHighlights() {
               <ul style={{ listStyle: 'none', margin: '0 0 24px 0', padding: 0, display: 'grid', gap: '12px', flexGrow: 1 }}>
                 {platform.highlights.map((highlight) => (
                   <li key={highlight} 
+                    className="platform-highlight-item"
                     style={{ 
                       display: 'flex', 
                       gap: '12px', 
@@ -175,16 +196,18 @@ export default function PlatformHighlights() {
                       lineHeight: 1.5,
                       transition: 'all 0.2s ease'
                     }}
-                    onMouseEnter={(e) => {
-                      const icon = e.currentTarget.firstChild as HTMLElement;
-                      if (icon) icon.style.color = COLORS.burgundy;
-                    }}
-                    onMouseLeave={(e) => {
-                      const icon = e.currentTarget.firstChild as HTMLElement;
-                      if (icon) icon.style.color = COLORS.teal;
-                    }}
                   >
-                    <CheckCircle2 size={16} color={COLORS.teal} style={{ flexShrink: 0, marginTop: '2px', transition: 'color 0.2s ease' }} />
+                    <CheckCircle2 
+                      size={16} 
+                      className="highlight-icon"
+                      style={{ 
+                        flexShrink: 0, 
+                        marginTop: '2px', 
+                        transition: 'color 0.2s ease, opacity 0.2s ease',
+                        color: COLORS.gold,
+                        opacity: 0.75
+                      }} 
+                    />
                     <span style={{ opacity: 1 }}>{highlight}</span>
                   </li>
                 ))}
@@ -194,8 +217,10 @@ export default function PlatformHighlights() {
                 href={platform.link}
                 target={platform.external ? '_blank' : undefined}
                 rel={platform.external ? 'noopener noreferrer' : undefined}
+                className="platform-cta"
                 style={{
-                  color: COLORS.teal,
+                  color: COLORS.gold,
+                  opacity: 0.75,
                   ...TYPOGRAPHY.navLink,
                   fontSize: '12px',
                   textDecoration: 'none',
@@ -206,18 +231,20 @@ export default function PlatformHighlights() {
                   borderTop: `1px solid ${ALPHAS.white06}`,
                   paddingTop: '20px',
                   marginTop: 'auto',
-                  transition: 'color 0.2s ease',
+                  transition: 'all 0.2s ease',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.color = COLORS.textOnDark}
-                onMouseLeave={(e) => e.currentTarget.style.color = COLORS.teal}
               >
                 {platform.ctaText}
-                <ArrowRight size={16} color={COLORS.teal} />
+                <ArrowRight size={16} />
               </a>
             </div>
           </article>
         ))}
       </div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        article:hover .highlight-icon { opacity: 1 !important; }
+        article:hover .platform-cta { opacity: 1 !important; }
+      `}} />
     </section>
   );
 }

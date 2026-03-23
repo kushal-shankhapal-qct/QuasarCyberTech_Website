@@ -56,7 +56,7 @@ const IndustryPage: React.FC = () => {
               color: COLORS.textOnDark, 
               marginBottom: '28px' 
             }}>
-              {industry.title} <br /><span style={{ color: COLORS.teal }}>{industry.highlight}</span>
+              {industry.title} <br /><span style={{ color: COLORS.gold }}>{industry.highlight}</span>
             </h1>
             <p style={{ 
               ...TYPOGRAPHY.bodyLarge,

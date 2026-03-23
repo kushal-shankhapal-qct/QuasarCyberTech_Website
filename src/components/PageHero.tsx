@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 interface PageHeroProps {
   title: string;
@@ -50,9 +50,12 @@ const PageHero: React.FC<PageHeroProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '24px',
+            position: 'absolute',
+            top: LAYOUT_CONTROLS.breadcrumbs.top,
+            left: LAYOUT_CONTROLS.breadcrumbs.left,
             fontSize: '12px',
             fontFamily: TYPOGRAPHY.fontBody,
+            zIndex: 10,
           }}>
             <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
             <span style={{ color: COLORS.teal, opacity: 0.6 }}>›</span>

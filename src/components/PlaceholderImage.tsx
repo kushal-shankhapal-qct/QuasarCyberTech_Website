@@ -34,7 +34,7 @@ const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
       opacity
     }}>
       {Icon && (
-        <Icon size={80} strokeWidth={0.8} color="#2BC4B6" style={{ opacity: 0.25, marginBottom: '20px' }} />
+        <Icon size={80} strokeWidth={0.8} color="#D6B05C" style={{ opacity: 0.25, marginBottom: '20px' }} />
       )}
       <div style={{
         color: 'rgba(255,255,255,0.3)',
