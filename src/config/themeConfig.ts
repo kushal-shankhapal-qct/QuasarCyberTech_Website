@@ -14,7 +14,7 @@ export const COLORS = {
   pureWhite: '#FFFFFF',
 
   // Brand Accents — 3 purposes
-  teal: '#2BC4B6',       // UI layer: secondary/tertiary data viz elements
+  teal: '#6B1530',       // REPLACED: Teal is deprecated, using Burgundy for UI layers
   burgundy: '#6B1530',   // Action layer: buttons, nav active, card accents, borders
   gold: '#D6B05C',       // Emphasis layer: nav text, primary interactive accents
   accent: '#D6B05C',
@@ -31,7 +31,7 @@ export const COLORS = {
   electricBlue: '#1F6FEB',
   brandPrimary: '#6B1530',
   brandSecondary: '#6B1530',
-  securityTeal: '#2BC4B6',
+  securityTeal: '#6B1530',
   accentGold: '#D6B05C',
   lightBase: '#FFFFFF',
   textMain: '#0B1F3B',
@@ -139,8 +139,11 @@ export const LAYOUT_CONTROLS = {
 
   // ─── BREADCRUMB POSITIONING ────────────────────────────────
   breadcrumbs: {
-    top: '135px',                              // Absolute top position
-    left: '2.5em',                             // Aligned to hero content left
+    top: '130px',                              // Updated per user request
+    left: '2.5rem',                            // Synced with section.paddingX
+    offsetY: '0px',
+    offsetX: '5px',
+    arrowColor: '#D6B05C',                     // Yellow per user request
   },
 };
 
@@ -593,7 +596,7 @@ export const NAVBAR_CONFIG = {
   scroll: {
     logoTextHideAt: 120, // synced with collapseThreshold
     autoHideDelay: 2000,
-    autoHideOnHomepage: true,
+    autoHideOnHomepage: false,
     revealOnScrollUp: true,
     revealOnMouseNearTop: true,
     mouseRevealZone: 60,

@@ -1,45 +1,76 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { COLORS, SECTION_BACKGROUNDS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
-import SectionHeader from './SectionHeader';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+
+import qPulseLogoImg from '../assets/Logos/QPulse_Logo_No_Buffer.png';
+import qPulseScreenshot from '../assets/logos copy/Platforms/QPulse_New.png';
+
+// Blog Images
+import blogImgThreats from '../config/Blogs_Images/Top Cybersecurity Threats Businesses Should Watch Out for in 2025.png';
+import blogImgAI from '../config/Blogs_Images/AI in Cybersecurity_A Powerful Ally or a Looming Threat.png';
+import blogImgMoneygram from '../config/Blogs_Images/Moneygram Suffers Data Breach, Exposing Customer Information.png';
 
 const insights = [
     {
         title: 'Top Cybersecurity Threats Businesses Should Watch Out for in 2025',
         category: 'Threat Intelligence',
         date: 'Jan 2025',
-        type: 'threat', // burgundy
-        href: '/resources/blogs'
+        type: 'threat', 
+        href: '/resources/blogs',
+        image: blogImgThreats
     },
     {
         title: 'AI in Cybersecurity: A Powerful Ally or a Looming Threat?',
         category: 'Technology & AI',
         date: 'Feb 2025',
-        type: 'tech', // teal
-        href: '/resources/blogs'
+        type: 'tech', 
+        href: '/resources/blogs',
+        image: blogImgAI
     },
     {
         title: 'Moneygram Suffers Data Breach, Exposing Customer Information',
         category: 'Advisory & Risk',
         date: 'Dec 2024',
-        type: 'advisory', // gold
-        href: '/resources/blogs'
+        type: 'advisory', 
+        href: '/resources/blogs',
+        image: blogImgMoneygram
+    },
+    {
+        title: 'The Future of Cloud Security: Zero Trust Architectures',
+        category: 'Cloud Security',
+        date: 'Mar 2025',
+        type: 'tech',
+        href: '/resources/blogs',
+        image: blogImgAI 
     }
 ];
 
 export default function FeaturedInsights() {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollRef.current) {
+            const { scrollLeft, clientWidth } = scrollRef.current;
+            // Scroll by one card width (380px) + gap (32px)
+            const scrollAmount = 380 + 32;
+            const scrollTo = direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
+            scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+        }
+    };
+
     return (
         <section
             style={{
                 background: GRADIENTS.DARK_SECTION_BG_INSIGHTS,
-                padding: '120px 2em',
+                padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
                 overflow: 'hidden',
                 fontFamily: TYPOGRAPHY.fontBody
             }}
         >
             <div className="w-full">
-                {/* Change 1 — Section header */}
+                {/* Section header */}
                 <div style={{ marginBottom: '48px' }}>
                     <h2 style={{ 
                         color: COLORS.textOnDark, 
@@ -57,80 +88,94 @@ export default function FeaturedInsights() {
                     </p>
                 </div>
 
-                {/* Change 2 — QPulse placeholder zone (add ABOVE existing cards) */}
+                {/* Expanded QPulse Feature Section */}
                 <div style={{
-                    border: `1px solid rgba(43,196,182,0.2)`,
+                    border: `1px solid rgba(214,176,92,0.2)`,
                     borderTop: `3px solid ${COLORS.gold}`,
                     borderRadius: '0 0 16px 16px',
-                    background: 'rgba(43,196,182,0.03)',
-                    padding: '32px',
-                    marginBottom: '48px',
+                    background: 'rgba(11,31,59,0.4)',
+                    padding: '48px',
+                    marginBottom: '64px',
                     display: 'flex',
+                    flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
+                    gap: '40px',
                     flexWrap: 'wrap',
-                    gap: '20px',
+                    boxShadow: '0 24px 48px rgba(0,0,0,0.3)',
+                    position: 'relative',
+                    overflow: 'hidden'
                 }}>
-                    {/* Left: QPulse branding + description */}
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                            <span style={{
-                                background: 'rgba(43,196,182,0.12)',
-                                border: `1px solid rgba(43,196,182,0.3)`,
+                    <div style={{ flex: '1', minWidth: '300px', zIndex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                            <img src={qPulseLogoImg} alt="QPulse" style={{ height: '44px', width: 'auto' }} />
+                            <div style={{ width: '1px', height: '24px', background: 'rgba(214,176,92,0.3)' }} />
+                            <div style={{
                                 color: COLORS.gold,
-                                fontSize: '11px',
-                                fontWeight: 700,
-                                letterSpacing: '0.1em',
-                                textTransform: 'uppercase',
-                                padding: '4px 12px',
-                                borderRadius: '4px',
+                                fontSize: '1.4rem', 
+                                fontWeight: 800,
+                                letterSpacing: '0.05em',
+                                fontFamily: TYPOGRAPHY.fontHeading,
                             }}>
                                 QPulse
-                            </span>
-                            <span style={{ color: COLORS.textMuted, fontSize: '12px' }}>
-                                Live Intelligence Feed
-                            </span>
+                            </div>
                         </div>
-                        <p style={{
-                            color: 'rgba(255,255,255,0.55)',
-                            fontSize: '14px',
-                            lineHeight: 1.6,
-                            maxWidth: '480px',
-                            margin: 0,
+                        
+                        <h3 style={{ 
+                          color: '#FFFFFF', 
+                          fontSize: '24px', 
+                          fontWeight: 800, 
+                          marginBottom: '16px',
+                          lineHeight: 1.2
                         }}>
-                            QPulse is QuasarCyberTech's cybersecurity intelligence portal — 
-                            publishing curated threat analysis, vulnerability advisories, and 
-                            industry insights. Live feed integration coming soon.
+                          Live Threat Intelligence & <br/> Security Advisories
+                        </h3>
+
+                        <p style={{
+                            color: 'rgba(255,255,255,0.7)',
+                            fontSize: '15.5px',
+                            lineHeight: 1.7,
+                            maxWidth: '520px',
+                            marginBottom: '32px',
+                        }}>
+                            QPulse is QuasarCyberTech's dedicated cybersecurity research engine. 
+                            We publish curated threat analysis, high-impact vulnerability advisories, 
+                            and strategic industry insights to keep your enterprise ahead of evolving risks. 
+                            Real-time intelligence feed integration is coming soon.
                         </p>
+
+                        <a
+                            href="https://qpulse.quasarcybertech.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                background: COLORS.gold,
+                                color: '#0B1F3B',
+                                borderRadius: '4px',
+                                padding: '14px 28px',
+                                fontSize: '13.5px',
+                                fontWeight: 800,
+                                textDecoration: 'none',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.background = '#E5C16C'; }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.background = COLORS.gold; }}
+                        >
+                            Visit QPulse Portal ↗
+                        </a>
                     </div>
 
-                    {/* Right: CTA to QPulse */}
-                    <a
-                        href="https://qpulse.quasarcybertech.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                            background: 'transparent',
-                            color: COLORS.gold,
-                            border: `1px solid rgba(214,176,92,0.4)`,
-                            borderTop: `2px solid ${COLORS.gold}`,
-                            borderRadius: '0 0 8px 8px',
-                            padding: '12px 24px',
-                            fontSize: '13px',
-                            fontWeight: 600,
-                            textDecoration: 'none',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            whiteSpace: 'nowrap',
-                            flexShrink: 0,
-                        }}
-                    >
-                        Visit QPulse Portal ↗
-                    </a>
+                    <div style={{ flex: '1.2', minWidth: '360px', position: 'relative', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}>
+                        <img src={qPulseScreenshot} alt="QPulse Screenshot" style={{ width: '100%', height: 'auto', display: 'block', opacity: 0.9 }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,31,59,0.4), transparent)' }} />
+                    </div>
                 </div>
 
-                {/* Change 3 — Divider label */}
+                {/* Divider label with Scroll Controls */}
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -145,96 +190,110 @@ export default function FeaturedInsights() {
                         textTransform: 'uppercase',
                         whiteSpace: 'nowrap',
                     }}>
-                        Featured Articles
+                        Latest Blog Articles
                     </span>
-                    <div style={{
-                        flex: 1,
-                        height: '1px',
-                        background: 'rgba(255,255,255,0.08)',
-                    }} />
+                    <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.08)' }} />
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                        <button onClick={() => scroll('left')} style={{ background: 'rgba(255,255,255,0.05)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.1)', padding: '8px', borderRadius: '50%', cursor: 'pointer' }}>
+                            <ChevronLeft size={18} />
+                        </button>
+                        <button onClick={() => scroll('right')} style={{ background: 'rgba(255,255,255,0.05)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.1)', padding: '8px', borderRadius: '50%', cursor: 'pointer' }}>
+                            <ChevronRight size={18} />
+                        </button>
+                    </div>
                 </div>
 
+                {/* Scrollable Carousel Area (Draggable removed per request) */}
                 <div 
+                    ref={scrollRef}
                     style={{ 
-                        display: 'grid', 
-                        gridTemplateColumns: 'repeat(3, 1fr)', 
+                        display: 'flex', 
                         gap: '32px',
+                        overflowX: 'auto',
+                        paddingBottom: '24px',
+                        paddingTop: '12px', // Added padding to prevent hover cutoff
+                        msOverflowStyle: 'none',
+                        scrollbarWidth: 'none',
                     }}
+                    className="no-scrollbar"
                 >
                     {insights.map((item, idx) => {
+                        const [isHovered, setIsHovered] = useState(false);
                         const tint = item.type === 'threat' 
                             ? 'rgba(107,21,48,0.4)' 
                             : item.type === 'tech' 
-                                ? 'rgba(43,196,182,0.12)' 
-                                : 'rgba(214,176,92,0.12)';
+                                 ? 'rgba(43,196,182,0.12)' 
+                                 : 'rgba(214,176,92,0.12)';
                         
-                        // Default to gold top border. Burgundy on hover.
                         const defaultAccent = COLORS.gold;
+                        const hoverAccent = COLORS.burgundy;
 
                         return (
-                            <div key={idx}
+                            <motion.div 
+                                key={idx}
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
+                                // whileHover={{ y: -8 }} // Removed per request to avoid accent cutoff
                                 style={{
+                                    minWidth: '380px',
                                     borderRadius: '0 0 16px 16px',
-                                    borderTop: `3px solid ${defaultAccent}`,
+                                    borderTop: `4px solid ${isHovered ? hoverAccent : defaultAccent}`,
                                     background: 'rgba(255,255,255,0.04)',
                                     overflow: 'hidden',
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    transition: 'transform 0.3s ease, border-top-color 0.3s ease',
-                                    boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(-8px)';
-                                    e.currentTarget.style.borderTopColor = COLORS.burgundy;
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.borderTopColor = defaultAccent;
+                                    boxShadow: isHovered ? '0 20px 60px rgba(0,0,0,0.4)' : '0 20px 40px rgba(0,0,0,0.2)',
+                                    flexShrink: 0,
+                                    transition: 'all 0.3s ease',
+                                    transform: isHovered ? 'translateY(-4px)' : 'translateY(0)' // Subtle lift that respects border
                                 }}
                             >
-                                {/* Image zone - different color temperature per card */}
                                 <div style={{ 
-                                    height: '180px', 
+                                    height: '214px', 
                                     background: `linear-gradient(135deg, ${tint} 0%, rgba(4,11,29,0.95) 100%)`,
-                                    position: 'relative'
+                                    position: 'relative',
+                                    overflow: 'hidden'
                                 }}>
-                                    <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-                                    
-                                    {/* QPulse badge */}
-                                    <div className="absolute top-4 left-4" style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(4px)', padding: '4px 12px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                        <span style={{ ...TYPOGRAPHY.eyebrow, fontSize: '9px', color: '#FFFFFF' }}>QPulse Insights</span>
-                                    </div>
+                                    {item.image ? (
+                                      <img 
+                                        src={item.image} 
+                                        alt={item.title} 
+                                        style={{ 
+                                          width: '100%', 
+                                          height: '100%', 
+                                          objectFit: 'cover',
+                                          opacity: 0.85
+                                        }} 
+                                      />
+                                    ) : (
+                                      <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                                    )}
                                 </div>
 
                                 <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                                    <div style={{ ...TYPOGRAPHY.eyebrow, color: defaultAccent, fontSize: '10px', marginBottom: '12px' }}>
+                                    <div style={{ ...TYPOGRAPHY.eyebrow, color: isHovered ? hoverAccent : defaultAccent, fontSize: '10px', marginBottom: '12px', transition: 'color 0.3s ease' }}>
                                         {item.category}
                                     </div>
                                     <h3 style={{ ...TYPOGRAPHY.cardTitle, color: '#FFFFFF', fontSize: '18px', marginBottom: '14px', lineHeight: 1.35 }}>
                                         {item.title}
                                     </h3>
                                     <p style={{ ...TYPOGRAPHY.bodySmall, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '20px' }}>
-                                        Strategic analysis and technical insights from the QPulse intelligence engine.
+                                        Technical deep-dives and security perspectives from our internal expert team.
                                     </p>
                                     <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                                         <div style={{ color: COLORS.gold, fontSize: '11px', fontWeight: 600 }}>{item.date}</div>
                                         <Link to={item.href} style={{ color: COLORS.gold, fontSize: '12px', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                            Read on QPulse <ArrowRight size={14} />
+                                            Read Full Blog <ArrowRight size={14} />
                                         </Link>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>
 
-                {/* Change 4 — Standard CTA below cards */}
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: '48px',
-                    width: '100%'
-                }}>
+                {/* Footer CTA */}
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px', width: '100%' }}>
                     <a href="/insights" style={{
                         background: COLORS.burgundy,
                         color: '#fff',
@@ -248,20 +307,18 @@ export default function FeaturedInsights() {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '6px',
-                        transition: 'background 0.3s ease, transform 0.3s ease',
+                        transition: 'all 0.3s ease',
                     }}
-                    onMouseEnter={e => {
-                        e.currentTarget.style.background = '#8B1E3F';
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                    }}
-                    onMouseLeave={e => {
-                        e.currentTarget.style.background = COLORS.burgundy;
-                        e.currentTarget.style.transform = 'translateY(0)';
-                    }}>
+                    onMouseEnter={e => { e.currentTarget.style.background = '#8B1E3F'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = COLORS.burgundy; e.currentTarget.style.transform = 'translateY(0)'; }}>
                         Explore All Insights →
                     </a>
                 </div>
             </div>
+            <style dangerouslySetInnerHTML={{ __html: `
+              .no-scrollbar::-webkit-scrollbar { display: none; }
+              .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+            `}} />
         </section>
     );
 }

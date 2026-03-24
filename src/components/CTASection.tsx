@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { COLORS, GRADIENTS, TYPOGRAPHY, SECTION_BACKGROUNDS } from '../config/themeConfig';
+import { COLORS, GRADIENTS, TYPOGRAPHY, SECTION_BACKGROUNDS, LAYOUT_CONTROLS } from '../config/themeConfig';
 import TrustIndicators from './TrustIndicators';
 
 interface CTASectionProps {
@@ -28,7 +28,7 @@ const CTASection: React.FC<CTASectionProps> = ({
         position: 'relative',
         background: isDark ? 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)' : SECTION_BACKGROUNDS.LIGHT,
         borderTop: isDark ? '1px solid rgba(214,176,92,0.15)' : 'none',
-        padding: '120px 2.5em 60px', // Reduced bottom padding
+        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
         overflow: 'hidden',
         fontFamily: TYPOGRAPHY.fontBody
       }}

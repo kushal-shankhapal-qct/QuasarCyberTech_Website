@@ -1,4 +1,4 @@
-import { Shield, ClipboardCheck, Crosshair, Cloud, Radio, Eye, Compass, Layers, Cpu } from 'lucide-react';
+import { Shield, ClipboardCheck, Crosshair, Cloud, Radio, Eye, Compass, Layers, Cpu, Target, Zap, Activity } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 // Advisory Sub-capability Images
@@ -22,7 +22,7 @@ export interface CapabilityData {
     highlight: string;
     body: string[];
     outcomes: string[];
-    proofPoints: { label: string; value: string }[]; // Replaces global metrics
+    proofPoints: { label: string; value: string }[];
   };
   services: {
     name: string;
@@ -61,15 +61,15 @@ export const capabilitiesData: CapabilityData[] = [
     eyebrow: 'ADVISORY & GOVERNANCE',
     title: 'Cyber Advisory &',
     highlight: 'Risk Governance',
-    subtitle: 'Strategic cybersecurity leadership and risk management tailored for enterprise resilience.',
+    subtitle: 'QuasarCyberTech enables enterprise leaders to define, govern, and mature cybersecurity programs through structured advisory, risk management, and architecture-driven strategies.',
     description: 'Security strategy, governance frameworks, architecture design, and vCISO advisory services.',
     icon: Shield,
     overview: {
       heading: 'Aligning Security with',
-      highlight: 'Risk Governance',
+      highlight: 'Strategic Priorities',
       body: [
-        'Strategic cybersecurity leadership is the foundation of digital trust. QuasarCyberTech provides the executive-level guidance needed to align complex security requirements with your core business objectives.',
-        'We help organizations move beyond compliance to true resilience, ensuring that security strategy is a proactive enabler of enterprise innovation and growth.'
+        'Cybersecurity leadership is foundational to building resilient and scalable digital enterprises. Organizations require structured governance models that align security investments with business priorities and regulatory expectations.',
+        'QuasarCyberTech supports enterprises in transitioning from reactive security practices to proactive, risk-driven programs. We help define governance frameworks, strengthen executive decision-making, and ensure security becomes a strategic enabler of growth.'
       ],
       outcomes: ['Risk Reduction', 'Strategic Clarity', 'Executive Confidence'],
       proofPoints: [
@@ -79,34 +79,34 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'Cybersecurity Strategy Consulting', description: 'Building multi-year security roadmaps aligned with business growth.', icon: Compass, image: imgCyberStrategy },
-      { name: 'Security Architecture Review', description: 'Validating infrastructure design against best practices and Zero Trust.', icon: Layers, image: imgArchReview },
-      { name: 'vCISO Services', description: 'Expert security leadership on-demand for strategy and oversight.', icon: Shield, image: imgvCISO },
-      { name: 'Zero Trust Architecture Design & Review', description: 'Implementing identity-centric security models for modern perimeters.', icon: Shield, image: imgZeroTrust },
-      { name: 'Tabletop Exercises & Cyber War Games', description: 'Simulating executive response to complex cyber crisis scenarios.', icon: Radio, image: imgTabletop }
+      { name: 'Cybersecurity Strategy Consulting', description: 'Define long-term security roadmaps aligned with business objectives and risk appetite.', icon: Compass, image: imgCyberStrategy },
+      { name: 'Security Architecture Review', description: 'Evaluate enterprise architectures to identify gaps and improve resilience.', icon: Layers, image: imgArchReview },
+      { name: 'vCISO Services', description: 'Provide on-demand leadership to guide governance, compliance, and risk strategy.', icon: Shield, image: imgvCISO },
+      { name: 'Zero Trust Architecture Design & Review', description: 'Design and validate Zero Trust models tailored to enterprise environments.', icon: Shield, image: imgZeroTrust },
+      { name: 'Tabletop Exercises & Cyber War Games', description: 'Simulate real-world attack scenarios to strengthen organizational readiness.', icon: Radio, image: imgTabletop }
     ],
     delivery: [
-      { step: '01', title: 'Discover', description: 'Understanding business context, regulatory requirements, and risk tolerance.' },
-      { step: '02', title: 'Assess', description: 'Evaluating current state maturity against target governance frameworks.' },
-      { step: '03', title: 'Design', description: 'Designing the target architecture and multi-phase implementation roadmap.' },
-      { step: '04', title: 'Sustain', description: 'Providing continuous oversight and evolution of the security posture.' }
+      { step: '01', title: 'Discover', description: 'Understand business context, regulatory requirements, and risk landscape.' },
+      { step: '02', title: 'Assess', description: 'Evaluate current maturity across governance, controls, and architecture.' },
+      { step: '03', title: 'Design', description: 'Define target-state architecture and governance frameworks.' },
+      { step: '04', title: 'Sustain', description: 'Enable continuous improvement through monitoring and leadership oversight.' }
     ],
     industries: [
-      { name: 'Banking & Financial', slug: 'banking', useCase: 'Establishing RBI-compliant cybersecurity governance and risk frameworks.' },
-      { name: 'Healthcare', slug: 'healthcare', useCase: 'Securing patient data through HIPAA-aligned strategy and architecture.' },
-      { name: 'Enterprise & Manufacturing', slug: 'enterprise', useCase: 'Aligning IT and OT security strategy for manufacturing resilience.' }
+      { name: 'Banking & Financial Services', slug: 'banking', useCase: 'Strengthening governance aligned with RBI and global frameworks.' },
+      { name: 'Healthcare & Life Sciences', slug: 'healthcare', useCase: 'Managing sensitive data risks and compliance requirements.' },
+      { name: 'Enterprise & Manufacturing', slug: 'enterprise', useCase: 'Aligning cybersecurity strategy with operational resilience.' }
     ],
     platformLink: {
       name: 'QStellar',
-      heading: 'Supported by QStellar',
-      body: 'QStellar supports advisory engagements with continuous asset visibility and risk posture intelligence.',
+      heading: 'Powered by QStellar',
+      body: 'Powered by QStellar for continuous asset visibility, governance insights, and risk posture monitoring.',
       ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
     finalCTA: {
       heading: "Strengthen Your Cyber Advisory Program",
-      subtext: "Partner with QuasarCyberTech to align security strategy with your business objectives and build long-term cyber resilience."
+      subtext: "Discuss Your Security Program"
     }
   },
   {
@@ -115,21 +115,21 @@ export const capabilitiesData: CapabilityData[] = [
     eyebrow: 'REGULATORY TRUST',
     title: 'Compliance &',
     highlight: 'Regulatory Assurance',
-    subtitle: 'Navigating the complex global regulatory landscape with automated assurance and expert guidance.',
+    subtitle: 'QuasarCyberTech helps enterprises achieve and sustain regulatory compliance through structured assessments, implementation support, and continuous monitoring.',
     description: 'Regulatory readiness and compliance programs including RBI, ISO 27001, SOC2, and global standards.',
     icon: ClipboardCheck,
     overview: {
       heading: 'Aligning Security with',
-      highlight: 'Regulatory Readiness',
+      highlight: 'Regulatory Mandates',
       body: [
-        'Compliance is a fundamental requirement for market access and customer trust. QuasarCyberTech simplifies the audit journey through structured readiness programs and continuous assurance techniques.',
-        'We specialize in sector-specific regulations, helping financial institutions and high-tech firms meet stringent requirements efficiently while maintaining operational speed.'
+        'Regulatory compliance is critical for maintaining trust, avoiding penalties, and enabling secure business operations. Organizations must align their security controls with evolving regulatory frameworks.',
+        'QuasarCyberTech simplifies compliance by translating regulatory requirements into actionable controls and sustainable programs, ensuring readiness and long-term adherence.'
       ],
       outcomes: ['Regulatory Readiness', 'Audit Confidence', 'Risk Visibility'],
       proofPoints: [
-        { label: "COMPLIANCE VELOCITY", value: "Accelerated readiness for ISO 27001, SOC2, and RBI frameworks" },
-        { label: "AUDIT SUCCESS", value: "100% success rate in guiding enterprises through complex regulatory audits" },
-        { label: "ASSURANCE MODEL", value: "Continuous compliance monitoring + periodic deep-dive audits" }
+        { label: "EXPERTISE", value: "Multi-framework expertise across global and regional standards" },
+        { label: "DOCUMENTATION", value: "Audit-ready documentation support for seamless certification" },
+        { label: "MONITORING", value: "Continuous compliance monitoring capability to avoid posture decay" }
       ]
     },
     services: [
@@ -140,27 +140,28 @@ export const capabilitiesData: CapabilityData[] = [
       { name: 'Risk & Compliance Monitoring', description: 'Continuous visibility into regulatory alignment and control effectiveness.', icon: Eye }
     ],
     delivery: [
-      { step: '01', title: 'Gap Analysis', description: 'Mapping current controls to regulatory requirements to find missing links.' },
-      { step: '02', title: 'Roadmap', description: 'Defining the remediation path to reach full compliance readiness.' },
-      { step: '03', title: 'Implement', description: 'Updating policies, processes, and technical controls to close gaps.' },
-      { step: '04', title: 'Certify', description: 'Preparing for and supporting the final audit or certification phase.' }
+      { step: '01', title: 'Discover', description: 'Regulatory scope and legal obligations identification.' },
+      { step: '02', title: 'Assess', description: 'Current compliance posture and gap analysis.' },
+      { step: '03', title: 'Design', description: 'Remediation roadmap and control framework definition.' },
+      { step: '04', title: 'Implement', description: 'Control alignment and policy implementation.' },
+      { step: '05', title: 'Sustain', description: 'Continuous monitoring and audit readiness.' }
     ],
     industries: [
-      { name: 'FinTech', slug: 'fintech', useCase: 'Achieving SOC2 Type II compliance for cloud-native payment platforms.' },
-      { name: 'Banking', slug: 'banking', useCase: 'Meeting RBI cybersecurity framework requirements for digital banking.' },
-      { name: 'SaaS', slug: 'saas', useCase: 'Maintaining global compliance to win enterprise-scale customers.' }
+      { name: 'BFSI', slug: 'banking', useCase: 'RBI compliance, framework adoption, and periodic audits.' },
+      { name: 'SaaS', slug: 'saas', useCase: 'SOC2 readiness to enable enterprise customer acquisition.' },
+      { name: 'Enterprises', slug: 'enterprise', useCase: 'ISO 27001 adoption for global security standardization.' }
     ],
     platformLink: {
       name: 'QStellar',
-      heading: 'Supported by QStellar',
-      body: 'QStellar provides continuous compliance posture monitoring to support regulatory assurance programs.',
+      heading: 'Powered by QStellar',
+      body: 'Integrated with QStellar for compliance tracking and control monitoring.',
       ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
     finalCTA: {
-      heading: "Automate Your Regulatory Compliance",
-      subtext: "Navigate the complex landscape of global standards with confidence through our automated assurance frameworks."
+      heading: "Simplify Your Compliance Journey",
+      subtext: "Request a Consultation"
     }
   },
   {
@@ -169,53 +170,54 @@ export const capabilitiesData: CapabilityData[] = [
     eyebrow: 'VALIDATION',
     title: 'Offensive',
     highlight: 'Security Engineering',
-    subtitle: 'Think like an adversary to protect like an expert. Validating your defenses through advanced simulation.',
+    subtitle: 'QuasarCyberTech delivers advanced offensive security testing to identify vulnerabilities, validate defenses, and strengthen enterprise resilience.',
     description: 'Advanced penetration testing, red teaming, application security testing, and AI security validation.',
     icon: Crosshair,
     overview: {
       heading: 'Aligning Security with',
-      highlight: 'Adversary Defense',
+      highlight: 'Adversary Tactics',
       body: [
-        'Defending an enterprise requires understanding the attack vectors used by modern adversaries. QuasarCyberTech provides deep-dive validation that goes beyond automated scanning to find real business risk.',
-        'We simulate real-world attacks to identify logic flaws and complex vulnerabilities, delivering the intelligence needed to fix exposures before they are exploited.'
+        'Security must be continuously validated against evolving threats. Offensive testing provides real-world insights into vulnerabilities and attacker behavior.',
+        'QuasarCyberTech enables enterprises to proactively identify and remediate weaknesses before they can be exploited.'
       ],
       outcomes: ['Vulnerability Exposure', 'Breach Prevention', 'Code Assurance'],
       proofPoints: [
-        { label: "EXPLOIT DEPTH", value: "Manual weaponization of business logic flaws beyond automated scans" },
-        { label: "ADVERSARY INTEL", value: "Red teaming powered by real-world dark web threat intelligence" },
-        { label: "REMEDIATION FOCUS", value: "Detailed technical documentation with governed remediation tracking" }
+        { label: "CAPABILITIES", value: "Advanced red team capabilities simulating nation-state actors" },
+        { label: "AI EXPERTISE", value: "Specialized AI & LLM security validation and research" },
+        { label: "FRAMEWORKS", value: "Continuous testing frameworks for agile development environments" }
       ]
     },
     services: [
-      { name: 'Web Application VAPT', description: 'Deep-dive manual testing for complex business logic vulnerabilities.', icon: Crosshair },
-      { name: 'Mobile & API Security Testing', description: 'Securing the backend and mobile surfaces of digital platforms.', icon: Radio },
-      { name: 'Red Team Assessments', description: 'Simulating full-scale adversary attacks against people, process, and tech.', icon: Shield },
-      { name: 'Secure Code Review', description: 'Identifying security flaws at the source code level early in the SDLC.', icon: Layers },
-      { name: 'LLM Penetration Testing', description: 'Specialized validation for Generative AI and Large Language Model security.', icon: Cpu },
-      { name: 'Agentic AI Security Review', description: 'Assessing the autonomy and safety of AI agents in enterprise workflows.', icon: Shield }
+      { name: 'Web Application VAPT', description: 'Identify vulnerabilities in web platforms through advanced manual testing.', icon: Crosshair },
+      { name: 'Mobile & API Security Testing', description: 'Validate the security of mobile apps and backend API interfaces.', icon: Radio },
+      { name: 'Red Team Assessments', description: 'Simulated multi-vector attacks to test full-spectrum organizational defense.', icon: Shield },
+      { name: 'Secure Code Review', description: 'In-depth analysis of source code to find hidden security flaws.', icon: Layers },
+      { name: 'LLM Penetration Testing', description: 'Penetration testing and safety review for Large Language Models.', icon: Cpu },
+      { name: 'Agentic AI Security Review', description: 'Security validation for autonomous AI agents and workflows.', icon: Target }
     ],
     delivery: [
-      { step: '01', title: 'Scope', description: 'Defining the attack surface and gathering intelligence on targeted assets.' },
-      { step: '02', title: 'Test', description: 'Attempting authorized breach of identified vulnerabilities to confirm risk.' },
-      { step: '03', title: 'Report', description: 'Correlating findings to understand the root cause of security failures.' },
-      { step: '04', title: 'Remediate', description: 'Delivering technical remediation steps and validating implemented fixes.' }
+      { step: '01', title: 'Discover', description: 'Reconnaissance and attack surface mapping.' },
+      { step: '02', title: 'Assess', description: 'Vulnerability identification and initial scanning.' },
+      { step: '03', title: 'Exploit', description: 'Controlled attack simulation to confirm vulnerability impact.' },
+      { step: '04', title: 'Report', description: 'Prioritized findings with technical remediation guidance.' },
+      { step: '05', title: 'Retest', description: 'Validation of fixes to ensure effective remediation.' }
     ],
     industries: [
-      { name: 'SaaS & Technology', slug: 'saas', useCase: 'Hardening global B2B platforms against advanced application layer attacks.' },
-      { name: 'Retail & E-commerce', slug: 'ecommerce', useCase: 'Validating payment gateways and customer data security under peak load.' },
-      { name: 'Banking', slug: 'banking', useCase: 'Red teaming core banking infrastructure to prove regulatory resilience.' }
+      { name: 'FinTech', slug: 'fintech', useCase: 'Securing transaction systems and digital payment platforms.' },
+      { name: 'SaaS', slug: 'saas', useCase: 'Application security validation for global multi-tenant platforms.' },
+      { name: 'Enterprises', slug: 'enterprise', useCase: 'Red teaming and breach simulation for resilient infrastructure.' }
     ],
     platformLink: {
       name: 'QRGT',
-      heading: 'Supported by QRGT',
-      body: 'QRGT enables continuous penetration testing with governed remediation tracking for application security programs.',
+      heading: 'Powered by QRGT',
+      body: 'Powered by QRGT for continuous offensive security validation and attack surface insights.',
       ctaLabel: 'Explore QRGT Platform →',
       ctaLink: '/platforms#qrgt',
       isExternal: false
     },
     finalCTA: {
-      heading: "Think Like an Adversary, Build Like an Expert",
-      subtext: "Validate your security posture with world-class offensive security engineering and simulated breach attacks."
+      heading: "Validate Your Defenses Today",
+      subtext: "Talk to a Security Expert"
     }
   },
   {
@@ -224,52 +226,53 @@ export const capabilitiesData: CapabilityData[] = [
     eyebrow: 'MODERN PERIMETER',
     title: 'Cloud &',
     highlight: 'Infrastructure Security',
-    subtitle: 'Securing the foundational layer of modern business. Architecture and hardening for cloud-native scale.',
+    subtitle: 'QuasarCyberTech secures cloud and infrastructure environments through architecture reviews, assessments, and continuous posture management.',
     description: 'Cloud security architecture, configuration assessments, container security, and CSPM.',
     icon: Cloud,
     overview: {
       heading: 'Aligning Security with',
-      highlight: 'Cloud Hardening',
+      highlight: 'Modern Infrastructure',
       body: [
-        'As operations shift to cloud-native platforms, the traditional network perimeter vanishes. QuasarCyberTech provides the engineering expertise to secure AWS, Azure, and Google Cloud environments.',
-        'We focus on Cloud Security Posture Management (CSPM) and Kubernetes security to ensure your cloud infrastructure is resilient, compliant, and visible by design.'
+        'Cloud adoption introduces new risks across infrastructure, identity, and configuration layers. Organizations require continuous visibility and control over cloud environments.',
+        'QuasarCyberTech ensures secure cloud adoption by identifying risks, enforcing best practices, and enabling continuous monitoring.'
       ],
       outcomes: ['Misconfiguration Prevention', 'Cloud Compliance', 'Posture Visibility'],
       proofPoints: [
-        { label: "SCALE EXPERTISE", value: "Securing globally distributed multi-cloud architectures (AWS, Azure, GCP)" },
-        { label: "IDENTITY FOCUS", value: "Privileged access management + Entitlement management for cloud scale" },
-        { label: "POSTURE AUTOMATION", value: "Continuous security hardening integrated into DevSecOps pipelines" }
+        { label: "EXPERTISE", value: "Multi-cloud architecture expertise (AWS, Azure, GCP)" },
+        { label: "MODERN OPS", value: "Specialized Kubernetes & Container security operations" },
+        { label: "VISIBILITY", value: "Continuous monitoring capabilities for multi-account environments" }
       ]
     },
     services: [
-      { name: 'Cloud Security Assessment', description: 'Configuration audit and risk analysis for AWS, Azure, and Google Cloud.', icon: Cloud },
-      { name: 'AWS / Azure Security Assessment', description: 'Deep-dive validation of cloud identity, storage, and networking.', icon: Shield },
-      { name: 'Kubernetes / Container Security', description: 'Hardening container orchestration, images, and cluster networking.', icon: Layers },
-      { name: 'Cloud Security Posture Management (CSPM)', description: 'Automating continuous governance and compliance across cloud accounts.', icon: Cpu },
-      { name: 'Cloud Compliance Review', description: 'Validating cloud configurations against regional and industry standards.', icon: Eye }
+      { name: 'Cloud Security Assessment', description: 'Configuration and risk review for public and hybrid clouds.', icon: Cloud },
+      { name: 'AWS / Azure Security Assessment', description: 'Deep-dive security review of specific cloud platform services.', icon: Shield },
+      { name: 'Kubernetes / Container Security', description: 'Hardening container orchestration and runtime security.', icon: Layers },
+      { name: 'Cloud Security Posture Management (CSPM)', description: 'Automating continuous governance across cloud infrastructure.', icon: Cpu },
+      { name: 'Cloud Compliance Review', description: 'Validating cloud set-ups against regional regulatory bodies.', icon: Eye }
     ],
     delivery: [
-      { step: '01', title: 'Inventory', description: 'Gaining a full inventory of cloud assets and identity permissions.' },
-      { step: '02', title: 'Assess', description: 'Evaluating current state maturity against target cloud frameworks.' },
-      { step: '03', title: 'Harden', description: 'Implementing technical controls, encryption, and network segmentation.' },
-      { step: '04', title: 'Monitor', description: 'Integrating security checks into DevSecOps pipelines and Iac.' }
+      { step: '01', title: 'Discover', description: 'Cloud environment mapping and asset inventory.' },
+      { step: '02', title: 'Assess', description: 'Configuration and risk analysis against best practices.' },
+      { step: '03', title: 'Design', description: 'Security architecture design and hardening roadmap.' },
+      { step: '04', title: 'Implement', description: 'Deployment of security controls and CSPM tools.' },
+      { step: '05', title: 'Sustain', description: 'Continuous posture management and threat monitoring.' }
     ],
     industries: [
-      { name: 'SaaS', slug: 'saas', useCase: 'Implementing zero-trust networking for multi-tenant SaaS environments.' },
-      { name: 'Healthcare', slug: 'healthcare', useCase: 'Maintaining EPHI security within public cloud hosting frameworks.' },
-      { name: 'FinTech', slug: 'fintech', useCase: 'Securing serverless payment architectures against misconfiguration.' }
+      { name: 'SaaS', slug: 'saas', useCase: 'Engineering secure, scalable cloud-native architectures.' },
+      { name: 'Enterprises', slug: 'enterprise', useCase: 'Managing security across hybrid and multi-cloud footprints.' },
+      { name: 'FinTech', slug: 'fintech', useCase: 'Regulatory-compliant cloud environments for financial data.' }
     ],
     platformLink: {
       name: 'QStellar',
-      heading: 'Supported by QStellar',
-      body: 'QStellar delivers asset discovery and vulnerability intelligence across cloud and hybrid infrastructure environments.',
+      heading: 'Powered by QStellar',
+      body: 'Powered by QStellar for asset visibility and cloud posture management.',
       ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
     finalCTA: {
-      heading: "Secure Your Cloud-Native Future",
-      subtext: "Build resilient, identity-centric architectures that scale with your digital ambition and cloud complexity."
+      heading: "Harden Your Cloud Infrastructure",
+      subtext: "Discuss Your Security Program"
     }
   },
   {
@@ -278,52 +281,53 @@ export const capabilitiesData: CapabilityData[] = [
     eyebrow: 'RESILIENCE',
     title: 'Managed',
     highlight: 'Defense Operations',
-    subtitle: '24/7 detection and response to protect your enterprise from evolving cyber threats.',
+    subtitle: 'QuasarCyberTech provides continuous monitoring, detection, and response capabilities to protect enterprise environments from evolving threats.',
     description: 'Continuous monitoring, SOC operations, incident response, and threat detection services.',
     icon: Radio,
     overview: {
       heading: 'Aligning Security with',
-      highlight: 'Operational Vigilance',
+      highlight: 'Threat Response',
       body: [
-        'Security operations must be continuous to be effective. QuasarCyberTech combines advanced detection platforms with expert analysts to provide around-the-clock protection and response.',
-        'We don’t just alert; we act. Our managed defense model ensures that threats are contained and remediated within minutes, shielding your business from downtime.'
+        'Cyber threats require continuous monitoring and rapid response. Organizations must detect, analyze, and respond to incidents in real time.',
+        'QuasarCyberTech delivers managed defense operations that enhance visibility, reduce response time, and improve overall resilience.'
       ],
       outcomes: ['24/7 Coverage', 'Rapid Response', 'Threat Containment'],
       proofPoints: [
-        { label: "VIGILANCE DEPTH", value: "24/7/365 monitoring by a battle-hardened Security Operations Center" },
-        { label: "RESPONSE VELOCITY", value: "Rapid threat containment and guided incident remediation protocols" },
-        { label: "HUNTING CAPABILITY", value: "Continuous threat hunting focused on advanced persistent actors" }
+        { label: "MONITORING", value: "24/7 detection capability across all digital assets" },
+        { label: "INCIDENT OPS", value: "Rapid incident response and containment protocols" },
+        { label: "INTELLIGENCE", value: "Threat intelligence driven operations and proactive hunting" }
       ]
     },
     services: [
-      { name: 'Managed SOC', description: 'Omni-channel monitoring and analysis from our Global Security Operations Center.', icon: Radio },
-      { name: 'Threat Detection & Monitoring', description: 'Real-time correlation of security events to surface adversary behavior.', icon: Eye },
-      { name: 'Incident Response', description: 'Rapid investigation, containment, and recovery guidance for active breaches.', icon: Shield },
-      { name: 'Threat Hunting', description: 'Proactively searching for persistent actors within your environment.', icon: Crosshair },
-      { name: 'Social Engineering & Phishing Simulations', description: 'Testing the human perimeter through phishing and vishing simulations.', icon: Layers }
+      { name: 'Managed SOC', description: 'Continuous security monitoring and event analysis by experts.', icon: Radio },
+      { name: 'Threat Detection & Monitoring', description: 'Real-time detection of suspicious activity and attack indicators.', icon: Eye },
+      { name: 'Incident Response', description: 'Rapid containment and investigation of active security incidents.', icon: Shield },
+      { name: 'Threat Hunting', description: 'Proactive searching for hidden threats within infrastructure.', icon: Crosshair },
+      { name: 'Social Engineering & Phishing Simulations', description: 'Testing user awareness through simulated social attacks.', icon: Activity }
     ],
     delivery: [
-      { step: '01', title: 'Onboard', description: 'Integrating log sources and establishing communication protocols.' },
-      { step: '02', title: 'Monitor', description: '24/7 alert analysis and event correlation by security experts.' },
-      { step: '03', title: 'Detect', description: 'Learning normal environment behavior to surface relevant anomalies.' },
-      { step: '04', title: 'Respond', description: 'Immediate action on critical alerts to contain and remediate threats.' }
+      { step: '01', title: 'Monitor', description: 'Continuous visibility across host, cloud, and network.' },
+      { step: '02', title: 'Detect', description: 'Identification of threats through correlation and SOC analysis.' },
+      { step: '03', title: 'Respond', description: 'Immediate containment of threats and incident response.' },
+      { step: '04', title: 'Recover', description: 'System restoration and forensic investigation.' },
+      { step: '05', title: 'Improve', description: 'Continuous optimization of detection rules and playbooks.' }
     ],
     industries: [
-      { name: 'Banking', slug: 'banking', useCase: '24/7 monitoring of core banking systems and digital channels.' },
-      { name: 'Manufacturing', slug: 'enterprise', useCase: 'Industrial SOC monitoring for OT and critical production lines.' },
-      { name: 'E-commerce', slug: 'ecommerce', useCase: 'Protecting transaction data during holiday peaks and global sales.' }
+      { name: 'BFSI', slug: 'banking', useCase: '24/7 continuous SOC operations for financial systems.' },
+      { name: 'Enterprises', slug: 'enterprise', useCase: 'Enterprise-wide incident response and resilience readiness.' },
+      { name: 'Healthcare', slug: 'healthcare', useCase: 'Protection of sensitive medical data and clinical operations.' }
     ],
     platformLink: {
       name: 'QStellar',
-      heading: 'Supported by QStellar',
-      body: 'QStellar integrates with managed defense operations to provide real-time asset visibility and automated risk workflows.',
+      heading: 'Powered by QStellar',
+      body: 'Integrated with QStellar for real-time asset monitoring and security intelligence.',
       ctaLabel: 'Explore QStellar →',
       ctaLink: 'https://qstellar.co',
       isExternal: true
     },
     finalCTA: {
-      heading: "24/7 Vigilance, Zero Compromise",
-      subtext: "Protect your enterprise with continuous threat detection and rapid incident response managed by security experts."
+      heading: "Achieve Continuous Resilience",
+      subtext: "Talk to a Security Expert"
     }
   },
   {
@@ -332,52 +336,53 @@ export const capabilitiesData: CapabilityData[] = [
     eyebrow: 'INFORMATION ADVANTAGE',
     title: 'Cyber Intelligence &',
     highlight: 'Security Research',
-    subtitle: 'Strategic intelligence and vulnerability research to stay one step ahead of global threat actors.',
+    subtitle: 'QuasarCyberTech delivers actionable intelligence and research to help enterprises anticipate threats and make informed security decisions.',
     description: 'Threat intelligence, dark web monitoring, vulnerability research, and security advisories.',
     icon: Eye,
     overview: {
       heading: 'Aligning Security with',
-      highlight: 'Strategic Intelligence',
+      highlight: 'Global Intelligence',
       body: [
-        'Strategic advantage comes from understanding the global threat actor landscape. QuasarCyberTech provides filtered, actionable intelligence tailored to your industry and digital footprint.',
-        'We help organizations anticipate emerging exploit techniques and brand exposure, moving security from a reactive struggle to a proactive position of strength.'
+        'Cyber intelligence enables proactive defense by identifying emerging threats and understanding attacker behavior.',
+        'QuasarCyberTech provides continuous intelligence and research insights to strengthen enterprise security posture.'
       ],
       outcomes: ['Threat Visibility', 'Brand Protection', 'Proactive Defense'],
       proofPoints: [
-        { label: "INTEL ACCURACY", value: "Curated, industry-specific intelligence filtered from global noise" },
-        { label: "DARK WEB DEPTH", value: "Continuous monitoring of underground forums for brand exposure" },
-        { label: "RESEARCH FOCUS", value: "Specialized analysis of zero-day exploits and supply chain risks" }
+        { label: "CTI EXPERTISE", value: "Continuous threat intelligence Curated for enterprise risk" },
+        { label: "DARK WEB", value: "Deep dark web monitoring capabilities for brand protection" },
+        { label: "RESEARCH", value: "Research-driven security insights and vulnerability disclosures" }
       ]
     },
     services: [
-      { name: 'Cyber Threat Intelligence (CTI) as a Service', description: 'Industry-specific intelligence on evolving threat actors.', icon: Eye },
-      { name: 'Dark Web Brand Intelligence', description: 'Tracking leaked credentials and brand data on underground forums.', icon: Shield },
-      { name: 'Brand Reputation Monitoring', description: 'Protecting your digital identity from spoofing and impersonation.', icon: Radio },
-      { name: 'Vulnerability Research', description: 'Analyzing emerging exploits and zero-day risks in supply chains.', icon: Crosshair },
-      { name: 'Security Advisories', description: 'Timely, actionable alerts on critical security developments.', icon: ClipboardCheck }
+      { name: 'Cyber Threat Intelligence (CTI) as a Service', description: 'Filtered, actionable intelligence on emerging threat actors.', icon: Eye },
+      { name: 'Dark Web Brand Intelligence', description: 'Monitoring for brand data and credentials on underground forums.', icon: Shield },
+      { name: 'Brand Reputation Monitoring', description: 'Protecting digital identity from impersonation and spoofing.', icon: Radio },
+      { name: 'Vulnerability Research', description: 'In-depth research into zero-day threats and supply chain risks.', icon: Crosshair },
+      { name: 'Security Advisories', description: 'Custom advisories focused on relevant enterprise technologies.', icon: ClipboardCheck }
     ],
     delivery: [
-      { step: '01', title: 'Profile', description: 'Defining your digital footprint and the threat actors targeting your sector.' },
-      { step: '02', title: 'Monitor', description: 'Aggregating data from open source, dark web, and proprietary feeds.' },
-      { step: '03', title: 'Analyze', description: 'Filtering noise to find actionable intelligence relevant to your assets.' },
-      { step: '04', title: 'Report', description: 'Delivering regular briefings and emergency alerts to leadership.' }
+      { step: '01', title: 'Collect', description: 'Data gathering from open, closed, and proprietary feeds.' },
+      { step: '02', title: 'Analyze', description: 'Intelligence processing and threat actor attribution.' },
+      { step: '03', title: 'Correlate', description: 'Contextualizing intelligence against your digital footprint.' },
+      { step: '04', title: 'Deliver', description: 'Actionable intelligence reports and leadership briefings.' },
+      { step: '05', title: 'Monitor', description: 'Continuous updates as the threat landscape evolves.' }
     ],
     industries: [
-      { name: 'Healthcare', slug: 'healthcare', useCase: 'Monitoring underground medical data leaks and patient data sales.' },
-      { name: 'Banking', slug: 'banking', useCase: 'Tracking financial malware campaigns targeting regional banking customers.' },
-      { name: 'Technology', slug: 'saas', useCase: 'Supply chain intelligence for software and cloud providers.' }
+      { name: 'BFSI', slug: 'banking', useCase: 'Fraud monitoring and targeted threat actor intelligence.' },
+      { name: 'Enterprises', slug: 'enterprise', useCase: 'Executive brand protection and infrastructure intelligence.' },
+      { name: 'Tech Companies', slug: 'saas', useCase: 'Vulnerability intelligence for software supply chain security.' }
     ],
     platformLink: {
       name: 'QPulse',
-      heading: 'Supported by QPulse',
-      body: 'QPulse delivers curated threat intelligence and security research to support intelligence-driven security programs.',
+      heading: 'Powered by QPulse',
+      body: 'Integrated with QPulse for intelligence dissemination and insights.',
       ctaLabel: 'Visit QPulse →',
       ctaLink: 'https://qpulse.quasarcybertech.com',
       isExternal: true
     },
     finalCTA: {
-      heading: "Turn Intelligence into Strategy",
-      subtext: "Navigate the global threat landscape with tailored, actionable intelligence that protects your brand and assets."
+      heading: "Anticipate the Threat Landscape",
+      subtext: "Request a Consultation"
     }
   }
 ];

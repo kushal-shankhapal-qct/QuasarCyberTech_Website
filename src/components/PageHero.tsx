@@ -51,18 +51,18 @@ const PageHero: React.FC<PageHeroProps> = ({
             alignItems: 'center',
             gap: '8px',
             position: 'absolute',
-            top: LAYOUT_CONTROLS.breadcrumbs.top,
-            left: LAYOUT_CONTROLS.breadcrumbs.left,
+            top: `calc(${LAYOUT_CONTROLS.breadcrumbs.top} + ${LAYOUT_CONTROLS.breadcrumbs.offsetY})`,
+            left: `calc(${LAYOUT_CONTROLS.breadcrumbs.left} + ${LAYOUT_CONTROLS.breadcrumbs.offsetX})`,
             fontSize: '12px',
             fontFamily: TYPOGRAPHY.fontBody,
             zIndex: 10,
           }}>
             <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
-            <span style={{ color: COLORS.teal, opacity: 0.6 }}>›</span>
+            <span style={{ color: LAYOUT_CONTROLS.breadcrumbs.arrowColor, opacity: 0.8 }}>›</span>
             <Link to={categoryHref} style={{ color: COLORS.textMuted, textDecoration: 'none' }}>{category}</Link>
             {currentName && (
               <>
-                <span style={{ color: COLORS.teal, opacity: 0.6 }}>›</span>
+                <span style={{ color: LAYOUT_CONTROLS.breadcrumbs.arrowColor, opacity: 0.8 }}>›</span>
                 <span style={{ color: 'rgba(255,255,255,0.7)' }}>{currentName}</span>
               </>
             )}

@@ -36,8 +36,8 @@ export default function IndustrySnapshot() {
                   display: 'flex',
                   flexDirection: 'column',
                   background: '#ffffff',
-                  borderRadius: `0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS} 0`,
-                  borderLeft: `4px solid ${isHovered ? COLORS.gold : COLORS.burgundy}`,
+                  borderRadius: `0 0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS}`,
+                  borderTop: `4px solid ${isHovered ? COLORS.gold : COLORS.burgundy}`,
                   boxShadow: isHovered ? '0 12px 32px rgba(11,31,59,0.12)' : '0 4px 12px rgba(0,0,0,0.05)',
                   transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
                   transition: 'transform 0.4s ease, box-shadow 0.4s ease, border-color 0.22s ease',
@@ -48,37 +48,15 @@ export default function IndustrySnapshot() {
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                {/* Photo area */}
-                <div style={{ height: '210px', overflow: 'hidden', position: 'relative', borderRadius: `0 ${CARD_ROUNDNESS} 0 0` }}>
-                  <img 
-                    src={industry.image} 
-                    alt={industry.name} 
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      objectPosition: 'center',
-                      transition: 'transform 0.4s ease',
-                      transform: isHovered ? 'scale(1.04)' : 'scale(1)'
-                    }} 
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(160deg, rgba(107,15,43,0.15) 0%, rgba(11,31,59,0.25) 100%)',
-                    pointerEvents: 'none'
-                  }} />
-                </div>
-
-                {/* Card body */}
-                <div style={{ padding: '18px 20px 16px', flex: 1, display: 'flex', flexDirection: 'column', background: '#ffffff', borderRadius: `0 0 ${CARD_ROUNDNESS} 0` }}>
+                {/* Card body (Now on Top) */}
+                <div style={{ padding: '24px 20px 20px', flex: 1, display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
                   <h3 style={{
                     color: '#0B1F3B',
                     fontWeight: 700,
                     fontSize: '17px',
                     lineHeight: 1.3,
                     fontFamily: TYPOGRAPHY.fontHeading,
-                    margin: '0 0 8px 0',
+                    margin: '0 0 12px 0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between'
@@ -105,6 +83,28 @@ export default function IndustrySnapshot() {
                   }}>
                     {industry.description}
                   </p>
+                </div>
+
+                {/* Photo area (Now on Bottom) */}
+                <div style={{ height: '210px', overflow: 'hidden', position: 'relative', borderRadius: `0 0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS}` }}>
+                  <img 
+                    src={industry.image} 
+                    alt={industry.name} 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                      transition: 'transform 0.4s ease',
+                      transform: isHovered ? 'scale(1.04)' : 'scale(1)'
+                    }} 
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(135deg, rgba(107,15,43,0.1) 0%, rgba(11,31,59,0.2) 100%)',
+                    pointerEvents: 'none'
+                  }} />
                 </div>
               </Link>
             );

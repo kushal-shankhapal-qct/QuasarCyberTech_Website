@@ -45,23 +45,23 @@ export default function Partners() {
                     animation-play-state: paused;
                 }
             `}</style>
-            <section 
+            <section
                 className="overflow-hidden relative"
-                style={{ 
-                    background: '#0B1F3B',
+                style={{
+                    background: '#FFFFFF',
                     height: '80px',
                 }}
             >
                 {/* Gradient Masks for fade effect at edges */}
-                <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0B1F3B] to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0B1F3B] to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
                 <div className="marquee-track flex items-center h-full whitespace-nowrap">
                     {displayPartners.map((partner, idx) => (
                         <div
                             key={`${partner.id}-${idx}`}
                             className="flex items-center justify-center px-8 md:px-10"
-                            style={{ 
+                            style={{
                                 filter: 'grayscale(1) opacity(0.6)',
                                 transition: 'filter 0.3s ease',
                             }}
@@ -72,9 +72,9 @@ export default function Partners() {
                                 e.currentTarget.style.filter = 'grayscale(1) opacity(0.6)';
                             }}
                         >
-                            <img 
-                                src={partner.logo} 
-                                alt={partner.name} 
+                            <img
+                                src={partner.logo}
+                                alt={partner.name}
                                 className="w-auto object-contain select-none"
                                 style={{ maxHeight: '36px' }}
                             />

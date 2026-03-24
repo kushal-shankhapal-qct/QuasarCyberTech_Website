@@ -113,14 +113,14 @@ export const navigationConfig = [
   },
   {
     label: 'Company',
-    href: '/company',
+    href: '/about',
     dropdownWidth: 'w-[320px]',
     dropdownOffset: '-translate-x-[50%]',
     subItems: [
-      { label: 'About QuasarCyberTech', href: '/company/about' },
-      { label: 'Leadership & Vision', href: '/company/leadership' },
-      { label: 'Advisory Board', href: '/company/advisory-board' },
-      { label: 'Careers', href: '/company/careers' }
+      { label: 'About QuasarCyberTech', href: '/about' },
+      { label: 'Leadership & Vision', href: '/leadership' },
+      { label: 'Advisory Board', href: '/advisory-board' },
+      { label: 'Careers', href: '/careers' }
     ]
   }
 ];

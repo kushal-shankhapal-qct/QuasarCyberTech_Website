@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { TYPOGRAPHY, LAYOUT_CONTROLS } from '../../../config/themeConfig';
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../../../config/themeConfig';
 
 const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
 
@@ -14,6 +14,7 @@ export interface CapabilityCardSimpleProps {
 
 export default function CapabilityCardSimple({ title, desc, img, href }: CapabilityCardSimpleProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const accentColor = isHovered ? COLORS.gold : COLORS.burgundy;
 
   return (
     <Link 
@@ -26,16 +27,26 @@ export default function CapabilityCardSimple({ title, desc, img, href }: Capabil
         textDecoration: 'none',
         background: '#ffffff',
         borderRadius: `0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS} 0`,
-        borderLeft: `4px solid ${isHovered ? '#D6B05C' : '#6B1530'}`,
         boxShadow: isHovered ? '0 12px 32px rgba(11,31,59,0.12)' : '0 4px 12px rgba(0,0,0,0.05)',
         transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        transition: 'transform 0.4s ease, box-shadow 0.4s ease, border-color 0.22s ease',
+        transition: 'transform 0.4s ease, box-shadow 0.4s ease',
         overflow: 'hidden',
         zIndex: isHovered ? 1 : 0,
         position: 'relative',
-        // removed minHeight per user request
       }}
     >
+      {/* ─── ACCENT LINE (Full height) ─── */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        width: '4px',
+        background: accentColor,
+        zIndex: 10,
+        transition: 'background 0.3s ease'
+      }} />
+
       <div style={{ height: '210px', overflow: 'hidden', borderRadius: `0 ${CARD_ROUNDNESS} 0 0` }}>
         <img 
           src={img} 
@@ -72,7 +83,7 @@ export default function CapabilityCardSimple({ title, desc, img, href }: Capabil
           {title}
           <ArrowRight 
             size={14} 
-            color={isHovered ? '#D6B05C' : '#6B1530'}
+            color={accentColor}
             style={{ 
               transform: isHovered ? 'translateX(5px)' : 'translateX(0)', 
               transition: 'color 0.2s ease, transform 0.2s ease',

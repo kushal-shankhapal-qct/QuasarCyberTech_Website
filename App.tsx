@@ -5,12 +5,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { themeConfig } from './src/config/themeConfig';
-import { DevToggleProvider } from './src/devToggles';
-import DevTogglePanel from './src/components/DevTogglePanel';
 
 import Home from './src/pages/Home';
-import About from './src/pages/About';
 import WhoWeAre from './src/pages/WhoWeAre';
+import Leadership from './src/pages/Leadership';
 import Products from './src/pages/Products';
 import Platforms from './src/pages/Platforms';
 import Services from './src/pages/Services';
@@ -43,13 +41,13 @@ const App: React.FC = () => {
 
   return (
     <Theme appearance="inherit" radius="large" scaling="100%">
-      <DevToggleProvider>
-        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <main className="min-h-screen font-sans">
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <main className="min-h-screen font-sans">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<WhoWeAre />} />
             <Route path="/who-we-are" element={<WhoWeAre />} />
+            <Route path="/leadership" element={<Leadership />} />
             <Route path="/products" element={<Products />} />
             <Route path="/platforms" element={<Platforms />} />
 
@@ -70,7 +68,6 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <DevTogglePanel />
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -80,7 +77,6 @@ const App: React.FC = () => {
           />
         </main>
       </Router>
-      </DevToggleProvider>
     </Theme>
   );
 };

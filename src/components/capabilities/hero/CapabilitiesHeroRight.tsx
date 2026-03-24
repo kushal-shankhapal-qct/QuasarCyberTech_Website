@@ -19,7 +19,6 @@ export default function CapabilitiesHeroRight({ variant }: { variant?: Capabilit
       height: '100%',
       position: 'relative',
       overflow: 'visible',
-      paddingRight: '60px',
       flexShrink: 0,
       alignSelf: 'stretch',
       display: 'flex',

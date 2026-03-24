@@ -1,15 +1,13 @@
 import React from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Target, ShieldAlert, Cpu, ArrowRight, Building2, Compass } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Shield, Target, Compass, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Button from '../components/ui/Button';
+import SectionHeader from '../components/SectionHeader';
 import WorldMap from '../components/ui/world-map';
-import logoSymbol from '../assets/Logos/icononly_transparent_nobuffer.png';
-
-/* ───────── PAGE CONFIGURATION ───────── */
-const CONTAINER_WIDTH = 'max-w-[1280px] mx-auto px-8 relative z-10';
+import TrustIndicators from '../components/TrustIndicators';
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 /* ───────── WORLD MAP DATA ───────── */
 const officeConnections = [
@@ -19,472 +17,301 @@ const officeConnections = [
     { start: { lat: 19.9975, lng: 73.7898, label: 'hq' }, end: { lat: 51.5074, lng: -0.1278, label: 'client' } },
 ];
 
-/* ───────── OPERATIONAL PHILOSOPHY DATA ───────── */
-const philosophyItems = [
-    {
-        num: '01',
-        title: 'Threat Modeling First',
-        body: 'Every engagement begins from the adversary\'s perspective. We map attack paths before we recommend defenses.',
-    },
-    {
-        num: '02',
-        title: 'Engineering Over Checkbox',
-        body: 'Security is built into architecture by design. Point-in-time audits without remediation pathways are not our model.',
-    },
-    {
-        num: '03',
-        title: 'Continuous Validation',
-        body: 'Threat landscapes change daily. Our engagements and platform telemetry reflect current posture, not last quarter\'s snapshot.',
-    },
-    {
-        num: '04',
-        title: 'Outcome Accountability',
-        body: 'We measure security posture improvement — not report length. Every engagement closes with verified remediation evidence.',
-    },
-];
-
-
-/* ───────── COUNT-UP COMPONENT (Local) ───────── */
-const CountUp = ({ end, suffix, delay, duration }: { end: number; suffix: string; delay: number; duration: number }) => {
-    const [count, setCount] = React.useState(0);
-    const ref = React.useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
-
-    React.useEffect(() => {
-        if (!isInView) return;
-
-        let startTimestamp: number | null = null;
-        let animationFrame: number;
-
-        const timeoutId = setTimeout(() => {
-            const step = (timestamp: number) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
-                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                setCount(Math.floor(easeProgress * end));
-
-                if (progress < 1) {
-                    animationFrame = window.requestAnimationFrame(step);
-                }
-            };
-            animationFrame = window.requestAnimationFrame(step);
-        }, delay * 1000);
-
-        return () => {
-            clearTimeout(timeoutId);
-            if (animationFrame) window.cancelAnimationFrame(animationFrame);
-        };
-    }, [end, duration, delay, isInView]);
-
-    return <span ref={ref}>{count}{suffix}</span>;
-};
-
 export default function WhoWeAre() {
     return (
-        <div className="min-h-screen bg-white font-sans overflow-x-hidden" style={{ color: '#0A0A0F' }}>
+        <div className="min-h-screen w-full relative bg-canvas overflow-x-hidden selection:bg-brand-primary/20 selection:text-brand-primary">
             <Header />
 
             <main>
-                {/* 1. HERO SECTION */}
+                {/* 1. HERO SECTION (Dark System) */}
                 <section
-                    className="relative flex items-center overflow-visible z-[20] min-h-[90vh] pb-[60px]"
-                >
-                    {/* Vortex Backdrop Component */}
-                    <div
-                        className="absolute top-1/2 right-0 z-[10] pointer-events-none flex items-center justify-center overflow-visible"
-                        style={{
-                            width: '800px',
-                            height: '800px',
-                            transform: `translate(51%, calc(-50% - 40px)) perspective(1500px) rotateX(45deg) rotateY(-15deg) rotateZ(35deg) scale(1.3)`
-                        }}
-                    >
-                        <motion.div
-                            className="w-full h-full flex items-center justify-center relative z-10"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 160, repeat: Infinity, ease: 'linear' }}
-                        >
-                            <img
-                                src={logoSymbol}
-                                alt="Swirling Vortex"
-                                className="w-[82%] h-[82%] object-contain"
-                                style={{ opacity: 0.9 }}
-                            />
-                        </motion.div>
-                    </div>
-
-                    <div className={CONTAINER_WIDTH}>
-                        <div className="lg:max-w-[65%]">
-                            <motion.h1
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8 }}
-                                style={{
-                                    fontFamily: 'var(--font-heading)',
-                                    fontWeight: 800,
-                                    fontSize: '68px',
-                                    color: '#0A0A0F',
-                                    lineHeight: 1.05,
-                                    marginBottom: '40px',
-                                    marginTop: '80px',
-                                }}
-                            >
-                                Engineering Security <br />
-                                <span style={{ color: '#1a202c', fontWeight: 700, fontSize: '90%' }}>at Enterprise Scale</span>
-                            </motion.h1>
-
-                            {/* Editorial two-part text split */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                className="flex flex-col lg:flex-row gap-16 items-start"
-                            >
-                                <div className="lg:w-full">
-                                    <p
-                                        style={{
-                                            fontFamily: 'var(--font-heading)',
-                                            fontWeight: 600,
-                                            fontSize: '22px',
-                                            color: '#0A0A0F',
-                                            lineHeight: 1.6,
-                                            maxWidth: '500px',
-                                            marginBottom: '24px'
-                                        }}
-                                    >
-                                        We build security into the architecture.<br />Not on top of it.
-                                    </p>
-                                    <p
-                                        style={{
-                                            fontFamily: 'var(--font-body)',
-                                            fontWeight: 400,
-                                            fontSize: '16px',
-                                            color: '#4A4A5A',
-                                            lineHeight: 1.8,
-                                            maxWidth: '600px'
-                                        }}
-                                    >
-                                        Quasar CyberTech is a cybersecurity engineering firm delivering enterprise-grade security across applications, cloud environments, infrastructure, and enterprise systems.
-                                    </p>
-                                </div>
-                            </motion.div>
-
-                            {/* CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row items-center justify-start gap-6 mt-12">
-                                <Link to="/services">
-                                    <Button variant="secondary" icon={<ArrowRight size={18} />}>
-                                        Explore Services
-                                    </Button>
-                                </Link>
-                                <Link to="/contact">
-                                    <Button variant="primary">
-                                        Contact Us
-                                    </Button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* 2. ENTERPRISE SNAPSHOT (Glass Metrics Bar) */}
-                <section className="relative z-[30] -mt-[60px] pb-12">
-                    <div className={CONTAINER_WIDTH}>
-                        <div
-                            style={{
-                                maxWidth: '960px',
-                                margin: '0 auto',
-                                background: 'rgba(255,255,255,0.72)',
-                                backdropFilter: 'blur(16px)',
-                                WebkitBackdropFilter: 'blur(16px)',
-                                border: '1px solid rgba(255,255,255,0.85)',
-                                borderRadius: '16px',
-                                boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-                                padding: '32px 48px',
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                            }}
-                        >
-                            {[
-                                { value: 1600, suffix: '+', label: 'Engagements Delivered', techLabel: 'ENGAGEMENTS' },
-                                { value: 15, suffix: '+', label: 'Countries Served', techLabel: 'COUNTRIES' },
-                                { value: 98, suffix: '%', label: 'Client Retention', techLabel: 'RETENTION' },
-                                { value: 24, suffix: '×7', label: 'Security Operations', techLabel: 'AVAILABILITY' },
-                            ].map((m, idx) => (
-                                <div key={idx} className="flex flex-col items-center text-center px-4 relative">
-                                    <div style={{ fontSize: '10px', fontFamily: 'var(--font-hero)', color: '#8A8F9E', letterSpacing: '0.12em', marginBottom: '8px' }}>
-                                        {m.techLabel}
-                                    </div>
-                                    <div style={{ fontFamily: 'var(--font-hero)', fontSize: '36px', fontWeight: 800, color: '#0A0A0F', lineHeight: 1, marginBottom: '6px' }}>
-                                        <CountUp end={m.value} suffix={m.suffix} delay={idx * 0.1} duration={2} />
-                                    </div>
-                                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: '#4A4A5A', fontWeight: 500 }}>
-                                        {m.label}
-                                    </div>
-                                    {idx < 3 && <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-[40px] bg-black/5" />}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-
-                {/* 3. CAPABILITY PILLARS */}
-                <section className="py-24" style={{ backgroundColor: '#F4F4F6' }}>
-                    <div className={CONTAINER_WIDTH}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                            {[
-                                { icon: Target, title: 'Offensive Security', desc: 'Advanced penetration testing, red teaming, and phishing simulations designed to identify real-world attack paths.' },
-                                { icon: ShieldAlert, title: 'Defensive Operations', desc: '24/7 monitoring, incident response, and managed detection engineered for rapid containment and remediation.' },
-                                { icon: Compass, title: 'Governance & Risk', desc: 'Strategic advisory, compliance enablement, and risk management aligned with global standards.' },
-                                { icon: Cpu, title: 'Security Engineering', desc: 'Architecture hardening, cloud security, and infrastructure defense built for resilience by design.' },
-                            ].map((cap, idx) => (
-                                <div
-                                    key={idx}
-                                    className="p-6 group transition-all flex flex-col h-full"
-                                    style={{
-                                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                        backdropFilter: 'blur(20px)',
-                                        boxShadow: 'inset 0 2px 5px rgba(255, 255, 255, 0.8), 0 10px 25px -5px rgba(0,0,0,0.08)',
-                                        borderRadius: '12px',
-                                        border: '1px solid rgba(0,0,0,0.06)',
-                                    }}
-                                >
-                                    <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center mb-6 shrink-0">
-                                        <cap.icon className="w-6 h-6" style={{ color: '#3D3D4E' }} />
-                                    </div>
-                                    <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '19px', color: '#0A0A0F', marginBottom: '12px' }}>
-                                        {cap.title}
-                                    </h3>
-                                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: '#4A4A5A', lineHeight: 1.6 }}>
-                                        {cap.desc}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* 4. VISION & MISSION */}
-                <section className="py-24">
-                    <div className={CONTAINER_WIDTH}>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                            <div className="p-12 bg-white relative group"
-                                style={{ borderLeft: '3px solid #C41E3A', borderRadius: '0 12px 12px 0', boxShadow: '0 20px 50px -15px rgba(0,0,0,0.1)' }}>
-                                <div className="flex items-center gap-[10px] mb-6" style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: 500, color: '#6B6B80', textTransform: 'uppercase', letterSpacing: '0.14em' }}>
-                                    <span style={{ width: '20px', height: '2px', backgroundColor: '#C41E3A' }} />
-                                    Vision
-                                </div>
-                                <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '30px', color: '#0A0A0F', marginBottom: '24px', lineHeight: 1.2 }}>To be a global leader in IT innovation, driving transformative solutions.</h3>
-                                <p style={{ fontFamily: 'var(--font-body)', color: '#4A4A5A', lineHeight: 1.7 }}>
-                                    Driving solutions that empower businesses, enhance efficiency, and shape a secure, sustainable digital future for everyone.
-                                </p>
-                            </div>
-                            <div className="p-12 bg-white relative group"
-                                style={{ borderLeft: '3px solid #C41E3A', borderRadius: '0 12px 12px 0', boxShadow: '0 20px 50px -15px rgba(0,0,0,0.1)' }}>
-                                <div className="flex items-center gap-[10px] mb-6" style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: 500, color: '#6B6B80', textTransform: 'uppercase', letterSpacing: '0.14em' }}>
-                                    <span style={{ width: '20px', height: '2px', backgroundColor: '#C41E3A' }} />
-                                    Mission
-                                </div>
-                                <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '30px', color: '#0A0A0F', marginBottom: '24px', lineHeight: 1.2 }}>Delivering cutting-edge solutions that empower business.</h3>
-                                <p style={{ fontFamily: 'var(--font-body)', color: '#4A4A5A', lineHeight: 1.7 }}>
-                                    Helping organizations to innovate, adapt, and excel in a dynamic digital landscape, fostering growth through technology and expertise.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* 5. OPERATIONAL PHILOSOPHY (replaces Core Values) */}
-                <section className="py-24" style={{ backgroundColor: '#F4F4F6' }}>
-                    <div className={CONTAINER_WIDTH}>
-                        <div className="mb-16">
-                            <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: '#0A0A0F', fontSize: '44px', lineHeight: 1.1 }}>
-                                How We<br />Operate
-                            </h2>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                            {philosophyItems.map((item) => (
-                                <div key={item.num} className="relative">
-                                    {/* Ghost number */}
-                                    <div
-                                        className="absolute top-0 left-0 pointer-events-none select-none"
-                                        style={{
-                                            fontFamily: 'var(--font-heading)',
-                                            fontWeight: 800,
-                                            fontSize: '72px',
-                                            color: 'rgba(0,0,0,0.05)',
-                                            lineHeight: 1,
-                                        }}
-                                    >
-                                        {item.num}
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="relative z-10" style={{ paddingTop: '40px' }}>
-                                        <div
-                                            style={{
-                                                fontFamily: 'var(--font-mono)',
-                                                fontSize: '11px',
-                                                color: '#6B6B80',
-                                                letterSpacing: '0.14em',
-                                                marginBottom: '12px',
-                                            }}
-                                        >
-                                            {item.num}
-                                        </div>
-                                        <h3
-                                            style={{
-                                                fontFamily: 'var(--font-heading)',
-                                                fontWeight: 600,
-                                                fontSize: '17px',
-                                                color: '#0A0A0F',
-                                                marginBottom: '12px',
-                                            }}
-                                        >
-                                            {item.title}
-                                        </h3>
-                                        <p
-                                            style={{
-                                                fontFamily: 'var(--font-body)',
-                                                fontWeight: 400,
-                                                fontSize: '14px',
-                                                color: '#4A4A5A',
-                                                lineHeight: 1.7,
-                                            }}
-                                        >
-                                            {item.body}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* 6. GLOBAL PRESENCE SECTION */}
-                <section className="py-24 border-t" style={{ borderColor: 'rgba(0,0,0,0.05)', backgroundColor: '#F4F4F6' }}>
-                    <div className={CONTAINER_WIDTH}>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
-                            {/* LEFT: Locations */}
-                            <div className="flex flex-col h-full">
-                                <div className="flex items-center gap-[10px] mb-4" style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: 500, color: '#6B6B80', textTransform: 'uppercase', letterSpacing: '0.14em' }}>
-                                    <span style={{ width: '20px', height: '2px', backgroundColor: '#C41E3A' }} />
-                                    Infrastructure
-                                </div>
-                                <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '36px', color: '#0A0A0F', lineHeight: 1.1, marginBottom: '24px' }}>
-                                    Global Presence
-                                </h2>
-                                <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: '#4A4A5A', maxWidth: '400px', marginBottom: '32px', lineHeight: 1.6 }}>
-                                    Strategic operations distributed across key technology corridors for localized response and global coverage.
-                                </p>
-
-                                {/* HQ */}
-                                <div className="p-6 mb-4 flex items-center gap-5" style={{ borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
-                                    <div className="w-14 h-14 rounded-2xl bg-[#0F1E3D]/5 flex items-center justify-center shrink-0">
-                                        <Building2 className="w-7 h-7" style={{ color: '#0F1E3D' }} />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '17px', color: '#0A0A0F' }}>Nashik — Headquarters</h3>
-                                            <span className="px-2 py-0.5 bg-[#0F1E3D]/10 text-[#0F1E3D] text-[9px] font-black rounded tracking-widest uppercase shrink-0">HQ</span>
-                                        </div>
-                                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: '#4A4A5A' }}>
-                                            #1, State Bank Colony, Indira Nagar, Maharashtra – 422009
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Satellite locations */}
-                                <div className="grid grid-cols-3 gap-4 mb-6 pt-4">
-                                    {[
-                                        { city: 'Mumbai', label: 'Operations', dotColor: '#0A0A0F' },
-                                        { city: 'Bengaluru', label: 'Engineering', dotColor: '#0A0A0F' },
-                                        { city: 'Dallas', label: 'Remote Operations', dotColor: 'rgba(0,0,0,0.2)' },
-                                    ].map((loc) => (
-                                        <div key={loc.city} className="p-4 flex flex-col items-center text-center gap-2 border-r last:border-0 border-black/5">
-                                            <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: loc.dotColor }} />
-                                            <div>
-                                                <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 800, color: loc.city === 'Dallas' ? 'rgba(0,0,0,0.5)' : '#0A0A0F' }}>{loc.city}</div>
-                                                <div style={{ fontFamily: 'var(--font-body)', fontSize: '10px', color: '#6B6B80', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{loc.label}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Legend */}
-                                <div className="flex items-center gap-6 pt-4">
-                                    <div className="flex items-center gap-2">
-                                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0A0A0F' }} />
-                                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#6B6B80' }}>Onsite office</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.2)', border: '1px solid rgba(0,0,0,0.15)' }} />
-                                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#6B6B80' }}>Remote operations</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* RIGHT: Map */}
-                            <div className="relative min-h-[400px] flex">
-                                <div className="flex-1 overflow-hidden" style={{
-                                    backgroundColor: 'rgba(255,255,255,0.7)',
-                                    borderRadius: '16px',
-                                    boxShadow: '0 20px 50px -15px rgba(0,0,0,0.06)',
-                                    border: '1px solid rgba(0,0,0,0.02)'
-                                }}>
-                                    <WorldMap
-                                        lineColor="#0F1E3D"
-                                        secondaryLineColor="#C41E3A"
-                                        dots={officeConnections}
-                                    />
-
-                                    <div className="absolute bottom-8 left-8 flex items-center gap-6 z-20">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#0F1E3D' }} />
-                                            <span style={{ fontFamily: 'var(--font-hero)', fontSize: '10px', color: '#6B6B80', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>Operational Hubs</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#C41E3A' }} />
-                                            <span style={{ fontFamily: 'var(--font-hero)', fontSize: '10px', color: '#6B6B80', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>Client Nodes</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* 7. FINAL CTA */}
-                <section className="relative w-full overflow-hidden"
                     style={{
-                        paddingTop: '80px',
-                        paddingBottom: '80px',
-                        background: 'var(--cta-bg)'
+                        position: 'relative',
+                        minHeight: '100vh',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        alignItems: 'flex-start',
+                        background: GRADIENTS.HERO_BG,
+                        overflow: 'hidden',
+                        paddingLeft: '2.5em',
+                        paddingRight: '2.0em',
+                        paddingBottom: '3em',
+                        paddingTop: '0em',
+                        fontFamily: TYPOGRAPHY.fontBody,
                     }}
                 >
-                    <div className="max-w-[1280px] relative z-10 mx-auto px-8 text-left">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
+                    {/* Breadcrumbs */}
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        position: 'absolute',
+                        top: `calc(${LAYOUT_CONTROLS.breadcrumbs.top} + ${LAYOUT_CONTROLS.breadcrumbs.offsetY})`,
+                        left: `calc(${LAYOUT_CONTROLS.breadcrumbs.left} + ${LAYOUT_CONTROLS.breadcrumbs.offsetX})`,
+                        fontSize: '12px',
+                        fontFamily: TYPOGRAPHY.fontBody,
+                        zIndex: 10,
+                    }}>
+                        <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
+                        <span style={{ color: LAYOUT_CONTROLS.breadcrumbs.arrowColor, opacity: 0.8 }}>›</span>
+                        <span style={{ color: 'rgba(255,255,255,0.7)' }}>About</span>
+                    </div>
+
+                    <div style={{ maxWidth: '720px', position: 'relative', zIndex: 10 }}>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 28 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                            style={{
+                                ...TYPOGRAPHY.heroTitle,
+                                fontFamily: TYPOGRAPHY.fontHeading,
+                                color: COLORS.textOnDark,
+                                marginBottom: '28px',
+                                lineHeight: 1.05
+                            }}
                         >
-                            <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '64px', color: '#FFFFFF', marginBottom: '32px', lineHeight: 1.1, maxWidth: '700px', letterSpacing: '-0.02em' }}>
-                                Build Resilient <br />
-                                <span style={{ color: 'var(--brand-accent)' }}>Security</span> Foundations
-                            </h2>
-                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '20px', color: 'rgba(255,255,255,0.8)', marginBottom: '56px', maxWidth: '600px', lineHeight: 1.6 }}>
-                                Engage with our experts to assess your current posture and strengthen your defense strategy.
-                            </p>
+                            Engineering <span style={{ color: COLORS.gold }}>Security</span><br />
+                            at Enterprise Scale
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.15 }}
+                            style={{
+                                ...TYPOGRAPHY.bodyLarge,
+                                color: 'rgba(255,255,255,0.7)',
+                                textAlign: 'left',
+                                maxWidth: '50%', // Restricted to 50%
+                                marginBottom: '42px',
+                                lineHeight: 1.8
+                            }}
+                        >
+                            QuasarCyberTech is a cybersecurity engineering firm delivering high-resilience security ecosystems across applications, cloud environments, and enterprise infrastructure. We build security into the architecture — not on top of it.
+                        </motion.p>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.25 }}
+                            style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}
+                        >
                             <Link
-                                to="/contact"
-                                className="group inline-flex items-center justify-center px-10 py-4 bg-[#FFFFFF] text-[#C41E3A] hover:bg-[#F8F9FA] hover:scale-105 active:scale-95 font-bold uppercase tracking-widest text-[14px] rounded-md transition-all shadow-2xl shadow-black/40"
-                                style={{ fontFamily: 'var(--font-hero)' }}
+                                to="/capabilities"
+                                style={{
+                                    ...TYPOGRAPHY.buttonLarge,
+                                    background: '#6B1530',
+                                    color: '#FFFFFF',
+                                    border: '1px solid transparent',
+                                    borderRadius: '4px',
+                                    padding: '14px 34px',
+                                    textDecoration: 'none',
+                                    transition: 'all 0.3s ease',
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.background = '#8B1E3F'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.background = '#6B1530'; e.currentTarget.style.transform = 'translateY(0)'; }}
                             >
-                                Schedule a Consultation <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+                                Explore Capabilities
                             </Link>
                         </motion.div>
                     </div>
                 </section>
+
+                {/* 2. COMPANY OVERVIEW (Standardized) */}
+                <section style={{ 
+                    background: '#FFFFFF', 
+                    padding: `120px ${LAYOUT_CONTROLS.section.paddingX}`,
+                    borderBottom: '1px solid rgba(0,0,0,0.05)'
+                }}>
+                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '80px', alignItems: 'flex-start' }}>
+                            <div style={{ gridColumn: 'span 7' }}>
+                                <SectionHeader 
+                                    title="Who We"
+                                    highlight="Are"
+                                />
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', marginTop: '10px' }}>
+                                    <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: '#475569', fontWeight: 500 }}>
+                                        Founded on the principles of engineering excellence and adversary-driven defense, QuasarCyberTech provides the technical depth needed to secure modern digital enterprises.
+                                    </p>
+                                    <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: '#64748B' }}>
+                                        We move beyond traditional 'checkbox' security. Our approach is rooted in deep technical validation and architecture-first security design. Whether we are red-teaming critical infrastructure or engineering cloud-native defense systems, our goal remains constant: to build resilience that scales.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div style={{ 
+                                gridColumn: 'span 5',
+                                background: '#F8FAFC', 
+                                border: '1px solid rgba(0,0,0,0.05)', 
+                                borderRadius: '4px', 
+                                padding: '48px',
+                                boxShadow: '0 8px 32px rgba(0,0,0,0.02)'
+                            }}>
+                                <h3 style={{ ...TYPOGRAPHY.cardTitle, color: COLORS.deepCyberBlue, marginBottom: '28px', fontSize: '1.25rem' }}>Our DNA</h3>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                    {[
+                                        { icon: Target, title: "Threat Modeling First", text: "We map attack paths before we recommend defenses." },
+                                        { icon: Compass, title: "Engineering Focus", text: "Built for architecture-level resilience, not just compliance." },
+                                        { icon: Shield, title: "Continuous Validation", text: "Security posture reflected in telemetry, not static snapshots." }
+                                    ].map((item, idx) => (
+                                        <div key={idx} style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                                            <div style={{ width: '40px', height: '40px', background: 'rgba(107,21,48,0.05)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                                <item.icon size={20} color={COLORS.burgundy} />
+                                            </div>
+                                            <div>
+                                                <div style={{ color: '#0B1F3B', fontWeight: 700, fontSize: '1rem', marginBottom: '4px' }}>{item.title}</div>
+                                                <p style={{ color: '#64748B', fontSize: '0.9rem', lineHeight: 1.5, margin: 0 }}>{item.text}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Metrics Bar - Homepage Sync */}
+                        <div style={{ marginTop: '100px', paddingTop: '60px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+                            <TrustIndicators isDark={false} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* 3. GLOBAL PRESENCE (Dark Section with Map) */}
+                <section style={{ 
+                    background: GRADIENTS.HERO_BG, 
+                    padding: `120px ${LAYOUT_CONTROLS.section.paddingX}`,
+                    position: 'relative',
+                    overflow: 'hidden'
+                }}>
+                    <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+                        <SectionHeader 
+                            title="Global"
+                            highlight="Presence"
+                            isDark={true}
+                            subtitle="Strategic operations distributed across key technology corridors for localized response and global coverage."
+                        />
+
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mt-12 items-center">
+                            {/* HQ & Locations */}
+                            <div className="lg:col-span-4">
+                                <div style={{ 
+                                    borderLeft: `3px solid ${COLORS.burgundy}`, 
+                                    padding: '24px 32px', 
+                                    background: 'rgba(255,255,255,0.02)',
+                                    marginBottom: '32px' 
+                                }}>
+                                    <h3 style={{ color: '#FFFFFF', fontSize: '1.25rem', fontWeight: 800, marginBottom: '8px' }}>Nashik — Headquarters</h3>
+                                    <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                                        #1, State Bank Colony, Indira Nagar, Maharashtra – 422009
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-6">
+                                    {[
+                                        { city: 'Mumbai', role: 'Security Operations' },
+                                        { city: 'Bengaluru', role: 'Engineering Hub' },
+                                        { city: 'Dallas', role: 'US Operations' }
+                                    ].map((loc, i) => (
+                                        <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                                            <div style={{ width: '8px', height: '8px', background: COLORS.gold, borderRadius: '50%' }} />
+                                            <div>
+                                                <div style={{ color: '#FFFFFF', fontWeight: 700 }}>{loc.city}</div>
+                                                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{loc.role}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* World Map */}
+                            <div className="lg:col-span-8" style={{ minHeight: '400px' }}>
+                                <WorldMap 
+                                    dots={officeConnections}
+                                    lineColor={COLORS.gold}
+                                    secondaryLineColor={COLORS.burgundy}
+                                    dotColor="rgba(255,255,255,0.1)"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 4. FINAL CTA (Standardized) */}
+                <section className="relative overflow-hidden text-left"
+                    style={{
+                        background: '#F8FAFC',
+                        paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+                        paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+                        borderTop: '1px solid rgba(0,0,0,0.05)',
+                        fontFamily: TYPOGRAPHY.fontBody
+                    }}>
+                    
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #6B1530 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+
+                    <div className="w-full relative z-10"
+                        style={{
+                            paddingLeft: '2.5em',
+                            paddingRight: '2.5em',
+                        }}>
+                        
+                        <h2
+                            className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl"
+                            style={{
+                                fontFamily: TYPOGRAPHY.fontHeading,
+                                fontSize: ' clamp(36px, 6vw, 56px)',
+                                color: COLORS.deepCyberBlue,
+                            }}
+                        >
+                            <span style={{ color: COLORS.burgundy }}>Build</span> Resilient <br />
+                            Security Foundations
+                        </h2>
+
+                        <p
+                            className="mb-14 max-w-2xl font-medium leading-relaxed"
+                            style={{
+                                fontFamily: TYPOGRAPHY.fontBody,
+                                fontSize: '18px',
+                                color: 'rgba(8, 16, 38, 0.7)',
+                            }}
+                        >
+                            Engage with our experts to assess your current posture and strengthen your defense strategy.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-start gap-6">
+                            <Link to="/contact" style={{ textDecoration: 'none' }}>
+                                <button style={{
+                                    background: COLORS.burgundy,
+                                    color: '#FFFFFF',
+                                    padding: '16px 40px',
+                                    fontWeight: 700,
+                                    fontSize: '13px',
+                                    letterSpacing: '0.12em',
+                                    textTransform: 'uppercase',
+                                    borderRadius: '4px',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
+                                    transition: 'all 0.3s ease',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = '#8B1F40';
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(107, 21, 48, 0.3)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = COLORS.burgundy;
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(107, 21, 48, 0.2)';
+                                }}
+                                >
+                                    Talk to a Security Expert
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+
             </main>
             <Footer />
         </div>

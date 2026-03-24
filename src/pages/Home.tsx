@@ -11,6 +11,7 @@ import LeadershipVision from '../components/LeadershipVision';
 import HomeFinalCTA from '../components/HomeFinalCTA';
 import Certifications from '../components/Certifications';
 import Testimonials from '../components/Testimonials';
+import Partners from '../components/Partners';
 
 import Footer from '../components/Footer';
 
@@ -31,6 +32,7 @@ export default function Home() {
         <Hero />
         <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
           <TrustIndicators />
+          <Partners />
           <Certifications />
           <QCTSecureFramework />
           <EnterpriseServices />

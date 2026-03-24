@@ -49,58 +49,51 @@ const Navbar: React.FC = () => {
   const navRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [dropdownPos, setDropdownPos] = useState<number>(0);
 
-  // ── Scroll ──
+  // ── Scroll & Auto-hide ──
   useEffect(() => {
-    lastScrollY.current = window.scrollY;
-    const onScroll = () => {
+    let activityTimer: ReturnType<typeof setTimeout> | null = null;
+    
+    const handleScrollOrActivity = () => {
       const y = window.scrollY;
+      const isPastHero = y > window.innerHeight * 0.85; // 85% of viewport height
+      
       setScrolled(y > NC.scroll.logoTextHideAt);
-      if (NC.scroll.revealOnScrollUp && y > 200) {
+
+      if (isPastHero) {
+        // If scrolling down aggressively, hide immediately? Or just rely on 2s timeout?
+        // Let's implement immediate hide on scroll down, and 2s timeout on idle/scroll up
         if (y > lastScrollY.current && !isHovered) {
-          // Delayed hide logic
-          if (closeTimer.current) clearTimeout(closeTimer.current);
-          closeTimer.current = setTimeout(() => {
-            setIsVisible(false);
-            setIsMobileOpen(false);
-          }, 2000); // 2s delay before hiding on scroll
+             setIsVisible(false);
+             setIsMobileOpen(false);
         } else {
-          if (closeTimer.current) clearTimeout(closeTimer.current);
-          setIsVisible(true);
+             setIsVisible(true);
+        }
+
+        if (activityTimer) clearTimeout(activityTimer);
+        
+        if (!isHovered) {
+           activityTimer = setTimeout(() => {
+              setIsVisible(false);
+              setIsMobileOpen(false);
+           }, 2000);
         }
       } else {
         setIsVisible(true);
+        if (activityTimer) clearTimeout(activityTimer);
       }
       lastScrollY.current = y;
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [isHovered]);
 
-  // ── Mouse near top → reveal ──
-  useEffect(() => {
-    if (!NC.scroll.revealOnMouseNearTop) return;
-    const onMove = (e: MouseEvent) => {
-      if (e.clientY < NC.scroll.mouseRevealZone) setIsVisible(true);
+    window.addEventListener('scroll', handleScrollOrActivity, { passive: true });
+    
+    // Also run once to set initial state
+    handleScrollOrActivity();
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollOrActivity);
+      if (activityTimer) clearTimeout(activityTimer);
     };
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
-
-  // ── Auto-hide ──
-  useEffect(() => {
-    if (!NC.scroll.autoHideOnHomepage && isHomepage) return;
-    let tid: ReturnType<typeof setTimeout>;
-    // Check if we should autohide (scrolled, visible, not hovered, not mobile)
-    if (scrolled && isVisible && !isHovered && !isMobileOpen) {
-      tid = setTimeout(() => {
-        if (!isHovered) {
-          setIsVisible(false);
-          setIsMobileOpen(false);
-        }
-      }, NC.scroll.autoHideDelay || 2000); 
-    }
-    return () => clearTimeout(tid);
-  }, [scrolled, isVisible, isHovered, isHomepage, isMobileOpen]);
+  }, [isHovered]);
 
   // ── Calculate Dropdown Left ──
   const updateDropdownPos = (id: string) => {
@@ -139,7 +132,9 @@ const Navbar: React.FC = () => {
     updateDropdownPos(id);
   };
   const closeDropdown = () => {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), NC.dropdown.closeDelay);
+    closeTimer.current = setTimeout(() => {
+        setOpenMenu(null);
+    }, 200); // slightly increased delay to prevent jitter
   };
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
 
@@ -497,7 +492,6 @@ const Navbar: React.FC = () => {
               borderRadius: '0 0 16px 16px',
               boxShadow: NC.dropdown.boxShadow,
               zIndex: 999,
-              overflow: 'hidden',
             } : {
               position: 'fixed' as const,
               top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.dropdown.verticalOffset})`,
@@ -512,9 +506,11 @@ const Navbar: React.FC = () => {
               boxShadow: NC.dropdown.boxShadow,
               padding: `${NC.dropdown.paddingTop} ${NC.dropdown.paddingRight} ${NC.dropdown.paddingBottom} ${NC.dropdown.paddingLeft}`,
               zIndex: 999,
-              overflow: 'hidden',
             }}
           >
+            {/* Invisible bridge to prevent gap from triggering mouse leave */}
+            <div style={{ position: 'absolute', top: `-${NC.dropdown.verticalOffset}`, left: 0, right: 0, height: NC.dropdown.verticalOffset, background: 'transparent' }} />
+            
             <DropdownAccent />
             {/* List Dropdowns (Platforms, Industries, Insights, Company) */}
             {['platforms-ecosystem', 'industries', 'insights', 'company'].includes(openMenu) && (

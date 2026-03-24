@@ -6,31 +6,44 @@ export interface CapabilityCardShellProps {
   title: string;
   desc: string;
   img: string;
-  index?: number; // optional now
+  index?: number;
   theme?: 'teal' | 'burgundy';
   children?: React.ReactNode;
+  isHovered?: boolean;
 }
 
 const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
 
-export function CapabilityCardShell({ title, desc, img, theme = 'teal', children }: CapabilityCardShellProps) {
-  const accentColor = theme === 'burgundy' ? COLORS.burgundy : COLORS.teal;
+export function CapabilityCardShell({ title, desc, img, theme = 'teal', children, isHovered }: CapabilityCardShellProps) {
+  const accentColor = isHovered ? COLORS.gold : (theme === 'burgundy' ? COLORS.burgundy : COLORS.teal);
 
   return (
     <div 
       className="card-shell-container"
       style={{
         borderRadius: `0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS} 0`,
-        borderLeft: `4px solid ${accentColor}`,
         background: '#FFFFFF',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
         width: '100%',
-        transition: 'border-color 0.22s ease',
+        transition: 'all 0.3s ease',
+        position: 'relative'
       }}
     >
+      {/* ─── ACCENT LINE (Fully covering height) ─── */}
+      <div style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: '4px',
+          background: accentColor,
+          zIndex: 10,
+          transition: 'background 0.3s ease'
+      }} />
+
       <div style={{
         height: '210px', 
         overflow: 'hidden',
@@ -45,7 +58,7 @@ export function CapabilityCardShell({ title, desc, img, theme = 'teal', children
           alt={title}
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', transition: 'transform 0.4s ease' }}
         />
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(160deg, rgba(107, 15, 43, 0.15) 0%, rgba(11, 31, 59, 0.25) 100%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, rgba(107, 15, 43, 0.15) 0%, rgba(11, 31, 59, 0.25) 100%)', pointerEvents: 'none' }} />
       </div>
 
       <div className="card-body-content" style={{ 
@@ -70,7 +83,6 @@ export function CapabilityCardShell({ title, desc, img, theme = 'teal', children
           {desc}
         </p>
 
-        {/* Slide-Up Panel or Extra Children injected here */}
         {children}
       </div>
     </div>

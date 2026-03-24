@@ -5,9 +5,10 @@ import qPulseLogoImg from '../assets/Logos/QPulse_Logo_No_Buffer.png';
 import qrgtLogoImg from '../assets/logos copy/Platforms/QRGT.png';
 import qStellarScreenshot from '../assets/Logos/Screenshots/QStellar/Screenshot 2026-03-03 124540.png';
 import qPulseScreenshot from '../assets/logos copy/Platforms/QPulse_New.png';
-import { ALPHAS, COLORS, GRADIENTS, SECTION_BACKGROUNDS, TYPOGRAPHY } from '../config/themeConfig';
+import { ALPHAS, COLORS, GRADIENTS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 import SectionHeader from './SectionHeader';
+
 const platforms = [
   {
     name: 'QStellar',
@@ -19,7 +20,13 @@ const platforms = [
     ctaText: 'Visit QStellar Website',
     link: 'https://qstellar.co',
     external: true,
-    styles: { logoHeight: '36px', screenshotFit: 'cover' as const }
+    styles: {
+      logoHeight: '36px',
+      logoWidth: 'auto',
+      logoNudgeX: '0px',
+      logoNudgeY: '-1px',
+      screenshotFit: 'cover' as const
+    }
   },
   {
     name: 'QPulse',
@@ -32,7 +39,13 @@ const platforms = [
     ctaText: 'Explore QPulse Portal',
     link: 'https://qpulse.quasarcybertech.com',
     external: true,
-    styles: { logoHeight: '38px', screenshotFit: 'cover' as const }
+    styles: {
+      logoHeight: '50px',
+      logoWidth: 'auto',
+      logoNudgeX: '0px',
+      logoNudgeY: '1px',
+      screenshotFit: 'cover' as const
+    }
   },
   {
     name: 'QRGT',
@@ -42,19 +55,25 @@ const platforms = [
     highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
     ctaText: 'Explore QRGT Platform',
     link: '/platforms/qrgt',
-    styles: { logoHeight: '44px', screenshotFit: 'cover' as const }
+    styles: {
+      logoHeight: '50px',
+      logoWidth: 'auto',
+      logoNudgeX: '0px',
+      logoNudgeY: '0px',
+      screenshotFit: 'cover' as const
+    }
   },
 ];
 
 export default function PlatformHighlights() {
   return (
-    <section style={{ 
-      background: GRADIENTS.DARK_SECTION_BG_PLATFORMS, 
-      padding: '120px 2em',
+    <section style={{
+      background: GRADIENTS.DARK_SECTION_BG_PLATFORMS,
+      padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
       fontFamily: TYPOGRAPHY.fontBody
     }}>
-      <SectionHeader 
-        isDark 
+      <SectionHeader
+        isDark
         eyebrow=""
         title=""
         highlight="Security"
@@ -98,16 +117,16 @@ export default function PlatformHighlights() {
               position: 'relative',
             }}>
               {platform.screenshot ? (
-                <img 
-                  src={platform.screenshot} 
-                  alt={platform.name} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: platform.styles?.screenshotFit || 'cover', 
-                    objectPosition: 'top', 
-                    opacity: 0.8 
-                  }} 
+                <img
+                  src={platform.screenshot}
+                  alt={platform.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: platform.styles?.screenshotFit || 'cover',
+                    objectPosition: 'top',
+                    opacity: 0.8
+                  }}
                 />
               ) : (
                 /* Mock UI Lines */
@@ -141,9 +160,10 @@ export default function PlatformHighlights() {
                     style={{
                       maxHeight: platform.styles?.logoHeight || '36px',
                       maxWidth: '160px',
-                      width: 'auto',
+                      width: platform.styles?.logoWidth || 'auto',
                       objectFit: 'contain',
                       objectPosition: 'left center',
+                      transform: `translate(${platform.styles?.logoNudgeX || '0px'}, ${platform.styles?.logoNudgeY || '0px'})`
                     }}
                   />
                   {platform.showTextLabel && (
@@ -176,37 +196,37 @@ export default function PlatformHighlights() {
             <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
 
 
-              <p style={{ 
+              <p style={{
                 ...TYPOGRAPHY.bodyBase,
-                color: COLORS.textMuted, 
-                lineHeight: 1.65, 
-                marginBottom: '22px' 
+                color: COLORS.textMuted,
+                lineHeight: 1.65,
+                marginBottom: '22px'
               }}>{platform.subtitle}</p>
-              
+
               <ul style={{ listStyle: 'none', margin: '0 0 24px 0', padding: 0, display: 'grid', gap: '12px', flexGrow: 1 }}>
                 {platform.highlights.map((highlight) => (
-                  <li key={highlight} 
+                  <li key={highlight}
                     className="platform-highlight-item"
-                    style={{ 
-                      display: 'flex', 
-                      gap: '12px', 
-                      color: 'rgba(255,255,255,0.9)', 
+                    style={{
+                      display: 'flex',
+                      gap: '12px',
+                      color: 'rgba(255,255,255,0.9)',
                       ...TYPOGRAPHY.bodySmall,
                       fontWeight: 500,
                       lineHeight: 1.5,
                       transition: 'all 0.2s ease'
                     }}
                   >
-                    <CheckCircle2 
-                      size={16} 
+                    <CheckCircle2
+                      size={16}
                       className="highlight-icon"
-                      style={{ 
-                        flexShrink: 0, 
-                        marginTop: '2px', 
+                      style={{
+                        flexShrink: 0,
+                        marginTop: '2px',
                         transition: 'color 0.2s ease, opacity 0.2s ease',
                         color: COLORS.gold,
                         opacity: 0.75
-                      }} 
+                      }}
                     />
                     <span style={{ opacity: 1 }}>{highlight}</span>
                   </li>
@@ -241,7 +261,8 @@ export default function PlatformHighlights() {
           </article>
         ))}
       </div>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         article:hover .highlight-icon { opacity: 1 !important; }
         article:hover .platform-cta { opacity: 1 !important; }
       `}} />

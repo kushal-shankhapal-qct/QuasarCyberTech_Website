@@ -23,7 +23,7 @@ const footerColumns = [
     links: [
       { label: 'QStellar', href: 'https://qstellar.co', external: true },
       { label: 'QPulse', href: 'https://qpulse.quasarcybertech.com', external: true },
-      { label: 'QRGT', href: '/platforms/qrgt', external: false },
+      { label: 'QRGT', href: '/platforms#qrgt', external: false },
       { label: 'QLeap', href: 'https://qleap-ed.com', external: true },
     ],
   },
@@ -41,11 +41,11 @@ const footerColumns = [
   {
     title: 'Company',
     links: [
-      { label: 'About QuasarCyberTech', href: '/company/about' },
-      { label: 'Leadership & Vision', href: '/company/leadership' },
+      { label: 'About QuasarCyberTech', href: '/about' },
+      { label: 'Leadership & Vision', href: '/leadership' },
       { label: 'Advisory Board', href: '/company/advisory-board' },
       { label: 'Insights', href: '/insights' },
-      { label: 'Careers', href: '/company/careers' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
   },
@@ -370,7 +370,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div style={{ opacity: 0.8 }}>
-            Engineering Cyber Resilience for a Digital First World
+            Resilience Engineered, Security Delivered
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       {eyebrow && (
         <p style={{ 
           ...TYPOGRAPHY.eyebrow,
-          color: COLORS.teal, 
+          color: COLORS.burgundy, 
           marginBottom: '12px'
         }}>
           {eyebrow}
@@ -39,7 +39,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         marginBottom: '18px',
         maxWidth: '800px'
       }}>
-        {title} <span style={{ color: highlightColor || (isDark ? COLORS.gold : COLORS.teal) }}>{highlight}</span> {suffix}
+        {title} <span style={{ color: highlightColor || (isDark ? COLORS.gold : COLORS.burgundy) }}>{highlight}</span> {suffix}
       </h2>
       {subtitle && (
         <p style={{ 

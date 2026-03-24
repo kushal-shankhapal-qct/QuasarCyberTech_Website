@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDevToggles } from '../../../devToggles';
 import CapabilityCardFlip from './CapabilityCardFlip';
-import CapabilityCardSlideUp from './CapabilityCardSlideUp';
 
 export interface UnifiedCapabilityCardProps {
   title: string;
@@ -13,9 +11,5 @@ export interface UnifiedCapabilityCardProps {
 }
 
 export default function CapabilityCardSwitcher(props: UnifiedCapabilityCardProps) {
-  const { toggles } = useDevToggles();
-  const v = toggles.cardHoverVariant;
-  
-  if (v === 'flip') return <CapabilityCardFlip {...props} />;
-  return <CapabilityCardSlideUp {...props} />;
+  return <CapabilityCardFlip {...props} />;
 }
