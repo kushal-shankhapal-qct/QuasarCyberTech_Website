@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { themeConfig } from './src/config/themeConfig';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 
 import Home from './src/pages/Home';
@@ -77,6 +78,7 @@ const App: React.FC = () => {
             pauseOnHover
           />
         </main>
+        <SpeedInsights />
       </Router>
     </Theme>
   );
