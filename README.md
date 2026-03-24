@@ -85,8 +85,3 @@ The project is optimized for **Vercel**:
 
 ### Toggling CDN
 Change `const USE_CLOUDINARY = true;` in `src/constants/assets.ts` to switch to high-speed CDN delivery.
-
----
-
-## 📝 Suggested Commit Message
-`feat: reorganize assets, integrate Cloudinary CDN, and implement Google Sheets contact form`
