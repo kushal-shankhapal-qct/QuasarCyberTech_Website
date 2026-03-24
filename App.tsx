@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { themeConfig } from './src/config/themeConfig';
 
+
 import Home from './src/pages/Home';
 import WhoWeAre from './src/pages/WhoWeAre';
 import Leadership from './src/pages/Leadership';
@@ -30,7 +31,7 @@ const App: React.FC = () => {
   React.useEffect(() => {
     // Force scroll to top on load
     window.scrollTo(0, 0);
-    
+
     const theme = (themeConfig.themes as any)[themeConfig.activeTheme];
     if (theme) {
       Object.keys(theme).forEach(key => {
@@ -41,7 +42,7 @@ const App: React.FC = () => {
 
   return (
     <Theme appearance="inherit" radius="large" scaling="100%">
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Router>
         <main className="min-h-screen font-sans">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -53,7 +54,7 @@ const App: React.FC = () => {
 
             <Route path="/capabilities" element={<Services />} />
             <Route path="/capabilities/:slug" element={<CapabilityPage />} />
-            
+
             <Route path="/insights" element={<Resources />} />
             <Route path="/insights/blogs" element={<Blogs />} />
             <Route path="/insights/case-studies" element={<CaseStudies />} />

@@ -14,15 +14,15 @@ const CertificationSection: React.FC = () => {
         <section style={{ 
             position: 'relative',
             padding: '100px 0', 
-            background: '#F0F1F6', // Lighter neutral background
+            background: '#F5F7FA', // Lighter neutral background
             overflow: 'hidden'
         }}>
             {/* Pinboard / Dotted Grid Background */}
             <div style={{
                 position: 'absolute',
                 inset: 0,
-                backgroundImage: `radial-gradient(circle, ${COLORS.burgundy}22 1px, transparent 1px)`,
-                backgroundSize: '32px 32px',
+                backgroundImage: `radial-gradient(circle, rgba(107, 21, 48, 0.10) 1px, transparent 1px)`,
+                backgroundSize: '28px 28px',
                 pointerEvents: 'none',
                 zIndex: 0
             }} />

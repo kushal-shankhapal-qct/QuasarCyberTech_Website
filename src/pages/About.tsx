@@ -1,98 +1,159 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SectionHeader from '../components/SectionHeader';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS, SHADOWS } from '../config/themeConfig';
 
 export default function About() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div style={{ background: '#040B1D', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
       <Header />
-      <main className="pt-32 pb-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
-              About QuasarCyberTech
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Leading the cybersecurity industry with innovation, expertise, and unwavering commitment to protecting your digital assets.
-            </p>
-          </motion.div>
+      
+      <main>
+        {/* ─── SECTION 1: HERO (Standardized Architecture) ─── */}
+        <section
+          style={{
+            position: 'relative',
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'end',
+            background: GRADIENTS.HERO_BG,
+            overflow: 'hidden',
+            fontFamily: TYPOGRAPHY.fontBody,
+          }}
+        >
+          {/* Breadcrumbs */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            position: 'absolute',
+            top: `calc(${LAYOUT_CONTROLS.breadcrumbs.top} + ${LAYOUT_CONTROLS.breadcrumbs.offsetY})`,
+            left: `calc(${LAYOUT_CONTROLS.breadcrumbs.left} + ${LAYOUT_CONTROLS.breadcrumbs.offsetX})`,
+            fontSize: '12px',
+            fontFamily: TYPOGRAPHY.fontBody,
+            zIndex: 20,
+          }}>
+            <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
+            <span style={{ color: LAYOUT_CONTROLS.breadcrumbs.arrowColor, opacity: 0.8 }}>›</span>
+            <span style={{ color: 'rgba(255,255,255,0.7)' }}>About Us</span>
+          </div>
 
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-16 p-8 rounded-xl bg-gradient-to-br from-[#F8FAFC] to-white border border-gray-200"
-          >
-            <h2 className="text-3xl font-bold text-[#0F172A] mb-4">Our Mission</h2>
-            <p className="text-gray-700 leading-relaxed text-lg">
-              To empower organizations worldwide with enterprise-grade cybersecurity solutions that enable digital transformation while maintaining the highest standards of protection and compliance.
-            </p>
-          </motion.section>
+          {/* Left Content (60%) */}
+          <div style={{ 
+            flex: '0 0 60%', 
+            paddingLeft: '2.5rem', 
+            paddingRight: '4rem', 
+            paddingBottom: '3rem', 
+            position: 'relative', 
+            zIndex: 10 
+          }}>
+            <motion.h1
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              style={{
+                ...TYPOGRAPHY.heroTitle,
+                fontFamily: TYPOGRAPHY.fontHeading,
+                color: COLORS.textOnDark,
+                marginBottom: '28px',
+                lineHeight: 1.05
+              }}
+            >
+              Engineering <span style={{ color: COLORS.gold }}>Trust</span> in a<br />
+              Connected World
+            </motion.h1>
 
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="mb-16 p-8 rounded-xl bg-gradient-to-br from-[#0B1F3B]/5 to-[#007AFF]/5 border border-gray-200"
-          >
-            <h2 className="text-3xl font-bold text-[#0F172A] mb-4">Our Values</h2>
-            <ul className="space-y-4 text-gray-700">
-              <li className="flex gap-3">
-                <span className="text-[#0B1F3B] font-bold">•</span>
-                <span><strong>Excellence:</strong> We deliver superior cybersecurity solutions through continuous innovation and expertise.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-[#0B1F3B] font-bold">•</span>
-                <span><strong>Integrity:</strong> We maintain the highest ethical standards in all our operations and client relationships.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-[#0B1F3B] font-bold">•</span>
-                <span><strong>Partnership:</strong> We work collaboratively with our clients to achieve their security objectives.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-[#0B1F3B] font-bold">•</span>
-                <span><strong>Innovation:</strong> We stay ahead of emerging threats through cutting-edge research and development.</span>
-              </li>
-            </ul>
-          </motion.section>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              style={{
+                ...TYPOGRAPHY.bodyLarge,
+                color: 'rgba(255,255,255,0.76)',
+                textAlign: 'left',
+                maxWidth: '100%',
+                marginBottom: '42px',
+                lineHeight: 1.8
+              }}
+            >
+              QuasarCyberTech is a premier cybersecurity engineering firm dedicated to protecting the world's most critical digital infrastructures. We combine deep offensive security expertise with defensive architectural rigour.
+            </motion.p>
+          </div>
 
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="p-8 rounded-xl bg-gradient-to-br from-[#F8FAFC] to-white border border-gray-200"
-          >
-            <h2 className="text-3xl font-bold text-[#0F172A] mb-6">Why We're Different</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">Expert Team</h3>
-                <p className="text-gray-700">Certified security professionals with decades of combined experience across industries.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">24/7 Support</h3>
-                <p className="text-gray-700">Round-the-clock monitoring and incident response to protect your organization.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">Proven Track Record</h3>
-                <p className="text-gray-700">Trusted by Fortune 500 companies and organizations worldwide.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#0B1F3B] mb-2">Custom Solutions</h3>
-                <p className="text-gray-700">Tailored security strategies designed for your specific business needs.</p>
-              </div>
+          {/* Right Visual (40%) with Standard Masking */}
+          <div style={{ 
+            flex: '0 0 40%', 
+            height: '100vh', 
+            position: 'relative',
+            maskImage: `
+              linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 45%, black 70%),
+              linear-gradient(to bottom, transparent 0%, black 15%)
+            `,
+            WebkitMaskImage: `
+              linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 45%, black 70%),
+              linear-gradient(to bottom, transparent 0%, black 15%)
+            `,
+            WebkitMaskComposite: 'destination-in',
+            maskComposite: 'intersect'
+          }}>
+            <img 
+              src="https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg" // Modern tech office/cityscape
+              alt="QuasarCyberTech Mission" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85, filter: 'brightness(0.9)' }} 
+            />
+          </div>
+        </section>
+
+        {/* ─── SECTION 2: CONTENT (Light Rhythm) ─── */}
+        <section style={{ background: '#FFFFFF', padding: '120px 2.5rem' }}>
+          <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <SectionHeader eyebrow="OUR MISSION" title="Empowering" highlight="Security" />
+                <p style={{ fontSize: '1.1rem', lineHeight: 1.8, color: '#475569', marginTop: '30px' }}>
+                  At QuasarCyberTech, our mission is to empower organizations with the technical resilience needed to thrive in an era of unprecedented cyber threats. We don't just secure systems; we engineer trust.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                style={{ background: '#F8FAFC', padding: '40px', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.05)' }}
+              >
+                <h3 className="text-2xl font-bold mb-6" style={{ color: COLORS.deepCyberBlue, fontFamily: TYPOGRAPHY.fontHeading }}>Our Values</h3>
+                <ul className="space-y-6">
+                  {[
+                    { title: 'Excellence', desc: 'Superior engineering in every engagement.' },
+                    { title: 'Integrity', desc: 'Unwavering ethics and transparency.' },
+                    { title: 'Innovation', desc: 'Proactive defense against emerging threats.' }
+                  ].map((v, i) => (
+                    <li key={i} style={{ display: 'flex', gap: '16px' }}>
+                      <div style={{ width: '8px', height: '8px', background: COLORS.gold, borderRadius: '50%', marginTop: '10px' }} />
+                      <div>
+                        <div style={{ fontWeight: 800, color: '#0F172A' }}>{v.title}</div>
+                        <div style={{ color: '#64748B', fontSize: '0.95rem' }}>{v.desc}</div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
-          </motion.section>
-        </div>
+          </div>
+        </section>
       </main>
+
       <Footer />
     </div>
   );

@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Server, Shield, Grid, Network, Layers, Image as ImageIcon } from 'lucide-react';
 
-// Import images mapping (adjust paths if more images are added)
-import imgTechConsulting from '../assets/Services_Images/Tech_Consulting.png';
-import imgManagedIT from '../assets/Services_Images/Managed_IT_Services.jpg';
+import { ASSETS } from '@/constants/assets';
 
 // ---------------------------------------------------------
 // SERVICES PANEL CONFIGURATION
@@ -23,7 +21,7 @@ const servicesData = [
     icon: Grid,
     description: 'Strategic IT advisory and transformation roadmaps aligned to your business objectives. We assess your technology landscape, identify performance gaps, and deliver actionable strategies that improve efficiency, reduce operational costs, and drive sustainable innovation.',
     features: ['IT Strategy & Architecture', 'Cost Optimization', 'Digital Transformation'],
-    image: imgTechConsulting,
+    image: ASSETS.services.techConsulting,
   },
   {
     id: 'managed',
@@ -31,7 +29,7 @@ const servicesData = [
     icon: Server,
     description: 'End-to-end infrastructure management ensuring performance, availability, and scalability. We proactively monitor, maintain, and optimize your IT environment so your teams can focus on growth while we handle operational continuity.',
     features: ['24/7 Monitoring', 'Lifecycle Management', 'Performance Optimization'],
-    image: imgManagedIT,
+    image: ASSETS.services.managedIT,
   },
   {
     id: 'security',

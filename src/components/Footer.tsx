@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
-import logoIcon from '../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
-import logoTextImg from '../assets/logos copy/QuasarCyberTech/Qtextonly_Light.png';
-import watermarkLogo from '../assets/Logos/No_Text_Quasar_CyberTech_Logo.png';
+import { ASSETS } from '@/constants/assets';
+
+const logoIcon = ASSETS.logos.qct.icon;
+const logoTextImg = ASSETS.logos.qct.textLight;
+const watermarkLogo = ASSETS.logos.qct.icon; // Using icon for watermark too
 
 const footerColumns = [
   {
@@ -44,7 +46,7 @@ const footerColumns = [
       { label: 'About QuasarCyberTech', href: '/about' },
       { label: 'Leadership & Vision', href: '/leadership' },
       { label: 'Advisory Board', href: '/company/advisory-board' },
-      { label: 'Insights', href: '/insights' },
+      { label: 'Blogs', href: '/insights' },
       { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],

@@ -2,7 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import logoSymbol from '../assets/Logos/icononly_transparent_nobuffer.png';
+import { ASSETS } from '@/constants/assets';
+
+const logoSymbol = ASSETS.logos.qct.icon;
 
 export default function FinalCTA() {
     return (

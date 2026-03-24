@@ -16,6 +16,7 @@ import Partners from '../components/Partners';
 import Footer from '../components/Footer';
 
 import { themeConfig, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 export default function Home() {
   return (
@@ -42,6 +43,7 @@ export default function Home() {
           <LeadershipVision />
           <Testimonials />
           <HomeFinalCTA />
+          <SpeedInsights />
         </div>
       </main>
       <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>

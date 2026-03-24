@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logoSymbol from '../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
+import { ASSETS } from '@/constants/assets';
 import { ALPHAS, COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
+
+const logoSymbol = ASSETS.logos.qct.icon;
 
 const Hero: React.FC = () => {
   return (

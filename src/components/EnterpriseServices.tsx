@@ -4,50 +4,44 @@ import { ArrowRight } from 'lucide-react';
 import { COLORS, SECTION_BACKGROUNDS, SHADOWS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import CapabilityCardSimple from './capabilities/cards/CapabilityCardSimple';
 
-// Photo Imports
-import imgAdvisory       from "../assets/capabilities/Cyber Advisory & Risk Governance.jpg";
-import imgCompliance     from "../assets/capabilities/Compliance & Regulatory Assurance.jpg";
-import imgOffensive      from "../assets/capabilities/Offensive Security Engineering.jpg";
-import imgCloud          from "../assets/capabilities/Cloud & Infrastructure Security.jpg";
-import imgManagedDefense from "../assets/capabilities/Managed Defense Operations_2.jpeg";
-import imgIntelligence   from "../assets/capabilities/Cyber Intelligence & Security Research.webp";
+import { ASSETS } from '@/constants/assets';
 
 const services = [
   {
     title: 'Cyber Advisory & Risk Governance',
     desc: 'Security strategy, governance frameworks, architecture design, and vCISO advisory services.',
     href: '/capabilities/cyber-advisory-risk-governance',
-    img: imgAdvisory,
+    img: ASSETS.capabilities.advisory,
   },
   {
     title: 'Compliance & Regulatory Assurance',
     desc: 'Regulatory readiness and compliance programs including RBI, ISO 27001, SOC2, and global standards.',
     href: '/capabilities/compliance-regulatory-assurance',
-    img: imgCompliance,
+    img: ASSETS.capabilities.compliance,
   },
   {
     title: 'Offensive Security Engineering',
     desc: 'Advanced penetration testing, red teaming, application security testing, and AI security validation.',
     href: '/capabilities/offensive-security-engineering',
-    img: imgOffensive,
+    img: ASSETS.capabilities.offensive,
   },
   {
     title: 'Cloud & Infrastructure Security',
     desc: 'Cloud security architecture, configuration assessments, container security, and CSPM.',
     href: '/capabilities/cloud-infrastructure-security',
-    img: imgCloud,
+    img: ASSETS.capabilities.cloud,
   },
   {
     title: 'Managed Defense Operations',
     desc: 'Continuous monitoring, SOC operations, incident response, and threat detection services.',
     href: '/capabilities/managed-defense-operations',
-    img: imgManagedDefense,
+    img: ASSETS.capabilities.defense,
   },
   {
     title: 'Cyber Intelligence & Security Research',
     desc: 'Threat intelligence, dark web monitoring, vulnerability research, and security advisories.',
     href: '/capabilities/cyber-intelligence-security-research',
-    img: imgIntelligence,
+    img: ASSETS.capabilities.intelligence,
   },
 ];
 

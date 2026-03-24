@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { svcImagesLabels } from './svcData';
 import { COLORS, TYPOGRAPHY } from '../../../config/themeConfig';
-import logoIcon from '../../../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
+import { ASSETS } from '@/constants/assets';
 
 // Controls for easy tuning
 const ORBITAL_CONFIG = {
@@ -75,7 +75,7 @@ export default function CapabilitiesHeroOrbital() {
         alignItems: 'center', justifyContent: 'center',
         boxShadow: '0 0 30px rgba(107,21,48,0.2)'
       }}>
-        <img src={logoIcon} alt="QCT" style={{ width: logoSize, opacity: 0.95, marginBottom: 4 }} />
+        <img src={ASSETS.logos.qct.icon} alt="QCT" style={{ width: logoSize, opacity: 0.95, marginBottom: 4 }} />
         <span style={{ fontSize: '0.42rem', letterSpacing: '0.18em', color: 'rgba(214,176,92,0.7)', fontFamily: TYPOGRAPHY.fontBody, fontWeight: 700 }}>CORE</span>
       </div>
       

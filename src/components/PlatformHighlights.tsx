@@ -1,10 +1,6 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2, Target } from 'lucide-react';
-import qStellarLogoImg from '../assets/Logos/Cropped_QStelllar_fulllogo_transparent.png';
-import qPulseLogoImg from '../assets/Logos/QPulse_Logo_No_Buffer.png';
-import qrgtLogoImg from '../assets/logos copy/Platforms/QRGT.png';
-import qStellarScreenshot from '../assets/Logos/Screenshots/QStellar/Screenshot 2026-03-03 124540.png';
-import qPulseScreenshot from '../assets/logos copy/Platforms/QPulse_New.png';
+import { ASSETS } from '@/constants/assets';
 import { ALPHAS, COLORS, GRADIENTS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 import SectionHeader from './SectionHeader';
@@ -14,8 +10,8 @@ const platforms = [
     name: 'QStellar',
     badge: 'ASSET INTELLIGENCE',
     subtitle: 'AI-powered asset intelligence and vulnerability management platform',
-    logo: qStellarLogoImg,
-    screenshot: qStellarScreenshot,
+    logo: ASSETS.logos.platforms.qstellar,
+    screenshot: ASSETS.platforms.screenshots.qstellar,
     highlights: ['Asset discovery and visibility', 'Vulnerability intelligence and prioritization', 'Risk-based security decision support', 'AI-assisted security operations visibility'],
     ctaText: 'Visit QStellar Website',
     link: 'https://qstellar.co',
@@ -32,8 +28,8 @@ const platforms = [
     name: 'QPulse',
     badge: 'THREAT INTELLIGENCE',
     subtitle: 'Enterprise-grade threat intelligence and security research portal',
-    logo: qPulseLogoImg,
-    screenshot: qPulseScreenshot,
+    logo: ASSETS.logos.platforms.qpulse,
+    screenshot: ASSETS.platforms.screenshots.qpulse,
     showTextLabel: true,
     highlights: ['Real-time threat analytics', 'Global threat feed ingestion', 'Vulnerability research and analysis', 'Strategic security intelligence'],
     ctaText: 'Explore QPulse Portal',
@@ -51,7 +47,7 @@ const platforms = [
     name: 'QRGT',
     badge: 'PTAAS PLATFORM',
     subtitle: 'Continuous, governed Penetration Testing as a Service (PTaaS) platform',
-    logo: qrgtLogoImg,
+    logo: ASSETS.logos.platforms.qrgt,
     highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
     ctaText: 'Explore QRGT Platform',
     link: '/platforms/qrgt',

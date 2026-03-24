@@ -1,13 +1,8 @@
 import { Landmark, CreditCard, Laptop, ShoppingCart, Activity, Factory, ShieldAlert, Bug, Eye, Cloud, Zap, AlertTriangle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { ASSETS } from '@/constants/assets';
 
-// Industry Photos
-import imgBanking from '../assets/industries/Banking_and_Financial Services.jpg';
-import imgEcommerce from '../assets/industries/E-commerce & Digital Platforms.jpg';
-import imgEnterprise from '../assets/industries/Enterprise_and_Manufacturing.jpg';
-import imgFintech from '../assets/industries/FinTech & Digital Payments.jpg';
-import imgHealthcare from '../assets/industries/Healthcare & HealthTech.png';
-import imgSaaS from '../assets/industries/SaaS_and_Technology Platforms.jpg';
+// Industry Photos removed - now using ASSETS constant
 
 export interface IndustryData {
   slug: string;
@@ -47,7 +42,7 @@ export const industriesData: IndustryData[] = [
     subtitle: 'Cybersecurity, compliance, and risk governance for banks, NBFCs, and financial institutions.',
     description: 'Securing core banking infrastructure, digital channels, and regulatory adherence for modern financial frameworks.',
     icon: Landmark,
-    image: imgBanking,
+    image: ASSETS.industries.banking,
     tags: ['RBI Compliance', 'Core Banking', 'Data Privacy', 'Zero Trust'],
     overview: {
       heading: 'Securing the Foundation of',
@@ -81,7 +76,7 @@ export const industriesData: IndustryData[] = [
     subtitle: 'Application security, cloud protection, and compliance for digital financial platforms.',
     description: 'Specialized security for high-velocity payment gateways, wallet ecosystems, and embedded finance.',
     icon: CreditCard,
-    image: imgFintech,
+    image: ASSETS.industries.fintech,
     tags: ['Payment Security', 'API Security', 'SOC2 / PCI-DSS', 'Fraud Prevention'],
     overview: {
       heading: 'Innovation at the Speed of',
@@ -115,7 +110,7 @@ export const industriesData: IndustryData[] = [
     subtitle: 'Secure development, application testing, and cloud security for modern SaaS companies.',
     description: 'End-to-end security for B2B and B2C software providers, from the code to the cloud container.',
     icon: Laptop,
-    image: imgSaaS,
+    image: ASSETS.industries.saas,
     tags: ['DevSecOps', 'Multi-tenant Security', 'Cloud-Native', 'Application Security'],
     overview: {
       heading: 'Building Trust in the',
@@ -149,7 +144,7 @@ export const industriesData: IndustryData[] = [
     subtitle: 'Protection of customer-facing applications, APIs, and payment infrastructure.',
     description: 'Resilient security for large-scale retail marketplaces and digital experience platforms.',
     icon: ShoppingCart,
-    image: imgEcommerce,
+    image: ASSETS.industries.ecommerce,
     tags: ['Customer Data Protection', 'Payment Security', 'Anti-Bot', 'API Hardening'],
     overview: {
       heading: 'Protecting the',
@@ -183,7 +178,7 @@ export const industriesData: IndustryData[] = [
     subtitle: 'Security and compliance support for healthcare systems and patient data platforms.',
     description: 'Deep security for hospitals, medical networks, and healthcare technology providers.',
     icon: Activity,
-    image: imgHealthcare,
+    image: ASSETS.industries.healthcare,
     tags: ['HIPAA / Data Privacy', 'Medical Device Security', 'Network Segmentation', 'Operational Resilience'],
     overview: {
       heading: 'Safeguarding Life-Critical',
@@ -217,7 +212,7 @@ export const industriesData: IndustryData[] = [
     subtitle: 'Cyber risk governance, infrastructure security, and operational resilience.',
     description: 'Strategy, engineering, and defense for global manufacturing and large-scale industrial enterprises.',
     icon: Factory,
-    image: imgEnterprise,
+    image: ASSETS.industries.enterprise,
     tags: ['IT/OT Convergence', 'Supply Chain Security', 'Global Risk Governance', 'Resilient Operations'],
     overview: {
       heading: 'Securing the',

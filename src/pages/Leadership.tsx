@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SectionHeader from '../components/SectionHeader';
+import CTASection from '../components/CTASection';
 import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { ASSETS } from '@/constants/assets';
 
 const values = [
     { icon: Target, title: 'Integrity', desc: 'Integrity in every engagement.' },
@@ -21,7 +23,7 @@ export default function Leadership() {
             <Header />
 
             <main>
-                {/* 1. HERO SECTION (Dark System) */}
+                {/* 1. HERO SECTION (Homepage System Match) */}
                 <section
                     style={{
                         position: 'relative',
@@ -33,12 +35,39 @@ export default function Leadership() {
                         background: GRADIENTS.HERO_BG,
                         overflow: 'hidden',
                         paddingLeft: '2.5em',
-                        paddingRight: '2.0em',
+                        paddingRight: '2em',
                         paddingBottom: '3em',
                         paddingTop: '0em',
                         fontFamily: TYPOGRAPHY.fontBody,
                     }}
                 >
+                    {/* Visual Asset (Absolute Right - Consistent with Home) */}
+                    <div style={{
+                        position: 'absolute',
+                        right: '-12%', // Moved more right to prevent overlap and blurring issues
+                        top: '0',
+                        width: '60%', // Slightly wider to ensure coverage
+                        height: '100vh',
+                        zIndex: 1,
+                        overflow: 'hidden',
+                        maskImage: `
+                            linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.7) 50%, black 80%),
+                            linear-gradient(to bottom, transparent 0%, black 15%)
+                        `,
+                        WebkitMaskImage: `
+                            linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.7) 50%, black 80%),
+                            linear-gradient(to bottom, transparent 0%, black 15%)
+                        `,
+                        WebkitMaskComposite: 'destination-in',
+                        maskComposite: 'intersect'
+                    }}>
+                        <img 
+                            src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg" 
+                            alt="Leadership" 
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85, filter: 'brightness(0.9)' }} 
+                        />
+                    </div>
+
                     {/* Breadcrumbs */}
                     <div style={{
                         display: 'flex',
@@ -49,14 +78,12 @@ export default function Leadership() {
                         left: `calc(${LAYOUT_CONTROLS.breadcrumbs.left} + ${LAYOUT_CONTROLS.breadcrumbs.offsetX})`,
                         fontSize: '12px',
                         fontFamily: TYPOGRAPHY.fontBody,
-                        zIndex: 10,
+                        zIndex: 20,
                     }}>
                         <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
                         <span style={{ color: LAYOUT_CONTROLS.breadcrumbs.arrowColor, opacity: 0.8 }}>›</span>
                         <span style={{ color: 'rgba(255,255,255,0.7)' }}>Leadership & Vision</span>
-                    </div>
-
-                    <div style={{ maxWidth: '720px', position: 'relative', zIndex: 10 }}>
+                    </div>                    <div style={{ maxWidth: '840px', position: 'relative', zIndex: 10 }}>
                         <motion.h1
                             initial={{ opacity: 0, y: 28 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -69,8 +96,8 @@ export default function Leadership() {
                                 lineHeight: 1.05
                             }}
                         >
-                            Led by <span style={{ color: COLORS.gold }}>Vision</span>,<br />
-                            Driven by Resilience
+                            Visionary <span style={{ color: COLORS.gold }}>Leadership</span><br />
+                            for the Future
                         </motion.h1>
 
                         <motion.p
@@ -81,7 +108,7 @@ export default function Leadership() {
                                 ...TYPOGRAPHY.bodyLarge,
                                 color: 'rgba(255,255,255,0.76)',
                                 textAlign: 'left',
-                                maxWidth: '50%', // Restricted to 50%
+                                maxWidth: '100%',
                                 marginBottom: '42px',
                                 lineHeight: 1.8
                             }}
@@ -90,6 +117,7 @@ export default function Leadership() {
                         </motion.p>
                     </div>
                 </section>
+
 
                 {/* 2. VISION & MISSION (Light) */}
                 <section style={{ 
@@ -169,7 +197,7 @@ export default function Leadership() {
                                     flexDirection: 'column',
                                     boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                                 }}>
-                                    <img src="/src/assets/Kishor_Sir.png" alt="Founder" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                    <img src={ASSETS.founder.kishor} alt="Founder" style={{ width: '100%', height: 'auto', display: 'block' }} />
                                     <div style={{
                                         position: 'absolute', bottom: 0, left: 0, right: 0,
                                         height: '100px',
@@ -213,80 +241,15 @@ export default function Leadership() {
                     </div>
                 </section>
 
-                {/* 5. FINAL CTA (Standardized) */}
-                <section className="relative overflow-hidden text-left"
-                    style={{
-                        background: '#F8FAFC',
-                        paddingTop: LAYOUT_CONTROLS.section.paddingTop,
-                        paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
-                        borderTop: '1px solid rgba(0,0,0,0.05)',
-                        fontFamily: TYPOGRAPHY.fontBody
-                    }}>
-                    
-                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #6B1530 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-
-                    <div className="w-full relative z-10"
-                        style={{
-                            paddingLeft: '2.5em',
-                            paddingRight: '2.5em',
-                        }}>
-                        
-                        <h2
-                            className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl"
-                            style={{
-                                fontFamily: TYPOGRAPHY.fontHeading,
-                                fontSize: ' clamp(36px, 6vw, 56px)',
-                                color: COLORS.deepCyberBlue,
-                            }}
-                        >
-                            <span style={{ color: COLORS.burgundy }}>Build</span> the Secure Future <br />
-                            with QuasarCyberTech
-                        </h2>
-
-                        <p
-                            className="mb-14 max-w-2xl font-medium leading-relaxed"
-                            style={{
-                                fontFamily: TYPOGRAPHY.fontBody,
-                                fontSize: '18px',
-                                color: 'rgba(8, 16, 38, 0.7)',
-                            }}
-                        >
-                            Partner with our leadership to assess your current posture and strengthen your core defense strategy.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row items-center justify-start gap-6">
-                            <Link to="/contact" style={{ textDecoration: 'none' }}>
-                                <button style={{
-                                    background: COLORS.burgundy,
-                                    color: '#FFFFFF',
-                                    padding: '16px 40px',
-                                    fontWeight: 700,
-                                    fontSize: '13px',
-                                    letterSpacing: '0.12em',
-                                    textTransform: 'uppercase',
-                                    borderRadius: '4px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
-                                    transition: 'all 0.3s ease',
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = '#8B1F40';
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(107, 21, 48, 0.3)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = COLORS.burgundy;
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(107, 21, 48, 0.2)';
-                                }}
-                                >
-                                    Connect with Leadership
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
-                </section>
+                {/* 5. FINAL CTA (Standardized Dark) */}
+                <CTASection 
+                    theme="dark"
+                    title="Connect with Leadership"
+                    subtitle="Engage with our executive team to discuss strategic security partnerships and organizational resilience."
+                    primaryAction={{ label: 'Request an Executive Briefing', link: '/contact' }}
+                    secondaryAction={{ label: 'Explore Our Methodology', link: '/capabilities' }}
+                    showMetrics={false}
+                />
 
             </main>
             <Footer />

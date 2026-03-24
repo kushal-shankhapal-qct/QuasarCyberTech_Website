@@ -23,25 +23,20 @@ export default function WhoWeAre() {
             <Header />
 
             <main>
-                {/* 1. HERO SECTION (Dark System) */}
+                {/* 1. HERO SECTION (Homepage System Match) */}
                 <section
                     style={{
                         position: 'relative',
                         minHeight: '100vh',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'flex-end',
-                        alignItems: 'flex-start',
+                        display: 'grid',
+                        gridTemplateColumns: '52% 48%',
+                        alignItems: 'end',
                         background: GRADIENTS.HERO_BG,
                         overflow: 'hidden',
-                        paddingLeft: '2.5em',
-                        paddingRight: '2.0em',
-                        paddingBottom: '3em',
-                        paddingTop: '0em',
                         fontFamily: TYPOGRAPHY.fontBody,
                     }}
                 >
-                    {/* Breadcrumbs */}
+                    {/* Breadcrumbs - Positioned relative to section */}
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -51,14 +46,20 @@ export default function WhoWeAre() {
                         left: `calc(${LAYOUT_CONTROLS.breadcrumbs.left} + ${LAYOUT_CONTROLS.breadcrumbs.offsetX})`,
                         fontSize: '12px',
                         fontFamily: TYPOGRAPHY.fontBody,
-                        zIndex: 10,
+                        zIndex: 20,
                     }}>
                         <Link to="/" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Home</Link>
                         <span style={{ color: LAYOUT_CONTROLS.breadcrumbs.arrowColor, opacity: 0.8 }}>›</span>
-                        <span style={{ color: 'rgba(255,255,255,0.7)' }}>About</span>
+                        <span style={{ color: 'rgba(255,255,255,0.7)' }}>About Us</span>
                     </div>
 
-                    <div style={{ maxWidth: '720px', position: 'relative', zIndex: 10 }}>
+                    {/* Left Column (Text Content) */}
+                    <div style={{
+                        position: 'relative',
+                        zIndex: 10,
+                        paddingLeft: '2.5em',
+                        paddingBottom: '3em',
+                    }}>
                         <motion.h1
                             initial={{ opacity: 0, y: 28 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -81,14 +82,14 @@ export default function WhoWeAre() {
                             transition={{ duration: 0.8, delay: 0.15 }}
                             style={{
                                 ...TYPOGRAPHY.bodyLarge,
-                                color: 'rgba(255,255,255,0.7)',
+                                color: 'rgba(255,255,255,0.76)',
                                 textAlign: 'left',
-                                maxWidth: '50%', // Restricted to 50%
+                                maxWidth: '100%',
                                 marginBottom: '42px',
                                 lineHeight: 1.8
                             }}
                         >
-                            QuasarCyberTech is a cybersecurity engineering firm delivering high-resilience security ecosystems across applications, cloud environments, and enterprise infrastructure. We build security into the architecture — not on top of it.
+                            QuasarCyberTech is a cybersecurity engineering firm delivering high-resilience security ecosystems across applications, cloud environments, and enterprise infrastructure. We build security into the architecture not on top of it.
                         </motion.p>
 
                         <motion.div
@@ -101,7 +102,7 @@ export default function WhoWeAre() {
                                 to="/capabilities"
                                 style={{
                                     ...TYPOGRAPHY.buttonLarge,
-                                    background: '#6B1530',
+                                    background: COLORS.burgundy,
                                     color: '#FFFFFF',
                                     border: '1px solid transparent',
                                     borderRadius: '4px',
@@ -109,25 +110,52 @@ export default function WhoWeAre() {
                                     textDecoration: 'none',
                                     transition: 'all 0.3s ease',
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.background = '#8B1E3F'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.background = '#6B1530'; e.currentTarget.style.transform = 'translateY(0)'; }}
                             >
                                 Explore Capabilities
                             </Link>
                         </motion.div>
                     </div>
+
+                    {/* Right Column (Visual) */}
+                    <div style={{
+                        position: 'relative',
+                        height: '100vh',
+                        maskImage: `
+                            linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 45%, black 70%),
+                            linear-gradient(to bottom, transparent 0%, black 15%)
+                        `,
+                        WebkitMaskImage: `
+                            linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 45%, black 70%),
+                            linear-gradient(to bottom, transparent 0%, black 15%)
+                        `,
+                        WebkitMaskComposite: 'destination-in',
+                        maskComposite: 'intersect'
+                    }}>
+                        <img
+                            src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg"
+                            alt="About High-resilience Security"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                opacity: 0.8,
+                                filter: 'brightness(0.9)'
+                            }}
+                        />
+                    </div>
                 </section>
 
+
                 {/* 2. COMPANY OVERVIEW (Standardized) */}
-                <section style={{ 
-                    background: '#FFFFFF', 
+                <section style={{
+                    background: '#FFFFFF',
                     padding: `120px ${LAYOUT_CONTROLS.section.paddingX}`,
                     borderBottom: '1px solid rgba(0,0,0,0.05)'
                 }}>
                     <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '80px', alignItems: 'flex-start' }}>
                             <div style={{ gridColumn: 'span 7' }}>
-                                <SectionHeader 
+                                <SectionHeader
                                     title="Who We"
                                     highlight="Are"
                                 />
@@ -141,11 +169,11 @@ export default function WhoWeAre() {
                                 </div>
                             </div>
 
-                            <div style={{ 
+                            <div style={{
                                 gridColumn: 'span 5',
-                                background: '#F8FAFC', 
-                                border: '1px solid rgba(0,0,0,0.05)', 
-                                borderRadius: '4px', 
+                                background: '#F8FAFC',
+                                border: '1px solid rgba(0,0,0,0.05)',
+                                borderRadius: '4px',
                                 padding: '48px',
                                 boxShadow: '0 8px 32px rgba(0,0,0,0.02)'
                             }}>
@@ -178,14 +206,14 @@ export default function WhoWeAre() {
                 </section>
 
                 {/* 3. GLOBAL PRESENCE (Dark Section with Map) */}
-                <section style={{ 
-                    background: GRADIENTS.HERO_BG, 
+                <section style={{
+                    background: GRADIENTS.HERO_BG,
                     padding: `120px ${LAYOUT_CONTROLS.section.paddingX}`,
                     position: 'relative',
                     overflow: 'hidden'
                 }}>
                     <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-                        <SectionHeader 
+                        <SectionHeader
                             title="Global"
                             highlight="Presence"
                             isDark={true}
@@ -195,11 +223,11 @@ export default function WhoWeAre() {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mt-12 items-center">
                             {/* HQ & Locations */}
                             <div className="lg:col-span-4">
-                                <div style={{ 
-                                    borderLeft: `3px solid ${COLORS.burgundy}`, 
-                                    padding: '24px 32px', 
+                                <div style={{
+                                    borderLeft: `3px solid ${COLORS.burgundy}`,
+                                    padding: '24px 32px',
                                     background: 'rgba(255,255,255,0.02)',
-                                    marginBottom: '32px' 
+                                    marginBottom: '32px'
                                 }}>
                                     <h3 style={{ color: '#FFFFFF', fontSize: '1.25rem', fontWeight: 800, marginBottom: '8px' }}>Nashik — Headquarters</h3>
                                     <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', lineHeight: 1.6 }}>
@@ -225,13 +253,37 @@ export default function WhoWeAre() {
                             </div>
 
                             {/* World Map */}
-                            <div className="lg:col-span-8" style={{ minHeight: '400px' }}>
-                                <WorldMap 
+                            <div className="lg:col-span-8" style={{ minHeight: '400px', position: 'relative' }}>
+                                <WorldMap
                                     dots={officeConnections}
                                     lineColor={COLORS.gold}
                                     secondaryLineColor={COLORS.burgundy}
-                                    dotColor="rgba(255,255,255,0.1)"
+                                    dotColor="rgba(255,255,255,0.18)" // Brightened base dots
                                 />
+                                
+                                {/* Map Legend */}
+                                <div style={{ 
+                                    position: 'absolute', 
+                                    bottom: '0', 
+                                    right: '20px', 
+                                    display: 'flex', 
+                                    gap: '24px', 
+                                    background: 'rgba(0,0,0,0.3)', 
+                                    padding: '12px 20px', 
+                                    borderRadius: '4px',
+                                    border: '1px solid rgba(255,255,255,0.05)',
+                                    backdropFilter: 'blur(8px)',
+                                    zIndex: 20
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ width: '10px', height: '10px', background: COLORS.gold, borderRadius: '50%', boxShadow: `0 0 10px ${COLORS.gold}` }} />
+                                        <span style={{ color: '#FFFFFF', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Office Locations</span>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ width: '100%', maxWidth: '10px', height: '10px', background: COLORS.burgundy, borderRadius: '50%', boxShadow: `0 0 10px ${COLORS.burgundy}` }} />
+                                        <span style={{ color: '#FFFFFF', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Enterprise Clients</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -246,7 +298,7 @@ export default function WhoWeAre() {
                         borderTop: '1px solid rgba(0,0,0,0.05)',
                         fontFamily: TYPOGRAPHY.fontBody
                     }}>
-                    
+
                     <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #6B1530 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
                     <div className="w-full relative z-10"
@@ -254,7 +306,7 @@ export default function WhoWeAre() {
                             paddingLeft: '2.5em',
                             paddingRight: '2.5em',
                         }}>
-                        
+
                         <h2
                             className="font-[900] mb-8 tracking-tighter leading-[1.05] max-w-4xl"
                             style={{
@@ -294,16 +346,16 @@ export default function WhoWeAre() {
                                     boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
                                     transition: 'all 0.3s ease',
                                 }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = '#8B1F40';
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(107, 21, 48, 0.3)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = COLORS.burgundy;
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(107, 21, 48, 0.2)';
-                                }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = '#8B1F40';
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 12px 24px rgba(107, 21, 48, 0.3)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = COLORS.burgundy;
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 8px 16px rgba(107, 21, 48, 0.2)';
+                                    }}
                                 >
                                     Talk to a Security Expert
                                 </button>

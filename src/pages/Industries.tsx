@@ -21,19 +21,15 @@ const IndustriesOverview: React.FC = () => {
         style={{
           background: GRADIENTS.HERO_BG,
           minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          alignItems: 'flex-start',
-          paddingLeft: '2.5em',
-          paddingRight: '2em',
-          paddingBottom: '3em',
-          paddingTop: '0em',
+          display: 'grid',
+          gridTemplateColumns: '52% 48%',
+          alignItems: 'end',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          fontFamily: TYPOGRAPHY.fontBody
         }}
       >
-        {/* Breadcrumbs */}
+        {/* Breadcrumbs - Relative to section */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -50,7 +46,13 @@ const IndustriesOverview: React.FC = () => {
           <span style={{ color: 'rgba(255,255,255,0.7)' }}>Industries We Secure</span>
         </div>
 
-        <div style={{ maxWidth: '720px', position: 'relative', zIndex: 10 }}>
+        {/* Left Column (Text Content) */}
+        <div style={{ 
+          position: 'relative', 
+          zIndex: 10,
+          paddingLeft: '2.5em',
+          paddingBottom: '3em'
+        }}>
           <motion.h1 
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,7 +74,7 @@ const IndustriesOverview: React.FC = () => {
               ...TYPOGRAPHY.bodyLarge,
               color: 'rgba(255,255,255,0.76)', 
               textAlign: 'left',
-              maxWidth: '50%', 
+              maxWidth: '100%', 
               marginBottom: '42px',
               lineHeight: 1.8
             }}
@@ -99,6 +101,34 @@ const IndustriesOverview: React.FC = () => {
               Talk to a Security Expert
             </Link>
           </motion.div>
+        </div>
+
+        {/* Right Column (Visual) */}
+        <div style={{
+            position: 'relative',
+            height: '100vh',
+            maskImage: `
+                linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 45%, black 70%),
+                linear-gradient(to bottom, transparent 0%, black 15%)
+            `,
+            WebkitMaskImage: `
+                linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 45%, black 70%),
+                linear-gradient(to bottom, transparent 0%, black 15%)
+            `,
+            WebkitMaskComposite: 'destination-in',
+            maskComposite: 'intersect'
+        }}>
+            <img
+                src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg"
+                alt="Industries We Secure"
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: 0.8,
+                    filter: 'brightness(0.9)'
+                }}
+            />
         </div>
       </section>
 
@@ -190,7 +220,7 @@ const IndustriesOverview: React.FC = () => {
         </div>
       </section>
  
-      <CTASection showMetrics={false} showEyebrow={false} />
+      <CTASection theme="dark" showMetrics={false} showEyebrow={false} />
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { ASSETS } from '@/constants/assets';
 import SectionHeader from './SectionHeader';
 
 export default function LeadershipVision() {
@@ -47,7 +48,7 @@ export default function LeadershipVision() {
                         >
                             {/* Foreground: Founder Image */}
                             <img
-                                src="/src/assets/Kishor_Sir.png"
+                                src={ASSETS.founder.kishor}
                                 alt="Founder & CEO"
                                 style={{
                                     width: '100%',

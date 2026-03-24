@@ -4,13 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
-import qPulseLogoImg from '../assets/Logos/QPulse_Logo_No_Buffer.png';
-import qPulseScreenshot from '../assets/logos copy/Platforms/QPulse_New.png';
-
-// Blog Images
-import blogImgThreats from '../config/Blogs_Images/Top Cybersecurity Threats Businesses Should Watch Out for in 2025.png';
-import blogImgAI from '../config/Blogs_Images/AI in Cybersecurity_A Powerful Ally or a Looming Threat.png';
-import blogImgMoneygram from '../config/Blogs_Images/Moneygram Suffers Data Breach, Exposing Customer Information.png';
+import { ASSETS } from '@/constants/assets';
 
 const insights = [
     {
@@ -19,7 +13,7 @@ const insights = [
         date: 'Jan 2025',
         type: 'threat', 
         href: '/resources/blogs',
-        image: blogImgThreats
+        image: ASSETS.blogs.threats
     },
     {
         title: 'AI in Cybersecurity: A Powerful Ally or a Looming Threat?',
@@ -27,7 +21,7 @@ const insights = [
         date: 'Feb 2025',
         type: 'tech', 
         href: '/resources/blogs',
-        image: blogImgAI
+        image: ASSETS.blogs.ai
     },
     {
         title: 'Moneygram Suffers Data Breach, Exposing Customer Information',
@@ -35,7 +29,7 @@ const insights = [
         date: 'Dec 2024',
         type: 'advisory', 
         href: '/resources/blogs',
-        image: blogImgMoneygram
+        image: ASSETS.blogs.moneygram
     },
     {
         title: 'The Future of Cloud Security: Zero Trust Architectures',
@@ -43,7 +37,7 @@ const insights = [
         date: 'Mar 2025',
         type: 'tech',
         href: '/resources/blogs',
-        image: blogImgAI 
+        image: ASSETS.blogs.ai 
     }
 ];
 
@@ -107,7 +101,7 @@ export default function FeaturedInsights() {
                 }}>
                     <div style={{ flex: '1', minWidth: '300px', zIndex: 1 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                            <img src={qPulseLogoImg} alt="QPulse" style={{ height: '44px', width: 'auto' }} />
+                            <img src={ASSETS.logos.platforms.qpulse} alt="QPulse" style={{ height: '44px', width: 'auto' }} />
                             <div style={{ width: '1px', height: '24px', background: 'rgba(214,176,92,0.3)' }} />
                             <div style={{
                                 color: COLORS.gold,
@@ -170,7 +164,7 @@ export default function FeaturedInsights() {
                     </div>
 
                     <div style={{ flex: '1.2', minWidth: '360px', position: 'relative', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}>
-                        <img src={qPulseScreenshot} alt="QPulse Screenshot" style={{ width: '100%', height: 'auto', display: 'block', opacity: 0.9 }} />
+                        <img src={ASSETS.platforms.screenshots.qpulse} alt="QPulse Screenshot" style={{ width: '100%', height: 'auto', display: 'block', opacity: 0.9 }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,31,59,0.4), transparent)' }} />
                     </div>
                 </div>
@@ -311,7 +305,7 @@ export default function FeaturedInsights() {
                     }}
                     onMouseEnter={e => { e.currentTarget.style.background = '#8B1E3F'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
                     onMouseLeave={e => { e.currentTarget.style.background = COLORS.burgundy; e.currentTarget.style.transform = 'translateY(0)'; }}>
-                        Explore All Insights →
+                        Explore All Blogs →
                     </a>
                 </div>
             </div>

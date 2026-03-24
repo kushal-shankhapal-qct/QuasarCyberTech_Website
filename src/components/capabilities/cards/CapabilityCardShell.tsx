@@ -28,7 +28,7 @@ export function CapabilityCardShell({ title, desc, img, theme = 'teal', children
         flexDirection: 'column',
         height: '100%',
         width: '100%',
-        transition: 'all 0.3s ease',
+        transition: 'all 0.4s ease',
         position: 'relative'
       }}
     >

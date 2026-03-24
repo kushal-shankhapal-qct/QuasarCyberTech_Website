@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CTASection from '../components/CTASection';
 import SectionHeader from '../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -117,57 +118,64 @@ const IndustryPage: React.FC = () => {
           top: 0, 
           right: 0, 
           bottom: 0, 
-          width: '50.5%', 
+          width: '50%', 
           zIndex: 1,
-          overflow: 'hidden'
+          overflow: 'hidden',
+          maskImage: `
+            linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 15%, rgba(0,0,0,0.8) 45%, black 70%),
+            linear-gradient(to bottom, transparent 0%, black 15%)
+          `,
+          WebkitMaskImage: `
+            linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 15%, rgba(0,0,0,0.8) 45%, black 70%),
+            linear-gradient(to bottom, transparent 0%, black 15%)
+          `,
+          WebkitMaskComposite: 'destination-in',
+          maskComposite: 'intersect'
         }}>
-          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-            <img 
-              src={industry.image} 
-              alt={industry.name} 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.95)' }} 
-            />
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: `linear-gradient(to right, ${COLORS.darkBase} 0%, ${COLORS.darkBase} 40%, transparent 100%)`,
-              pointerEvents: 'none',
-              zIndex: 2
-            }} />
-          </div>
+          <img 
+            src={industry.image} 
+            alt={industry.name} 
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover', 
+              opacity: 0.9,
+              filter: 'brightness(0.9)'
+            }} 
+          />
         </div>
       </section>
 
       <section style={{ 
-        background: GRADIENTS.HERO_BG, 
+        background: SECTION_BACKGROUNDS.LIGHT, 
         padding: `120px ${LAYOUT_CONTROLS.section.paddingX}`,
-        borderBottom: '1px solid rgba(255,255,255,0.05)'
+        borderBottom: '1px solid rgba(0,0,0,0.05)'
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '80px', alignItems: 'flex-start' }}>
             <div style={{ gridColumn: 'span 7' }}>
               <SectionHeader 
-                isDark
                 eyebrow="SECTOR OVERVIEW"
                 title={industry.overview.heading}
                 highlight={industry.overview.highlight}
               />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '10px' }}>
                 {industry.overview.body.map((p, i) => (
-                  <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>{p}</p>
+                  <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.8, color: '#64748B' }}>{p}</p>
                 ))}
               </div>
             </div>
 
             <div style={{ 
               gridColumn: 'span 5',
-              borderTop: `4px solid ${COLORS.gold}`, 
-              background: 'rgba(255,255,255,0.03)', 
-              borderRadius: '0 0 2px 2px', 
-              boxShadow: '0 8px 32px rgba(0,0,0,0.2)', 
+              borderTop: `4px solid ${COLORS.burgundy}`, 
+              background: '#ffffff', 
+              borderRadius: '0 0 4px 4px', 
+              boxShadow: SHADOWS.lightCard, 
               padding: '40px 32px',
-              border: '1px solid rgba(255,255,255,0.08)'
+              border: '1px solid rgba(0,0,0,0.05)'
             }}>
-              <p style={{ color: COLORS.gold, fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '32px' }}>
+              <p style={{ color: COLORS.burgundy, fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '32px' }}>
                 CRITICAL CAPABILITIES
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -180,20 +188,20 @@ const IndustryPage: React.FC = () => {
                       alignItems: 'center', 
                       justifyContent: 'space-between', 
                       padding: '16px 20px', 
-                      background: 'rgba(255,255,255,0.05)', 
-                      border: '1px solid rgba(255,255,255,0.1)', 
+                      background: '#F8FAFC', 
+                      border: '1px solid rgba(0,0,0,0.05)', 
                       borderRadius: '4px', 
-                      color: '#FFFFFF',
+                      color: '#0B1F3B',
                       fontWeight: 700,
                       fontSize: '14px',
                       textDecoration: 'none',
                       transition: 'all 0.2s ease'
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = COLORS.gold; e.currentTarget.style.transform = 'translateX(4px)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.transform = 'none'; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = COLORS.burgundy; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(0,0,0,0.05)'; e.currentTarget.style.transform = 'none'; }}
                   >
                     {cap.name}
-                    <ArrowRight size={14} color={COLORS.gold} />
+                    <ArrowRight size={14} color={COLORS.burgundy} />
                   </Link>
                 ))}
               </div>
@@ -276,6 +284,7 @@ const IndustryPage: React.FC = () => {
         </div>
       </section>
 
+      <CTASection theme="dark" showMetrics={false} showEyebrow={false} />
       <Footer />
     </div>
   );

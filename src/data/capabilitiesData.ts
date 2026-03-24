@@ -1,12 +1,8 @@
 import { Shield, ClipboardCheck, Crosshair, Cloud, Radio, Eye, Compass, Layers, Cpu, Target, Zap, Activity } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { ASSETS } from '@/constants/assets';
 
-// Advisory Sub-capability Images
-import imgCyberStrategy from '../assets/capabilities/Cyber Advisory & Risk Governance/strategy_consulting.png';
-import imgArchReview from '../assets/capabilities/Cyber Advisory & Risk Governance/architecture_review.png';
-import imgvCISO from '../assets/capabilities/Cyber Advisory & Risk Governance/vciso_services.png';
-import imgZeroTrust from '../assets/capabilities/Cyber Advisory & Risk Governance/zero_trust.png';
-import imgTabletop from '../assets/capabilities/Cyber Advisory & Risk Governance/tabletop_war_game.png';
+// Advisory Sub-capability Photos removed - now using ASSETS constant
 
 export interface CapabilityData {
   slug: string;
@@ -79,11 +75,36 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'Cybersecurity Strategy Consulting', description: 'Define long-term security roadmaps aligned with business objectives and risk appetite.', icon: Compass, image: imgCyberStrategy },
-      { name: 'Security Architecture Review', description: 'Evaluate enterprise architectures to identify gaps and improve resilience.', icon: Layers, image: imgArchReview },
-      { name: 'vCISO Services', description: 'Provide on-demand leadership to guide governance, compliance, and risk strategy.', icon: Shield, image: imgvCISO },
-      { name: 'Zero Trust Architecture Design & Review', description: 'Design and validate Zero Trust models tailored to enterprise environments.', icon: Shield, image: imgZeroTrust },
-      { name: 'Tabletop Exercises & Cyber War Games', description: 'Simulate real-world attack scenarios to strengthen organizational readiness.', icon: Radio, image: imgTabletop }
+      { 
+        name: 'Cybersecurity Strategy Consulting', 
+        description: 'Define long-term security roadmaps aligned with business objectives and risk appetite.\nDevelop strategic frameworks to prioritize investments and mature security programs.\nEnsure robust organizational resilience against evolving digital threats.', 
+        icon: Compass, 
+        image: ASSETS.capabilities.advisory_sub?.strategy 
+      },
+      { 
+        name: 'Security Architecture Review', 
+        description: 'Evaluate enterprise architectures to identify structural gaps and improve defensive resilience.\nValidate design patterns against industry best practices and organizational requirements.\nStrengthen the security foundation across hybrid and complex environments.', 
+        icon: Layers, 
+        image: ASSETS.capabilities.advisory_sub?.architecture 
+      },
+      { 
+        name: 'vCISO Services', 
+        description: 'Provide on-demand executive leadership to guide governance, compliance, and risk strategy.\nBridge the gap between technical security operations and business-level decision making.\nEnable scalable security management without the overhead of a full-time executive role.', 
+        icon: Shield, 
+        image: ASSETS.capabilities.advisory_sub?.vciso 
+      },
+      { 
+        name: 'Zero Trust Architecture Design & Review', 
+        description: 'Design and validate Zero Trust security architectures aligned with enterprise environments.\nEnable identity-driven access control, segmentation, and continuous verification.\nStrengthen resilience against lateral movement and insider threats.', 
+        icon: Shield, 
+        image: ASSETS.capabilities.advisory_sub?.zeroTrust 
+      },
+      { 
+        name: 'Tabletop Exercises & Cyber War Games', 
+        description: 'Simulate real-world attack scenarios to strengthen organizational readiness and response.\nEvaluate the effectiveness of incident playbooks and executive communication flows.\nImprove cross-functional coordination during high-pressure security incidents.', 
+        icon: Radio, 
+        image: ASSETS.capabilities.advisory_sub?.tabletop 
+      }
     ],
     delivery: [
       { step: '01', title: 'Discover', description: 'Understand business context, regulatory requirements, and risk landscape.' },
@@ -133,11 +154,31 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'RBI Cyber Security Framework Compliance', description: 'Specialized assurance for financial institutions per RBI guidelines.', icon: Shield },
-      { name: 'ISO 27001 Consulting', description: 'End-to-end guidance for achieving and maintaining ISO certification.', icon: ClipboardCheck },
-      { name: 'SOC2 Readiness', description: 'Preparing service organizations for successful AICPA SOC audit reports.', icon: ClipboardCheck },
-      { name: 'Regulatory Gap Assessment', description: 'Identifying and remediating shortcomings in current compliance posture.', icon: Radio },
-      { name: 'Risk & Compliance Monitoring', description: 'Continuous visibility into regulatory alignment and control effectiveness.', icon: Eye }
+      { 
+        name: 'RBI Cyber Security Framework Compliance', 
+        description: 'Specialized assurance for financial institutions per RBI regulatory guidelines.\nImplement mandatory controls across core banking and digital payment systems.\nEnsure audit readiness and alignment with central bank expectations.', 
+        icon: Shield 
+      },
+      { 
+        name: 'ISO 27001 Consulting', 
+        description: 'End-to-end guidance for achieving and maintaining international ISO 27001 certification.\nEstablish robust Information Security Management Systems (ISMS) across the organization.\nDemonstrate global security standards to partners and enterprise clients.', 
+        icon: ClipboardCheck 
+      },
+      { 
+        name: 'SOC2 Readiness', 
+        description: 'Prepare service organizations for successful AICPA SOC2 Type I and Type II audits.\nValidate security, availability, and confidentiality controls for client-facing systems.\nAccelerate enterprise sales cycles through verified security trust reports.', 
+        icon: ClipboardCheck 
+      },
+      { 
+        name: 'Regulatory Gap Assessment', 
+        description: 'Identify and remediate shortcomings in current compliance posture against global mandates.\nDevelop structured roadmaps to bridge control deficiencies and regulatory misalignments.\nMinimize legal exposure and ensure continuous adherence to industry requirements.', 
+        icon: Radio 
+      },
+      { 
+        name: 'Risk & Compliance Monitoring', 
+        description: 'Continuous visibility into regulatory alignment and control effectiveness across the stack.\nAutomate compliance tracking to prevent posture decay and simplify audit cycles.\nMaintain a high-integrity, audit-ready state throughout the fiscal year.', 
+        icon: Eye 
+      }
     ],
     delivery: [
       { step: '01', title: 'Discover', description: 'Regulatory scope and legal obligations identification.' },
@@ -188,12 +229,36 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'Web Application VAPT', description: 'Identify vulnerabilities in web platforms through advanced manual testing.', icon: Crosshair },
-      { name: 'Mobile & API Security Testing', description: 'Validate the security of mobile apps and backend API interfaces.', icon: Radio },
-      { name: 'Red Team Assessments', description: 'Simulated multi-vector attacks to test full-spectrum organizational defense.', icon: Shield },
-      { name: 'Secure Code Review', description: 'In-depth analysis of source code to find hidden security flaws.', icon: Layers },
-      { name: 'LLM Penetration Testing', description: 'Penetration testing and safety review for Large Language Models.', icon: Cpu },
-      { name: 'Agentic AI Security Review', description: 'Security validation for autonomous AI agents and workflows.', icon: Target }
+      { 
+        name: 'Web Application VAPT', 
+        description: 'Identify and validate complex vulnerabilities in web platforms through advanced manual testing.\nGo beyond automated scanning to uncover logical flaws and sensitive data exposures.\nSecure internet-facing assets against sophisticated application-layer attacks.', 
+        icon: Crosshair 
+      },
+      { 
+        name: 'Mobile & API Security Testing', 
+        description: 'Validate the security of mobile applications and modern backend API interfaces.\nUndeover flaws in mobile client logic, data transit, and backend authentication flows.\nProtect the mobile ecosystem and ensure secure interaction between distributed services.', 
+        icon: Radio 
+      },
+      { 
+        name: 'Red Team Assessments', 
+        description: 'Execute multi-vector attack simulations to test full-spectrum organizational defense.\nMeasure the effectiveness of detection, response, and containment across the enterprise.\nGain realistic insights into your resilience against nation-state and advanced actors.', 
+        icon: Shield 
+      },
+      { 
+        name: 'Secure Code Review', 
+        description: 'In-depth analysis of source code to find hidden security flaws early in development.\nIntegrate security into the SDLC through exhaustive manual and automated code audits.\nPrevent vulnerabilities from reaching production and reduce long-term remediation costs.', 
+        icon: Layers 
+      },
+      { 
+        name: 'LLM Penetration Testing', 
+        description: 'Advanced penetration testing and safety review for Large Language Models.\nIdentify risks like prompt injection, data leakage, and improper output handling.\nEnsure the security and reliability of AI-driven features in enterprise apps.', 
+        icon: Cpu 
+      },
+      { 
+        name: 'Agentic AI Security Review', 
+        description: 'Security validation for autonomous AI agents and complex agentic workflows.\nReview autonomy boundaries, API integrations, and decision-making security controls.\nSecure the path to AI maturity through rigorous independent validation.', 
+        icon: Target 
+      }
     ],
     delivery: [
       { step: '01', title: 'Discover', description: 'Reconnaissance and attack surface mapping.' },
@@ -244,11 +309,31 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'Cloud Security Assessment', description: 'Configuration and risk review for public and hybrid clouds.', icon: Cloud },
-      { name: 'AWS / Azure Security Assessment', description: 'Deep-dive security review of specific cloud platform services.', icon: Shield },
-      { name: 'Kubernetes / Container Security', description: 'Hardening container orchestration and runtime security.', icon: Layers },
-      { name: 'Cloud Security Posture Management (CSPM)', description: 'Automating continuous governance across cloud infrastructure.', icon: Cpu },
-      { name: 'Cloud Compliance Review', description: 'Validating cloud set-ups against regional regulatory bodies.', icon: Eye }
+      { 
+        name: 'Cloud Security Assessment', 
+        description: 'Comprehensive configuration and risk review for public, private, and hybrid clouds.\nAlign cloud environments with industry standards like CIS Benchmarks and CSA Best Practices.\nIdentify and remediate misconfigurations before they lead to data exposures.', 
+        icon: Cloud 
+      },
+      { 
+        name: 'AWS / Azure Security Assessment', 
+        description: 'Deep-dive security review of specific platform services and IAM configurations.\nEvaluate identity permissions, network boundaries, and storage encryption settings.\nOptimize security across the primary cloud providers used by the enterprise.', 
+        icon: Shield 
+      },
+      { 
+        name: 'Kubernetes / Container Security', 
+        description: 'Harden container orchestration layers and runtime environments against exploit.\nSecure the supply chain from image building to production deployment and monitoring.\nEnable secure, scalable application hosting in high-velocity agile environments.', 
+        icon: Layers 
+      },
+      { 
+        name: 'Cloud Security Posture Management (CSPM)', 
+        description: 'Automate continuous governance and risk monitoring across global cloud footprints.\nMaintain real-time visibility into infrastructure changes and compliance drifts.\nScale security oversight alongside rapidly growing cloud-native workloads.', 
+        icon: Cpu 
+      },
+      { 
+        name: 'Cloud Compliance Review', 
+        description: 'Validate cloud infrastructure against regional regulatory bodies and mandates.\nEnsure cloud-resident data meets strict sovereignty and protection requirements.\nSupport audit cycles with verified evidence of cloud-layer control effectiveness.', 
+        icon: Eye 
+      }
     ],
     delivery: [
       { step: '01', title: 'Discover', description: 'Cloud environment mapping and asset inventory.' },
@@ -299,11 +384,31 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'Managed SOC', description: 'Continuous security monitoring and event analysis by experts.', icon: Radio },
-      { name: 'Threat Detection & Monitoring', description: 'Real-time detection of suspicious activity and attack indicators.', icon: Eye },
-      { name: 'Incident Response', description: 'Rapid containment and investigation of active security incidents.', icon: Shield },
-      { name: 'Threat Hunting', description: 'Proactive searching for hidden threats within infrastructure.', icon: Crosshair },
-      { name: 'Social Engineering & Phishing Simulations', description: 'Testing user awareness through simulated social attacks.', icon: Activity }
+      { 
+        name: 'Managed SOC', 
+        description: '24/7 security monitoring and proactive event analysis delivered by experts.\nIdentify and triage threats across the enterprise stack in real time.\nAugment internal teams with specialized security operations and scale.', 
+        icon: Radio 
+      },
+      { 
+        name: 'Threat Detection & Monitoring', 
+        description: 'Real-time detection of suspicious activity using advanced telemetry and correlation.\nShorten the path from intrusion to discovery through high-fidelity alerting.\nProtect the business against sophisticated malware, ransomware, and breach attempts.', 
+        icon: Eye 
+      },
+      { 
+        name: 'Incident Response', 
+        description: 'Rapid containment, investigation, and recovery from active security breaches.\nMinizime operational downtime and data loss during critical security events.\nBring order to chaos with expert-led response protocols and remediation.', 
+        icon: Shield 
+      },
+      { 
+        name: 'Threat Hunting', 
+        description: 'Proactive searching for hidden threats that bypass traditional perimeter defenses.\nIdentify persistent actors and indicators of compromise within the environment.\nStay ahead of advanced threats through continuous architectural probing.', 
+        icon: Crosshair 
+      },
+      { 
+        name: 'Social Engineering & Phishing Simulations', 
+        description: 'Test and strengthen employee awareness through realistic simulated social attacks.\nMeasure organizational susceptibility to phishing, vishing, and physical tailgating.\nBuild a human firewall to complement technical security controls.', 
+        icon: Activity 
+      }
     ],
     delivery: [
       { step: '01', title: 'Monitor', description: 'Continuous visibility across host, cloud, and network.' },
@@ -354,11 +459,31 @@ export const capabilitiesData: CapabilityData[] = [
       ]
     },
     services: [
-      { name: 'Cyber Threat Intelligence (CTI) as a Service', description: 'Filtered, actionable intelligence on emerging threat actors.', icon: Eye },
-      { name: 'Dark Web Brand Intelligence', description: 'Monitoring for brand data and credentials on underground forums.', icon: Shield },
-      { name: 'Brand Reputation Monitoring', description: 'Protecting digital identity from impersonation and spoofing.', icon: Radio },
-      { name: 'Vulnerability Research', description: 'In-depth research into zero-day threats and supply chain risks.', icon: Crosshair },
-      { name: 'Security Advisories', description: 'Custom advisories focused on relevant enterprise technologies.', icon: ClipboardCheck }
+      { 
+        name: 'Cyber Threat Intelligence (CTI) as a Service', 
+        description: 'Actionable intelligence on emerging threat actors and industry-specific risks.\nAnticipate attacks by understanding the shifts in attacker motivation and tooling.\nEmpower security leadership with foresight needed for strategic investment.', 
+        icon: Eye 
+      },
+      { 
+        name: 'Dark Web Brand Intelligence', 
+        description: 'Monitoring underground forums and markets for leaked data and credentials.\nDiscover exposed organizational assets before they can be leveraged for fraud.\nProtect corporate identity and sensitive intellectual property on the dark web.', 
+        icon: Shield 
+      },
+      { 
+        name: 'Brand Reputation Monitoring', 
+        description: 'Protecting the digital footprint from impersonation, typosquatting, and spoofing.\nDetect and take down malicious domains and social media fraud attempts.\nPreserve customer trust and brand integrity across the global internet.', 
+        icon: Radio 
+      },
+      { 
+        name: 'Vulnerability Research', 
+        description: 'In-depth research into zero-day threats, supply chain risks, and firmware flaws.\nGain an information advantage by identifying critical gaps in third-party tech.\nStrengthen the security posture through high-fidelity research-driven insights.', 
+        icon: Crosshair 
+      },
+      { 
+        name: 'Security Advisories', 
+        description: 'Custom, high-relevance security advisories focused on enterprise technologies.\nStay informed on critical patches and emerging risks tailored to your stack.\nEnsure rapid awareness and response to significant global security shifts.', 
+        icon: ClipboardCheck 
+      }
     ],
     delivery: [
       { step: '01', title: 'Collect', description: 'Data gathering from open, closed, and proprietary feeds.' },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Shield, Server, ArrowRight } from 'lucide-react';
+import { Target, Shield, Server, ArrowRight, Code } from 'lucide-react';
 import ServicePageTemplate from './../../components/templates/ServicePageTemplate';
 
 export default function ApplicationSecurity() {

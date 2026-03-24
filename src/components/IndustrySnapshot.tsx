@@ -40,7 +40,7 @@ export default function IndustrySnapshot() {
                   borderTop: `4px solid ${isHovered ? COLORS.gold : COLORS.burgundy}`,
                   boxShadow: isHovered ? '0 12px 32px rgba(11,31,59,0.12)' : '0 4px 12px rgba(0,0,0,0.05)',
                   transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-                  transition: 'transform 0.4s ease, box-shadow 0.4s ease, border-color 0.22s ease',
+                  transition: 'transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease',
                   overflow: 'hidden',
                   zIndex: isHovered ? 1 : 0,
                   position: 'relative'

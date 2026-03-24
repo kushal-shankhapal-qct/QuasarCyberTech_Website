@@ -4,8 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 
 // Assets
-import logoIcon from '../assets/logos copy/QuasarCyberTech/icononly_transparent_nobuffer.png';
-import logoTextImg from '../assets/logos copy/QuasarCyberTech/Qtextonly_Light.png';
+import { ASSETS } from '@/constants/assets';
 
 // Config — single source of truth
 import { NAVBAR_CONFIG as NC, COLORS, TYPOGRAPHY } from '../config/themeConfig';
@@ -105,7 +104,7 @@ const Navbar: React.FC = () => {
     let widthStr = NC.platformsMenu.width;
     if (id === 'industries') widthStr = NC.industriesMenu.width;
     if (id === 'company') widthStr = NC.companyMenu.width;
-    if (id === 'insights') widthStr = '220px'; 
+    if (id === 'blogs') widthStr = '220px'; 
 
     const wNum = parseInt(widthStr);
     
@@ -196,7 +195,7 @@ const Navbar: React.FC = () => {
   // ─── Dropdown Item Renderer ───
   const renderDropdownItem = (sub: SubItem, hideIcon = false, isPlatformItem = false) => {
     const dItem = NC.dropdown.item;
-    const isInsights = openMenu === 'insights';
+    const isBlogs = openMenu === 'blogs';
     const isQrgt = sub.label === 'QRGT';
     const isQpulse = sub.label === 'QPulse';
     
@@ -230,8 +229,8 @@ const Navbar: React.FC = () => {
       >
         {!hideIcon && (sub.icon ? (
           <div style={{ 
-            width: isPlatformItem ? '42px' : isInsights ? '32px' : '32px', 
-            height: isPlatformItem ? '42px' : isInsights ? '32px' : '32px', 
+            width: isPlatformItem ? '42px' : isBlogs ? '32px' : '32px', 
+            height: isPlatformItem ? '42px' : isBlogs ? '32px' : '32px', 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-start',
@@ -262,10 +261,10 @@ const Navbar: React.FC = () => {
               </div>
             </div>
           </div>
-        ) : sub.LucideIcon || (isInsights && sub.label.includes('Articles')) ? (
+        ) : sub.LucideIcon || (isBlogs && sub.label.includes('Articles')) ? (
           (() => {
             const Icon = sub.label.includes('Articles') ? BookOpen : sub.LucideIcon;
-            return <Icon size={isInsights ? 20 : 18} color={isInsights ? '#D6B05C' : NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />;
+            return <Icon size={isBlogs ? 20 : 18} color={isBlogs ? '#D6B05C' : NC.dropdown.topAccentColor} strokeWidth={1.5} style={{ flexShrink: 0, opacity: 0.8 }} />;
           })()
         ) : null)}
         
@@ -353,7 +352,7 @@ const Navbar: React.FC = () => {
             transform: `translate(${NC.wrapper.logoIconNudgeX || '0px'}, ${NC.wrapper.logoIconNudgeY || '0px'})`,
           }}>
             <img
-              src={logoIcon}
+              src={ASSETS.logos.qct.icon}
               alt="QuasarCyberTech"
               style={{
                 height: NC.logoIcon.height,
@@ -375,7 +374,7 @@ const Navbar: React.FC = () => {
                 }}
               >
                 <img
-                  src={logoTextImg}
+                  src={ASSETS.logos.qct.textLight}
                   alt="QuasarCyberTech"
                   style={{
                     height: NC.logoText.height,
@@ -513,7 +512,7 @@ const Navbar: React.FC = () => {
             
             <DropdownAccent />
             {/* List Dropdowns (Platforms, Industries, Insights, Company) */}
-            {['platforms-ecosystem', 'industries', 'insights', 'company'].includes(openMenu) && (
+            {['platforms-ecosystem', 'industries', 'blogs', 'company'].includes(openMenu) && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   {navMenus.find(m => m.id === openMenu)?.subItems?.map(item => 

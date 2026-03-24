@@ -11,6 +11,8 @@ interface CTASectionProps {
   showMetrics?: boolean;
   showEyebrow?: boolean;
   theme?: 'light' | 'dark';
+  primaryAction?: { label: string; link: string };
+  secondaryAction?: { label: string; link: string };
 }
 
 const CTASection: React.FC<CTASectionProps> = ({ 
@@ -18,7 +20,9 @@ const CTASection: React.FC<CTASectionProps> = ({
   subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.",
   showMetrics = true,
   showEyebrow = true,
-  theme = 'light'
+  theme = 'light',
+  primaryAction = { label: 'Talk to a Security Expert', link: '/contact' },
+  secondaryAction = { label: 'Explore Capabilities', link: '/capabilities' }
 }) => {
   const isDark = theme === 'dark';
 
@@ -28,7 +32,10 @@ const CTASection: React.FC<CTASectionProps> = ({
         position: 'relative',
         background: isDark ? 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)' : SECTION_BACKGROUNDS.LIGHT,
         borderTop: isDark ? '1px solid rgba(214,176,92,0.15)' : 'none',
-        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
+        paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+        paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+        paddingLeft: '2.5rem',
+        paddingRight: '2.5rem',
         overflow: 'hidden',
         fontFamily: TYPOGRAPHY.fontBody
       }}
@@ -81,7 +88,7 @@ const CTASection: React.FC<CTASectionProps> = ({
             style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}
           >
             <Link
-              to="/contact"
+              to={primaryAction.link}
               style={{
                 ...TYPOGRAPHY.buttonLarge,
                 background: COLORS.burgundy,
@@ -95,11 +102,11 @@ const CTASection: React.FC<CTASectionProps> = ({
                 gap: '8px',
               }}
             >
-              Talk to a Security Expert
+              {primaryAction.label}
               <ArrowRight size={16} />
             </Link>
             <Link
-              to="/capabilities"
+              to={secondaryAction.link}
               style={{
                 ...TYPOGRAPHY.buttonLarge,
                 background: 'transparent',
@@ -126,7 +133,7 @@ const CTASection: React.FC<CTASectionProps> = ({
                 }
               }}
             >
-              Explore Capabilities
+              {secondaryAction.label}
             </Link>
           </motion.div>
         </div>
