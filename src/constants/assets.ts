@@ -87,6 +87,7 @@ import bgQuasar from '@/assets/Backdrops/Cyber_Quasar_Backdrop.png';
 import bgTechNet from '@/assets/Backdrops/Tech_Net_Backdrop.png';
 import bgPlatformsHero from '@/assets/Backdrops/Platforms_Hero.png';
 import bgRedLights from '@/assets/Backdrops/abstract-red-lights-background/608.jpg';
+import bgCareersHero from '@/assets/Backdrops/Careers_Hero.jpg';
 
 // --- PLATFORM SCREENSHOTS ---
 import screenshotQStellar from '@/assets/Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png';
@@ -188,6 +189,7 @@ export const ASSETS = {
     technet: getAsset(bgTechNet, 'Backdrops/Tech_Net_Backdrop.png'),
     platformsHero: getAsset(bgPlatformsHero, 'Backdrops/Platforms_Hero.png'),
     redLights: getAsset(bgRedLights, 'Backdrops/abstract-red-lights-background/608.jpg'),
+    careersHero: getAsset(bgCareersHero, 'Backdrops/Careers_Hero.jpg'),
   },
   screenshots: {
     qstellar: getAsset(screenshotQStellar, 'Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),

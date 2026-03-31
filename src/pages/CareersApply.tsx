@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { COLORS, TYPOGRAPHY, SECTION_BACKGROUNDS } from '../config/themeConfig';
+import PageHero from '../components/PageHero';
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { ChevronLeft } from 'lucide-react';
 import { ASSETS } from '@/constants/assets';
 
@@ -15,82 +16,68 @@ const CareersApply: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Placeholder for Google Form URL. 
-  // In a real scenario, you'd append ?entry.12345={role} if pre-fill is configured.
-  const googleFormBaseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfshcNxujjrPu2rXQlWk1Mup2DH1dP6fIgPL_98lStWw1zckg/viewform?usp=dialog";
-  const iframeUrl = role ? `${googleFormBaseUrl}&entry.ROLE_FIELD_ID=${encodeURIComponent(role)}` : googleFormBaseUrl;
+  // Standardized Google Form embed URL
+  const googleFormEmbedUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfshcNxujjrPu2rXQlWk1Mup2DH1dP6fIgPL_98lStWw1zckg/viewform?embedded=true";
 
   return (
-    <div style={{ background: '#FFFFFF', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ background: '#FFFFFF', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: TYPOGRAPHY.fontBody }}>
       <Navbar />
 
+      {/* ── 1: THE HERO (Dark) ── */}
+      <PageHero 
+        title={<>Join the <span style={{ color: COLORS.gold }}>Force.</span></>}
+        highlight=""
+        subtitle={role ? `Apply for the position of ${role}. Our talent acquisition team reviews all engineering and consulting applications within 5 business days.` : "Fill out the form below to begin your application process. Our team reviews all applications within 5 business days."}
+        currentName="Apply"
+        breadcrumbPaths={["Home", "Careers"]}
+        visualVariant="none"
+        compact={true}
+        paddingTopOverride="clamp(8rem, 15vh, 12rem)"
+        minHeightOverride="500px"
+      />
+
+      {/* ── 2: FORM SECTION ── */}
       <main style={{
         flexGrow: 1,
-        paddingTop: '140px',
-        paddingBottom: '80px',
-        maxWidth: '800px',
+        paddingTop: '80px',
+        paddingBottom: '120px',
+        maxWidth: '1280px',
         margin: '0 auto',
         width: '100%',
-        paddingLeft: '20px',
-        paddingRight: '20px'
+        paddingLeft: LAYOUT_CONTROLS.section.paddingX,
+        paddingRight: LAYOUT_CONTROLS.section.paddingX,
+        textAlign: 'left'
       }}>
-        {/* ─── HEADER ─── */}
-        <div style={{ marginBottom: '48px', textAlign: 'center' }}>
-          <Link to="/careers" style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            color: COLORS.textSub,
-            textDecoration: 'none',
-            fontSize: '14px',
-            marginBottom: '32px',
-            fontWeight: 500
-          }}>
-            <ChevronLeft size={16} /> Back to Careers
-          </Link>
-
-          <div style={{ marginBottom: '24px' }}>
-            <img src={logoTextImg} alt="QuasarCyberTech" style={{ height: '32px', width: 'auto' }} />
+        <div style={{ maxWidth: '900px' }}>
+          
+          <div style={{ marginBottom: '48px' }}>
+            <img src={logoTextImg} alt="QuasarCyberTech" style={{ height: '32px', width: 'auto', marginBottom: '24px' }} />
+            <div style={{ height: '1px', width: '64px', background: COLORS.gold }} />
           </div>
 
-          <h1 style={{ ...TYPOGRAPHY.sectionTitle, color: COLORS.textOnLight, marginBottom: '12px' }}>Apply to QuasarCyberTech</h1>
-          <p style={{ ...TYPOGRAPHY.bodyBase, color: COLORS.textSub }}>Fill out the form below and our team will review your application within 5 business days.</p>
-
-          {role && (
-            <div style={{ marginTop: '24px' }}>
-              <span style={{
-                background: COLORS.gold,
-                color: '#000',
-                padding: '6px 16px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
-              }}>
-                Applying for: {role}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* ─── FORM IFRAME ─── */}
-        <div style={{
-          background: '#F8FAFC',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          border: '1px solid rgba(0,0,0,0.06)',
-          minHeight: '900px'
-        }}>
-          <iframe
-            src={googleFormBaseUrl} // Using base URL as placeholder
-            width="100%"
-            height="1000"
-            style={{ border: 'none' }}
-            title="QuasarCyberTech Application Form"
-          >
-            Loading…
-          </iframe>
+          {/* ─── FORM IFRAME ─── */}
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            border: '1px solid #E2E8F0',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.05)',
+            minHeight: '1342px',
+            width: '100%'
+          }}>
+            <iframe
+              src={googleFormEmbedUrl}
+              width="100%"
+              height="1342"
+              frameBorder="0"
+              marginHeight={0}
+              marginWidth={0}
+              style={{ border: 'none' }}
+              title="QuasarCyberTech Application Form"
+            >
+              Loading…
+            </iframe>
+          </div>
         </div>
       </main>
 

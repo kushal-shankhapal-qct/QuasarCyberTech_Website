@@ -427,32 +427,84 @@ export default function About() {
     { value: 24, suffix: "x7", label: "Security Operations\nMonitoring" },
   ];
 
-  const roadmapMilestones = [
+  const milestones = [
     {
-      year: "2021",
-      tag: "Foundation Year",
-      title: "Foundation & Security Vision",
-      description:
-        "QuasarCyberTech was established with a mission to engineer enterprise-grade cybersecurity programs rooted in governance, resilience, and execution discipline.",
-      accentColor: COLORS.burgundy,
-    },
-    {
-      year: "2022",
-      tag: "Growth Phase",
-      title: "Enterprise Delivery Expansion",
-      description:
-        "Scaled consulting and assessment engagements across regulated and high-growth organizations with stronger governance-led service models.",
-      accentColor: COLORS.gold,
+      year: "2024",
+      month: "Jul",
+      title: "Incorporation",
+      description: "QCTPL was incorporated, marking the beginning of our cybersecurity journey.",
     },
     {
       year: "2024",
-      tag: "Platform Acceleration",
-      title: "Platform-Led Security Acceleration",
-      description:
-        "Expanded the product ecosystem to support continuous visibility, vulnerability intelligence, and measurable security maturity progression.",
-      accentColor: COLORS.burgundy,
+      month: "Oct",
+      title: "Nashik Office Launch",
+      description: "Established our first operational headquarters in Nashik.",
+    },
+    {
+      year: "2024",
+      month: "Nov",
+      title: "Startup India Recognition",
+      description: "Recognized under the Startup India initiative, validating our innovation approach.",
+    },
+    {
+      year: "2024",
+      month: "Dec",
+      title: "Strategic Partnerships",
+      description: "Partnered with VANAPS and AIKouKab for global collaboration.",
+    },
+    {
+      year: "2025",
+      month: "Jan",
+      title: "Bengaluru & Mumbai Expansion",
+      description: "Strengthened national presence with new offices in two major cities.",
+    },
+    {
+      year: "2025",
+      month: "Jan",
+      title: "NASSCOM Membership",
+      description: "Joined India's leading tech industry body, NASSCOM.",
+    },
+    {
+      year: "2025",
+      month: "Jun",
+      title: "QStellar Development",
+      description: "Initiated development of our flagship AI-powered asset intelligence platform.",
+    },
+    {
+      year: "2025",
+      month: "Aug",
+      title: "Indian Business Excellence Award",
+      description: "Featured and recognized at the Indian Business Excellence Awards 2025.",
+    },
+    {
+      year: "2025",
+      month: "Aug",
+      title: "UltraTech Partnership",
+      description: "Achieved official partner status with UltraTech, enhancing enterprise reach.",
+    },
+    {
+      year: "2025",
+      month: "Aug",
+      title: "Global Expansion",
+      description: "Established international presence in Dallas, USA.",
+    },
+    {
+      year: "2025",
+      month: "Sep",
+      title: "Emerging Company of the Year",
+      description: "Recognized by Business Connect Magazine as Emerging Company of the Year 2025.",
     },
   ];
+
+  const milestonesByYear = milestones.reduce((acc, current) => {
+    if (!acc[current.year]) {
+      acc[current.year] = [];
+    }
+    acc[current.year].push(current);
+    return acc;
+  }, {} as Record<string, typeof milestones>);
+
+  const years = Object.keys(milestonesByYear).sort();
 
   const sectionPad = {
     paddingLeft: LAYOUT_CONTROLS.section.paddingX,
@@ -1074,377 +1126,246 @@ export default function About() {
 
         {/* ── 6: REMOVED LEADERSHIP ── */}
 
-        {/* ── 7: COMPANY ROADMAP — ZIGZAG TIMELINE ── */}
+        {/* ── 7: TIMELINE MILESTONES ── */}
         <section
           style={{
-            background: GRADIENTS.HERO_BG,
-            paddingTop: LAYOUT_CONTROLS.section.paddingTop,
-            paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+            background: "#f8f7f5",
+            paddingTop: "clamp(60px, 8vw, 90px)",
+            paddingBottom: "clamp(60px, 8vw, 100px)",
             ...sectionPad,
-            borderTop: `1px solid ${ALPHAS.white08}`,
-            position: "relative",
-            overflow: "hidden",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              pointerEvents: "none",
-              backgroundImage:
-                "radial-gradient(rgba(255,255,255,0.06) 0.8px, transparent 0.8px)",
-              backgroundSize: "22px 22px",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: "-100px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "700px",
-              height: "350px",
-              pointerEvents: "none",
-              background:
-                "radial-gradient(ellipse, rgba(214,176,92,0.06) 0%, transparent 70%)",
-            }}
-          />
-
-          <div
-            style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
-              position: "relative",
-              zIndex: 1,
-            }}
-          >
+          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
             {/* Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              style={{ marginBottom: "clamp(32px, 5vw, 60px)" }}
-            >
+            <div style={{ marginBottom: "48px" }}>
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "12px",
+                  gap: "10px",
                   marginBottom: "12px",
                 }}
               >
-                <p
-                  style={{
-                    ...TYPOGRAPHY.eyebrow,
-                    color: COLORS.gold,
-                    margin: 0,
-                  }}
-                >
-                  COMPANY ROADMAP
-                </p>
-                <div
-                  style={{
-                    height: "1px",
-                    width: "48px",
-                    background: COLORS.gold,
-                    opacity: 0.5,
-                  }}
-                />
+                <span style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", color: "#888", textTransform: "uppercase" }}>
+                  Company Milestones
+                </span>
+                <div style={{ height: "1px", width: "40px", background: "#D6B05C" }} />
               </div>
               <h2
                 style={{
-                  ...TYPOGRAPHY.sectionTitle,
-                  fontFamily: TYPOGRAPHY.fontHeading,
-                  color: "#FFFFFF",
-                  marginBottom: "14px",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                  color: "#1a1a1a",
+                  margin: "0 0 8px",
+                  lineHeight: 1.2,
                 }}
               >
-                Milestones Since{" "}
-                <span style={{ color: COLORS.gold }}>Inception</span>
+                Milestones Since <span style={{ color: "#6B1530", fontStyle: "normal" }}>Inception</span>
               </h2>
-              <p
-                style={{
-                  ...TYPOGRAPHY.bodyLarge,
-                  color: "rgba(255,255,255,0.72)",
-                  margin: 0,
-                  maxWidth: "640px",
-                  lineHeight: 1.7,
-                }}
-              >
-                A clear progression of strategic growth moments shaping
-                QuasarCyberTech into a trusted cybersecurity authority.
+              <p style={{ fontSize: "14px", color: "#666", maxWidth: "480px", lineHeight: 1.6, margin: 0 }}>
+                A clear progression of strategic growth moments shaping QuasarCyberTech into a trusted cybersecurity authority.
               </p>
-            </motion.div>
-
-            {/* Zigzag Timeline */}
-            <div
-              className="about-timeline-wrap"
-              style={{
-                position: "relative",
-                maxWidth: "900px",
-                margin: "0 auto 48px",
-              }}
-            >
-              <div
-                className="about-timeline-spine"
-                style={{
-                  position: "absolute",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  top: 0,
-                  bottom: 0,
-                  width: "1px",
-                  background:
-                    "linear-gradient(180deg, transparent 0%, rgba(214,176,92,0.35) 12%, rgba(214,176,92,0.35) 88%, transparent 100%)",
-                }}
-              />
-
-              {roadmapMilestones.map((milestone, index) => {
-                const isLeft = index % 2 === 0;
-                return (
-                  <div
-                    key={milestone.year}
-                    className="about-timeline-entry"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 80px 1fr",
-                      gap: "0",
-                      marginBottom: "40px",
-                      alignItems: "center",
-                    }}
-                  >
-                    {/* LEFT */}
-                    <div
-                      className={isLeft ? "about-tl-card" : "about-tl-spacer"}
-                      style={{ paddingRight: "20px" }}
-                    >
-                      {isLeft ? (
-                        <TimelineCard
-                          tag={milestone.tag}
-                          title={milestone.title}
-                          description={milestone.description}
-                          accentColor={milestone.accentColor}
-                          index={index}
-                        />
-                      ) : (
-                        <div
-                          style={{
-                            height: "1px",
-                            background:
-                              "linear-gradient(270deg, transparent, rgba(214,176,92,0.28))",
-                          }}
-                        />
-                      )}
-                    </div>
-
-                    {/* CENTRE year node */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.7 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <TimelineYearNode year={milestone.year} />
-                    </motion.div>
-
-                    {/* RIGHT */}
-                    <div
-                      className={!isLeft ? "about-tl-card" : "about-tl-spacer"}
-                      style={{ paddingLeft: "20px" }}
-                    >
-                      {!isLeft ? (
-                        <TimelineCard
-                          tag={milestone.tag}
-                          title={milestone.title}
-                          description={milestone.description}
-                          accentColor={milestone.accentColor}
-                          index={index}
-                        />
-                      ) : (
-                        <div
-                          style={{
-                            height: "1px",
-                            background:
-                              "linear-gradient(90deg, transparent, rgba(214,176,92,0.28))",
-                          }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
             </div>
 
-            {/* CERT-In Featured */}
-            <motion.article
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                border: `1px solid ${ALPHAS.gold30}`,
-                borderLeft: `4px solid ${COLORS.gold}`,
-                borderRadius: "4px",
-                padding: "clamp(20px, 3vw, 28px)",
-                boxShadow: "0 16px 34px rgba(0,0,0,0.3)",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-60px",
-                  right: "-60px",
-                  width: "260px",
-                  height: "260px",
-                  borderRadius: "50%",
-                  pointerEvents: "none",
-                  background:
-                    "radial-gradient(ellipse, rgba(214,176,92,0.09) 0%, transparent 70%)",
-                }}
+            {/* Timeline View */}
+            <div style={{ position: "relative", paddingLeft: "24px" }}>
+              {/* Gray Dashed Spine */}
+              <div 
+                style={{ 
+                  position: "absolute", 
+                  left: "7px", 
+                  top: "0", 
+                  bottom: "0", 
+                  width: "2px", 
+                  borderLeft: "2px dashed #e8e8e8" 
+                }} 
+              />
+              {/* Burgundy Solid Progress */}
+              <div 
+                style={{ 
+                  position: "absolute", 
+                  left: "7px", 
+                  top: "0", 
+                  width: "2px", 
+                  background: "#6B1530", 
+                  height: "calc(100% - 80px)",
+                  borderRadius: "2px"
+                }} 
               />
 
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "7px",
-                  marginBottom: "18px",
-                }}
-              >
-                <span
-                  style={{
-                    width: "7px",
-                    height: "7px",
-                    borderRadius: "50%",
-                    background: COLORS.gold,
-                    display: "inline-block",
-                    animation: "qct-pulse 2s ease-in-out infinite",
-                  }}
-                />
-                <p
-                  style={{
-                    ...TYPOGRAPHY.eyebrow,
-                    color: COLORS.gold,
-                    margin: 0,
-                  }}
-                >
-                  LATEST MILESTONE
-                </p>
-              </div>
-
-              <div
-                className="about-certin-header"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  marginBottom: "16px",
-                  flexWrap: "wrap",
-                }}
-              >
-                <img
-                  src={ASSETS.certifications.certin}
-                  alt="CERT-In Logo"
-                  style={{
-                    height: "clamp(32px, 5vw, 48px)",
-                    width: "auto",
-                    objectFit: "contain",
-                    flexShrink: 0,
-                  }}
-                />
-                <h3
-                  style={{
-                    color: "#FFFFFF",
-                    fontSize: "clamp(16px, 2.5vw, 26px)",
-                    fontWeight: 800,
-                    fontFamily: TYPOGRAPHY.fontHeading,
-                    margin: 0,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  Advancing to{" "}
-                  <span style={{ color: COLORS.gold }}>
-                    CERT-In Empanelment
-                  </span>
-                </h3>
-              </div>
-
-              <p
-                style={{
-                  color: "rgba(255,255,255,0.78)",
-                  fontSize: "clamp(13px, 1.2vw, 16px)",
-                  lineHeight: 1.7,
-                  marginBottom: "18px",
-                  maxWidth: "920px",
-                }}
-              >
-                QuasarCyberTech has successfully passed the most crucial stage
-                of the CERT-In Empanelment process and is now progressing toward
-                official empanelment through the final interview round.
-              </p>
-
-              <p
-                style={{
-                  color: "rgba(255,255,255,0.72)",
-                  fontSize: "clamp(12px, 1.1vw, 15px)",
-                  lineHeight: 1.65,
-                  marginBottom: "14px",
-                }}
-              >
-                This is a turning point for QuasarCyberTech and marks the
-                beginning of bigger milestones, greater opportunities, and
-                accelerated enterprise impact.
-              </p>
-
-              <div
-                className="about-certin-bullets"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "14px",
-                  marginBottom: "14px",
-                }}
-              >
-                {[
-                  "Certifying client environments",
-                  "Working with banks and regulated entities",
-                  "Leading national-level cybersecurity audits",
-                ].map((point) => (
-                  <div
-                    key={point}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: "10px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: "7px",
-                        height: "7px",
-                        borderRadius: "50%",
-                        background: COLORS.gold,
-                        marginTop: "7px",
-                        flexShrink: 0,
-                      }}
+              {years.map((year, yIdx) => (
+                <div key={year} style={{ marginBottom: "40px" }}>
+                  {/* Year Marker & Label */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px", position: "relative" }}>
+                    <div 
+                      style={{ 
+                        position: "absolute", 
+                        left: "-24px", 
+                        width: "16px", 
+                        height: "16px", 
+                        borderRadius: "50%", 
+                        background: "#6B1530", 
+                        border: "3px solid #f8f7f5", 
+                        zIndex: 1, 
+                        marginTop: "2px" 
+                      }} 
                     />
-                    <span
-                      style={{
-                        color: "rgba(255,255,255,0.84)",
-                        fontSize: "clamp(12px, 1.1vw, 15px)",
-                        lineHeight: 1.6,
+                    <div style={{ width: "16px", flexShrink: 0 }} />
+                    <div style={{ fontSize: "42px", fontWeight: 800, color: "#6B1530", lineHeight: 1, flexShrink: 0 }}>
+                      {year}
+                    </div>
+                    <div style={{ flex: 1, height: "1.5px", background: "linear-gradient(to right, #6B1530 0%, #e0e0e0 100%)" }} />
+                  </div>
+
+                  {/* Cards Grid */}
+                  <div style={{ paddingLeft: "16px" }}>
+                    <div 
+                      className="ms-cards-grid"
+                      style={{ 
+                        display: "grid", 
+                        gridTemplateColumns: "repeat(4, 1fr)", 
+                        gap: "12px" 
                       }}
                     >
-                      {point}
-                    </span>
+                      {milestonesByYear[year].map((milestone, idx) => (
+                        <motion.div
+                          key={`${year}-${idx}`}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: (yIdx * 0.1) + (idx * 0.04) }}
+                          style={{
+                            background: "#fff",
+                            border: "0.5px solid #e0e0e0",
+                            borderLeft: `2.5px solid #6B1530`,
+                            borderRadius: "0 8px 8px 0",
+                            padding: "14px",
+                            position: "relative"
+                          }}
+                        >
+                          <span 
+                            style={{ 
+                              display: "inline-block", 
+                              background: "rgba(214,176,92,0.15)", 
+                              color: "#8a6a1a", 
+                              fontSize: "10px", 
+                              fontWeight: 700, 
+                              letterSpacing: "0.1em", 
+                              textTransform: "uppercase", 
+                              padding: "2px 8px", 
+                              borderRadius: "20px", 
+                              marginBottom: "8px" 
+                            }}
+                          >
+                            {milestone.month}
+                          </span>
+                          <h4 style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", margin: "0 0 5px", lineHeight: 1.3 }}>
+                            {milestone.title}
+                          </h4>
+                          <p style={{ fontSize: "11.5px", color: "#777", lineHeight: 1.5, margin: 0 }}>
+                            {milestone.description}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                </div>
+              ))}
+
+              {/* Pinnacle Achievement Block */}
+              <div style={{ paddingLeft: "16px", marginTop: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "16px", position: "relative" }}>
+                  <div 
+                    style={{ 
+                      position: "absolute", 
+                      left: "-27px", 
+                      width: "20px", 
+                      height: "20px", 
+                      borderRadius: "50%", 
+                      background: "#D6B05C", 
+                      border: "3px solid #f8f7f5", 
+                      zIndex: 2,
+                      boxShadow: "0 0 0 2px #D6B05C"
+                    }} 
+                  />
+                  <div style={{ width: "20px", flexShrink: 0 }} />
+                  <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: "#D6B05C", textTransform: "uppercase" }}>
+                    Pinnacle Achievement
+                  </div>
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  style={{
+                    background: "#0F0A12",
+                    borderRadius: "12px",
+                    padding: "clamp(24px, 4vw, 32px)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "clamp(20px, 4vw, 32px)",
+                    position: "relative",
+                    overflow: "hidden"
+                  }}
+                >
+                  <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "4px", background: "#D6B05C", borderRadius: "4px 0 0 4px" }} />
+                  
+                  {/* Badge */}
+                  <div 
+                    style={{ 
+                      background: "rgba(214,176,92,0.12)", 
+                      border: "1px solid rgba(214,176,92,0.3)", 
+                      borderRadius: "8px", 
+                      padding: "14px", 
+                      flexShrink: 0, 
+                      textAlign: "center", 
+                      minWidth: "100px" 
+                    }}
+                  >
+                    <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.12em", color: "#D6B05C", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>CERT-In</span>
+                    <span style={{ fontSize: "28px", display: "block", marginBottom: "2px" }}>🛡</span>
+                    <span style={{ fontSize: "11px", color: "#D6B05C", fontWeight: 600, display: "block" }}>Empanelled</span>
+                  </div>
+
+                  <div style={{ flex: 1 }}>
+                    <div 
+                      style={{ 
+                        display: "inline-flex", 
+                        alignItems: "center", 
+                        gap: "6px", 
+                        background: "rgba(34,197,94,0.1)", 
+                        border: "1px solid rgba(34,197,94,0.25)", 
+                        borderRadius: "20px", 
+                        padding: "3px 12px", 
+                        marginBottom: "12px" 
+                      }}
+                    >
+                      <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e" }} />
+                      <span style={{ fontSize: "10px", fontWeight: 700, color: "#22c55e", letterSpacing: "0.08em", textTransform: "uppercase" }}>Active — Empanelled</span>
+                    </div>
+                    <h3 style={{ fontSize: "clamp(18px, 3vw, 22px)", fontWeight: 700, color: "#fff", margin: "0 0 8px", lineHeight: 1.3 }}>
+                      We Are <span style={{ color: "#D6B05C", fontStyle: "normal" }}>CERT-In Empanelled</span>
+                    </h3>
+                    <p style={{ fontSize: "12.5px", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, margin: "0 0 16px", maxWidth: "800px" }}>
+                      QuasarCyberTech has successfully completed the CERT-In Empanelment process — authorizing us to conduct national-level cybersecurity audits for critical government and enterprise infrastructure across India.
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                      {[
+                        "Certifying client environments",
+                        "Auditing banks & regulated entities",
+                        "Nation-critical security assessments"
+                      ].map(pill => (
+                        <span key={pill} style={{ background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "20px", padding: "4px 14px", fontSize: "11px", color: "rgba(255,255,255,0.7)" }}>
+                          {pill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-            </motion.article>
+            </div>
           </div>
         </section>
 
@@ -1462,149 +1383,23 @@ export default function About() {
           50%       { opacity: 0.45; transform: scale(0.7); }
         }
 
-        /* =========================================
-           TABLET  768px – 1024px
-        ========================================= */
-        @media (max-width: 1024px) and (min-width: 769px) {
-
-          /* Who We Are: stack text above metrics */
-          .about-who-grid {
-            grid-template-columns: 1fr !important;
-            gap: 48px !important;
-          }
-
-          /* Core Values: 2 columns */
-          .about-values-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-
-          /* Map: stack */
-          .about-map-grid {
-            grid-template-columns: 1fr !important;
-          }
-
-          /* Mission: keep 2 cols */
-          .about-mission-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-
-          /* Timeline: narrower centre */
-          .about-timeline-entry {
-            grid-template-columns: 1fr 64px 1fr !important;
-          }
-
-          /* CERT-In bullets: 2 cols */
-          .about-certin-bullets {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
+        .ms-cards-grid {
+          grid-template-columns: repeat(4, 1fr) !important;
         }
 
-        /* =========================================
-           MOBILE  ≤ 768px
-        ========================================= */
-        @media (max-width: 768px) {
-
-          /* Who We Are */
-          .about-who-grid {
+        @media (max-width: 1100px) {
+          .ms-cards-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+           .about-who-grid, .about-map-grid, .about-mission-grid {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
           }
-
-          /* Core Values: single column */
-          .about-values-grid {
-            grid-template-columns: 1fr !important;
-            gap: 12px !important;
-          }
-
-          /* Mission & Vision: single column */
-          .about-mission-grid {
-            grid-template-columns: 1fr !important;
-            gap: 16px !important;
-          }
-
-          /* Map: single column */
-          .about-map-grid {
-            grid-template-columns: 1fr !important;
-          }
-
-          /* ── Timeline ──
-             Collapse zigzag into a vertical left-border list.
-             Each entry becomes a simple block with the year label
-             inline above the card, attached to the left border line.
-          */
-          .about-timeline-spine {
-            display: none !important;
-          }
-          .about-timeline-wrap {
-            max-width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-            padding-left: 16px !important;
-            border-left: 1px solid rgba(214,176,92,0.25) !important;
-          }
-          .about-timeline-entry {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 12px !important;
-            margin-bottom: 32px !important;
-            padding: 0 !important;
-            position: relative !important;
-          }
-          /* Year node: sits above the card, flush left, acts as a marker on the spine */
-          .about-timeline-entry > div:nth-child(2) {
-            /* the centre column with TimelineYearNode */
-            order: 1 !important;
-            position: absolute !important;
-            left: -38px !important;
-            top: 0 !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            width: auto !important;
-          }
-          /* Shrink rings on mobile */
-          .about-timeline-entry > div:nth-child(2) > div > div:first-child {
-            width: 32px !important;
-            height: 32px !important;
-          }
-          .about-timeline-entry > div:nth-child(2) > div > div:first-child > div {
-            width: 22px !important;
-            height: 22px !important;
-          }
-          /* The actual card: always full width */
-          .about-tl-card {
-            order: 2 !important;
-            padding: 0 !important;
-            width: 100% !important;
-          }
-          /* Hide the spacer/connector lines — not needed in mobile list */
-          .about-tl-spacer {
-            display: none !important;
-          }
-
-          /* CERT-In header wrap */
-          .about-certin-header {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 10px !important;
-          }
-
-          /* CERT-In bullets: single column */
-          .about-certin-bullets {
-            grid-template-columns: 1fr !important;
-            gap: 10px !important;
-          }
         }
 
-        /* =========================================
-           SMALL MOBILE  ≤ 480px
-        ========================================= */
-        @media (max-width: 480px) {
-          .about-timeline-wrap {
-            padding-left: 12px !important;
-          }
-          .about-timeline-entry > div:nth-child(2) {
-            left: -32px !important;
+        @media (max-width: 640px) {
+          .ms-cards-grid {
+            grid-template-columns: 1fr !important;
           }
         }
       `,
