@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
+import Seo from '../components/seo/Seo';
 
 export default function NotFound() {
   return (
@@ -20,6 +21,12 @@ export default function NotFound() {
         fontFamily: TYPOGRAPHY.fontBody
       }}
     >
+      <Seo
+        title="Page Not Found"
+        description="The requested QuasarCyberTech page could not be found."
+        path="/404"
+        robots="noindex,nofollow"
+      />
       <motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}

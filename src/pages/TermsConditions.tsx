@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
+import Seo from '../components/seo/Seo';
 import { SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { createBreadcrumbSchema } from '../seo/schema';
 
 const TermsConditions: React.FC = () => {
   useEffect(() => {
@@ -11,6 +13,18 @@ const TermsConditions: React.FC = () => {
 
   return (
     <div style={{ background: SECTION_BACKGROUNDS.LIGHT, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Seo
+        title="Terms and Conditions"
+        description="Review the QuasarCyberTech terms and conditions governing use of the website, content, communications, and legal obligations."
+        path="/terms-conditions"
+        robots="noindex,follow"
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Terms and Conditions', path: '/terms-conditions' },
+          ]),
+        ]}
+      />
       <Navbar />
 
       <PageHero

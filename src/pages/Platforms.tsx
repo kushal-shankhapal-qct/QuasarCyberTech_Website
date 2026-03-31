@@ -3,10 +3,12 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
 import PageHero from '../components/PageHero';
+import Seo from '../components/seo/Seo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { COLORS, GRADIENTS } from '../config/themeConfig';
 
 import { ASSETS } from '@/constants/assets';
+import { createBreadcrumbSchema } from '../seo/schema';
 
 // Import Logos & Screenshots
 const qStellarLogo = ASSETS.logos.platforms.qstellarDark;
@@ -81,6 +83,18 @@ const BrowserFrame: React.FC<{
 export default function Platforms() {
   return (
     <div className="min-h-screen bg-[#040B1D] text-white selection:bg-[#6B1530] selection:text-white">
+      <Seo
+        title="Security Platforms & Cybersecurity Ecosystem"
+        description="Explore QuasarCyberTech's security platform ecosystem including QStellar, QPulse, QRGT, and QLeap for enterprise visibility, testing, and cyber intelligence."
+        path="/platforms"
+        image={ASSETS.backdrops.platformsHero}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Platforms', path: '/platforms' },
+          ]),
+        ]}
+      />
       <Navbar />
 
       <main>
@@ -167,7 +181,7 @@ export default function Platforms() {
         </section>
 
         {/* ─── PLATFORM 03: QRGT (LIGHT) ─── */}
-        <section style={{
+        <section id="qrgt" style={{
           background: '#FCFAF8',
           display: 'flex',
           borderTop: '1px solid rgba(0,0,0,0.05)',
@@ -181,7 +195,7 @@ export default function Platforms() {
             <p style={{ fontSize: '1rem', color: '#64748B', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
               QRGT transforms traditional penetration testing into a continuous, governed program. Track findings and manage remediation workflows in one platform.
             </p>
-            <a href="/platforms/qrgt" style={{
+            <a href="#qrgt" style={{
               background: COLORS.burgundy, color: 'white', padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', width: 'fit-content', textDecoration: 'none', transition: 'all 0.3s ease'
             }}>
               Explore QRGT Platform <ArrowRight size={18} style={{ marginLeft: '10px' }} />

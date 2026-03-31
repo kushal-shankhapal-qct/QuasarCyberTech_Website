@@ -32,11 +32,17 @@ import {
   BRAND_CONTROLS,
 } from "../config/themeConfig";
 import { ASSETS } from "@/constants/assets";
+import Seo from "../components/seo/Seo";
+import { createBreadcrumbSchema, createAboutPageSchema } from "../seo/schema";
 
 const METRIC_ANIMATION_DURATION = 1.2;
 const DEFAULT_MAP_SCALE = 700;
 const DEFAULT_MAP_CENTER: [number, number] = [79.6, 20.1];
 const MAP_LEGEND_HEIGHT = 46;
+const aboutBreadcrumbSchema = createBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+]);
 
 // --- Metrics Helper ---
 const MetricRow: React.FC<{
@@ -520,6 +526,19 @@ export default function About() {
         overflowX: "hidden",
       }}
     >
+      <Seo
+        title="About QuasarCyberTech — Our Mission, Values & Story"
+        description="Learn about QuasarCyberTech — an enterprise cybersecurity consulting and engineering firm committed to building a safer digital world through offensive security, advisory, and managed defense."
+        path="/about"
+        image={ASSETS.capabilities.advisory}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'About', path: '/about' },
+          ]),
+          createAboutPageSchema(),
+        ]}
+      />
       <Navbar />
 
       <main>

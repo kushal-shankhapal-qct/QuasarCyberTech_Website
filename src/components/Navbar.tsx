@@ -244,7 +244,7 @@ const Navbar: React.FC = () => {
             title: c.navLabel,
             items: c.subCapabilities.map((sub) => ({
               label: sub.name,
-              href: `/capabilities/${c.slug}?tab=${sub.slug}#capability-content`,
+              href: `/capabilities/${c.slug}#${sub.slug}`,
               desc: sub.shortDescription,
             })),
           })),
@@ -266,28 +266,29 @@ const Navbar: React.FC = () => {
   // ─── Renderers ───────────────────────────────────────────────────────────────
   const renderDropdownItem = (sub: SubItem, hideIcon = false, isPlatformItem = false) => {
     const d = NC.dropdown.item;
-    return (
-      <Link
-        key={`${sub.label}-${sub.href}`}
-        to={sub.href}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: isPlatformItem ? "10px" : "12px",
-          padding: "10px 24px",
-          color: d.color,
-          textDecoration: "none",
-          transition: `all ${d.transitionDuration} ease`,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = d.colorHover;
-          e.currentTarget.style.background = "rgba(214,176,92,0.06)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = d.color;
-          e.currentTarget.style.background = "transparent";
-        }}
-      >
+    const sharedProps = {
+      key: `${sub.label}-${sub.href}`,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: isPlatformItem ? "10px" : "12px",
+        padding: "10px 24px",
+        color: d.color,
+        textDecoration: "none",
+        transition: `all ${d.transitionDuration} ease`,
+      },
+      onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>) => {
+        e.currentTarget.style.color = d.colorHover;
+        e.currentTarget.style.background = "rgba(214,176,92,0.06)";
+      },
+      onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>) => {
+        e.currentTarget.style.color = d.color;
+        e.currentTarget.style.background = "transparent";
+      },
+    };
+
+    const content = (
+      <>
         {!hideIcon && !isPlatformItem && (
           sub.icon ? (
             <div style={{ width: "28px", height: "28px", display: "flex", alignItems: "center" }}>
@@ -313,6 +314,33 @@ const Navbar: React.FC = () => {
           {sub.label}
           {sub.isExternal && <span style={{ fontSize: "0.7rem", opacity: 0.35 }}>↗</span>}
         </div>
+      </>
+    );
+
+    if (sub.isExternal) {
+      return (
+        <a
+          {...sharedProps}
+          href={sub.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {content}
+        </a>
+      );
+    }
+
+    return (
+      <Link
+        {...sharedProps}
+        to={sub.href}
+        style={{
+          ...sharedProps.style,
+        }}
+        onMouseEnter={sharedProps.onMouseEnter}
+        onMouseLeave={sharedProps.onMouseLeave}
+      >
+        {content}
       </Link>
     );
   };
@@ -766,16 +794,30 @@ const Navbar: React.FC = () => {
                           className="flex flex-col gap-3 mt-4 pl-4 overflow-hidden"
                         >
                           {menu.subItems?.map((sub) => (
-                            <Link
-                              key={sub.label}
-                              to={sub.href}
-                              onClick={() => setIsMobileOpen(false)}
-                              className="text-white/70 hover:text-white text-sm flex items-center gap-2"
-                            >
-                              {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#D6B05C]" />}
-                              {sub.label}
-                              {sub.isExternal && <span className="text-[10px] opacity-50">↗</span>}
-                            </Link>
+                            sub.isExternal ? (
+                              <a
+                                key={sub.label}
+                                href={sub.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setIsMobileOpen(false)}
+                                className="text-white/70 hover:text-white text-sm flex items-center gap-2"
+                              >
+                                {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#D6B05C]" />}
+                                {sub.label}
+                                <span className="text-[10px] opacity-50">↗</span>
+                              </a>
+                            ) : (
+                              <Link
+                                key={sub.label}
+                                to={sub.href}
+                                onClick={() => setIsMobileOpen(false)}
+                                className="text-white/70 hover:text-white text-sm flex items-center gap-2"
+                              >
+                                {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#D6B05C]" />}
+                                {sub.label}
+                              </Link>
+                            )
                           ))}
                         </motion.div>
                       )}

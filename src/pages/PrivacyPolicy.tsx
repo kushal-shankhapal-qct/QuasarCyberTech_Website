@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
+import Seo from '../components/seo/Seo';
 import { SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { createBreadcrumbSchema } from '../seo/schema';
 
 const PrivacyPolicy: React.FC = () => {
   useEffect(() => {
@@ -11,6 +13,18 @@ const PrivacyPolicy: React.FC = () => {
 
   return (
     <div style={{ background: SECTION_BACKGROUNDS.LIGHT, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Seo
+        title="Privacy Policy"
+        description="Read the QuasarCyberTech privacy policy covering data collection, usage, cookies, security safeguards, and contact details."
+        path="/privacy-policy"
+        robots="noindex,follow"
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Privacy Policy', path: '/privacy-policy' },
+          ]),
+        ]}
+      />
       <Navbar />
 
       <PageHero

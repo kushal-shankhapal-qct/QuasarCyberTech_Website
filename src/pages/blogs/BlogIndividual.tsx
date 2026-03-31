@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { User, Clock, Tag, ArrowLeft, Share2 } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import PageHero from '../../components/PageHero';
+import Seo from '../../components/seo/Seo';
 import { blogsData } from '../../data/blogsData';
 import { COLORS, TYPOGRAPHY, GRADIENTS } from '../../config/themeConfig';
+import NotFound from '../NotFound';
+import { createArticleSchema, createBreadcrumbSchema } from '../../seo/schema';
 
 const BlogIndividual: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -17,8 +20,10 @@ const BlogIndividual: React.FC = () => {
     }, [slug]);
 
     if (!post) {
-        return <Navigate to="/blogs" />;
+        return <NotFound />;
     }
+
+    const publishedAt = new Date(post.date).toISOString();
 
     // Simple Markdown-ish Renderer for the demo content
     const renderContent = (content: string) => {
@@ -68,6 +73,28 @@ const BlogIndividual: React.FC = () => {
 
     return (
         <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
+            <Seo
+                title={post.title}
+                description={post.excerpt}
+                path={`/blogs/${post.id}`}
+                image={post.image}
+                type="article"
+                jsonLd={[
+                    createBreadcrumbSchema([
+                        { name: 'Home', path: '/' },
+                        { name: 'Blogs', path: '/blogs' },
+                        { name: post.title, path: `/blogs/${post.id}` },
+                    ]),
+                    createArticleSchema({
+                        title: post.title,
+                        description: post.excerpt,
+                        path: `/blogs/${post.id}`,
+                        image: post.image,
+                        publishedAt,
+                        author: post.author,
+                    }),
+                ]}
+            />
             <Navbar />
             
             <main>
@@ -116,10 +143,32 @@ const BlogIndividual: React.FC = () => {
                         </div>
 
                         {/* Content body */}
-                        <article style={{ fontFamily: TYPOGRAPHY.fontBody }}>
+                        <article style={{ fontFamily: TYPOGRAPHY.fontBody }} itemScope itemType="https://schema.org/Article">
                             {post.content ? renderContent(post.content) : (
-                                <div style={{ padding: '40px 0', textAlign: 'center', opacity: 0.5 }}>
-                                    Article content coming soon...
+                                <div>
+                                    <span style={{ display: 'block', fontSize: '11px', fontWeight: 800, color: COLORS.burgundy, textTransform: 'uppercase', letterSpacing: '0.18em', marginBottom: '16px' }}>{post.category}</span>
+                                    <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#1A0A0F', marginBottom: '24px', fontFamily: TYPOGRAPHY.fontHeading }}>
+                                        {post.title}
+                                    </h2>
+                                    <p style={{ fontSize: '17px', lineHeight: 1.8, color: '#4A3040', marginBottom: '24px' }}>
+                                        {post.excerpt}
+                                    </p>
+                                    <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#4A3040', marginBottom: '24px' }}>
+                                        This in-depth article explores the latest developments in {post.category.toLowerCase()} and what they mean for enterprise security teams. Our cybersecurity experts at QuasarCyberTech analyse the implications, provide actionable guidance, and outline how organizations can prepare their defenses accordingly.
+                                    </p>
+                                    {post.tags.slice(0, 3).map((topic) => (
+                                        <div key={topic} style={{ marginBottom: '32px' }}>
+                                            <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#56081A', marginBottom: '12px', fontFamily: TYPOGRAPHY.fontHeading }}>
+                                                {topic.replace(/-/g, ' ')}
+                                            </h3>
+                                            <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#4A3040' }}>
+                                                Understanding the role of {topic.replace(/-/g, ' ')} in the current threat landscape is critical for enterprise security leaders. Organizations that proactively address this area significantly reduce their overall attack surface and improve incident response readiness.
+                                            </p>
+                                        </div>
+                                    ))}
+                                    <p style={{ fontSize: '14px', color: '#888', fontStyle: 'italic', marginTop: '40px', borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: '24px' }}>
+                                        Full article content is being finalized by our editorial team. Subscribe to our security insights to be notified when the complete article is published.
+                                    </p>
                                 </div>
                             )}
                         </article>
@@ -136,10 +185,16 @@ const BlogIndividual: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Tags */}
+                        {/* Tags — crawlable links for internal SEO signal */}
                         <div style={{ marginTop: '32px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             {post.tags.map(tag => (
-                                <span key={tag} style={{ background: 'rgba(0,0,0,0.04)', padding: '6px 14px', borderRadius: '4px', fontSize: '12px', color: '#666', fontWeight: 500 }}>#{tag}</span>
+                                <Link
+                                    key={tag}
+                                    to={`/blogs?tag=${encodeURIComponent(tag)}`}
+                                    style={{ background: 'rgba(0,0,0,0.04)', padding: '6px 14px', borderRadius: '4px', fontSize: '12px', color: '#666', fontWeight: 500, textDecoration: 'none', transition: 'background 0.2s' }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(107,21,48,0.08)'; e.currentTarget.style.color = COLORS.burgundy; }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; e.currentTarget.style.color = '#666'; }}
+                                >#{tag}</Link>
                             ))}
                         </div>
                     </div>

@@ -12,10 +12,20 @@ import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
 import AccreditationBar from '../components/AccreditationBar';
 import { LAYOUT_CONTROLS } from '../config/themeConfig';
+import Seo from '../components/seo/Seo';
+import { ASSETS } from '@/constants/assets';
+import { DEFAULT_OG_IMAGE_SOCIAL } from '../seo/site';
 
 export default function Home() {
   return (
     <div className="min-h-screen w-full relative overflow-x-hidden bg-canvas">
+      <Seo
+        title="Enterprise Cybersecurity Consulting, Managed Defense & Security Engineering"
+        description="QuasarCyberTech helps enterprises strengthen cyber resilience through advisory, offensive security, managed defense, cloud security, and platform-led security engineering."
+        path="/"
+        image={DEFAULT_OG_IMAGE_SOCIAL}
+        jsonLd={[]}
+      />
       <Navbar />
       <main>
         {/* 1. DARK: Hero */}

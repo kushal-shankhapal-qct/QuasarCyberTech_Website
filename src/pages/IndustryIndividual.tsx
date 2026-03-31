@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { COLORS, TYPOGRAPHY } from '../config/themeConfig';
 import { industriesData } from '../data/industriesData';
 import { getCapabilityBySlug } from '../data/capabilitiesData';
 import PageHero from '../components/PageHero';
 import CapabilityCardSimple from '../components/capabilities/cards/CapabilityCardSimple';
+import Seo from '../components/seo/Seo';
+import NotFound from './NotFound';
+import { createBreadcrumbSchema, createServiceSchema } from '../seo/schema';
 
 const IndustryIndividual: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -18,11 +21,31 @@ const IndustryIndividual: React.FC = () => {
   }, [slug]);
 
   if (!industry) {
-    return <Navigate to="/industries" />;
+    return <NotFound />;
   }
 
   return (
     <div className="min-h-screen w-full relative bg-canvas overflow-x-hidden selection:bg-brand-primary/20 selection:text-brand-primary">
+      <Seo
+        title={`${industry.name} Cybersecurity Services`}
+        description={industry.subtitle}
+        path={`/industries/${industry.slug}`}
+        image={industry.image}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Industries', path: '/industries' },
+            { name: industry.name, path: `/industries/${industry.slug}` },
+          ]),
+          createServiceSchema({
+            name: `${industry.name} Cybersecurity Services`,
+            description: industry.description,
+            path: `/industries/${industry.slug}`,
+            image: industry.image,
+            serviceType: industry.eyebrow,
+          }),
+        ]}
+      />
       <Navbar />
 
       <PageHero
@@ -72,9 +95,9 @@ const IndustryIndividual: React.FC = () => {
             <span className="text-sm font-bold text-[#6B1530] uppercase tracking-widest mb-3 block" style={{ fontFamily: TYPOGRAPHY.fontHeading }}>
               QuasarCyberTech Advantage
             </span>
-            <h2 className="text-4xl font-bold text-black mb-8" style={{ fontFamily: TYPOGRAPHY.fontHeading, lineHeight: 1.1 }}>
+            <h3 className="text-4xl font-bold text-black mb-8" style={{ fontFamily: TYPOGRAPHY.fontHeading, lineHeight: 1.1 }}>
               Deep <span style={{ color: '#6B1530' }}>Security</span> Expertise
-            </h2>
+            </h3>
 
             <div className="flex flex-col gap-6">
               {industry.whyQCT.map((item) => (

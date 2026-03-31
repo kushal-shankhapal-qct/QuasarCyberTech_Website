@@ -4,9 +4,11 @@ import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
 import CapabilityCardSimple from '../components/capabilities/cards/CapabilityCardSimple';
 import PageHero from '../components/PageHero';
+import Seo from '../components/seo/Seo';
 import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS, GRADIENTS } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { capabilities } from '../data/capabilitiesData';
+import { createBreadcrumbSchema } from '../seo/schema';
 
 
 
@@ -17,6 +19,18 @@ const CapabilitiesOverview: React.FC = () => {
 
     return (
         <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <Seo
+                title="Cybersecurity Capabilities & Services"
+                description="Discover QuasarCyberTech's cybersecurity capabilities across advisory, compliance, offensive security, cloud protection, managed defense, and cyber intelligence."
+                path="/capabilities"
+                image={ASSETS.capabilities.worldwideConnection}
+                jsonLd={[
+                    createBreadcrumbSchema([
+                        { name: 'Home', path: '/' },
+                        { name: 'Capabilities', path: '/capabilities' },
+                    ]),
+                ]}
+            />
             <Navbar />
 
             <PageHero

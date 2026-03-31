@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
+import Seo from '../components/seo/Seo';
 import { motion } from 'framer-motion';
 import { Mail, Phone, Linkedin, Instagram, Twitter, ArrowRight } from 'lucide-react';
 import { COLORS, TYPOGRAPHY, GRADIENTS, LAYOUT_CONTROLS, SHADOWS } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import intlTelInput from 'intl-tel-input';
 import 'intl-tel-input/build/css/intlTelInput.css';
+import { createBreadcrumbSchema, createContactPageSchema } from '../seo/schema';
 
 // ─── CONFIGURATION OVERRIDES ───
 const CONFIG = {
@@ -264,6 +266,19 @@ export default function Contact() {
 
   return (
     <div style={{ background: '#F8FAFC', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+      <Seo
+        title="Contact QuasarCyberTech"
+        description="Talk to QuasarCyberTech about offensive security, managed SOC, cloud security, compliance, and enterprise cyber resilience programs."
+        path="/contact"
+        image={ASSETS.capabilities.advisory}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Contact', path: '/contact' },
+          ]),
+          createContactPageSchema(),
+        ]}
+      />
       <Navbar />
 
       <main>

@@ -6,9 +6,11 @@ import Footer from '../../components/Footer';
 import ArticleCard from '../../components/blogs/ArticleCard';
 import BlogSidebar from '../../components/blogs/SidebarWidget';
 import PageHero from '../../components/PageHero';
+import Seo from '../../components/seo/Seo';
 import { blogsData, BLOG_CATEGORIES } from '../../data/blogsData';
 import { COLORS, GRADIENTS, TYPOGRAPHY } from '../../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
+import { createBreadcrumbSchema } from '../../seo/schema';
 
 // ─── Design tokens ───────────────────────────────────────────────────────────
 const DARK_BG = '#000112';
@@ -86,6 +88,18 @@ export default function BlogsOverview() {
   // ═══════════════════════════════════════════════════════════════════════════
   return (
     <div style={{ background: DARK_BG, minHeight: '100vh', overflowX: 'hidden' }}>
+      <Seo
+        title="Cybersecurity Blog, Threat Research & Insights"
+        description="Read QuasarCyberTech research on cyber threats, vulnerability intelligence, defensive engineering, cloud security, and incident response."
+        path="/blogs"
+        image={featuredPost?.image || ASSETS.blogs.threats}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Blogs', path: '/blogs' },
+          ]),
+        ]}
+      />
       <Navbar />
 
       <main>

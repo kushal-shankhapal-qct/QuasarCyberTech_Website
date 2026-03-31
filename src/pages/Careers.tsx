@@ -6,8 +6,10 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
 import CTASection from '../components/CTASection';
+import Seo from '../components/seo/Seo';
 import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
+import { createBreadcrumbSchema, createCareersPageSchema } from '../seo/schema';
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
@@ -35,6 +37,19 @@ const Careers: React.FC = () => {
 
   return (
     <div style={{ background: '#FFFFFF', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: TYPOGRAPHY.fontBody }}>
+      <Seo
+        title="Cybersecurity Careers at QuasarCyberTech"
+        description="Explore cybersecurity consulting, engineering, SOC, cloud security, and research career opportunities at QuasarCyberTech. Join India's leading cybersecurity firm."
+        path="/careers"
+        image={ASSETS.backdrops.careersHero}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Careers', path: '/careers' },
+          ]),
+          createCareersPageSchema(),
+        ]}
+      />
       <Navbar />
 
       {/* ── 1: THE HERO SECTION (Standardized) ── */}

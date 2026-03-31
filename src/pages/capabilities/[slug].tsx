@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowRight,
   BarChart3,
@@ -21,9 +21,12 @@ import Footer from '../../components/Footer';
 import PageHero from '../../components/PageHero';
 import CTASection from '../../components/CTASection';
 import CapabilityCardSimple from '../../components/capabilities/cards/CapabilityCardSimple';
+import Seo from '../../components/seo/Seo';
 import { capabilityHighlights, getCapabilityBySlug, platformConfigs, type SubCapability } from '../../data/capabilitiesData';
 import { ASSETS } from '@/constants/assets';
 import { COLORS, GRADIENTS, LAYOUT_CONTROLS, NAVBAR_HEIGHT, TYPOGRAPHY } from '../../config/themeConfig';
+import NotFound from '../NotFound';
+import { createBreadcrumbSchema, createFaqSchema, createServiceSchema } from '../../seo/schema';
 
 const splitStep = (step: string) => {
   const firstColon = step.indexOf(':');
@@ -221,7 +224,7 @@ const subCapabilitySlugAliases: Record<string, Record<string, string>> = {
 const CapabilityPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const capability = getCapabilityBySlug(slug || '');
   const [activeSubSlug, setActiveSubSlug] = useState('');
   const [hoveredIndustryCard, setHoveredIndustryCard] = useState<string | null>(null);
@@ -251,20 +254,16 @@ const CapabilityPage: React.FC = () => {
       return;
     }
 
-    const requestedTab = searchParams.get('tab');
-    const resolvedRequestedTab = requestedTab
-      ? subCapabilitySlugAliases[capability.slug]?.[requestedTab] || requestedTab
+    const requestedHash = location.hash.replace('#', '');
+    const resolvedRequestedTab = requestedHash && requestedHash !== 'capability-content'
+      ? subCapabilitySlugAliases[capability.slug]?.[requestedHash] || requestedHash
       : null;
     const matchedSub = resolvedRequestedTab && capability.subCapabilities.find((subCapability) => subCapability.slug === resolvedRequestedTab);
     const fallbackSub = capability.subCapabilities[0];
     const nextSub = matchedSub || fallbackSub;
 
     setActiveSubSlug(nextSub.slug);
-
-    if (resolvedRequestedTab !== nextSub.slug) {
-      setSearchParams({ tab: nextSub.slug }, { replace: true, preventScrollReset: true });
-    }
-  }, [capability, searchParams, setSearchParams]);
+  }, [capability, location.hash]);
 
   useEffect(() => {
     if (!capability?.subCapabilities?.length) {
@@ -282,17 +281,17 @@ const CapabilityPage: React.FC = () => {
   }, [capability]);
 
   useEffect(() => {
-    if (location.hash !== '#capability-content') {
+    if (!location.hash) {
       return;
     }
 
-    const section = document.getElementById('capability-content');
-    if (!section) {
+    const currentHash = location.hash.replace('#', '');
+    if (currentHash !== 'capability-content' && currentHash !== activeSubSlug) {
       return;
     }
 
     window.requestAnimationFrame(() => {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollToSubCapabilityTop();
     });
   }, [location.hash, activeSubSlug]);
 
@@ -372,11 +371,11 @@ const CapabilityPage: React.FC = () => {
   }, [activeSubSlug, capability?.platform]);
 
   if (!capability) {
-    return <Navigate to="/capabilities" replace />;
+    return <NotFound />;
   }
 
   if (!activeSub) {
-    return <Navigate to="/capabilities" replace />;
+    return <NotFound />;
   }
 
   const scrollToSubCapabilityTop = () => {
@@ -412,6 +411,27 @@ const CapabilityPage: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full bg-[#000000]">
+      <Seo
+        title={capability.name}
+        description={activeSub.positioning || capability.heroSubtitle}
+        path={`/capabilities/${capability.slug}`}
+        image={capability.image}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Capabilities', path: '/capabilities' },
+            { name: capability.name, path: `/capabilities/${capability.slug}` },
+          ]),
+          createServiceSchema({
+            name: capability.name,
+            description: capability.heroSubtitle,
+            path: `/capabilities/${capability.slug}`,
+            image: capability.image,
+            serviceType: capability.navLabel,
+          }),
+          ...((capability.faqs || []).length ? [createFaqSchema(capability.faqs || [])] : []),
+        ]}
+      />
       <Navbar />
 
       <PageHero
@@ -462,15 +482,16 @@ const CapabilityPage: React.FC = () => {
             {capability.subCapabilities.map((subCapability) => {
               const isActive = activeSubSlug === subCapability.slug;
               return (
-                <button
-                  type="button"
+                <a
                   key={subCapability.slug}
-                  onClick={() => {
+                  href={`/capabilities/${capability.slug}#${subCapability.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
                     setActiveSubSlug(subCapability.slug);
-                    setSearchParams({ tab: subCapability.slug }, { replace: true, preventScrollReset: true });
+                    navigate({ hash: `#${subCapability.slug}` }, { replace: true, preventScrollReset: true });
                     window.requestAnimationFrame(scrollToSubCapabilityTop);
                   }}
-                  className="h-full w-full px-3 py-0 font-semibold cursor-pointer transition-colors leading-tight text-center rounded-none border-0"
+                  className="h-full w-full px-3 py-0 font-semibold cursor-pointer transition-colors leading-tight text-center rounded-none border-0 flex items-center justify-center"
                   style={
                     isActive
                       ? {
@@ -480,6 +501,7 @@ const CapabilityPage: React.FC = () => {
                           fontWeight: TYPOGRAPHY.navLink.fontWeight,
                           letterSpacing: TYPOGRAPHY.navLink.letterSpacing,
                           fontFamily: TYPOGRAPHY.fontBody,
+                          textDecoration: 'none',
                         }
                       : {
                           background: 'transparent',
@@ -488,6 +510,7 @@ const CapabilityPage: React.FC = () => {
                           fontWeight: TYPOGRAPHY.navLink.fontWeight,
                           letterSpacing: TYPOGRAPHY.navLink.letterSpacing,
                           fontFamily: TYPOGRAPHY.fontBody,
+                          textDecoration: 'none',
                         }
                   }
                   onMouseEnter={(e) => {
@@ -504,7 +527,7 @@ const CapabilityPage: React.FC = () => {
                   }}
                 >
                   {renderHighlightedText(subCapability.name, subCapabilityTitleHighlights[subCapability.slug] || [], isActive ? '#D6B05C' : '#6B1530')}
-                </button>
+                </a>
               );
             })}
           </div>
@@ -516,9 +539,9 @@ const CapabilityPage: React.FC = () => {
             style={{ paddingLeft: LAYOUT_CONTROLS.section.paddingX, paddingRight: LAYOUT_CONTROLS.section.paddingX }}
           >
             <p className="text-xs font-medium mb-3 text-black" style={{ fontFamily: TYPOGRAPHY.fontBody, letterSpacing: '0.03em' }}>
-              <span>Home</span>
+              <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
               <span className="mx-2 text-black/60">›</span>
-              <span>Capabilities</span>
+              <Link to="/capabilities" style={{ color: 'inherit', textDecoration: 'none' }}>Capabilities</Link>
               <span className="mx-2 text-black/60">›</span>
               <span className="text-[#6B1530]">{capability.name}</span>
             </p>

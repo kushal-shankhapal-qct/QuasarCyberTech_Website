@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
+import Seo from '../components/seo/Seo';
 import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
-import { ChevronLeft } from 'lucide-react';
 import { ASSETS } from '@/constants/assets';
+import { createBreadcrumbSchema } from '../seo/schema';
 
 const CareersApply: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -21,6 +22,20 @@ const CareersApply: React.FC = () => {
 
   return (
     <div style={{ background: '#FFFFFF', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: TYPOGRAPHY.fontBody }}>
+      <Seo
+        title="Apply for a Cybersecurity Role"
+        description={role ? `Application form for the ${role} role at QuasarCyberTech.` : 'Application form for QuasarCyberTech career opportunities.'}
+        path="/careers/apply"
+        image={ASSETS.logos.qct.over}
+        robots="noindex,nofollow"
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Careers', path: '/careers' },
+            { name: 'Apply', path: '/careers/apply' },
+          ]),
+        ]}
+      />
       <Navbar />
 
       {/* ── 1: THE HERO (Dark) ── */}

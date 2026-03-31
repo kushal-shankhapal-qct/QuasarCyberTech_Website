@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import Breadcrumb from '../components/Breadcrumb';
 import { industriesData } from '../data/industriesData';
+import Seo from '../components/seo/Seo';
+import { createBreadcrumbSchema } from '../seo/schema';
 
 const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
 
@@ -18,6 +20,18 @@ import PageHero from '../components/PageHero';
 const IndustriesOverview: React.FC = () => {
   return (
     <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh' }}>
+      <Seo
+        title="Cybersecurity Solutions by Industry"
+        description="See how QuasarCyberTech tailors cybersecurity consulting, testing, and managed defense for banking, fintech, SaaS, healthcare, ecommerce, and enterprise operations."
+        path="/industries"
+        image={ASSETS.industries.overviewHero}
+        jsonLd={[
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Industries', path: '/industries' },
+          ]),
+        ]}
+      />
       <Navbar />
 
       <PageHero
@@ -85,6 +99,8 @@ const IndustriesOverview: React.FC = () => {
                   <img
                     src={ind.image}
                     alt={ind.name}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '100%',
