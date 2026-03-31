@@ -1,0 +1,494 @@
+[
+  {
+    "local": "Backdrops/Cyber_Quasar_Backdrop.png",
+    "cloudinary": "Backdrops/Cyber_Quasar_Backdrop.png"
+  },
+  {
+    "local": "Backdrops/Cyber_Quasar_Backdrop_Enlarged.png",
+    "cloudinary": "Backdrops/Cyber_Quasar_Backdrop_Enlarged.png"
+  },
+  {
+    "local": "Backdrops/Tech_Net_Backdrop.png",
+    "cloudinary": "Backdrops/Tech_Net_Backdrop.png"
+  },
+  {
+    "local": "Blogs_Images/AI in Cybersecurity_A Powerful Ally or a Looming Threat.png",
+    "cloudinary": "Blogs_Images/AI_in_Cybersecurity_A_Powerful_Ally_or_a_Looming_Threat.png"
+  },
+  {
+    "local": "Blogs_Images/Moneygram Suffers Data Breach, Exposing Customer Information.png",
+    "cloudinary": "Blogs_Images/Moneygram_Suffers_Data_Breach,_Exposing_Customer_Information.png"
+  },
+  {
+    "local": "Blogs_Images/Top Cybersecurity Threats Businesses Should Watch Out for in 2025.png",
+    "cloudinary": "Blogs_Images/Top_Cybersecurity_Threats_Businesses_Should_Watch_Out_for_in_2025.png"
+  },
+  {
+    "local": "Capabilities_Images/abstract-red-lights-background/622.eps",
+    "cloudinary": "Capabilities_Images/abstract-red-lights-background/622.eps"
+  },
+  {
+    "local": "Capabilities_Images/abstract-red-lights-background/622.jpg",
+    "cloudinary": "Capabilities_Images/abstract-red-lights-background/622.jpg"
+  },
+  {
+    "local": "Capabilities_Images/abstract-red-lights-background/License free.txt",
+    "cloudinary": "Capabilities_Images/abstract-red-lights-background/License_free.txt"
+  },
+  {
+    "local": "Capabilities_Images/abstract-red-lights-background/License premium.txt",
+    "cloudinary": "Capabilities_Images/abstract-red-lights-background/License_premium.txt"
+  },
+  {
+    "local": "Capabilities_Images/Cloud & Infrastructure Security.jpg",
+    "cloudinary": "Capabilities_Images/Cloud_and_Infrastructure_Security.jpg"
+  },
+  {
+    "local": "Capabilities_Images/Compliance & Regulatory Assurance.jpg",
+    "cloudinary": "Capabilities_Images/Compliance_and_Regulatory_Assurance.jpg"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Advisory & Risk Governance/architecture_review.png",
+    "cloudinary": "Capabilities_Images/Cyber_Advisory_and_Risk_Governance/architecture_review.png"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Advisory & Risk Governance/strategy_consulting.png",
+    "cloudinary": "Capabilities_Images/Cyber_Advisory_and_Risk_Governance/strategy_consulting.png"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Advisory & Risk Governance/tabletop_war_game.png",
+    "cloudinary": "Capabilities_Images/Cyber_Advisory_and_Risk_Governance/tabletop_war_game.png"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Advisory & Risk Governance/vciso_services.png",
+    "cloudinary": "Capabilities_Images/Cyber_Advisory_and_Risk_Governance/vciso_services.png"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Advisory & Risk Governance/zero_trust.png",
+    "cloudinary": "Capabilities_Images/Cyber_Advisory_and_Risk_Governance/zero_trust.png"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Advisory & Risk Governance.jpg",
+    "cloudinary": "Capabilities_Images/Cyber_Advisory_and_Risk_Governance.jpg"
+  },
+  {
+    "local": "Capabilities_Images/Cyber Intelligence & Security Research.webp",
+    "cloudinary": "Capabilities_Images/Cyber_Intelligence_and_Security_Research.webp"
+  },
+  {
+    "local": "Capabilities_Images/Managed Defense Operations.png",
+    "cloudinary": "Capabilities_Images/Managed_Defense_Operations.png"
+  },
+  {
+    "local": "Capabilities_Images/Managed Defense Operations_2.jpeg",
+    "cloudinary": "Capabilities_Images/Managed_Defense_Operations_2.jpeg"
+  },
+  {
+    "local": "Capabilities_Images/Managed Defense Operations_3.jpeg",
+    "cloudinary": "Capabilities_Images/Managed_Defense_Operations_3.jpeg"
+  },
+  {
+    "local": "Capabilities_Images/Managed Defense Operations_4.jpeg",
+    "cloudinary": "Capabilities_Images/Managed_Defense_Operations_4.jpeg"
+  },
+  {
+    "local": "Capabilities_Images/Managed_IT_Services.jpg",
+    "cloudinary": "Capabilities_Images/Managed_IT_Services.jpg"
+  },
+  {
+    "local": "Capabilities_Images/Offensive Security Engineering.jpg",
+    "cloudinary": "Capabilities_Images/Offensive_Security_Engineering.jpg"
+  },
+  {
+    "local": "Capabilities_Images/SVCs_Set_2/SVC_1.png",
+    "cloudinary": "Capabilities_Images/SVCs_Set_2/SVC_1.png"
+  },
+  {
+    "local": "Capabilities_Images/SVCs_Set_2/SVC_2.png",
+    "cloudinary": "Capabilities_Images/SVCs_Set_2/SVC_2.png"
+  },
+  {
+    "local": "Capabilities_Images/SVCs_Set_2/SVC_3.png",
+    "cloudinary": "Capabilities_Images/SVCs_Set_2/SVC_3.png"
+  },
+  {
+    "local": "Capabilities_Images/SVCs_Set_2/SVC_4.png",
+    "cloudinary": "Capabilities_Images/SVCs_Set_2/SVC_4.png"
+  },
+  {
+    "local": "Capabilities_Images/SVCs_Set_2/SVC_5.png",
+    "cloudinary": "Capabilities_Images/SVCs_Set_2/SVC_5.png"
+  },
+  {
+    "local": "Capabilities_Images/SVCs_Set_2/SVC_6.png",
+    "cloudinary": "Capabilities_Images/SVCs_Set_2/SVC_6.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_1/SVC_1.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_1/SVC_1.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_1/SVC_2.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_1/SVC_2.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_1/SVC_3.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_1/SVC_3.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_1/SVC_4.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_1/SVC_4.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_1/SVC_5.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_1/SVC_5.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_1/SVC_6.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_1/SVC_6.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_3/svc_01.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_3/svc_01.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_3/svc_02.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_3/svc_02.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_3/svc_03.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_3/svc_03.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_3/svc_04.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_3/svc_04.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_3/svc_05.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_3/svc_05.png"
+  },
+  {
+    "local": "Capabilities_Images/SVC_Set_3/svc_06.png",
+    "cloudinary": "Capabilities_Images/SVC_Set_3/svc_06.png"
+  },
+  {
+    "local": "Capabilities_Images/Tech_Consulting.png",
+    "cloudinary": "Capabilities_Images/Tech_Consulting.png"
+  },
+  {
+    "local": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/80909.eps",
+    "cloudinary": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/80909.eps"
+  },
+  {
+    "local": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/80909.jpg",
+    "cloudinary": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/80909.jpg"
+  },
+  {
+    "local": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/License free.txt",
+    "cloudinary": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/License_free.txt"
+  },
+  {
+    "local": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/License premium.txt",
+    "cloudinary": "Capabilities_Images/worldwide-connection-red-background-illustration-vector/License_premium.txt"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-Bold.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-Bold.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-BoldItalic.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-BoldItalic.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-Italic.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-Italic.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-Light.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-Light.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-LightItalic.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-LightItalic.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-Medium.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-Medium.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-MediumItalic.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-MediumItalic.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/Ubuntu-Regular.ttf",
+    "cloudinary": "Fonts/Ubuntu/Ubuntu-Regular.ttf"
+  },
+  {
+    "local": "Fonts/Ubuntu/UFL.txt",
+    "cloudinary": "Fonts/Ubuntu/UFL.txt"
+  },
+  {
+    "local": "Founder_Image/Kishor_Sir.png",
+    "cloudinary": "Founder_Image/Kishor_Sir.png"
+  },
+  {
+    "local": "gsap_loop.js",
+    "cloudinary": "gsap_loop.js"
+  },
+  {
+    "local": "Industries_Images/Banking_and_Financial Services.jpg",
+    "cloudinary": "Industries_Images/Banking_and_Financial_Services.jpg"
+  },
+  {
+    "local": "Industries_Images/CyberLock.jpg",
+    "cloudinary": "Industries_Images/CyberLock.jpg"
+  },
+  {
+    "local": "Industries_Images/E-commerce & Digital Platforms.jpg",
+    "cloudinary": "Industries_Images/E-commerce_and_Digital_Platforms.jpg"
+  },
+  {
+    "local": "Industries_Images/Enterprise_and_Manufacturing.jpg",
+    "cloudinary": "Industries_Images/Enterprise_and_Manufacturing.jpg"
+  },
+  {
+    "local": "Industries_Images/FinTech & Digital Payments.jpg",
+    "cloudinary": "Industries_Images/FinTech_and_Digital_Payments.jpg"
+  },
+  {
+    "local": "Industries_Images/Healthcare & HealthTech.png",
+    "cloudinary": "Industries_Images/Healthcare_and_HealthTech.png"
+  },
+  {
+    "local": "Industries_Images/ind_01.png",
+    "cloudinary": "Industries_Images/ind_01.png"
+  },
+  {
+    "local": "Industries_Images/ind_02.png",
+    "cloudinary": "Industries_Images/ind_02.png"
+  },
+  {
+    "local": "Industries_Images/ind_03.png",
+    "cloudinary": "Industries_Images/ind_03.png"
+  },
+  {
+    "local": "Industries_Images/ind_04.png",
+    "cloudinary": "Industries_Images/ind_04.png"
+  },
+  {
+    "local": "Industries_Images/ind_06.png",
+    "cloudinary": "Industries_Images/ind_06.png"
+  },
+  {
+    "local": "Industries_Images/Managed_IT_Services.jpg",
+    "cloudinary": "Industries_Images/Managed_IT_Services.jpg"
+  },
+  {
+    "local": "Industries_Images/saas_optimized.jpg",
+    "cloudinary": "Industries_Images/saas_optimized.jpg"
+  },
+  {
+    "local": "Industries_Images/Tech_Consulting.png",
+    "cloudinary": "Industries_Images/Tech_Consulting.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Burp_Suite_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Burp_Suite_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/caniphish_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/caniphish_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/D_link_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/D_link_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Inflow-Logo_Dark-color_web.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Inflow-Logo_Dark-color_web.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/manageengine-logo-black.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/manageengine-logo-black.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/NinjaOne_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/NinjaOne_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/RAH_Infotech_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/RAH_Infotech_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Rapid_7_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Rapid_7_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Satcom_Infotech_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Satcom_Infotech_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Sophos_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Sophos_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Tenable_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Tenable_Cropped.png"
+  },
+  {
+    "local": "Logos/Partners_Logo_Cropped_No_Buffer/Vicarius_Cropped.png",
+    "cloudinary": "Logos/Partners_Logo_Cropped_No_Buffer/Vicarius_Cropped.png"
+  },
+  {
+    "local": "Logos/Platforms/QLeap_Logo.png",
+    "cloudinary": "Logos/Platforms/QLeap_Logo.png"
+  },
+  {
+    "local": "Logos/Platforms/QPulse_Logo_No_Buffer.png",
+    "cloudinary": "Logos/Platforms/QPulse_Logo_No_Buffer.png"
+  },
+  {
+    "local": "Logos/Platforms/QRGT.png",
+    "cloudinary": "Logos/Platforms/QRGT.png"
+  },
+  {
+    "local": "Logos/Platforms/QStelllar_fulllogo_transparent_No_Buffer.png",
+    "cloudinary": "Logos/Platforms/QStelllar_fulllogo_transparent_No_Buffer.png"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/fulllogo_transparent_nobuffer.png",
+    "cloudinary": "Logos/QuasarCyberTech/fulllogo_transparent_nobuffer.png"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/icononly_transparent_nobuffer.png",
+    "cloudinary": "Logos/QuasarCyberTech/icononly_transparent_nobuffer.png"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/Logo_Cropped-cropped.svg",
+    "cloudinary": "Logos/QuasarCyberTech/Logo_Cropped-cropped.svg"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/Qtextonly_Dark.png",
+    "cloudinary": "Logos/QuasarCyberTech/Qtextonly_Dark.png"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/Qtextonly_Light.png",
+    "cloudinary": "Logos/QuasarCyberTech/Qtextonly_Light.png"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/QuasarCyberTech_Logo_Over.png",
+    "cloudinary": "Logos/QuasarCyberTech/QuasarCyberTech_Logo_Over.png"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/Quasar_CyberTech_Logo.ico",
+    "cloudinary": "Logos/QuasarCyberTech/Quasar_CyberTech_Logo.ico"
+  },
+  {
+    "local": "Logos/QuasarCyberTech/Q_Upscaled.png",
+    "cloudinary": "Logos/QuasarCyberTech/Q_Upscaled.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/QPulse_Latest_News.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/QPulse_Latest_News.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/QPulse_New.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/QPulse_New.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124204.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124204.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124218.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124218.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124225.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124225.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124236.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124236.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124243.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124243.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124252.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124252.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QPulse/Screenshot 2026-03-03 124302.png",
+    "cloudinary": "Platforms_Screenshots/QPulse/Screenshot_2026-03-03_124302.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/QStellar_Home.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/QStellar_Home.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124533.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124533.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124540.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124540.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124548.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124548.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124553.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124553.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124559.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124559.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124615.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124615.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124626.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124626.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124637.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124637.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124649.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124649.png"
+  },
+  {
+    "local": "Platforms_Screenshots/QStellar/Screenshot 2026-03-03 124656.png",
+    "cloudinary": "Platforms_Screenshots/QStellar/Screenshot_2026-03-03_124656.png"
+  },
+  {
+    "local": "References/Blueprint.txt",
+    "cloudinary": "References/Blueprint.txt"
+  },
+  {
+    "local": "References/Company_Details.txt",
+    "cloudinary": "References/Company_Details.txt"
+  },
+  {
+    "local": "References/palette.txt",
+    "cloudinary": "References/palette.txt"
+  },
+  {
+    "local": "References/QUASARCYBERTECH WEBSITE ARCHITECTUR.txt",
+    "cloudinary": "References/QUASARCYBERTECH_WEBSITE_ARCHITECTUR.txt"
+  },
+  {
+    "local": "References/testomonial.txt",
+    "cloudinary": "References/testomonial.txt"
+  },
+  {
+    "local": "References/Varutra_Services.txt",
+    "cloudinary": "References/Varutra_Services.txt"
+  }
+]

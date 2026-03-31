@@ -1,0 +1,147 @@
+import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import CTASection from '../components/CTASection';
+import SectionHeader from '../components/SectionHeader';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import Breadcrumb from '../components/Breadcrumb';
+import { industriesData } from '../data/industriesData';
+
+const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
+
+import { ASSETS } from '@/constants/assets';
+import PageHero from '../components/PageHero';
+
+const IndustriesOverview: React.FC = () => {
+  return (
+    <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh' }}>
+      <Navbar />
+
+      <PageHero
+        title={<>Enterprise Solutions for<br /></>}
+        highlight="Critical Industries"
+        subtitle="QuasarCyberTech provides deep cybersecurity expertise and engineering tailored to the unique regulatory and operational requirements of global industry leaders."
+        backgroundOverride={GRADIENTS.INDUSTRIES_OVERVIEW_HERO_BG}
+        breadcrumbPaths={['Home']}
+        currentName="Industries"
+        image={ASSETS.industries.overviewHero}
+        imageScale={1.2}
+        imageOpacity={0.8}
+        visualFullWidth={false}
+        visualWidth="60%"
+        maskStart="0%"
+        maskEnd="75%"
+        gradientCenter="20% 60%"
+        gradientRadius="55%"
+        scrollTargetId="grid"
+        scrollButtonText="Explore Industries"
+      />
+
+
+      {/* ─── SECTION 2: INDUSTRIES GRID (LIGHT) ─── */}
+      <section id="grid" style={{
+        background: SECTION_BACKGROUNDS.LIGHT,
+        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <SectionHeader
+            title="Across Every"
+            highlight="Industry"
+            subtitle="Deep domain knowledge in securing complex digital ecosystems."
+          />
+
+          <div className="industries-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', marginTop: '64px' }}>
+            {industriesData.map((ind) => (
+              <Link
+                key={ind.slug}
+                to={`/industries/${ind.slug}`}
+                style={{
+                  borderRadius: `0 0 4px 4px`,
+                  borderTop: `4px solid ${COLORS.burgundy}`,
+                  background: '#ffffff',
+                  boxShadow: SHADOWS.lightCard,
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(11,31,59,0.12)';
+                  e.currentTarget.style.borderTopColor = COLORS.gold;
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = SHADOWS.lightCard;
+                  e.currentTarget.style.borderTopColor = COLORS.burgundy;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {/* Photo area */}
+                <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
+                  <img
+                    src={ind.image}
+                    alt={ind.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(160deg, rgba(107,15,43,0.1) 0%, rgba(11,31,59,0.2) 100%)',
+                    pointerEvents: 'none'
+                  }} />
+                </div>
+
+                {/* Body */}
+                <div style={{
+                  padding: '24px 24px 20px',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}>
+                  <h3 style={{
+                    color: '#0B1F3B',
+                    fontWeight: 700,
+                    fontSize: '17px',
+                    marginBottom: '8px',
+                    fontFamily: TYPOGRAPHY.fontHeading,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}>
+                    {ind.name}
+                    <ArrowRight size={14} color={COLORS.burgundy} />
+                  </h3>
+                  <p style={{ color: '#4a5568', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                    {ind.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTASection theme="dark" showEyebrow={true} />
+      <Footer />
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @media (max-width: 1024px) {
+          .industries-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 640px) {
+          .industries-grid { grid-template-columns: 1fr !important; }
+        }
+      `}} />
+    </div>
+  );
+};
+
+export default IndustriesOverview;

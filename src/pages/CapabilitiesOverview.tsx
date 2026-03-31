@@ -1,0 +1,96 @@
+import React, { useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import CTASection from '../components/CTASection';
+import CapabilityCardSimple from '../components/capabilities/cards/CapabilityCardSimple';
+import PageHero from '../components/PageHero';
+import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS, GRADIENTS } from '../config/themeConfig';
+import { ASSETS } from '@/constants/assets';
+import { capabilities } from '../data/capabilitiesData';
+
+
+
+const CapabilitiesOverview: React.FC = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+
+    return (
+        <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <Navbar />
+
+            <PageHero
+                title="Cybersecurity"
+                highlight="Capabilities"
+                subtitle="QuasarCyberTech provides a comprehensive suite of security engineering and advisory services designed to protect your enterprise from the hardware layer to the cloud perimeter."
+                backgroundOverride={GRADIENTS.CAPABILITIES_OVERVIEW_HERO_BG}
+                breadcrumbPaths={['Home']}
+                currentName="Capabilities"
+                image={ASSETS.capabilities.worldwideConnection}
+                imageRotate="-90deg"
+                imageScale={1.3}
+                scrollTargetId="pillars"
+                scrollButtonText="Explore Capabilities"
+            />
+
+            {/* Redundant Manual Scroll Button Removed - PageHero now handles this */}
+
+            <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
+                {/* ─── SECTION 2: CAPABILITIES GRID (LIGHT) ─── */}
+                <section id="pillars" style={{
+                    background: '#FFFFFF', // Use Pure White to match Homepage grid background
+                    padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`
+                }}>
+                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+                        <div style={{ marginBottom: '48px' }}>
+                            <h2 style={{
+                                fontFamily: TYPOGRAPHY.fontHeading,
+                                fontSize: 'clamp(32px, 4vw, 48px)',
+                                fontWeight: 700,
+                                color: COLORS.textOnLight,
+                                marginBottom: '16px',
+                                lineHeight: 1.15,
+                                letterSpacing: '-0.01em',
+                            }}>
+                                Cybersecurity <span style={{ color: COLORS.burgundy }}>Capabilities</span>
+                            </h2>
+                            <p style={{
+                                color: COLORS.textSub,
+                                fontSize: '1.125rem',
+                                maxWidth: '600px',
+                                lineHeight: 1.6,
+                                fontFamily: TYPOGRAPHY.fontBody
+                            }}>
+                                Full-spectrum protection designed for the modern digital enterprise.
+                            </p>
+                        </div>
+
+                        {/* Grid container with Height set to match homepage cards exactly */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                            gap: '32px',
+                            marginTop: '64px'
+                        }}>
+                            {capabilities.map((cap) => (
+                                <div key={cap.id}>
+                                    <CapabilityCardSimple
+                                        title={cap.name}
+                                        desc={cap.cardDescription}
+                                        href={`/capabilities/${cap.slug}`}
+                                        img={cap.image}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                <CTASection theme="dark" />
+                <Footer />
+            </div>
+        </div>
+    );
+};
+
+export default CapabilitiesOverview;
