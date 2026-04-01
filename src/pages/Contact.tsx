@@ -14,9 +14,9 @@ import { createBreadcrumbSchema, createContactPageSchema } from '../seo/schema';
 // ─── CONFIGURATION OVERRIDES ───
 const CONFIG = {
   layout: {
-    heroPaddingTop: 'clamp(9rem, 10vh, 7rem)',
-    heroMinHeight: '65vh',
-    cardsLiftUpFromHero: '64px',             // Smaller value => cards move lower
+    heroPaddingTop: 'clamp(6rem, 8vh, 5rem)',
+    heroMinHeight: '100vh',
+    cardsLiftUpFromHero: '2.5rem',             // Smaller value => cards move lower
   },
   card: {
     paddingX: '2.5rem',
@@ -341,207 +341,207 @@ export default function Contact() {
                 </h2>
 
                 <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                {/* Full Name */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="name" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    placeholder="John Doe"
-                    value={formState.name}
-                    onChange={(e) => setField('name', e.target.value)}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      border: errors.name ? '1px solid #DC2626' : '1px solid #E2E8F0',
-                      outline: 'none',
-                      transition: 'all 0.3s ease',
-                      fontSize: '0.95rem'
-                    }}
-                    onBlur={() => { markField('name'); }}
-                  />
-                  {errors.name && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.name}</div>}
-                </div>
-
-                {/* Company Name */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="company" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Company Name</label>
-                  <input
-                    type="text"
-                    id="company"
-                    required
-                    placeholder="Acme Corporation"
-                    value={formState.company}
-                    onChange={(e) => setField('company', e.target.value)}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      border: errors.company ? '1px solid #DC2626' : '1px solid #E2E8F0',
-                      outline: 'none',
-                      transition: 'all 0.3s ease',
-                      fontSize: '0.95rem'
-                    }}
-                    onBlur={() => { markField('company'); }}
-                  />
-                  {errors.company && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.company}</div>}
-                </div>
-
-                {/* Designation / Role */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="designation" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Designation / Role</label>
-                  <input
-                    type="text"
-                    id="designation"
-                    required
-                    placeholder="e.g. CISO, IT Manager, Founder"
-                    value={formState.designation}
-                    onChange={(e) => setField('designation', e.target.value)}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      border: errors.designation ? '1px solid #DC2626' : '1px solid #E2E8F0',
-                      outline: 'none',
-                      transition: 'all 0.3s ease',
-                      fontSize: '0.95rem'
-                    }}
-                    onBlur={() => { markField('designation'); }}
-                  />
-                  {errors.designation && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.designation}</div>}
-                </div>
-
-                {/* Work Email */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="email" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Work Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    placeholder="john@enterprise.com"
-                    value={formState.email}
-                    onChange={(e) => setField('email', e.target.value)}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      border: errors.email ? '1px solid #DC2626' : '1px solid #E2E8F0',
-                      outline: 'none',
-                      transition: 'all 0.3s ease',
-                      fontSize: '0.95rem'
-                    }}
-                    onBlur={() => { markField('email'); }}
-                  />
-                  {errors.email && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.email}</div>}
-                </div>
-
-                {/* Phone Number */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="phone" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Phone Number</label>
-                  <div className="phone-input-container">
+                  {/* Full Name */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="name" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Full Name</label>
                     <input
-                      id="phone"
-                      ref={phoneInputRef}
-                      type="tel"
-                      name="phone"
-                      autoComplete="off"
+                      type="text"
+                      id="name"
                       required
-                      className="custom-phone-input"
-                      inputMode="numeric"
-                      onBlur={() => markField('phone')}
+                      placeholder="John Doe"
+                      value={formState.name}
+                      onChange={(e) => setField('name', e.target.value)}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: errors.name ? '1px solid #DC2626' : '1px solid #E2E8F0',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.95rem'
+                      }}
+                      onBlur={() => { markField('name'); }}
                     />
+                    {errors.name && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.name}</div>}
                   </div>
-                  {errors.phone && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.phone}</div>}
-                </div>
 
-                {/* Service of Interest */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="service" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Service of Interest</label>
-                  <select
-                    id="service"
-                    required
-                    value={formState.service}
-                    onChange={(e) => setField('service', e.target.value)}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      border: errors.service ? '1px solid #DC2626' : '1px solid #E2E8F0',
-                      outline: 'none',
-                      transition: 'all 0.3s ease',
-                      fontSize: '0.95rem',
-                      backgroundColor: '#FFFFFF',
-                      cursor: 'pointer'
-                    }}
-                    onBlur={() => { markField('service'); }}
-                  >
-                    <option value="">Select a Service</option>
-                    <option value="cyber-advisory">Cyber Advisory & Risk Governance</option>
-                    <option value="compliance">Compliance & Regulatory Assurance</option>
-                    <option value="offensive-security">Offensive Security Engineering</option>
-                    <option value="cloud-security">Cloud & Infrastructure Security</option>
-                    <option value="managed-defense">Managed Defense Operations</option>
-                    <option value="cyber-intelligence">Cyber Intelligence & Security Research</option>
-                    <option value="other">Other</option>
-                  </select>
-                  {errors.service && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.service}</div>}
-                </div>
-
-                {/* Tell us about your requirement */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label htmlFor="message" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Tell us about your requirement</label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={4}
-                    placeholder="Briefly describe your security challenge or goal..."
-                    value={formState.message}
-                    onChange={(e) => setField('message', e.target.value)}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      border: errors.message ? '1px solid #DC2626' : '1px solid #E2E8F0',
-                      outline: 'none',
-                      transition: 'all 0.3s ease',
-                      fontSize: '0.95rem',
-                      resize: 'none'
-                    }}
-                    onBlur={() => { markField('message'); }}
-                  />
-                  {errors.message && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.message}</div>}
-                </div>
-
-                {isSubmitted ? (
-                  <div style={{
-                    minHeight: '56px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: `1px solid ${COLORS.burgundy}22`,
-                    background: `${COLORS.burgundy}10`,
-                    borderRadius: '8px',
-                    color: COLORS.burgundy,
-                    fontWeight: 800,
-                    fontSize: '1rem',
-                    fontFamily: TYPOGRAPHY.fontHeading,
-                    letterSpacing: '0.02em'
-                  }}>
-                    Message sent!
+                  {/* Company Name */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="company" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Company Name</label>
+                    <input
+                      type="text"
+                      id="company"
+                      required
+                      placeholder="Acme Corporation"
+                      value={formState.company}
+                      onChange={(e) => setField('company', e.target.value)}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: errors.company ? '1px solid #DC2626' : '1px solid #E2E8F0',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.95rem'
+                      }}
+                      onBlur={() => { markField('company'); }}
+                    />
+                    {errors.company && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.company}</div>}
                   </div>
-                ) : (
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#6B1530] text-white font-bold rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#8B1E3F] hover:scale-[1.02] shadow-lg shadow-maroon/20"
-                    style={{ opacity: isSubmitting ? 0.75 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
-                  >
-                    {isSubmitting ? 'Sending...' : 'Confirm Submission'}
-                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                  </button>
-                )}
-                {submitError && (
-                  <p style={{ margin: 0, color: '#B91C1C', fontSize: '0.85rem', fontWeight: 600 }}>
-                    {submitError}
-                  </p>
-                )}
-              </form>
+
+                  {/* Designation / Role */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="designation" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Designation / Role</label>
+                    <input
+                      type="text"
+                      id="designation"
+                      required
+                      placeholder="e.g. CISO, IT Manager, Founder"
+                      value={formState.designation}
+                      onChange={(e) => setField('designation', e.target.value)}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: errors.designation ? '1px solid #DC2626' : '1px solid #E2E8F0',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.95rem'
+                      }}
+                      onBlur={() => { markField('designation'); }}
+                    />
+                    {errors.designation && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.designation}</div>}
+                  </div>
+
+                  {/* Work Email */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="email" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Work Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      placeholder="john@enterprise.com"
+                      value={formState.email}
+                      onChange={(e) => setField('email', e.target.value)}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: errors.email ? '1px solid #DC2626' : '1px solid #E2E8F0',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.95rem'
+                      }}
+                      onBlur={() => { markField('email'); }}
+                    />
+                    {errors.email && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.email}</div>}
+                  </div>
+
+                  {/* Phone Number */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="phone" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Phone Number</label>
+                    <div className="phone-input-container">
+                      <input
+                        id="phone"
+                        ref={phoneInputRef}
+                        type="tel"
+                        name="phone"
+                        autoComplete="off"
+                        required
+                        className="custom-phone-input"
+                        inputMode="numeric"
+                        onBlur={() => markField('phone')}
+                      />
+                    </div>
+                    {errors.phone && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.phone}</div>}
+                  </div>
+
+                  {/* Service of Interest */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="service" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Service of Interest</label>
+                    <select
+                      id="service"
+                      required
+                      value={formState.service}
+                      onChange={(e) => setField('service', e.target.value)}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: errors.service ? '1px solid #DC2626' : '1px solid #E2E8F0',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.95rem',
+                        backgroundColor: '#FFFFFF',
+                        cursor: 'pointer'
+                      }}
+                      onBlur={() => { markField('service'); }}
+                    >
+                      <option value="">Select a Service</option>
+                      <option value="cyber-advisory">Cyber Advisory & Risk Governance</option>
+                      <option value="compliance">Compliance & Regulatory Assurance</option>
+                      <option value="offensive-security">Offensive Security Engineering</option>
+                      <option value="cloud-security">Cloud & Infrastructure Security</option>
+                      <option value="managed-defense">Managed Defense Operations</option>
+                      <option value="cyber-intelligence">Cyber Intelligence & Security Research</option>
+                      <option value="other">Other</option>
+                    </select>
+                    {errors.service && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.service}</div>}
+                  </div>
+
+                  {/* Tell us about your requirement */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label htmlFor="message" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Tell us about your requirement</label>
+                    <textarea
+                      id="message"
+                      required
+                      rows={4}
+                      placeholder="Briefly describe your security challenge or goal..."
+                      value={formState.message}
+                      onChange={(e) => setField('message', e.target.value)}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '8px',
+                        border: errors.message ? '1px solid #DC2626' : '1px solid #E2E8F0',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.95rem',
+                        resize: 'none'
+                      }}
+                      onBlur={() => { markField('message'); }}
+                    />
+                    {errors.message && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.message}</div>}
+                  </div>
+
+                  {isSubmitted ? (
+                    <div style={{
+                      minHeight: '56px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: `1px solid ${COLORS.burgundy}22`,
+                      background: `${COLORS.burgundy}10`,
+                      borderRadius: '8px',
+                      color: COLORS.burgundy,
+                      fontWeight: 800,
+                      fontSize: '1rem',
+                      fontFamily: TYPOGRAPHY.fontHeading,
+                      letterSpacing: '0.02em'
+                    }}>
+                      Message sent!
+                    </div>
+                  ) : (
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#6B1530] text-white font-bold rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#8B1E3F] hover:scale-[1.02] shadow-lg shadow-maroon/20"
+                      style={{ opacity: isSubmitting ? 0.75 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                    >
+                      {isSubmitting ? 'Sending...' : 'Confirm Submission'}
+                      <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                    </button>
+                  )}
+                  {submitError && (
+                    <p style={{ margin: 0, color: '#B91C1C', fontSize: '0.85rem', fontWeight: 600 }}>
+                      {submitError}
+                    </p>
+                  )}
+                </form>
               </>
             </motion.div>
 
@@ -552,7 +552,7 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               style={{
-                background: GRADIENTS.HERO_BG,
+                background: GRADIENTS.CONTACT_RIGHT_CARD_BG,
                 border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: '8px',
                 borderTopLeftRadius: '0px',
@@ -564,20 +564,20 @@ export default function Contact() {
                 overflow: 'hidden'
               }}
             >
-              <div style={{ 
+              <div style={{
                 paddingLeft: right.paddingX,
                 paddingRight: right.paddingX,
                 paddingTop: right.paddingTop,
                 paddingBottom: right.paddingBottom,
-                display: 'flex', 
-                flexDirection: 'column', 
+                display: 'flex',
+                flexDirection: 'column',
                 gap: right.sectionGap,
               }}>
                 {/* 1. LOGO */}
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: right.logoMarginBottom }}>
-                  <img 
-                    src={ASSETS.logos.qct.over} 
-                    alt="QuasarCyberTech" 
+                  <img
+                    src={ASSETS.logos.qct.over}
+                    alt="QuasarCyberTech"
                     style={{ height: right.logoHeight, width: 'auto', objectFit: 'contain' }}
                   />
                 </div>
@@ -649,12 +649,12 @@ export default function Contact() {
                         { icon: Instagram, name: 'Instagram', href: 'https://www.instagram.com/quasarcybertech/' },
                         { icon: Twitter, name: 'Twitter', href: 'https://twitter.com/' }
                       ].map((social, i) => (
-                        <a 
-                          key={i} 
-                          href={social.href} 
-                          target="_blank" 
+                        <a
+                          key={i}
+                          href={social.href}
+                          target="_blank"
                           rel="noopener noreferrer"
-                          style={{ 
+                          style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: right.socialItemGap,
@@ -662,7 +662,7 @@ export default function Contact() {
                             textDecoration: 'none',
                             width: 'fit-content'
                           }}
-                          onMouseOver={(e) => { 
+                          onMouseOver={(e) => {
                             const iconWrap = e.currentTarget.querySelector('[data-social-icon]') as HTMLElement | null;
                             const label = e.currentTarget.querySelector('[data-social-label]') as HTMLElement | null;
                             if (iconWrap) {
@@ -673,7 +673,7 @@ export default function Contact() {
                               label.style.color = '#FFFFFF';
                             }
                           }}
-                          onMouseOut={(e) => { 
+                          onMouseOut={(e) => {
                             const iconWrap = e.currentTarget.querySelector('[data-social-icon]') as HTMLElement | null;
                             const label = e.currentTarget.querySelector('[data-social-label]') as HTMLElement | null;
                             if (iconWrap) {
@@ -713,7 +713,7 @@ export default function Contact() {
               </div>
 
               {/* 3. THE MAP (Refined with Margin & Border Radius) */}
-              <div style={{ 
+              <div style={{
                 margin: `${right.mapTopGap} ${right.mapMarginX} ${right.mapMarginBottom}`,
                 height: right.mapHeight,
                 borderRadius: right.mapBorderRadius,
@@ -722,13 +722,13 @@ export default function Contact() {
                 position: 'relative',
                 marginTop: 0
               }}>
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.7716067188735!2d73.78251627522837!3d19.976105081422666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa179531b99bd65f1%3A0xa9162e0b222e964c!2sQuasar%20CyberTech%20Private%20Limited!5e0!3m2!1sen!2sin!4v1774602049988!5m2!1sen!2sin" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0,}}
-                  allowFullScreen={true} 
-                  loading="lazy" 
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.7716067188735!2d73.78251627522837!3d19.976105081422666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa179531b99bd65f1%3A0xa9162e0b222e964c!2sQuasar%20CyberTech%20Private%20Limited!5e0!3m2!1sen!2sin!4v1774602049988!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, }}
+                  allowFullScreen={true}
+                  loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
@@ -737,7 +737,8 @@ export default function Contact() {
         </section>
 
         {/* Responsive Fix for Contact Section */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @media (max-width: 768px) {
             #contact-form {
               padding-left: 1.25rem !important;
@@ -747,7 +748,8 @@ export default function Contact() {
         `}} />
 
         {/* Global Styles for Phone Input */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           .phone-input-container {
             border: 1px solid #E2E8F0;
             border-radius: 8px;

@@ -191,6 +191,7 @@ export const GRADIENTS = {
   BLOGS_OVERVIEW_NEWSLETTER_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   BLOG_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+  CONTACT_RIGHT_CARD_BG: 'radial-gradient(circle at 50% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%)',
 };
 
 // ─── SECTION BACKGROUNDS ───
