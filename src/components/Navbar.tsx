@@ -23,7 +23,7 @@ type NavMenu = {
   label: string;
   href: string;
   subItems?: SubItem[];
-  megaMenuGroups?: Array<{ title: string; items: SubItem[] }>;
+  megaMenuGroups?: Array<{ title: string; slug?: string; items: SubItem[] }>;
 };
 
 // ─── Config tokens ────────────────────────────────────────────────────────────
@@ -31,61 +31,170 @@ const NC = {
   wrapper: {
     position: "fixed" as const,
     zIndex: 1000,
-    paddingTop: "0px",
+    paddingTop: "0rem",
     paddingLeft: LAYOUT_CONTROLS.global.paddingX,
     paddingRight: LAYOUT_CONTROLS.global.paddingX,
     background: "transparent",
   },
-  logoGroup: {
-    width: "160px",
-    shiftYScrolled: "-10px",
-  },
-  logoIcon: {
-    width: "58px",
-    height: "58px",
-    marginTop: "1.5em",
-    scaleScrolled: 1,
-  },
-  logoText: {
-    width: "160px",
-    marginTop: "0.625em",
+  logoTuning: {
+    desktop: {
+      group: {
+        width: { default: "14rem", scrolled: "10rem" },
+        scale: { default: 1, scrolled: 0.85 },
+        x: { default: "0rem", scrolled: "0rem" },
+        y: { default: "0rem", scrolled: "0rem" },
+        gap: { default: "0rem", scrolled: "0rem" },
+        margin: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+        padding: {
+          top: { default: "0", scrolled: "0.0625rem" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0.0625rem" },
+          left: { default: "0", scrolled: "0" },
+        },
+      },
+      icon: {
+        width: { default: "auto", scrolled: "auto" },
+        height: { default: "7.4rem", scrolled: "4.65rem" },
+        margin: {
+          top: { default: "3rem", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+        padding: {
+          top: { default: "1rem", scrolled: "0.5rem" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "1rem", scrolled: "0.5rem" },
+          left: { default: "0", scrolled: "0" },
+        },
+      },
+      text: {
+        width: { default: "14rem", scrolled: "13.5rem" },
+        height: { default: "auto", scrolled: "auto" },
+        margin: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0rem", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+        padding: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+      },
+    },
+    mobile: {
+      group: {
+        width: { default: "10.5rem", scrolled: "9.5rem" },
+        scale: { default: 1, scrolled: 0.85 },
+        x: { default: "0rem", scrolled: "0rem" },
+        y: { default: "0rem", scrolled: "0rem" },
+        gap: { default: "0rem", scrolled: "0rem" },
+        margin: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+        padding: {
+          top: { default: "0", scrolled: "0.0625rem" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0.0625rem" },
+          left: { default: "0", scrolled: "0" },
+        },
+      },
+      icon: {
+        width: { default: "auto", scrolled: "auto" },
+        height: { default: "4.2rem", scrolled: "3.27rem" },
+        margin: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+        padding: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+      },
+      text: {
+        width: { default: "10.5rem", scrolled: "9.5rem" },
+        height: { default: "auto", scrolled: "auto" },
+        margin: {
+          top: { default: "0.3rem", scrolled: "0.1" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+        padding: {
+          top: { default: "0", scrolled: "0" },
+          right: { default: "0", scrolled: "0" },
+          bottom: { default: "0", scrolled: "0" },
+          left: { default: "0", scrolled: "0" },
+        },
+      },
+    },
   },
   backgroundBand: {
-    height: "104px",
-    heightScrolled: "84px",
-    topNudgeY: "0px",
+    height: "8.5rem", // 136px (Slightly larger strip)
+    heightScrolled: "5.625rem", // 90px gives ~1px extra top/bottom breathing room
+    topNudgeY: "0rem",
     backgroundTop: "transparent",
     backgroundScrolled: GRADIENTS.HERO_BG,
-    borderScrolled: "1px solid rgba(214,176,92,0.08)",
+    borderScrolled: "0.0625rem solid rgba(214,176,92,0.08)",
     boxShadowScrolled: "none",
-    transition: "background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
+    transition: "background 0.4s ease, height 0.4s ease, border-color 0.4s ease",
   },
   pill: {
     height: "72px",
-    paddingLeft: "8px",
-    paddingRight: "6px",
     borderRadius: "100px",
-    gap: "0.6em",
-    nudgeX: "1em",
     link: {
-      paddingX: "16px",
-      color: "rgba(255,255,255,0.80)",
+      color: "rgba(255,255,255,0.9)", // Brighter white
       colorActive: "#D6B05C",
-      fontSize: "14px",
-      fontWeight: 400,
-      letterSpacing: "0.01em",
     },
   },
+  typography: {
+    fontSize: "1rem",
+    fontWeight: 300,
+    letterSpacing: "0.01em",
+    lineHeight: 1.4,
+    fontFamily: TYPOGRAPHY.fontBody,
+  },
+  tune: {
+    pillNudgeX: "30px",
+    contactNudgeX: "0px",
+    contactNudgeY: "0px",
+    dropdownOffsetY: "1.25em",
+    bridgePaddingLeft: "2rem",
+    pillPaddingLeft: "1.5rem",
+    pillPaddingRight: "0.375rem",
+    pillLinkGap: "0.75em",
+    pillLinkPaddingX: "1.125rem",
+  },
   dropdown: {
-    verticalOffset: "1.25em",
+    verticalOffset: "1.25rem",
+    minWidth: "17.5rem",
+    childMinWidth: "400px",
+    itemPaddingX: "1.5rem",
+    itemPaddingY: "0.625rem",
+    borderRadius: "0 0 12px 12px",
     background: "#1C0D14",
-    border: "1px solid rgba(214,176,92,0.2)",
-    boxShadow: "0 24px 80px rgba(0,0,0,0.85)",
-    topAccentHeight: "1.5px",
+    border: "0.0625rem solid rgba(214,176,92,0.2)",
+    boxShadow: "0 1.5rem 5rem rgba(0,0,0,0.85)",
+    topAccentHeight: "0.09375rem",
     topAccentColor: "#D6B05C",
     topAccentOpacity: 0.8,
     item: {
-      color: "rgba(255,255,255,0.78)",
+      color: "rgba(255,255,255,0.9)", // Match brightness of nav links
       colorHover: "#D6B05C",
       transitionDuration: "0.15s",
     },
@@ -97,19 +206,16 @@ const NC = {
   },
   contactButton: {
     height: "46px",
-    paddingX: "22px",
+    paddingX: "1.375rem",
     borderRadius: "100px",
     background: "#6B1530",
-    color: "#FFFFFF",
+    color: "rgba(255,255,255,0.9)",
     text: "Contact Us",
-    fontSize: "14px",
-    fontWeight: 400,
-    letterSpacing: "0.01em",
   },
   desktopLayout: {
     enabledMinWidth: 1024,
-    axisDefaultY: "52px",
-    axisScrolledY: "42px",
+    axisDefaultY: "4rem", // Centered in 8rem strip
+    axisScrolledY: "2.8125rem", // Centered in 5.625rem strip
   },
 };
 
@@ -126,6 +232,10 @@ const Navbar: React.FC = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const [mobileExpandedGroup, setMobileExpandedGroup] = useState<number | null>(null);
+  const [isDesktopViewport, setIsDesktopViewport] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    return window.innerWidth >= NC.desktopLayout.enabledMinWidth;
+  });
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
@@ -144,6 +254,13 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     setIsMobileOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const onResize = () => setIsDesktopViewport(window.innerWidth >= NC.desktopLayout.enabledMinWidth);
+    window.addEventListener("resize", onResize, { passive: true });
+    onResize();
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   // ── Scroll state ──
   useEffect(() => {
@@ -242,6 +359,7 @@ const Navbar: React.FC = () => {
           href: item.href,
           megaMenuGroups: capabilities.map((c) => ({
             title: c.navLabel,
+            slug: c.slug,
             items: c.subCapabilities.map((sub) => ({
               label: sub.name,
               href: `/capabilities/${c.slug}#${sub.slug}`,
@@ -266,25 +384,22 @@ const Navbar: React.FC = () => {
   // ─── Renderers ───────────────────────────────────────────────────────────────
   const renderDropdownItem = (sub: SubItem, hideIcon = false, isPlatformItem = false) => {
     const d = NC.dropdown.item;
-    const sharedProps = {
-      key: `${sub.label}-${sub.href}`,
-      style: {
-        display: "flex",
-        alignItems: "center",
-        gap: isPlatformItem ? "10px" : "12px",
-        padding: "10px 24px",
-        color: d.color,
-        textDecoration: "none",
-        transition: `all ${d.transitionDuration} ease`,
-      },
-      onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>) => {
-        e.currentTarget.style.color = d.colorHover;
-        e.currentTarget.style.background = "rgba(214,176,92,0.06)";
-      },
-      onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>) => {
-        e.currentTarget.style.color = d.color;
-        e.currentTarget.style.background = "transparent";
-      },
+    const sharedStyles = {
+      display: "flex",
+      alignItems: "center",
+      gap: isPlatformItem ? "0.625rem" : "0.75rem",
+      padding: `${NC.dropdown.itemPaddingY} ${NC.dropdown.itemPaddingX}`,
+      color: d.color,
+      textDecoration: "none",
+      transition: `all ${d.transitionDuration} ease`,
+    };
+    const onMouseEnter = (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>) => {
+      e.currentTarget.style.color = d.colorHover;
+      e.currentTarget.style.background = "rgba(214,176,92,0.06)";
+    };
+    const onMouseLeave = (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>) => {
+      e.currentTarget.style.color = d.color;
+      e.currentTarget.style.background = "transparent";
     };
 
     const content = (
@@ -299,20 +414,22 @@ const Navbar: React.FC = () => {
           ) : null
         )}
         <div style={{
-          fontSize: "0.84rem",
-          fontWeight: "500",
+          fontSize: NC.typography.fontSize,
+          fontWeight: NC.typography.fontWeight,
           color: "inherit",
-          fontFamily: TYPOGRAPHY.fontBody,
-          letterSpacing: "0.01em",
+          fontFamily: NC.typography.fontFamily,
+          letterSpacing: NC.typography.letterSpacing,
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
-          lineHeight: 1.35,
-          maxWidth: "340px",
+          lineHeight: NC.typography.lineHeight,
+          maxWidth: "21.25rem", // 340px
         }}>
           {sub.label}
-          {sub.isExternal && <span style={{ fontSize: "0.7rem", opacity: 0.35 }}>↗</span>}
+          {sub.isExternal && (
+            <span style={{ fontSize: "0.7rem", opacity: 0.35, marginLeft: "0.35rem" }}>↗</span>
+          )}
         </div>
       </>
     );
@@ -320,7 +437,10 @@ const Navbar: React.FC = () => {
     if (sub.isExternal) {
       return (
         <a
-          {...sharedProps}
+          key={`${sub.label}-${sub.href}`}
+          style={sharedStyles}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
           href={sub.href}
           target="_blank"
           rel="noopener noreferrer"
@@ -332,13 +452,11 @@ const Navbar: React.FC = () => {
 
     return (
       <Link
-        {...sharedProps}
+        key={`${sub.label}-${sub.href}`}
         to={sub.href}
-        style={{
-          ...sharedProps.style,
-        }}
-        onMouseEnter={sharedProps.onMouseEnter}
-        onMouseLeave={sharedProps.onMouseLeave}
+        style={sharedStyles}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         {content}
       </Link>
@@ -368,9 +486,11 @@ const Navbar: React.FC = () => {
         padding: "0 24px",
         borderTop: "1px solid rgba(214,176,92,0.15)",
         color: COLORS.gold,
-        fontSize: "0.8rem",
-        fontWeight: "600",
-        fontFamily: TYPOGRAPHY.fontBody,
+        fontSize: NC.typography.fontSize,
+        fontWeight: 600,
+        fontFamily: NC.typography.fontFamily,
+        letterSpacing: NC.typography.letterSpacing,
+        whiteSpace: "nowrap",
         textDecoration: "none",
         transition: "all 0.2s ease",
       }}
@@ -401,6 +521,13 @@ const Navbar: React.FC = () => {
   const desktopAxisY = scrolled
     ? NC.desktopLayout.axisScrolledY
     : NC.desktopLayout.axisDefaultY;
+  const logoPhase = scrolled ? "scrolled" : "default";
+  const logoTransition = { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
+  const logoCssTransition = "all 0.42s cubic-bezier(0.22, 1, 0.36, 1)";
+  const logoViewport = isDesktopViewport ? NC.logoTuning.desktop : NC.logoTuning.mobile;
+  const groupLogo = logoViewport.group;
+  const iconLogo = logoViewport.icon;
+  const textLogo = logoViewport.text;
 
   // ─── JSX ─────────────────────────────────────────────────────────────────────
   return (
@@ -413,6 +540,7 @@ const Navbar: React.FC = () => {
           top: 0,
           left: 0,
           right: 0,
+          height: bandHeight,
           zIndex: NC.wrapper.zIndex,
           background: isMobileOpen ? "#050505" : NC.wrapper.background,
           paddingTop: NC.wrapper.paddingTop,
@@ -425,55 +553,84 @@ const Navbar: React.FC = () => {
         {/* ── ZONE 1: LOGO ── */}
         <Link
           to="/"
-          className="flex flex-col items-center"
+          className="flex items-center justify-center"
           style={{
-            width: NC.logoGroup.width,
-            transform: scrolled ? `translateY(${NC.logoGroup.shiftYScrolled})` : "translateY(0)",
-            transition: `transform ${NC.scroll.duration} ${NC.scroll.easing}`,
             zIndex: 1002,
             pointerEvents: "auto",
+            marginTop: groupLogo.margin.top[logoPhase],
+            marginRight: groupLogo.margin.right[logoPhase],
+            marginBottom: groupLogo.margin.bottom[logoPhase],
+            marginLeft: groupLogo.margin.left[logoPhase],
+            paddingTop: groupLogo.padding.top[logoPhase],
+            paddingRight: groupLogo.padding.right[logoPhase],
+            paddingBottom: groupLogo.padding.bottom[logoPhase],
+            paddingLeft: groupLogo.padding.left[logoPhase],
+            transition: logoCssTransition,
+            willChange: "margin, padding, transform",
           }}
         >
-          <img
-            src={ASSETS.logos.qct.icon}
-            alt="QCT"
-            style={{
-              height: NC.logoIcon.height,
-              width: NC.logoIcon.width,
-              marginTop: NC.logoIcon.marginTop,
-              transform: scrolled ? `scale(${NC.logoIcon.scaleScrolled})` : "scale(1)",
-              transformOrigin: "center center",
-              transition: "transform 0.35s cubic-bezier(0.23,1,0.32,1)",
-              display: "block",
+          <motion.div
+            animate={{ 
+              scale: groupLogo.scale[logoPhase],
+              x: groupLogo.x[logoPhase],
+              y: groupLogo.y[logoPhase],
+              width: groupLogo.width[logoPhase],
+              gap: groupLogo.gap[logoPhase],
             }}
-          />
-          <AnimatePresence>
-            {(!scrolled || isMobileOpen) && (
-              <motion.div
-                initial={{ opacity: 0, y: -4, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: "auto" }}
-                exit={{ opacity: 0, y: -4, height: 0 }}
-                transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-                style={{ overflow: "hidden" }}
-              >
-                <img
-                  src={ASSETS.logos.qct.textLight}
-                  alt="QuasarCyberTech"
-                  style={{
-                    width: NC.logoText.width,
-                    height: "auto",
-                    display: "block",
-                    marginTop: NC.logoText.marginTop,
-                  }}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+            transition={logoTransition}
+            style={{ 
+              display: "flex", 
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "visible"
+            }}
+          >
+            <img
+              src={ASSETS.logos.qct.icon}
+              alt="QCT Icon"
+              style={{
+                height: iconLogo.height[logoPhase],
+                width: iconLogo.width[logoPhase],
+                marginTop: iconLogo.margin.top[logoPhase],
+                marginRight: iconLogo.margin.right[logoPhase],
+                marginBottom: iconLogo.margin.bottom[logoPhase],
+                marginLeft: iconLogo.margin.left[logoPhase],
+                paddingTop: iconLogo.padding.top[logoPhase],
+                paddingRight: iconLogo.padding.right[logoPhase],
+                paddingBottom: iconLogo.padding.bottom[logoPhase],
+                paddingLeft: iconLogo.padding.left[logoPhase],
+                objectFit: "contain",
+                display: "block",
+                transition: logoCssTransition,
+                willChange: "transform, width, height, margin, padding",
+              }}
+            />
+            <img
+              src={ASSETS.logos.qct.textLight}
+              alt="QuasarCyberTech"
+              style={{
+                width: textLogo.width[logoPhase],
+                height: textLogo.height[logoPhase],
+                marginTop: textLogo.margin.top[logoPhase],
+                marginRight: textLogo.margin.right[logoPhase],
+                marginBottom: textLogo.margin.bottom[logoPhase],
+                marginLeft: textLogo.margin.left[logoPhase],
+                paddingTop: textLogo.padding.top[logoPhase],
+                paddingRight: textLogo.padding.right[logoPhase],
+                paddingBottom: textLogo.padding.bottom[logoPhase],
+                paddingLeft: textLogo.padding.left[logoPhase],
+                objectFit: "contain",
+                display: "block",
+                transition: logoCssTransition,
+                willChange: "transform, width, height, margin, padding",
+              }}
+            />
+          </motion.div>
         </Link>
 
-        {/* ── FULL-WIDTH DESKTOP BACKGROUND BAND ── */}
+        {/* ── FULL-WIDTH BACKGROUND BAND ── */}
         <div
-          className="hidden lg:block"
           aria-hidden="true"
           style={{
             position: "absolute",
@@ -502,11 +659,11 @@ const Navbar: React.FC = () => {
             position: "absolute",
             top: desktopAxisY,
             left: "50%",
-            transform: `translate(calc(-50% + ${NC.pill.nudgeX}), -50%)`,
-            gap: NC.pill.gap,
+            transform: `translate(calc(-50% + ${NC.tune.pillNudgeX}), -50%)`,
+            gap: NC.tune.pillLinkGap,
             height: NC.pill.height,
             // paddingLeft always present so nav links never shift on scroll
-            padding: `0 ${NC.pill.paddingRight} 0 ${NC.pill.paddingLeft}`,
+            padding: `0 ${NC.tune.pillPaddingRight} 0 calc(${NC.tune.bridgePaddingLeft} + ${NC.tune.pillPaddingLeft})`,
             borderRadius: NC.pill.borderRadius,
             background: "transparent",
             border: "none",
@@ -531,8 +688,12 @@ const Navbar: React.FC = () => {
                   to={menu.href}
                   style={{
                     color: active || hoveredLink === menu.id ? NC.pill.link.colorActive : NC.pill.link.color,
-                    fontSize: NC.pill.link.fontSize,
-                    padding: `0 ${NC.pill.link.paddingX}`,
+                    fontSize: NC.typography.fontSize,
+                    fontWeight: NC.typography.fontWeight,
+                    fontFamily: NC.typography.fontFamily,
+                    letterSpacing: NC.typography.letterSpacing,
+                    lineHeight: NC.typography.lineHeight,
+                    padding: `0 ${NC.tune.pillLinkPaddingX}`,
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
@@ -575,7 +736,7 @@ const Navbar: React.FC = () => {
               position: "absolute",
               top: desktopAxisY,
               right: NC.wrapper.paddingRight,
-              transform: "translateY(-50%)",
+              transform: `translate(${NC.tune.contactNudgeX}, calc(-50% + ${NC.tune.contactNudgeY}))`,
               transition: `top ${NC.scroll.duration} ${NC.scroll.easing}`,
             }}
           >
@@ -594,10 +755,11 @@ const Navbar: React.FC = () => {
                 zIndex: 1004,
                 alignItems: "center",
                 textDecoration: "none",
-                fontWeight: NC.contactButton.fontWeight,
-                fontSize: NC.contactButton.fontSize,
-                fontFamily: TYPOGRAPHY.fontBody,
-                letterSpacing: NC.contactButton.letterSpacing,
+                fontWeight: NC.typography.fontWeight,
+                fontSize: NC.typography.fontSize,
+                fontFamily: NC.typography.fontFamily,
+                letterSpacing: NC.typography.letterSpacing,
+                lineHeight: NC.typography.lineHeight,
                 transition: "background 0.2s",
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = "#7d1a38"; }}
@@ -610,9 +772,10 @@ const Navbar: React.FC = () => {
           <button
             className="flex lg:hidden items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
+            style={{ padding: "0.5rem", borderRadius: "0.5rem" }}
             aria-label="Toggle Menu"
           >
-            {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
@@ -630,20 +793,20 @@ const Navbar: React.FC = () => {
               style={{
                 position: "fixed",
                 pointerEvents: "auto",
-                top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.dropdown.verticalOffset})`,
+                top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.tune.dropdownOffsetY})`,
                 left: `${dropdownPos}px`,
                 background: NC.dropdown.background,
                 border: NC.dropdown.border,
-                borderRadius: "0 0 12px 12px",
+                borderRadius: NC.dropdown.borderRadius,
                 boxShadow: NC.dropdown.boxShadow,
-                padding: "12px 0 4px 0",
+                padding: "0.75rem 0 0.25rem 0",
                 zIndex: 1010,
               }}
             >
               <DropdownAccent />
 
               {openMenu === "capabilities" ? (
-                <div style={{ display: "flex", flexDirection: "column", width: "220px", position: "relative" }}>
+                <div style={{ display: "flex", flexDirection: "column", width: NC.dropdown.minWidth, position: "relative" }}>
                   {navMenus.find((m) => m.id === "capabilities")?.megaMenuGroups?.map((group, idx) => {
                     const isActive = hoveredMegaGroup === idx;
                     const cap = capabilities[idx];
@@ -653,7 +816,7 @@ const Navbar: React.FC = () => {
                         onMouseEnter={() => setHoveredMegaGroup(idx)}
                         style={{
                           position: "relative",
-                          padding: "10px 24px",
+                          padding: `${NC.dropdown.itemPaddingY} ${NC.dropdown.itemPaddingX}`,
                           cursor: "pointer",
                           background: isActive ? "rgba(214,176,92,0.06)" : "transparent",
                           display: "flex",
@@ -665,9 +828,12 @@ const Navbar: React.FC = () => {
                           to={`/capabilities/${cap.slug}`}
                           style={{
                             textDecoration: "none",
-                            color: isActive ? COLORS.gold : "rgba(255,255,255,0.85)",
-                            fontSize: "13px",
-                            fontWeight: 500,
+                            color: isActive ? COLORS.gold : NC.pill.link.color,
+                            fontSize: NC.typography.fontSize,
+                            fontWeight: NC.typography.fontWeight,
+                            fontFamily: NC.typography.fontFamily,
+                            letterSpacing: NC.typography.letterSpacing,
+                            lineHeight: NC.typography.lineHeight,
                           }}
                         >
                           {group.title}
@@ -682,10 +848,10 @@ const Navbar: React.FC = () => {
                               marginLeft: "8px",
                               background: NC.dropdown.background,
                               border: NC.dropdown.border,
-                              borderRadius: "0 0 12px 12px",
+                              borderRadius: NC.dropdown.borderRadius,
                               padding: "12px 0 4px 0",
                               width: "max-content",
-                              minWidth: "400px",
+                              minWidth: NC.dropdown.childMinWidth,
                               boxShadow: NC.dropdown.boxShadow,
                               zIndex: 1011,
                               cursor: "default",
@@ -742,15 +908,21 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 lg:hidden"
             style={{
-              top: "85px",
+              top: "5.3125rem", // 85px
               background: "#050505",
               zIndex: 1010,
               overflowY: "auto",
-              paddingBottom: "40px",
-              borderTop: "1px solid rgba(255,255,255,0.05)",
+              paddingBottom: "2.5rem", // 40px
+              borderTop: "0.0625rem solid rgba(255,255,255,0.05)",
             }}
           >
-            <div className="flex flex-col px-6 pt-8 gap-4">
+            <div
+              className="flex flex-col pt-8 gap-4"
+              style={{
+                paddingLeft: LAYOUT_CONTROLS.global.paddingX,
+                paddingRight: LAYOUT_CONTROLS.global.paddingX,
+              }}
+            >
               {navMenus.map((menu) => {
                 const hasSubItems = menu.subItems && menu.subItems.length > 0;
                 const isMegaMenu = menu.megaMenuGroups && menu.megaMenuGroups.length > 0;
@@ -801,9 +973,9 @@ const Navbar: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => setIsMobileOpen(false)}
-                                className="text-white/70 hover:text-white text-sm flex items-center gap-2"
+                                className="text-white hover:text-white text-sm flex items-center gap-2"
                               >
-                                {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#D6B05C]" />}
+                                {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#6B1530]" />}
                                 {sub.label}
                                 <span className="text-[10px] opacity-50">↗</span>
                               </a>
@@ -812,13 +984,23 @@ const Navbar: React.FC = () => {
                                 key={sub.label}
                                 to={sub.href}
                                 onClick={() => setIsMobileOpen(false)}
-                                className="text-white/70 hover:text-white text-sm flex items-center gap-2"
+                                className="text-white hover:text-white text-sm flex items-center gap-2"
                               >
-                                {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#D6B05C]" />}
+                                {sub.LucideIcon && <sub.LucideIcon size={14} className="text-[#6B1530]" />}
                                 {sub.label}
                               </Link>
                             )
                           ))}
+                          {menu.id === 'platforms-ecosystem' && (
+                            <Link to="/platforms" onClick={() => setIsMobileOpen(false)} className="text-[#D6B05C] text-[13px] font-bold mt-2 flex items-center gap-1 uppercase tracking-wide">
+                              Explore platforms <ArrowRight size={12} />
+                            </Link>
+                          )}
+                          {menu.id === 'industries' && (
+                            <Link to="/industries" onClick={() => setIsMobileOpen(false)} className="text-[#D6B05C] text-[13px] font-bold mt-2 flex items-center gap-1 uppercase tracking-wide">
+                              Explore industries <ArrowRight size={12} />
+                            </Link>
+                          )}
                         </motion.div>
                       )}
 
@@ -832,7 +1014,7 @@ const Navbar: React.FC = () => {
                           {menu.megaMenuGroups?.map((group, gIdx) => (
                             <div key={group.title} className="pl-4 border-l border-white/10">
                               <div
-                                className="flex justify-between items-center text-[#D6B05C] font-medium text-sm mb-3 cursor-pointer"
+                                className="flex justify-between items-center text-white font-medium text-[15px] mb-3 cursor-pointer"
                                 onClick={() => setMobileExpandedGroup(mobileExpandedGroup === gIdx ? null : gIdx)}
                               >
                                 {group.title}
@@ -865,6 +1047,15 @@ const Navbar: React.FC = () => {
                                         {item.label}
                                       </Link>
                                     ))}
+                                    {group.slug && (
+                                      <Link
+                                        to={`/capabilities/${group.slug}`}
+                                        onClick={() => setIsMobileOpen(false)}
+                                        className="text-[#D6B05C] text-[13px] font-bold mt-3 border-t border-white/5 pt-3 flex items-center gap-1 uppercase tracking-wide"
+                                      >
+                                        Explore in detail <ArrowRight size={12} />
+                                      </Link>
+                                    )}
                                   </motion.div>
                                 )}
                               </AnimatePresence>

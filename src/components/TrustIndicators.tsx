@@ -82,7 +82,7 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
 
                 {/* Descriptor */}
                 <div
-                    className={`mt-6 text-center whitespace-pre-line ${label.includes('Monitoring') ? 'max-w-[120px]' : 'max-w-[150px]'}`}
+                    className={`mt-6 text-center whitespace-pre-line ${label.includes('Monitoring') ? 'max-w-[7.5rem]' : 'max-w-[9.375rem]'}`}
                     style={{
                         ...TYPOGRAPHY.metricLabel,
                         color: isDark ? 'rgba(255,255,255,0.5)' : BRAND_CONTROLS.metricsLabelColor,
@@ -98,12 +98,12 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
 
 export default function TrustIndicators({ isDark = false, centered = false }: { isDark?: boolean; centered?: boolean }) {
     // ── Padding/Margin controls ──────────────────────────────────────────
-    const METRICS_PADDING_TOP = '30px';
+    const METRICS_PADDING_TOP = '1.875rem'; // 30px
     const METRICS_PADDING_BOTTOM = '1em';
     const METRICS_MARGIN_BELOW = '0px';   // gap before partners if needed
-    const GLOBAL_IMPACT_HEADER_TOP_GAP = '32px'; // Matched to Partners header top gap
-    const GLOBAL_IMPACT_HEADER_SIDE_PADDING = '2.5rem';
-    const GLOBAL_IMPACT_HEADER_BOTTOM_GAP = '28px';
+    const GLOBAL_IMPACT_HEADER_TOP_GAP = '4.5rem'; // Increased separation from hero
+    const GLOBAL_IMPACT_HEADER_SIDE_PADDING = '3rem';
+    const GLOBAL_IMPACT_HEADER_BOTTOM_GAP = '1.75rem'; // 28px
     // ─────────────────────────────────────────────────────────────────────
 
     const metrics = [
@@ -128,7 +128,7 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
                 <div style={{ textAlign: centered ? 'center' : 'left', padding: `${GLOBAL_IMPACT_HEADER_TOP_GAP} ${GLOBAL_IMPACT_HEADER_SIDE_PADDING} ${GLOBAL_IMPACT_HEADER_BOTTOM_GAP}` }}>
                     <h3 style={{
                         fontFamily: TYPOGRAPHY.fontHeading,
-                        fontSize: 'clamp(32px, 4vw, 42px)', // Standard section heading size
+                        fontSize: 'clamp(2rem, 4vw, 2.625rem)', // 32px -> 42px
                         color: '#1A1A1A',
                         fontWeight: 700,
                         margin: 0,
@@ -142,29 +142,31 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
             <div
                 className="w-full relative z-[15] flex flex-col justify-center"
                 style={{
-                    paddingLeft: themeConfig.global.containerPaddingX,
-                    paddingRight: themeConfig.global.containerPaddingX,
+                    paddingLeft: LAYOUT_CONTROLS.global.paddingX,
+                    paddingRight: LAYOUT_CONTROLS.global.paddingX,
                 }}
             >
-                {/* 4-column horizontal on desktop, 2x2 on tablet, 1-col on mobile */}
-                <div className="relative z-[30] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 sm:gap-y-16">
+                {/* 4-column horizontal on desktop, 2x2 on mobile/tablet */}
+                <div className="relative z-[30] grid grid-cols-2 lg:grid-cols-4 gap-y-12 sm:gap-y-16">
                     {metrics.map((metric, idx) => (
                         <div
                             key={idx}
                             className="flex flex-col items-center text-center relative"
                         >
-                            {/* Desktop/Tablet Dividers - Reduced height to 40% and centered */}
+                            {/* Desktop Dividers */}
                             {idx % 4 !== 3 && (
                                 <div className="hidden lg:block absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
                             )}
+                            {/* Mobile/Tablet Vertical Divider (between col 1 and 2 in the 2x2 grid) */}
                             {idx % 2 === 0 && (
-                                <div className="hidden sm:block lg:hidden absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
+                                <div className="lg:hidden absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
                             )}
+
                             <CountUp end={metric.value} suffix={metric.suffix} label={metric.label} delay={0.1 + (idx * 0.05)} duration={METRICS_DURATION} isDark={isDark} />
 
-                            {/* Refinement 2: Gradient Bottom Separators for Mobile/Tablet Wrap */}
-                            {(idx < metrics.length - 1) && (
-                                <div className="lg:hidden absolute bottom-0 left-[15%] right-[15%] h-px"
+                            {/* Mobile/Tablet Horizontal Dividers (only under row 1 of the 2x2) */}
+                            {(idx < 2) && (
+                                <div className="lg:hidden absolute bottom-[-24px] left-[15%] right-[15%] h-px"
                                     style={{
                                         background: 'linear-gradient(90deg, transparent 0%, rgba(11,31,59,0.12) 20%, rgba(11,31,59,0.12) 80%, transparent 100%)'
                                     }}

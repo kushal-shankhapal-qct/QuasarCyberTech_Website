@@ -16,8 +16,8 @@ interface CTASectionProps {
   eyebrowText?: string;
 }
 
-const CTASection: React.FC<CTASectionProps> = ({ 
-  title = "Secure Your Digital Enterprise", 
+const CTASection: React.FC<CTASectionProps> = ({
+  title = "Secure Your Digital Enterprise",
   subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.",
   showEyebrow = true,
   theme = 'light',
@@ -26,7 +26,7 @@ const CTASection: React.FC<CTASectionProps> = ({
   eyebrowText = "READY TO BEGIN?"
 }) => {
   const isDark = theme === 'dark';
-  const CTA_ACTION_WIDTH = 'min(286px, 100%)';
+  const CTA_ACTION_WIDTH = 'min(17.875rem, 100%)';
   const CTA_CONTENT_MAX_WIDTH = '100%';
 
   return (
@@ -34,7 +34,7 @@ const CTASection: React.FC<CTASectionProps> = ({
       style={{
         position: 'relative',
         background: isDark ? 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)' : SECTION_BACKGROUNDS.LIGHT,
-        borderTop: isDark ? '1px solid rgba(214,176,92,0.15)' : 'none',
+        borderTop: isDark ? '0.0625rem solid rgba(214,176,92,0.15)' : 'none',
         paddingTop: LAYOUT_CONTROLS.section.paddingTop,
         paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
         paddingLeft: LAYOUT_CONTROLS.section.paddingX,
@@ -46,26 +46,26 @@ const CTASection: React.FC<CTASectionProps> = ({
         justifyContent: 'center',
       }}
     >
-      <div style={{ 
+      <div style={{
         maxWidth: CTA_CONTENT_MAX_WIDTH,
         width: '100%',
         margin: '0',
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: '80px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '5rem', // 80px
         textAlign: 'left',
         alignItems: 'flex-start',
         position: 'relative',
         zIndex: 10
       }}>
-        
+
         {/* Upper CTA Content */}
-        <div style={{ maxWidth: '800px' }}>
+        <div style={{ maxWidth: '50rem' }}>
           {showEyebrow && (
-            <p style={{ 
-              ...TYPOGRAPHY.eyebrow, 
-              color: isDark ? (LAYOUT_CONTROLS.section.ctaEyebrowDark || '#FFFFFF') : COLORS.burgundy, 
-              marginBottom: '20px',
+            <p style={{
+              ...TYPOGRAPHY.eyebrow,
+              color: isDark ? (LAYOUT_CONTROLS.section.ctaEyebrowDark || '#FFFFFF') : COLORS.burgundy,
+              marginBottom: '1.25rem', // 20px
               letterSpacing: '0.15em',
               fontWeight: 800
             }}>
@@ -82,7 +82,7 @@ const CTASection: React.FC<CTASectionProps> = ({
               fontFamily: TYPOGRAPHY.fontHeading,
               color: isDark ? '#ffffff' : COLORS.deepCyberBlue,
               lineHeight: 1.1,
-              marginBottom: '24px',
+              marginBottom: '1.5rem', // 24px
               fontWeight: 800,
             }}
           >
@@ -97,8 +97,8 @@ const CTASection: React.FC<CTASectionProps> = ({
             style={{
               ...TYPOGRAPHY.bodyLarge,
               color: isDark ? 'rgba(255,255,255,0.80)' : 'rgba(8, 16, 38, 0.85)',
-              maxWidth: '600px',
-              marginBottom: '40px',
+              maxWidth: '37.5rem', // 600px
+              marginBottom: '2.5rem', // 40px
               textAlign: 'left'
             }}
           >
@@ -110,9 +110,9 @@ const CTASection: React.FC<CTASectionProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            style={{ 
-              display: 'flex', 
-              gap: '20px', 
+            style={{
+              display: 'flex',
+              gap: '1.25rem', // 20px
               flexWrap: 'wrap',
               justifyContent: 'flex-start'
             }}
@@ -126,29 +126,29 @@ const CTASection: React.FC<CTASectionProps> = ({
                   ...TYPOGRAPHY.buttonLarge,
                   background: COLORS.burgundy,
                   color: '#FFFFFF',
-                  padding: '16px 36px',
+                  padding: '1rem 2.25rem', // 16px 36px
                   width: CTA_ACTION_WIDTH,
                   minWidth: CTA_ACTION_WIDTH,
                   maxWidth: '100%',
                   justifyContent: 'center',
-                  borderRadius: '999px',
+                  borderRadius: '0.25rem',
                   textDecoration: 'none',
-                  boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
+                  boxShadow: '0 0.5rem 1rem rgba(107, 21, 48, 0.2)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '0.5rem',
                   fontWeight: 800,
-                  fontSize: '14px',
+                  fontSize: '0.875rem', // 14px
                   whiteSpace: 'nowrap',
                   transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
-                   e.currentTarget.style.background = COLORS.burgundyHover;
-                   e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.background = COLORS.burgundyHover;
+                  e.currentTarget.style.transform = 'translateY(-0.125rem)';
                 }}
                 onMouseLeave={(e) => {
-                   e.currentTarget.style.background = COLORS.burgundy;
-                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = COLORS.burgundy;
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 {primaryAction.label}
@@ -161,29 +161,29 @@ const CTASection: React.FC<CTASectionProps> = ({
                   ...TYPOGRAPHY.buttonLarge,
                   background: COLORS.burgundy,
                   color: '#FFFFFF',
-                  padding: '16px 36px',
+                  padding: '1rem 2.25rem', // 16px 36px
                   width: CTA_ACTION_WIDTH,
                   minWidth: CTA_ACTION_WIDTH,
                   maxWidth: '100%',
                   justifyContent: 'center',
-                  borderRadius: '999px',
+                  borderRadius: '0.25rem',
                   textDecoration: 'none',
-                  boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
+                  boxShadow: '0 0.5rem 1rem rgba(107, 21, 48, 0.2)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '0.5rem', // 8px
                   fontWeight: 800,
-                  fontSize: '14px',
+                  fontSize: '0.875rem', // 14px
                   whiteSpace: 'nowrap',
                   transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
-                   e.currentTarget.style.background = COLORS.burgundyHover;
-                   e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.background = COLORS.burgundyHover;
+                  e.currentTarget.style.transform = 'translateY(-0.125rem)';
                 }}
                 onMouseLeave={(e) => {
-                   e.currentTarget.style.background = COLORS.burgundy;
-                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = COLORS.burgundy;
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 {primaryAction.label}
@@ -199,33 +199,33 @@ const CTASection: React.FC<CTASectionProps> = ({
                 style={{
                   ...TYPOGRAPHY.buttonLarge,
                   background: 'transparent',
-                  border: isDark ? '1.5px solid rgba(255,255,255,0.35)' : `1.5px solid ${COLORS.burgundy}`,
+                  border: isDark ? '0.09375rem solid rgba(255,255,255,0.35)' : `0.09375rem solid ${COLORS.burgundy}`,
                   color: isDark ? '#FFFFFF' : COLORS.burgundy,
-                  padding: '16px 36px',
+                  padding: '1rem 2.25rem', // 16px 36px
                   width: CTA_ACTION_WIDTH,
                   minWidth: CTA_ACTION_WIDTH,
                   maxWidth: '100%',
                   justifyContent: 'center',
-                  borderRadius: '999px',
+                  borderRadius: '0.25rem',
                   textDecoration: 'none',
                   display: 'flex',
                   alignItems: 'center',
                   fontWeight: 800,
-                  fontSize: '14px',
+                  fontSize: '0.875rem', // 14px
                   whiteSpace: 'nowrap',
                   transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
-                   e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(107, 21, 48, 0.05)';
-                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.6)' : COLORS.burgundyHover;
-                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundyHover;
-                   e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(107, 21, 48, 0.05)';
+                  e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.6)' : COLORS.burgundyHover;
+                  e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundyHover;
+                  e.currentTarget.style.transform = 'translateY(-0.125rem)';
                 }}
                 onMouseLeave={(e) => {
-                   e.currentTarget.style.background = 'transparent';
-                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.35)' : COLORS.burgundy;
-                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundy;
-                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.35)' : COLORS.burgundy;
+                  e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundy;
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 {secondaryAction.label}
@@ -242,34 +242,34 @@ const CTASection: React.FC<CTASectionProps> = ({
                 style={{
                   ...TYPOGRAPHY.buttonLarge,
                   background: 'transparent',
-                  border: isDark ? '1.5px solid rgba(255,255,255,0.35)' : `1.5px solid ${COLORS.burgundy}`,
+                  border: isDark ? '0.09375rem solid rgba(255,255,255,0.35)' : `0.09375rem solid ${COLORS.burgundy}`,
                   color: isDark ? '#FFFFFF' : COLORS.burgundy,
-                  padding: '16px 36px',
+                  padding: '1rem 2.25rem', // 16px 36px
                   width: CTA_ACTION_WIDTH,
                   minWidth: CTA_ACTION_WIDTH,
                   maxWidth: '100%',
                   justifyContent: 'center',
-                  borderRadius: '999px',
+                  borderRadius: '0.25rem',
                   textDecoration: 'none',
                   display: 'flex',
                   alignItems: 'center',
                   fontWeight: 800,
-                  fontSize: '14px',
+                  fontSize: '0.875rem', // 14px
                   whiteSpace: 'nowrap',
                   transition: 'all 0.3s ease',
                   cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                   e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(107, 21, 48, 0.05)';
-                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.6)' : COLORS.burgundyHover;
-                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundyHover;
-                   e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(107, 21, 48, 0.05)';
+                  e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.6)' : COLORS.burgundyHover;
+                  e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundyHover;
+                  e.currentTarget.style.transform = 'translateY(-0.125rem)';
                 }}
                 onMouseLeave={(e) => {
-                   e.currentTarget.style.background = 'transparent';
-                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.35)' : COLORS.burgundy;
-                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundy;
-                   e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.35)' : COLORS.burgundy;
+                  e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundy;
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 {secondaryAction.label}

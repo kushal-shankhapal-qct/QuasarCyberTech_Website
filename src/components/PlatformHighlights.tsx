@@ -17,10 +17,10 @@ const platforms = [
     link: 'https://qstellar.co',
     external: true,
     styles: {
-      logoHeight: '36px',
+      logoHeight: '2.25rem', // 36px
       logoWidth: 'auto',
-      logoNudgeX: '0px',
-      logoNudgeY: '-1px',
+      logoNudgeX: '0rem',
+      logoNudgeY: '-0.0625rem', // -1px
       screenshotFit: 'cover' as const
     }
   },
@@ -36,10 +36,10 @@ const platforms = [
     link: 'https://qpulse.quasarcybertech.com',
     external: true,
     styles: {
-      logoHeight: '50px',
+      logoHeight: '3.125rem', // 50px
       logoWidth: 'auto',
-      logoNudgeX: '0px',
-      logoNudgeY: '1px',
+      logoNudgeX: '0rem',
+      logoNudgeY: '0.0625rem', // 1px
       screenshotFit: 'cover' as const
     }
   },
@@ -53,12 +53,12 @@ const platforms = [
     ctaText: 'Explore QRGT Platform',
     link: '/platforms/qrgt',
     styles: {
-      logoHeight: '76px', // Standardized height (fixed typo)
-      logoWidth: 'auto',   // Maintaining aspect ratio
+      logoHeight: '4.75rem', // 76px
+      logoWidth: 'auto',   
       logoScale: 1.0,
-      logoNudgeX: '0px',   // Resetting manual nudge
-      logoNudgeY: '2px',
-      logoTranslateX: '0px',
+      logoNudgeX: '0rem',
+      logoNudgeY: '0.125rem', // 2px
+      logoTranslateX: '0rem',
       screenshotFit: 'cover' as const,
       screenshotPosition: 'left center'
     }
@@ -67,11 +67,13 @@ const platforms = [
 
 export default function PlatformHighlights() {
   return (
-    <section style={{
-      background: GRADIENTS.HOME_PLATFORMS_BG,
-      padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
-      fontFamily: TYPOGRAPHY.fontBody
-    }}>
+    <section 
+      className="home-platforms-section"
+      style={{
+        background: GRADIENTS.HOME_PLATFORMS_BG,
+        padding: `clamp(2rem, 5vh, 4rem) ${LAYOUT_CONTROLS.global.paddingX} clamp(2rem, 5vh, 4rem)`,
+        fontFamily: TYPOGRAPHY.fontBody
+      }}>
       <SectionHeader
         isDark
         eyebrow=""
@@ -80,7 +82,7 @@ export default function PlatformHighlights() {
         suffix="Platforms & Ecosystem"
         highlightColor={COLORS.gold}
         subtitle="Platforms and initiatives within the QuasarCyberTech ecosystem that support continuous security operations, visibility, and cyber resilience."
-        maxWidth="740px"
+        maxWidth="46.25rem"
         subtitleStyle={{ 
           color: 'rgba(255,255,255,0.78)',
           textAlign: 'justify',
@@ -88,24 +90,28 @@ export default function PlatformHighlights() {
         }}
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))', 
+        gap: '1.25rem' 
+      }}>
         {platforms.map((platform) => (
           <article
             key={platform.name}
             style={{
-              borderRadius: '0 0 16px 16px',
-              borderTop: `3px solid ${COLORS.burgundy}`,
+              borderRadius: '0 0 1rem 1rem',
+              borderTop: `0.1875rem solid ${COLORS.burgundy}`,
               background: COLORS.cardOnDark,
-              border: `1px solid rgba(214, 176, 92, 0.3)`,
-              borderTopWidth: '3px',
+              border: `0.0625rem solid rgba(214, 176, 92, 0.3)`,
+              borderTopWidth: '0.1875rem',
               display: 'flex',
               flexDirection: 'column',
               transition: 'transform 0.25s ease, border-top-color 0.25s ease',
               overflow: 'hidden',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              boxShadow: '0 1.25rem 2.5rem rgba(0,0,0,0.3)',
             }}
             onMouseEnter={(event) => {
-              event.currentTarget.style.transform = 'translateY(-6px)';
+              event.currentTarget.style.transform = 'translateY(-0.375rem)';
               event.currentTarget.style.borderTopColor = COLORS.burgundy;
             }}
             onMouseLeave={(event) => {
@@ -115,9 +121,9 @@ export default function PlatformHighlights() {
           >
             {/* ─── PLACEMENT 4: SCREENSHOT ZONE ─── */}
             <div style={{
-              height: '220px',
+              height: '13.75rem',
               background: 'transparent',
-              borderBottom: `1px solid ${ALPHAS.gold12}`,
+              borderBottom: `0.0625rem solid ${ALPHAS.gold12}`,
               overflow: 'hidden',
               position: 'relative',
             }}>
@@ -135,50 +141,49 @@ export default function PlatformHighlights() {
                   />
               ) : (
                 /* Mock UI Lines */
-                <div style={{ padding: '20px', opacity: 0.25 }}>
-                  <div style={{ height: '8px', width: '60%', background: COLORS.gold, borderRadius: '4px', marginBottom: '12px' }} />
-                  <div style={{ height: '6px', width: '85%', background: 'rgba(255,255,255,0.3)', borderRadius: '4px', marginBottom: '8px' }} />
-                  <div style={{ height: '6px', width: '45%', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', marginBottom: '8px' }} />
-                  <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
-                    <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
-                    <div style={{ width: '32px', height: '32px', borderRadius: '4px', background: 'rgba(43,196,182,0.1)' }} />
+                <div style={{ padding: '1.25rem', opacity: 0.25 }}>
+                  <div style={{ height: '0.5rem', width: '60%', background: COLORS.gold, borderRadius: '0.25rem', marginBottom: '0.75rem' }} />
+                  <div style={{ height: '0.375rem', width: '85%', background: 'rgba(255,255,255,0.3)', borderRadius: '0.25rem', marginBottom: '0.5rem' }} />
+                  <div style={{ height: '0.375rem', width: '45%', background: 'rgba(255,255,255,0.2)', borderRadius: '0.25rem', marginBottom: '0.5rem' }} />
+                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+                    <div style={{ width: '2rem', height: '2rem', borderRadius: '0.25rem', background: 'rgba(43,196,182,0.1)' }} />
+                    <div style={{ width: '2rem', height: '2rem', borderRadius: '0.25rem', background: 'rgba(43,196,182,0.1)' }} />
+                    <div style={{ width: '2rem', height: '2rem', borderRadius: '0.25rem', background: 'rgba(43,196,182,0.1)' }} />
                   </div>
                 </div>
               )}
             </div>
             <div style={{
               width: '100%',
-              minHeight: '80px',
+              minHeight: '5rem',
               background: 'rgba(4,11,29,0.98)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '0 24px', // Restore consistent padding with margin
-              borderTop: `1px solid ${COLORS.burgundy}`,
-              borderBottom: '1px solid rgba(255,255,255,0.03)',
-              gap: '20px'
+              padding: '0 1.5rem', 
+              borderTop: `0.0625rem solid ${COLORS.burgundy}`,
+              borderBottom: '0.0625rem solid rgba(255,255,255,0.03)',
+              gap: '1.25rem'
             }}>
               {platform.logo ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
                   <img
                     src={platform.logo}
                     alt={platform.name}
                     style={{
-                      maxHeight: platform.styles?.logoHeight || '36px',
-                      maxWidth: platform.name === 'QRGT' ? 'none' : '130px',
+                      maxHeight: platform.styles?.logoHeight || '2.25rem',
+                      maxWidth: platform.name === 'QRGT' ? 'none' : '8.125rem',
                       width: platform.styles?.logoWidth || 'auto',
                       objectFit: 'contain',
                       objectPosition: 'left center',
-                      transform: `translate(${platform.styles?.logoNudgeX || '0px'}, ${platform.styles?.logoNudgeY || '0px'}) scale(${platform.styles?.logoScale || 1}) translateX(${platform.styles?.logoTranslateX || '0px'})`
+                      transform: `translate(${platform.styles?.logoNudgeX || '0rem'}, ${platform.styles?.logoNudgeY || '0rem'}) scale(${platform.styles?.logoScale || 1}) translateX(${platform.styles?.logoTranslateX || '0rem'})`
                     }}
                   />
-                  {/* Removed platform.showTextLabel to avoid redundant wordmarks */}
                 </div>
               ) : (
                 <span style={{
                   color: '#FFFFFF',
-                  fontSize: '16px',
+                  fontSize: '1rem',
                   fontWeight: 800,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
@@ -192,16 +197,16 @@ export default function PlatformHighlights() {
               {/* High-Tech Subtitle in Strip */}
               <div style={{
                 flex: 1,
-                textAlign: 'left', // Aligned left per user request
-                borderLeft: '1px solid rgba(255,255,255,0.1)',
-                paddingLeft: '16px'
+                textAlign: 'left', 
+                borderLeft: '0.0625rem solid rgba(255,255,255,0.1)',
+                paddingLeft: '1rem'
               }}>
                 <span style={{
                   fontSize: '0.72rem',
                   color: 'rgba(255,255,255,0.65)',
                   lineHeight: 1.4,
                   fontWeight: 500,
-                  display: 'block', // No line-clamping for full visibility
+                  display: 'block', 
                   fontFamily: TYPOGRAPHY.fontBody
                 }}>
                   {platform.subtitle}
@@ -209,17 +214,14 @@ export default function PlatformHighlights() {
               </div>
             </div>
 
-            <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-
-
-
-              <ul style={{ listStyle: 'none', margin: '0 0 24px 0', padding: 0, display: 'grid', gap: '12px', flexGrow: 1 }}>
+            <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <ul style={{ listStyle: 'none', margin: '0 0 1.5rem 0', padding: 0, display: 'grid', gap: '0.75rem', flexGrow: 1 }}>
                 {platform.highlights.map((highlight) => (
                   <li key={highlight}
                     className="platform-highlight-item"
                     style={{
                       display: 'flex',
-                      gap: '12px',
+                      gap: '0.75rem',
                       color: 'rgba(255,255,255,0.9)',
                       ...TYPOGRAPHY.bodySmall,
                       fontWeight: 500,
@@ -232,7 +234,7 @@ export default function PlatformHighlights() {
                       className="highlight-icon"
                       style={{
                         flexShrink: 0,
-                        marginTop: '2px',
+                        marginTop: '0.125rem',
                         transition: 'color 0.2s ease, opacity 0.2s ease',
                         color: COLORS.gold,
                         opacity: 0.75
@@ -249,18 +251,18 @@ export default function PlatformHighlights() {
                 rel={platform.external ? 'noopener noreferrer' : undefined}
                 className="platform-cta"
                 style={{
-                  color: '#FFFFFF', // White at default per user request
+                  color: '#FFFFFF', 
                   opacity: 0.85,
                   ...TYPOGRAPHY.navLink,
-                  fontSize: '13px', // Slightly bigger
+                  fontSize: '0.8125rem', 
                   fontWeight: 600,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  gap: '10px',
-                  borderTop: `1px solid ${ALPHAS.white06}`,
-                  paddingTop: '20px',
+                  gap: '0.625rem',
+                  borderTop: `0.0625rem solid ${ALPHAS.white06}`,
+                  paddingTop: '1.25rem',
                   marginTop: 'auto',
                   transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
                 }}
@@ -277,6 +279,19 @@ export default function PlatformHighlights() {
         article:hover .highlight-icon { opacity: 1 !important; transform: scale(1.1); }
         article:hover .platform-cta { opacity: 1 !important; color: ${COLORS.gold} !important; border-top-color: rgba(214, 176, 92, 0.4) !important; }
         .platform-cta:hover { color: ${COLORS.gold} !important; }
+
+        @media (max-width: 64rem) {
+          .home-platforms-section {
+            padding-left: 3rem !important;
+            padding-right: 3rem !important;
+          }
+        }
+
+        @media (max-width: 40rem) {
+          .home-platforms-section img {
+            object-position: left center !important;
+          }
+        }
       `}} />
     </section>
   );

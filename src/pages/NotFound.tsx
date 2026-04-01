@@ -14,8 +14,8 @@ export default function NotFound() {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        paddingLeft: '2em',
-        paddingRight: '2em',
+        paddingLeft: '3rem',
+        paddingRight: '3rem',
         position: 'relative',
         overflow: 'hidden',
         fontFamily: TYPOGRAPHY.fontBody

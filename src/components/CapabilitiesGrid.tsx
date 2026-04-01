@@ -10,18 +10,18 @@ export default function CapabilitiesGrid() {
   return (
     <section className="home-capabilities-section" style={{ 
       background: SECTION_BACKGROUNDS.LIGHT, 
-      padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`,
+      padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.global.paddingX}`,
       fontFamily: TYPOGRAPHY.fontBody
     }}>
       <div style={{ width: '100%', margin: '0' }}>
         {/* ─── NEW SINGLE-COLUMN HEADER ─── */}
-        <div className="home-capabilities-header" style={{ marginBottom: '48px', maxWidth: '720px' }}>
+        <div className="home-capabilities-header" style={{ marginBottom: '3rem', maxWidth: '45rem' }}>
           <h2 style={{
             fontFamily: TYPOGRAPHY.fontHeading,
-            fontSize: 'clamp(28px, 3.5vw, 40px)',
+            fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
             fontWeight: 700,
             color: COLORS.textOnLight,
-            marginBottom: '16px',
+            marginBottom: '1rem',
             lineHeight: 1.2,
             letterSpacing: '-0.01em',
           }}>
@@ -30,7 +30,7 @@ export default function CapabilitiesGrid() {
           <p style={{
             ...TYPOGRAPHY.bodyLarge,
             color: COLORS.textSub,
-            maxWidth: '760px',
+            maxWidth: '47.5rem',
             lineHeight: '1.7',
             textAlign: 'justify',
             margin: 0,
@@ -52,6 +52,7 @@ export default function CapabilitiesGrid() {
             <CapabilityCardSimple
               key={cap.id}
               title={cap.name}
+              mobileTitle={cap.navLabel}
               desc={cap.cardDescription}
               href={`/capabilities/${cap.slug}`}
               img={cap.image}
@@ -61,25 +62,25 @@ export default function CapabilitiesGrid() {
 
         {/* ─── CENTERED BOTTOM CTA ─── */}
         <div className="capabilities-cta" style={{
-          marginTop: '48px',
+          marginTop: '3rem',
           display: 'flex',
-          justifyContent: 'center', // Centered alignment
+          justifyContent: 'center', 
         }}>
           <Link
             to="/capabilities"
             style={{
               background: COLORS.burgundy,
               color: '#FFFFFF',
-              padding: '12px 28px', 
-              fontSize: '13px',
+              padding: '0.75rem 1.75rem', 
+              fontSize: '0.8125rem',
               fontWeight: 700,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
-              borderRadius: '8px', 
+              gap: '0.5rem',
+              borderRadius: '0.5rem', 
               transition: 'background 0.2s ease',
             }}
             onMouseEnter={e => { e.currentTarget.style.background = COLORS.burgundyHover; }}
@@ -95,8 +96,8 @@ export default function CapabilitiesGrid() {
           __html: `
           @media (max-width: 1024px) {
             .home-capabilities-section {
-              padding-left: 1.5rem !important;
-              padding-right: 1.5rem !important;
+              padding-left: 3rem !important;
+              padding-right: 3rem !important;
             }
             .home-capabilities-grid {
               grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -105,11 +106,14 @@ export default function CapabilitiesGrid() {
 
           @media (max-width: 640px) {
             .home-capabilities-header {
-              margin-bottom: 32px !important;
+              margin-bottom: 2rem !important;
+            }
+            .home-capabilities-header p {
+              text-align: left !important;
             }
             .home-capabilities-grid {
-              grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-              gap: 18px !important;
+              grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+              gap: 1.125rem !important;
             }
           }
         `,

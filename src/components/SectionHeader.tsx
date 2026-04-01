@@ -19,17 +19,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   suffix,
   subtitle, 
   isDark = false,
-  maxWidth = '560px',
+  maxWidth = '35rem', // 560px
   highlightColor,
   subtitleStyle
 }) => {
   return (
-    <div style={{ textAlign: 'left', marginBottom: '42px', fontFamily: TYPOGRAPHY.fontBody }}>
+    <div style={{ textAlign: 'left', marginBottom: '2.625rem', fontFamily: TYPOGRAPHY.fontBody }}>
       {eyebrow && (
         <p style={{ 
           ...TYPOGRAPHY.eyebrow,
           color: COLORS.burgundy, 
-          marginBottom: '12px'
+          marginBottom: '0.75rem'
         }}>
           {eyebrow}
         </p>
@@ -38,8 +38,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         ...TYPOGRAPHY.sectionTitle,
         fontFamily: TYPOGRAPHY.fontHeading,
         color: isDark ? COLORS.textOnDark : COLORS.textOnLight, 
-        marginBottom: '18px',
-        maxWidth: '800px'
+        marginBottom: '1.125rem',
+        maxWidth: '50rem' // 800px
       }}>
         {title} <span style={{ color: highlightColor || (isDark ? COLORS.gold : COLORS.burgundy) }}>{highlight}</span> {suffix}
       </h2>

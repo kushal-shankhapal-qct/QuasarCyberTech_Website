@@ -39,8 +39,8 @@ const TermsConditions: React.FC = () => {
       <section style={{
         paddingTop: LAYOUT_CONTROLS.section.paddingTop,
         paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
-        paddingLeft: '1.5rem',
-        paddingRight: '1.5rem',
+        paddingLeft: LAYOUT_CONTROLS.global.paddingX,
+        paddingRight: LAYOUT_CONTROLS.global.paddingX,
         background: '#FFFFFF',
         flex: 1
       }}>

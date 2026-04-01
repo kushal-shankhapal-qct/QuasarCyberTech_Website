@@ -25,7 +25,7 @@ export default function Testimonials() {
             className="relative z-[20] overflow-hidden w-full transition-colors duration-700"
             style={{
                 background: '#FFFFFF',
-                padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`,
+                padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.global.paddingX}`,
                 fontFamily: TYPOGRAPHY.fontBody
             }}
         >
@@ -37,13 +37,13 @@ export default function Testimonials() {
                     highlight="Enterprise Leaders"
                     suffix={<><br />Across Industries</>}
                     highlightColor={COLORS.burgundy}
-                    maxWidth="740px"
+                    maxWidth="46.25rem"
                 />
 
                 {/* ─── Grid ─── */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))',
                     gap: LAYOUT_CONTROLS.grid.capabilityGap,
                 }}>
                     {testimonials.map((testimonial, idx) => {
@@ -57,18 +57,19 @@ export default function Testimonials() {
                                 transition={{ duration: 0.6, delay: idx * 0.2 }}
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
-                                className={`relative px-8 py-8 flex flex-col group transition-all duration-500 overflow-hidden ${idx === 0 ? 'md:rounded-l-none md:rounded-r-[40px]' : 'md:rounded-r-none md:rounded-l-[40px]'} rounded-[32px] md:rounded-y-none`}
+                                className={`relative px-8 py-8 flex flex-col group transition-all duration-500 overflow-hidden testimonial-card`}
                                 style={{
-                                    border: `1px solid rgba(0,0,0,0.05)`,
+                                    border: `0.0625rem solid rgba(0,0,0,0.05)`,
                                     background: '#FFFFFF',
-                                    minHeight: '260px',
-                                    boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.1)' : '0 10px 30px rgba(0,0,0,0.05)',
-                                    transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
+                                    minHeight: '16.25rem',
+                                    boxShadow: isHovered ? '0 1.25rem 2.5rem rgba(0,0,0,0.1)' : '0 0.625rem 1.875rem rgba(0,0,0,0.05)',
+                                    transform: isHovered ? 'translateY(-0.375rem)' : 'translateY(0)',
+                                    borderRadius: idx === 0 ? '0 2rem 2rem 0' : '2rem 0 0 2rem'
                                 }}
                             >
                                 {/* Sharp Vertical Accent Line */}
                                 <div
-                                    className="absolute top-0 bottom-0 w-[5px] transition-colors duration-500"
+                                    className="absolute top-0 bottom-0 w-[0.3125rem] transition-colors duration-500"
                                     style={{
                                         background: COLORS.gold,
                                         left: idx === 0 ? '0' : 'auto',
@@ -85,10 +86,11 @@ export default function Testimonials() {
                                     />
                                 </div>
 
-                                <p className="text-[14.5px] leading-relaxed mb-8 flex-grow font-medium italic transition-opacity text-justify px-2"
+                                <p className="testimonial-quote text-[0.90625rem] leading-relaxed mb-8 flex-grow font-medium italic transition-opacity px-2"
                                     style={{
                                         color: '#0B1F3B',
-                                        opacity: isHovered ? 1 : 0.9
+                                        opacity: isHovered ? 1 : 0.9,
+                                        textAlign: 'justify'
                                     }}
                                 >
                                     "{testimonial.quote}"
@@ -99,18 +101,18 @@ export default function Testimonials() {
                                     className="flex items-center gap-4 mt-auto p-4 rounded-xl transition-all duration-300"
                                     style={{
                                         backgroundColor: isHovered ? 'rgba(214, 176, 92, 0.05)' : 'rgba(0,0,0,0.02)',
-                                        border: `1px solid rgba(0,0,0,0.05)`,
+                                        border: `0.0625rem solid rgba(0,0,0,0.05)`,
                                     }}
                                 >
                                     <div className="flex flex-col">
                                         <span 
-                                            className="text-[15px] font-black transition-colors duration-300"
+                                            className="text-[0.9375rem] font-black transition-colors duration-300"
                                             style={{ color: COLORS.burgundy }}
                                         >
                                             {testimonial.name}
                                         </span>
                                         <span 
-                                            className="text-[12px] font-bold uppercase tracking-wider transition-colors duration-300"
+                                            className="text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-300"
                                             style={{ color: '#5A6478' }}
                                         >
                                             {testimonial.role}
@@ -122,6 +124,26 @@ export default function Testimonials() {
                     })}
                 </div>
             </div>
+            <style
+              dangerouslySetInnerHTML={{
+                __html: `
+                @media (max-width: 48rem) { /* 768px */
+                  .testimonial-card {
+                    margin-bottom: 1rem;
+                  }
+                                    .testimonial-card:nth-child(odd) {
+                                        border-radius: 0 1.5rem 1.5rem 0 !important;
+                                    }
+                                    .testimonial-card:nth-child(even) {
+                                        border-radius: 1.5rem 0 0 1.5rem !important;
+                                    }
+                  .testimonial-quote {
+                    text-align: left !important;
+                  }
+                }
+              `,
+              }}
+            />
         </section>
     );
 }

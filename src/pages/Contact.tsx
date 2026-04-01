@@ -19,7 +19,7 @@ const CONFIG = {
     cardsLiftUpFromHero: '2.5rem',             // Smaller value => cards move lower
   },
   card: {
-    paddingX: '2.5rem',
+    paddingX: '3rem',
     paddingTop: '3rem',
     paddingBottom: '1.5rem',
     contentBottomGap: '1.5rem',
@@ -27,7 +27,7 @@ const CONFIG = {
     topAccentHeight: '4px',
     rightPanel: {
       // Master controls for right card vertical rhythm
-      paddingX: '2.5rem',
+      paddingX: '3rem',
       paddingTop: '3rem',
       paddingBottom: '1.5rem',
       sectionGap: '2rem',
@@ -48,7 +48,7 @@ const CONFIG = {
 
       // Map block
       mapTopGap: '15.5em',
-      mapMarginX: '2.5rem',
+      mapMarginX: '3rem',
       mapMarginBottom: '0rem',
       mapHeight: '300px',
       mapBorderRadius: '12px',
@@ -741,8 +741,8 @@ export default function Contact() {
           __html: `
           @media (max-width: 768px) {
             #contact-form {
-              padding-left: 1.25rem !important;
-              padding-right: 1.25rem !important;
+              padding-left: 3rem !important;
+              padding-right: 3rem !important;
             }
           }
         `}} />

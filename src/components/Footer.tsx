@@ -5,8 +5,7 @@ import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { capabilities } from '../data/capabilitiesData';
 
-const logoIcon = ASSETS.logos.qct.icon;
-const logoTextImg = ASSETS.logos.qct.textLight;
+const logoOver = ASSETS.logos.qct.over;
 
 const footerColumns = [
   {
@@ -59,8 +58,15 @@ const socialLinks = [
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [hoveredLink, setHoveredLink] = useState<{ col: number; idx: number } | null>(null);
-  const FOOTER_LOGO_ICON_SIZE = '58px';
-  const FOOTER_LOGO_TEXT_WIDTH = '190px';
+  const FOOTER_LOGO_WIDTH = '14rem'; // 224px
+
+  // --- FOOTER CONFIG (FC) ---
+  const FC = {
+    fontLink: '0.875rem', // 14px
+    fontHeading: '0.75rem', // 12px
+    linkGap: '0.65rem',
+    colGap: '2rem',
+  };
 
   return (
     <footer
@@ -68,7 +74,7 @@ const Footer: React.FC = () => {
         position: 'relative',
         overflow: 'hidden',
         background: '#1A0A10',
-        borderTop: '2px solid rgba(107, 21, 48, 0.60)',
+        borderTop: '0.125rem solid rgba(107, 21, 48, 0.60)', // 2px
         fontFamily: TYPOGRAPHY.fontBody,
       }}
     >
@@ -79,36 +85,20 @@ const Footer: React.FC = () => {
            ─────────────────────────────────────────── */
         .ft-grid {
           display: grid;
-          grid-template-columns: 220px 1fr;
-          gap: 3rem;
+          grid-template-columns: max-content repeat(4, max-content);
+          gap: ${FC.colGap};
           align-items: start;
+          justify-content: space-between;
           max-width: none;
           margin: 0 auto;
-          padding: 4rem ${LAYOUT_CONTROLS.global.paddingX};
+          padding: 3rem ${LAYOUT_CONTROLS.global.paddingX};
         }
 
-        /* ───────────────────────────────────────────
-           INNER NAV GRID: 4 columns side by side
-           (this is the DEFAULT — desktop)
-           ─────────────────────────────────────────── */
-        .ft-nav-cols {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1.5rem;
-          align-items: start;
-          min-width: 0;
-        }
-
-        /* ── Tablet ≤ 1024px: narrow gap, 2-col nav ── */
         @media (max-width: 1024px) {
           .ft-grid {
-            grid-template-columns: 190px 1fr;
-            gap: 2rem;
-            padding: 3rem 2rem;
-          }
-          .ft-nav-cols {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.75rem 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            padding: 3rem ${LAYOUT_CONTROLS.global.paddingX};
           }
         }
 
@@ -117,7 +107,7 @@ const Footer: React.FC = () => {
           .ft-grid {
             grid-template-columns: 1fr;
             gap: 2.5rem;
-            padding: 2.5rem 1.75rem;
+            padding: 2.5rem ${LAYOUT_CONTROLS.global.paddingX};
           }
           .ft-nav-cols {
             grid-template-columns: repeat(2, 1fr);
@@ -146,7 +136,7 @@ const Footer: React.FC = () => {
         /* ── Mobile ≤ 480px: single column everything ── */
         @media (max-width: 480px) {
           .ft-grid {
-            padding: 2rem 1.25rem;
+            padding: 2rem ${LAYOUT_CONTROLS.global.paddingX};
             gap: 2rem;
           }
           .ft-nav-cols {
@@ -156,27 +146,24 @@ const Footer: React.FC = () => {
           .ft-brand-logo {
             margin-bottom: 1.15rem !important;
           }
-          .ft-brand-logo img.ft-brand-icon {
-            height: 58px !important;
-          }
-          .ft-brand-logo img.ft-brand-text {
-            width: 150px !important;
+          .ft-brand-logo img {
+            width: 10rem !important;
           }
           .ft-contact-row {
             font-size: 0.82rem !important;
             gap: 0.7rem !important;
           }
           .ft-icon-btn {
-            width: 36px;
-            height: 36px;
+            width: 2.25rem;
+            height: 2.25rem;
           }
         }
 
-        /* ── Narrow mobile ≤ 640px: stack nav columns for readability ── */
         @media (max-width: 640px) {
-          .ft-nav-cols {
+          .ft-grid {
             grid-template-columns: 1fr;
-            gap: 1.35rem;
+            gap: 1.5rem;
+            padding: 2.5rem ${LAYOUT_CONTROLS.global.paddingX};
           }
         }
 
@@ -185,16 +172,16 @@ const Footer: React.FC = () => {
           display: flex;
           align-items: center;
           gap: 3px;
-          font-size: 0.875rem;
+          font-size: ${FC.fontLink};
           color: rgba(255,255,255,0.65);
           text-decoration: none;
           transition: color 0.2s ease, transform 0.2s ease;
-          line-height: 1.4;
+          line-height: 1.5;
         }
         .ft-link:hover { color: #fff; transform: translateX(2px); }
 
         .ft-col-heading {
-          font-size: 0.68rem;
+          font-size: ${FC.fontHeading};
           font-weight: 700;
           letter-spacing: 0.12em;
           text-transform: uppercase;
@@ -203,19 +190,23 @@ const Footer: React.FC = () => {
           padding-bottom: 0.6rem;
           border-bottom: 1px solid rgba(255,255,255,0.12);
           display: block;
+          width: 100%;
         }
 
         .ft-icon-btn {
-          width: 40px; height: 40px;
-          border-radius: 10px;
+          width: 2.5rem; height: 2.5rem;
+          border-radius: 0.625rem;
           border: 1px solid rgba(214,176,92,0.25);
           background: rgba(214,176,92,0.06);
           color: #D6B05C;
           display: flex; align-items: center; justify-content: center;
           flex-shrink: 0;
-          transition: background 0.25s;
+          transition: all 0.3s ease;
         }
-        .ft-icon-btn:hover { background: rgba(214,176,92,0.15); }
+        .ft-socials .ft-icon-btn:hover {
+          background: rgba(214,176,92,0.15);
+          transform: translateY(-4px);
+        }
 
         .ft-contact-row {
           display: flex;
@@ -224,11 +215,31 @@ const Footer: React.FC = () => {
           color: rgba(255,255,255,0.7);
           font-size: 0.875rem;
           text-decoration: none;
-          transition: color 0.2s;
+          transition: color 0.2s ease, transform 0.3s ease;
           min-width: 0;
         }
-        .ft-contact-row:hover { color: #fff; }
+        .ft-contact-row:hover {
+          color: #fff;
+          transform: translateY(-2px);
+        }
+        .ft-contact-row:hover .ft-icon-btn {
+          background: rgba(214,176,92,0.15);
+          transform: translateY(-4px);
+        }
         .ft-contact-row span { word-break: break-word; }
+
+        @media (max-width: 640px) {
+          .ft-bottom-bar {
+            justify-content: flex-start !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.5rem !important;
+            padding: 1.5rem ${LAYOUT_CONTROLS.global.paddingX} !important;
+          }
+          .ft-bottom-divider {
+            margin: 0 ${LAYOUT_CONTROLS.global.paddingX} !important;
+          }
+        }
       `}} />
 
       {/* ── MAIN GRID ── */}
@@ -237,9 +248,8 @@ const Footer: React.FC = () => {
         {/* Column 1: Branding */}
         <div className="ft-brand" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {/* Logo */}
-          <div className="ft-brand-logo" style={{ marginBottom: '1.4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <img className="ft-brand-icon" src={logoIcon} alt="QCT Icon" style={{ height: FOOTER_LOGO_ICON_SIZE, width: 'auto' }} />
-            <img className="ft-brand-text" src={logoTextImg} alt="QuasarCyberTech" style={{ width: FOOTER_LOGO_TEXT_WIDTH, height: 'auto' }} />
+          <div className="ft-brand-logo" style={{ marginBottom: '1.4rem', display: 'flex', justifyContent: 'center' }}>
+            <img src={logoOver} alt="QuasarCyberTech" style={{ width: FOOTER_LOGO_WIDTH, height: 'auto' }} />
           </div>
 
           {/* Socials */}
@@ -277,12 +287,15 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Columns 2-5: Nav columns — grouped so responsive rules can target them together */}
-        <div className="ft-nav-cols">
-          {footerColumns.map((col, cIdx) => (
-            <div key={col.title} style={{ minWidth: 0 }}>
+        {/* Columns 2-5: Nav columns */}
+        {footerColumns.map((col, cIdx) => (
+          <div
+            key={col.title}
+            className="ft-col"
+            style={{ minWidth: 'max-content', width: 'max-content', maxWidth: '100%' }}
+          >
               <span className="ft-col-heading">{col.title}</span>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: FC.linkGap }}>
                 {col.links.map((link, lIdx) => (
                   <li key={link.label}>
                     {link.external ? (
@@ -293,10 +306,13 @@ const Footer: React.FC = () => {
                         className="ft-link"
                         onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
                         onMouseLeave={() => setHoveredLink(null)}
-                        style={{ color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '#fff' : 'rgba(255,255,255,0.65)' }}
+                        style={{
+                          color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '#fff' : 'rgba(255,255,255,0.65)',
+                          gap: '0.45rem',
+                        }}
                       >
-                        {link.label}
-                        <span style={{ fontSize: '10px', opacity: 0.5 }}>↗</span>
+                        <span>{link.label}</span>
+                        <span style={{ fontSize: '0.625rem', opacity: 0.5, marginLeft: '0.2rem' }}>↗</span>
                       </a>
                     ) : (
                       <Link
@@ -314,27 +330,34 @@ const Footer: React.FC = () => {
               </ul>
             </div>
           ))}
-        </div>
       </div>
 
-      {/* ── BOTTOM BAR ── */}
-      <div style={{
-        maxWidth: '1280px',
+      {/* Divider */}
+      <div 
+        className="ft-bottom-divider"
+        style={{ 
+          height: '0.0625rem', 
+          borderTop: '0.0625rem solid rgba(255,255,255,0.1)', 
+          margin: `0 ${LAYOUT_CONTROLS.global.paddingX}` 
+        }} 
+      />
+
+      <div className="ft-bottom-bar" style={{
+        maxWidth: 'none',
         margin: '0 auto',
-        padding: '1.25rem 2.5rem',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
+        padding: `1.25rem ${LAYOUT_CONTROLS.global.paddingX}`,
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '1rem',
+        gap: '0.8rem 3rem',
         color: 'rgba(255,255,255,0.45)',
         fontSize: '0.8rem',
       }}>
-        <div style={{ opacity: 0.7, fontSize: '0.78rem' }}>
+        <div style={{ opacity: 0.7, fontSize: '0.85rem', textAlign: 'left' }}>
           © {currentYear} QuasarCyberTech. All rights reserved.
         </div>
-        <div style={{ opacity: 0.7, fontSize: '0.78rem' }}>
+        <div style={{ opacity: 0.7, fontSize: '0.85rem', textAlign: 'right' }}>
           Resilience Engineered, Security Delivered
         </div>
       </div>

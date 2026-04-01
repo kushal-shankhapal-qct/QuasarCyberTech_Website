@@ -6,6 +6,22 @@ import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from "../config/themeC
 
 const logoSymbol = ASSETS.logos.qct.icon;
 
+// --- HERO CONFIG (HC) ---
+const HC = {
+  vortex: {
+    size: "100vh",
+    opacity: 0.88,
+    rotateSpeed: 160,
+    // Mobile Overrides
+    mobile: {
+      size: "100vw",
+      top: "0%", // Upper half peek
+      opacity: 0.15,
+      nudgeX: "0%",
+    }
+  }
+};
+
 const Hero: React.FC = () => {
   return (
     <section
@@ -15,30 +31,30 @@ const Hero: React.FC = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
+        justifyContent: "center",
         alignItems: "flex-start",
         background: GRADIENTS.HERO_BG,
         overflow: "hidden",
         paddingLeft: LAYOUT_CONTROLS.global.paddingX,
         paddingRight: LAYOUT_CONTROLS.global.paddingX,
-        paddingTop: "clamp(100px, 14vh, 160px)",
-        paddingBottom: "clamp(3rem, 3vh, 4rem)",
+        paddingTop: "10rem", // 104px
+        paddingBottom: "0",
         fontFamily: TYPOGRAPHY.fontBody,
         boxSizing: "border-box",
       }}
     >
       {/* Rotating mark */}
       <div
-        className="home-hero-mark"
+        className="home-hero-mark home-hero-mark--top"
         style={{
           position: "absolute",
           right: 0,
           top: "50%",
           transform: "translate(50%, -50%)",
-          width: "min(56vw, 760px)",
+          height: HC.vortex.size,
           aspectRatio: "1 / 1",
           pointerEvents: "none",
-          opacity: 0.88,
+          opacity: HC.vortex.opacity,
         }}
       >
         <motion.img
@@ -56,7 +72,7 @@ const Hero: React.FC = () => {
         style={{
           position: "relative",
           zIndex: 1,
-          maxWidth: "min(1100px, 75vw)",
+          maxWidth: "60vw",
         }}
       >
         <motion.h1
@@ -91,7 +107,7 @@ const Hero: React.FC = () => {
             marginBottom: "2rem",
             lineHeight: 1.7,
             fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
-            maxWidth: "600px",
+            maxWidth: "60vw",
           }}
         >
           QuasarCyberTech delivers cybersecurity consulting and engineering
@@ -111,7 +127,7 @@ const Hero: React.FC = () => {
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "rgba(107,21,48,0.12)";
               e.currentTarget.style.borderColor = "#8B1E3F";
-              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.transform = "translateY(-0.0625rem)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "transparent";
@@ -122,16 +138,16 @@ const Hero: React.FC = () => {
               ...TYPOGRAPHY.buttonLarge,
               background: "transparent",
               color: "#FFFFFF",
-              border: "1.5px solid #6B1530",
-              borderRadius: "4px",
-              padding: "16px 40px",
+              border: "0.09375rem solid #6B1530", // 1.5px
+              borderRadius: "0.25rem",
+              padding: "1rem 2.5rem", // 16px 40px
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               textDecoration: "none",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
               fontWeight: 800,
-              fontSize: "15px",
+              fontSize: "0.9375rem", // 15px
               letterSpacing: "0.05em",
             }}
           >
@@ -142,8 +158,8 @@ const Hero: React.FC = () => {
             to="/contact"
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "#8B1E3F";
-              e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.3)";
-              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 0.625rem 1.25rem rgba(0,0,0,0.3)";
+              e.currentTarget.style.transform = "translateY(-0.0625rem)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "#6B1530";
@@ -154,16 +170,16 @@ const Hero: React.FC = () => {
               ...TYPOGRAPHY.buttonLarge,
               background: "#6B1530",
               color: "#FFFFFF",
-              border: "1px solid transparent",
-              borderRadius: "4px",
-              padding: "16px 40px",
+              border: "0.0625rem solid transparent",
+              borderRadius: "0.25rem",
+              padding: "1rem 2.5rem", // 16px 40px
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               textDecoration: "none",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
               fontWeight: 800,
-              fontSize: "15px",
+              fontSize: "0.9375rem", // 15px
               letterSpacing: "0.05em",
             }}
           >
@@ -176,25 +192,25 @@ const Hero: React.FC = () => {
         dangerouslySetInnerHTML={{
           __html: `
           /* ── Large screens (1400px+) ── */
-          @media (min-width: 1400px) {
+          @media (min-width: 87.5rem) {
             .home-hero-copy {
-              max-width: 1100px !important;
+              max-width: 68.75rem !important;
             }
           }
 
           /* ── Tablet landscape ── */
-          @media (max-width: 1100px) {
+          @media (max-width: 68.75rem) {
             .home-hero-copy {
               max-width: 60vw !important;
             }
             .home-hero-mark {
               right: -18% !important;
-              width: min(50vw, 500px) !important;
+              width: min(50vw, 31.25rem) !important;
             }
           }
 
           /* ── Tablet portrait ── */
-          @media (max-width: 860px) {
+          @media (max-width: 53.75rem) {
             .home-hero-copy {
               max-width: 100% !important;
             }
@@ -214,13 +230,13 @@ const Hero: React.FC = () => {
           }
 
           /* ── Mobile ── */
-          @media (max-width: 600px) {
+          @media (max-width: 37.5rem) {
             .home-hero-section {
-              padding-left: 1.5rem !important;
-              padding-right: 1.5rem !important;
-              padding-top: 160px !important;
-              padding-bottom: 3rem !important;
-              justify-content: flex-start !important;
+              padding-left: 2rem !important;
+              padding-right: 2rem !important;
+              padding-top: 6.5rem !important;
+              padding-bottom: 2rem !important;
+              justify-content: center !important;
               align-items: flex-start !important;
             }
             .home-hero-copy {
@@ -232,11 +248,15 @@ const Hero: React.FC = () => {
               margin-bottom: 1.25rem !important;
             }
             .home-hero-mark {
-              opacity: 0.12 !important;
-              width: 85vw !important;
+              opacity: ${HC.vortex.mobile.opacity} !important;
+              height: auto !important;
+              width: ${HC.vortex.mobile.size} !important;
+              max-width: 100vw !important;
               right: 0 !important;
-              transform: translate(30%, -50%) !important;
-              top: 50% !important;
+            }
+            .home-hero-mark--top {
+              transform: translate(${HC.vortex.mobile.nudgeX}, -50%) !important;
+              top: ${HC.vortex.mobile.top} !important;
             }
             .home-hero-subtitle {
               font-size: 0.95rem !important;
@@ -248,20 +268,20 @@ const Hero: React.FC = () => {
             .home-hero-actions {
               flex-direction: column !important;
               width: 100% !important;
-              gap: 12px !important;
+              gap: 0.75rem !important;
             }
             .home-hero-actions a {
               width: 100% !important;
               text-align: center !important;
-              padding: 14px 20px !important;
-              font-size: 13px !important;
+              padding: 0.875rem 1.25rem !important;
+              font-size: 0.8125rem !important;
             }
           }
 
           /* ── Small mobile ── */
-          @media (max-width: 400px) {
+          @media (max-width: 25rem) {
             .home-hero-section {
-              padding-top: 140px !important;
+              padding-top: 8.75rem !important;
             }
             .home-hero-title {
               font-size: 1.7rem !important;

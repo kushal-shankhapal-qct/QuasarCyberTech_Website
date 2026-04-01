@@ -114,7 +114,7 @@ const BlogIndividual: React.FC = () => {
                     currentName="Article"
                 />
 
-                <section style={{ padding: '80px 2.5rem' }}>
+                <section style={{ padding: '80px 3rem' }}>
                     <div style={{ maxWidth: '900px', margin: '0 auto' }}>
                         
                         {/* Meta bar */}

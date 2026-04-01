@@ -138,7 +138,7 @@ export default function BlogsOverview() {
             transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
           }}
         >
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 2.5rem' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 3rem' }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -210,7 +210,7 @@ export default function BlogsOverview() {
         </div>
 
         {/* ─── MAIN CONTENT ─── */}
-        <section style={{ background: DARK_BG, padding: '48px 2.5rem 80px' }}>
+        <section style={{ background: DARK_BG, padding: '48px 3rem 80px' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '64px', alignItems: 'flex-start' }}>
 
             {/* LEFT: Article Grid */}
@@ -270,7 +270,7 @@ function NewsletterCTA() {
   return (
     <section style={{
       background: GRADIENTS.BLOGS_OVERVIEW_NEWSLETTER_BG,
-      padding: '100px 2.5rem',
+      padding: '100px 3rem',
     }}>
       <div style={{
         maxWidth: '1200px',

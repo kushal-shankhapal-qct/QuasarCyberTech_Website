@@ -9,7 +9,7 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
     const PARTNERS_MARGIN_BELOW = '24px';
     const PARTNERS_HEADER_PADDING_TOP = '32px';
     const PARTNERS_HEADER_PADDING_BOTTOM = '20px';
-    const PARTNERS_HEADER_SIDE_PADDING = '2.5rem';
+    const PARTNERS_HEADER_SIDE_PADDING = '3rem';
     // ─────────────────────────────────────────────────────────────────────
 
     const partners = [
@@ -70,14 +70,14 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding: 0 60px;
+                        padding: 0 3.75rem;
                         flex-shrink: 0;
                     }
                 `}</style>
 
                 {/* Side fade masks */}
-                <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 left-0 w-[12rem] bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-[12rem] bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
                 <div className="partners-track-forced">
                     {displayPartners.map((partner, idx) => (
@@ -89,7 +89,7 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                                 style={{
                                     height: PARTNERS_LOGO_HEIGHT,
                                     width: 'auto',
-                                    maxWidth: '160px',
+                                    maxWidth: '10rem', // 160px
                                     objectFit: 'contain',
                                     display: 'block',
                                 }}

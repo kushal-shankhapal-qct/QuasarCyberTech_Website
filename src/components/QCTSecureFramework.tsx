@@ -122,14 +122,14 @@ export default function QCTSecureFramework() {
     inactivePanelFlex: '1.32 0 0%',
     activeWatermarkOpacity: 0.13,
     inactiveWatermarkOpacity: 0.07,
-    watermarkEdgeInset: '2.5rem',
-    activeWatermarkGlyphSizePx: 176,
-    inactiveWatermarkLetterSizePx: 160,
-    activeWatermarkLetterOffsetYPx: -12,
-    inactiveWatermarkLetterOffsetYPx: -8,
-    activeWatermarkIconOffsetYPx: -22,
-    activeWatermarkShadow: '0 0 8px rgba(255,255,255,0.14)',
-    inactiveWatermarkShadow: '0 0 4px rgba(255,255,255,0.1)',
+    watermarkEdgeInset: 'clamp(2rem, 4vw, 4rem)',
+    activeWatermarkGlyphSizeRem: 12.5, // 200px
+    inactiveWatermarkLetterSizeRem: 10,  // 160px
+    activeWatermarkLetterOffsetYRem: -0.75, // -12px
+    inactiveWatermarkLetterOffsetYRem: -0.5,  // -8px
+    activeWatermarkIconOffsetYRem: -1.375, // -22px
+    activeWatermarkShadow: '0 0 0.75rem rgba(255,255,255,0.18)',
+    inactiveWatermarkShadow: '0 0 0.25rem rgba(255,255,255,0.1)',
   };
 
   return (
@@ -138,21 +138,21 @@ export default function QCTSecureFramework() {
       className="home-framework-section"
       style={{
         background: GRADIENTS.HOME_FRAMEWORK_BG,
-        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
+        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.global.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`,
         overflow: 'hidden',
         position: 'relative',
         fontFamily: TYPOGRAPHY.fontBody,
         zIndex: 1,
       }}
     >
-      <div className="home-framework-header" style={{ marginBottom: '48px', maxWidth: '720px' }}>
+      <div className="home-framework-header" style={{ marginBottom: '3rem', maxWidth: '45rem' }}>
         <h2
           style={{
             fontFamily: TYPOGRAPHY.fontHeading,
-            fontSize: 'clamp(28px, 3.5vw, 40px)',
+            fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
             fontWeight: 700,
             color: '#FFFFFF',
-            marginBottom: '16px',
+            marginBottom: '1rem',
             lineHeight: 1.2,
             letterSpacing: '-0.01em',
           }}
@@ -176,7 +176,7 @@ export default function QCTSecureFramework() {
 
       {/* ACCORDION CHASSIS */}
       <div
-        className="framework-chassis flex flex-col lg:flex-row w-full max-w-[1400px] mx-auto h-auto lg:h-[330px] overflow-hidden rounded-xl border border-white/10 bg-transparent relative"
+        className="framework-chassis flex flex-col lg:flex-row w-full max-w-[87.5rem] ml-0 mr-auto h-auto lg:h-[20.625rem] overflow-hidden rounded-xl border border-white/10 bg-transparent relative"
         style={{ marginTop: LAYOUT_CONTROLS.section.frameworkHeaderToChassisGapDesktop }}
       >
         {stages.map((stage, i) => {
@@ -189,8 +189,8 @@ export default function QCTSecureFramework() {
               key={i}
               onMouseEnter={() => setActiveIdx(i)}
               onClick={() => setActiveIdx(i)}
-              className={`framework-panel group/panel relative flex flex-col h-auto lg:h-[420px] border-b lg:border-b-0 lg:border-r last:lg:border-r-0 border-white/10 transition-all duration-700 ease-in-out cursor-pointer overflow-hidden w-full 
-                ${isActive ? 'bg-gradient-to-br from-[#6B1530]/90 to-black/90 backdrop-blur-lg shadow-[-4px_0_15px_-2px_rgba(214,176,92,0.4)]' : 'bg-black/40 backdrop-blur-md hover:bg-black/60'}`}
+              className={`framework-panel group/panel relative flex flex-col h-auto lg:h-[26.25rem] border-b lg:border-b-0 lg:border-r last:lg:border-r-0 border-white/10 transition-all duration-700 ease-in-out cursor-pointer overflow-hidden w-full 
+                ${isActive ? 'bg-gradient-to-br from-[#6B1530]/90 to-black/90 backdrop-blur-lg shadow-[-0.25rem_0_0.9375rem_-0.125rem_rgba(214,176,92,0.4)]' : 'bg-black/40 backdrop-blur-md hover:bg-black/60'}`}
               style={{
                 flex: isActive ? FRAMEWORK_LAYOUT.activePanelFlex : FRAMEWORK_LAYOUT.inactivePanelFlex,
               }}
@@ -200,16 +200,16 @@ export default function QCTSecureFramework() {
                 className="absolute inset-0 flex items-center overflow-hidden pointer-events-none transition-all duration-700 z-0"
                 style={{
                   justifyContent: isActive ? 'space-between' : 'center',
-                  paddingLeft: isActive ? FRAMEWORK_LAYOUT.watermarkEdgeInset : '0px',
-                  paddingRight: isActive ? FRAMEWORK_LAYOUT.watermarkEdgeInset : '0px',
+                  paddingLeft: isActive ? FRAMEWORK_LAYOUT.watermarkEdgeInset : '0rem',
+                  paddingRight: isActive ? FRAMEWORK_LAYOUT.watermarkEdgeInset : '0rem',
                 }}
               >
                 <span
-                  className="font-black transition-all duration-700 select-none"
+                  className="font-black transition-all duration-700 select-none watermark-text"
                   style={{
                     lineHeight: 1,
-                    fontSize: `${isActive ? FRAMEWORK_LAYOUT.activeWatermarkGlyphSizePx : FRAMEWORK_LAYOUT.inactiveWatermarkLetterSizePx}px`,
-                    transform: `translateY(${isActive ? FRAMEWORK_LAYOUT.activeWatermarkLetterOffsetYPx : FRAMEWORK_LAYOUT.inactiveWatermarkLetterOffsetYPx}px)`,
+                    fontSize: `${isActive ? FRAMEWORK_LAYOUT.activeWatermarkGlyphSizeRem : FRAMEWORK_LAYOUT.inactiveWatermarkLetterSizeRem}rem`,
+                    transform: `translateY(${isActive ? FRAMEWORK_LAYOUT.activeWatermarkLetterOffsetYRem : FRAMEWORK_LAYOUT.inactiveWatermarkLetterOffsetYRem}rem)`,
                     color: '#FFFFFF',
                     opacity: isActive ? FRAMEWORK_LAYOUT.activeWatermarkOpacity : FRAMEWORK_LAYOUT.inactiveWatermarkOpacity,
                     textShadow: isActive ? FRAMEWORK_LAYOUT.activeWatermarkShadow : FRAMEWORK_LAYOUT.inactiveWatermarkShadow,
@@ -220,25 +220,25 @@ export default function QCTSecureFramework() {
 
                 {isActive && (
                   <div
-                    className="transition-all duration-700"
+                    className="transition-all duration-700 watermark-icon"
                     style={{
                       opacity: FRAMEWORK_LAYOUT.activeWatermarkOpacity,
-                      transform: `translateY(${FRAMEWORK_LAYOUT.activeWatermarkIconOffsetYPx}px)`,
+                      transform: `translateY(${FRAMEWORK_LAYOUT.activeWatermarkIconOffsetYRem}rem)`,
                       color: '#FFFFFF',
                     }}
                   >
-                    <GhostIcon size={FRAMEWORK_LAYOUT.activeWatermarkGlyphSizePx} opacity={1} />
+                    <GhostIcon size={FRAMEWORK_LAYOUT.activeWatermarkGlyphSizeRem * 16} opacity={1} />
                   </div>
                 )}
               </div>
 
               {/* Header — Absolute Anchor (Stationary Relative to Panel) */}
               <div
-                className={`absolute top-10 left-0 w-full flex items-center transition-all duration-700 z-20 pointer-events-none
-                           ${isActive ? 'px-6 lg:px-10 justify-start' : 'px-0 justify-center'}`}
+                className={`absolute top-[2.5rem] left-0 w-full flex items-center transition-all duration-700 z-20 pointer-events-none
+                           ${isActive ? 'px-[1.5rem] lg:px-[2.5rem] justify-start' : 'px-0 justify-center'}`}
               >
                 <h3 className="text-2xl lg:text-3xl font-bold uppercase tracking-[0.15em] flex items-center pointer-events-auto whitespace-nowrap">
-                  <span className={`transition-colors duration-300 ${isActive ? 'text-[#D6B05C]' : 'text-white/60'}`}>{stage.letter}</span><span className={`text-[#D6B05C] transition-all duration-500 delay-300 ease-in-out overflow-hidden ${isActive ? 'max-w-xs opacity-100 ml-[1px]' : 'max-w-0 opacity-0 ml-0'}`}>{restOfWord}</span>
+                  <span className={`transition-colors duration-300 ${isActive ? 'text-[#D6B05C]' : 'text-white/60'}`}>{stage.letter}</span><span className={`text-[#D6B05C] transition-all duration-500 delay-300 ease-in-out overflow-hidden ${isActive ? 'max-w-xs opacity-100 ml-[0.0625rem]' : 'max-w-0 opacity-0 ml-0'}`}>{restOfWord}</span>
                 </h3>
               </div>
 
@@ -247,25 +247,26 @@ export default function QCTSecureFramework() {
                 {isActive && (
                   <motion.div
                     key={`content-${i}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10, transition: { duration: 0.2, delay: 0 } }}
+                    initial={{ opacity: 0, y: 10, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    exit={{ opacity: 0, y: -10, height: 0, transition: { duration: 0.2, delay: 0 } }}
                     transition={{ duration: 0.4, delay: 0.25 }} // Wait for panel to expand
-                    className="framework-panel-content w-full h-full pt-28 lg:pt-28 px-6 lg:px-10 pb-8 flex flex-col relative z-10"
+                    style={{ overflow: 'hidden' }}
+                    className="framework-panel-content w-full h-full pt-[7rem] lg:pt-[7rem] px-[1.5rem] lg:px-[2.5rem] pb-8 flex flex-col relative z-10"
                   >
                     {/* Left-aligned restricted text width */}
                     <div className="relative z-20 w-full lg:w-[85%] text-left">
-                      <div className="text-[#D6B05C] text-[13px] uppercase tracking-[0.2em] mb-4 font-bold opacity-90">
+                      <div className="text-[#D6B05C] text-[0.8125rem] uppercase tracking-[0.2em] mb-4 font-bold opacity-90">
                         {stage.descriptor}
                       </div>
 
-                      <div className="w-12 h-[1px] bg-white/20 mb-6" />
+                      <div className="w-12 h-[0.0625rem] bg-white/20 mb-6" />
 
                       <div className="grid gap-4">
                         {stage.services.map((service, si) => (
                           <div key={si} className="relative flex items-center group/point">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#D6B05C] mr-3 flex-shrink-0" />
-                            <span className="text-white text-[14px] lg:text-[15px] font-medium leading-tight tracking-wide opacity-90 group-hover/point:opacity-100 transition-opacity">
+                            <span className="text-white text-[0.875rem] lg:text-[0.9375rem] font-medium leading-tight tracking-wide opacity-90 group-hover/point:opacity-100 transition-opacity">
                               {service}
                             </span>
                           </div>
@@ -283,32 +284,41 @@ export default function QCTSecureFramework() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-          @media (max-width: 1024px) {
+          @media (max-width: 64rem) { /* 1024px */
             .home-framework-section {
-              padding-left: 1.5rem !important;
-              padding-right: 1.5rem !important;
+              padding-left: 3rem !important;
+              padding-right: 3rem !important;
             }
             .framework-chassis {
               margin-top: ${LAYOUT_CONTROLS.section.frameworkHeaderToChassisGapTablet} !important;
             }
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: 48rem) { /* 768px */
             .home-framework-header {
-              margin-bottom: 32px !important;
+              margin-bottom: 2rem !important;
+            }
+            .home-framework-header p {
+              text-align: left !important;
             }
             .framework-chassis {
               margin-top: ${LAYOUT_CONTROLS.section.frameworkHeaderToChassisGapMobile} !important;
             }
             .framework-panel {
-              min-height: 116px;
+              min-height: 9rem;
             }
             .framework-panel-content {
-              padding-top: 82px !important;
-              padding-bottom: 22px !important;
+              padding-top: 5.125rem !important;
+              padding-bottom: 1.375rem !important;
             }
-          }
-        `,
+            .watermark-text {
+              font-size: 6.875rem !important;
+            }
+            .watermark-icon svg {
+              width: 6.875rem !important;
+              height: 6.875rem !important;
+            }
+          }        `,
         }}
       />
     </section>

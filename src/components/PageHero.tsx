@@ -374,8 +374,8 @@ const PageHero: React.FC<PageHeroProps> = ({
           /* ── Mobile ── */
           @media (max-width: 768px) {
             .page-hero-section {
-              padding-left: 1.75rem !important;
-              padding-right: 1.75rem !important;
+              padding-left: 2rem !important;
+              padding-right: 2rem !important;
               padding-top: clamp(7rem, 14vh, 9rem) !important;
               min-height: 100svh !important;
               justify-content: center !important;
@@ -403,8 +403,8 @@ const PageHero: React.FC<PageHeroProps> = ({
           /* ── Small mobile ── */
           @media (max-width: 480px) {
             .page-hero-section {
-              padding-left: 1.5rem !important;
-              padding-right: 1.5rem !important;
+              padding-left: 2rem !important;
+              padding-right: 2rem !important;
             }
             .page-hero-title {
               font-size: 1.8rem !important;

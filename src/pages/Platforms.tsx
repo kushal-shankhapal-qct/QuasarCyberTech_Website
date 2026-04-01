@@ -127,7 +127,7 @@ export default function Platforms() {
             scrollMarginTop: '100px'
           }}>
           {/* Text Column */}
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.burgundy, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>01</span>
             <img src={qStellarLogo} alt="QStellar" style={{ height: '48px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>AI-Powered Asset Intelligence & Vulnerability Management</h2>
@@ -163,7 +163,7 @@ export default function Platforms() {
               <img src={qPulseScreenshot} alt="Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>02</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
               <img src={qPulseLogo} alt="QPulse" style={{ height: '80px', width: 'auto', objectFit: 'contain' }} />
@@ -188,7 +188,7 @@ export default function Platforms() {
           flexWrap: 'wrap',
           alignItems: 'center'
         }}>
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.burgundy, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>03</span>
             <img src={ASSETS.logos.platforms.qrgtLight} alt="QRGT" style={{ height: '82px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px', marginLeft: '-2px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>Penetration Testing as a Service (PTaaS) Platform</h2>
@@ -225,7 +225,7 @@ export default function Platforms() {
               />
             </BrowserFrame>
           </div>
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>04</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '20px' }}>
               <img src={qLeapLogo} alt="QLeap Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain' }} />
@@ -253,7 +253,7 @@ export default function Platforms() {
           /* Platform sections: reduce padding */
           section[id='platform-highlights'] > div,
           section > div {
-            padding: 48px 1.5rem !important;
+            padding: 48px 3rem !important;
           }
           section[id='platform-highlights'] img,
           section img[alt='Dashboard'],
@@ -265,8 +265,8 @@ export default function Platforms() {
         }
         @media (max-width: 480px) {
           section > div[style*='padding'] {
-            padding-left: 1.25rem !important;
-            padding-right: 1.25rem !important;
+            padding-left: 3rem !important;
+            padding-right: 3rem !important;
           }
         }
       `}} />
