@@ -88,6 +88,40 @@ const renderHighlightedText = (
   });
 };
 
+const toNbsp = (value: string) => value.replace(/ /g, "\u00A0");
+
+const renderHighlightedTabLabel = (
+  text: string,
+  terms: string[],
+  color: string,
+) => {
+  if (!terms.length) return toNbsp(text);
+
+  const escapedTerms = terms
+    .map((term) => term.trim())
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length)
+    .map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+
+  if (!escapedTerms.length) return toNbsp(text);
+
+  const matcher = new RegExp(`(${escapedTerms.join("|")})`, "gi");
+  const parts = text.split(matcher);
+
+  return parts.map((part, index) => {
+    if (matcher.test(part)) {
+      matcher.lastIndex = 0;
+      return (
+        <strong key={`${part}-${index}`} style={{ color }}>
+          {toNbsp(part)}
+        </strong>
+      );
+    }
+    matcher.lastIndex = 0;
+    return <React.Fragment key={`${part}-${index}`}>{toNbsp(part)}</React.Fragment>;
+  });
+};
+
 const getFocusAreaIcon = (text: string): LucideIcon => {
   const value = text.toLowerCase();
   if (value.includes("board") || value.includes("executive")) return Users;
@@ -197,6 +231,8 @@ const SUBCAPABILITY_VISUAL_CONTROLS = {
   accentThickness: "4px",
   topRadius: "0px",
   bottomRadius: "14px",
+  infographicCropBottomDesktop: "0.75rem",
+  infographicCropBottomMobile: "0.5rem",
 };
 
 const INDUSTRY_CARD_VISUAL_CONTROLS = {
@@ -644,7 +680,7 @@ const CapabilityPage: React.FC = () => {
                     }
                   }}
                 >
-                  {renderHighlightedText(
+                  {renderHighlightedTabLabel(
                     subCapability.name,
                     subCapabilityTitleHighlights[subCapability.slug] || [],
                     isActive ? "#D6B05C" : "#6B1530",
@@ -665,10 +701,11 @@ const CapabilityPage: React.FC = () => {
           className="w-full bg-[#FFFFFF] pb-20"
         >
           <div
-            className="max-w-7xl mx-auto mt-10"
+            className="w-full mt-10"
             style={{
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              boxSizing: "border-box",
             }}
           >
             <p
@@ -694,10 +731,11 @@ const CapabilityPage: React.FC = () => {
           </div>
 
           <div
-            className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch"
+            className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch"
             style={{
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              boxSizing: "border-box",
             }}
           >
             <div className="text-left h-full">
@@ -761,10 +799,12 @@ const CapabilityPage: React.FC = () => {
 
             <div className="h-full">
               <div
-                className="relative h-full overflow-hidden"
+                className="subcap-visual-frame relative h-full overflow-hidden"
                 style={{
                   minHeight: "clamp(340px, 38vw, 560px)",
                   borderRadius: `0 0 ${SUBCAPABILITY_VISUAL_CONTROLS.bottomRadius} ${SUBCAPABILITY_VISUAL_CONTROLS.bottomRadius}`,
+                  ["--subcap-infographic-crop-bottom" as string]:
+                    SUBCAPABILITY_VISUAL_CONTROLS.infographicCropBottomDesktop,
                 }}
               >
                 {activeVisual && (
@@ -772,10 +812,16 @@ const CapabilityPage: React.FC = () => {
                     <img
                       src={activeVisual}
                       alt={`${activeSub.name} visual`}
-                      className="h-full w-full object-contain object-center"
+                      className="subcap-visual-image h-full w-full object-contain object-center"
                       loading="eager"
                       decoding="sync"
                       fetchPriority="high"
+                      style={{
+                        clipPath:
+                          "inset(0 0 var(--subcap-infographic-crop-bottom) 0)",
+                        WebkitClipPath:
+                          "inset(0 0 var(--subcap-infographic-crop-bottom) 0)",
+                      }}
                     />
                   </div>
                 )}
@@ -789,10 +835,11 @@ const CapabilityPage: React.FC = () => {
           style={{ background: GRADIENTS.HERO_BG }}
         >
           <div
-            className="max-w-7xl mx-auto text-left"
+            className="w-full text-left"
             style={{
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              boxSizing: "border-box",
             }}
           >
             <h3
@@ -851,10 +898,11 @@ const CapabilityPage: React.FC = () => {
           }}
         >
           <div
-            className="max-w-7xl mx-auto"
+            className="w-full"
             style={{
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              boxSizing: "border-box",
             }}
           >
             <h3
@@ -873,7 +921,7 @@ const CapabilityPage: React.FC = () => {
               Application
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="industry-application-grid grid grid-cols-1 sm:grid-cols-3 gap-4">
               {(activeSub.industries || []).map((industry) => {
                 const image = industryImageMap[industry.name];
                 const cardKey = `${industry.name}-${industry.description}`;
@@ -899,7 +947,7 @@ const CapabilityPage: React.FC = () => {
                         transition: "background 0.2s ease",
                       }}
                     />
-                    <div className="h-40 overflow-hidden relative">
+                    <div className="industry-card-media h-40 overflow-hidden relative">
                       {image ? (
                         <img
                           src={image}
@@ -917,7 +965,7 @@ const CapabilityPage: React.FC = () => {
                         }}
                       />
                     </div>
-                    <div className="p-4">
+                    <div className="industry-card-content p-4">
                       <div className="flex items-center justify-between mb-1 gap-2">
                         <h4
                           className="font-semibold text-sm text-[#0B1F3B] m-0"
@@ -935,7 +983,7 @@ const CapabilityPage: React.FC = () => {
                         />
                       </div>
                       <p
-                        className="text-xs text-[#4A5568] leading-relaxed m-0"
+                        className="industry-card-description text-xs text-[#4A5568] leading-relaxed m-0"
                         style={{ fontFamily: TYPOGRAPHY.fontBody }}
                       >
                         {industry.description}
@@ -976,11 +1024,12 @@ const CapabilityPage: React.FC = () => {
                   alongside this engagement stream.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="related-capability-grid grid grid-cols-1 md:grid-cols-3 gap-8">
                   {relatedCapabilities.slice(0, 3).map((relatedCapability) => (
                     <div key={relatedCapability.slug}>
                       <CapabilityCardSimple
                         title={relatedCapability.name}
+                        mobileTitle={relatedCapability.navLabel}
                         desc={relatedCapability.cardDescription}
                         href={`/capabilities/${relatedCapability.slug}`}
                         img={relatedCapability.image}
@@ -1001,10 +1050,11 @@ const CapabilityPage: React.FC = () => {
           style={{ background: GRADIENTS.HERO_BG }}
         >
           <div
-            className="max-w-7xl mx-auto"
+            className="w-full"
             style={{
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              boxSizing: "border-box",
             }}
           >
             <h3
@@ -1085,10 +1135,11 @@ const CapabilityPage: React.FC = () => {
       {(capability.faqs || []).length > 0 && (
         <section className="w-full bg-[#FFFFFF] py-16 border-t border-gray-200">
           <div
-            className="max-w-7xl mx-auto"
+            className="w-full"
             style={{
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              boxSizing: "border-box",
             }}
           >
             <h3
@@ -1166,6 +1217,61 @@ const CapabilityPage: React.FC = () => {
 
       <CTASection theme="dark" />
       <Footer />
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 40rem) {
+              .subcap-visual-frame {
+                --subcap-infographic-crop-bottom: ${SUBCAPABILITY_VISUAL_CONTROLS.infographicCropBottomMobile} !important;
+              }
+            }
+
+            @media (max-width: 40rem) {
+              .industry-application-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 0.875rem !important;
+              }
+
+              .industry-application-grid a {
+                min-height: 15.5rem;
+                display: flex;
+                flex-direction: column;
+              }
+
+              .industry-card-media {
+                height: 60% !important;
+              }
+
+              .industry-card-content {
+                height: 40% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                padding: 0.75rem !important;
+              }
+
+              .industry-card-description {
+                display: none !important;
+              }
+
+              .related-capability-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 0.875rem !important;
+              }
+
+              .related-capability-grid .capability-card-media {
+                height: 60% !important;
+              }
+
+              .related-capability-grid .capability-card-content {
+                height: 40% !important;
+                justify-content: center !important;
+              }
+            }
+          `,
+        }}
+      />
     </div>
   );
 };
