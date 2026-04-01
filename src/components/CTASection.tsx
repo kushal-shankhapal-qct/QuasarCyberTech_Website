@@ -11,8 +11,8 @@ interface CTASectionProps {
   subtitle?: string | React.ReactNode;
   showEyebrow?: boolean;
   theme?: 'light' | 'dark';
-  primaryAction?: { label: string; link: string };
-  secondaryAction?: { label: string; link: string };
+  primaryAction?: { label: string; link: string; isExternal?: boolean };
+  secondaryAction?: { label: string; link: string; isExternal?: boolean };
   eyebrowText?: string;
 }
 
@@ -117,84 +117,164 @@ const CTASection: React.FC<CTASectionProps> = ({
               justifyContent: 'flex-start'
             }}
           >
-            <Link
-              to={primaryAction.link}
-              style={{
-                ...TYPOGRAPHY.buttonLarge,
-                background: COLORS.burgundy,
-                color: '#FFFFFF',
-                padding: '16px 36px',
-                width: CTA_ACTION_WIDTH,
-                minWidth: CTA_ACTION_WIDTH,
-                maxWidth: '100%',
-                justifyContent: 'center',
-                borderRadius: '4px',
-                textDecoration: 'none',
-                boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontWeight: 800,
-                fontSize: '14px',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                 e.currentTarget.style.background = COLORS.burgundyHover;
-                 e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                 e.currentTarget.style.background = COLORS.burgundy;
-                 e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              {primaryAction.label}
-              <ArrowRight size={18} />
-            </Link>
+            {primaryAction.isExternal ? (
+              <a
+                href={primaryAction.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  ...TYPOGRAPHY.buttonLarge,
+                  background: COLORS.burgundy,
+                  color: '#FFFFFF',
+                  padding: '16px 36px',
+                  width: CTA_ACTION_WIDTH,
+                  minWidth: CTA_ACTION_WIDTH,
+                  maxWidth: '100%',
+                  justifyContent: 'center',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontWeight: 800,
+                  fontSize: '14px',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                   e.currentTarget.style.background = COLORS.burgundyHover;
+                   e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                   e.currentTarget.style.background = COLORS.burgundy;
+                   e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {primaryAction.label}
+                <ArrowRight size={18} />
+              </a>
+            ) : (
+              <Link
+                to={primaryAction.link}
+                style={{
+                  ...TYPOGRAPHY.buttonLarge,
+                  background: COLORS.burgundy,
+                  color: '#FFFFFF',
+                  padding: '16px 36px',
+                  width: CTA_ACTION_WIDTH,
+                  minWidth: CTA_ACTION_WIDTH,
+                  maxWidth: '100%',
+                  justifyContent: 'center',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 16px rgba(107, 21, 48, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontWeight: 800,
+                  fontSize: '14px',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                   e.currentTarget.style.background = COLORS.burgundyHover;
+                   e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                   e.currentTarget.style.background = COLORS.burgundy;
+                   e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {primaryAction.label}
+                <ArrowRight size={18} />
+              </Link>
+            )}
 
-            <Link
-              to={secondaryAction.link}
-              style={{
-                ...TYPOGRAPHY.buttonLarge,
-                background: 'transparent',
-                border: isDark ? '1.5px solid rgba(255,255,255,0.35)' : `1.5px solid ${COLORS.burgundy}`,
-                color: isDark ? 'rgba(255,255,255,0.80)' : COLORS.burgundy,
-                padding: '16px 36px',
-                width: CTA_ACTION_WIDTH,
-                minWidth: CTA_ACTION_WIDTH,
-                maxWidth: '100%',
-                justifyContent: 'center',
-                borderRadius: '4px',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontWeight: 800,
-                fontSize: '14px',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                if (isDark) {
-                  e.currentTarget.style.borderColor = COLORS.gold;
-                  e.currentTarget.style.color = COLORS.gold;
-                } else {
-                  e.currentTarget.style.background = 'rgba(107, 21, 48, 0.05)';
-                }
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                if (isDark) {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)';
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.80)';
-                } else {
-                  e.currentTarget.style.background = 'transparent';
-                }
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              {secondaryAction.label}
-            </Link>
+            {secondaryAction.isExternal ? (
+              <a
+                href={secondaryAction.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  ...TYPOGRAPHY.buttonLarge,
+                  background: 'transparent',
+                  border: isDark ? '1.5px solid rgba(255,255,255,0.35)' : `1.5px solid ${COLORS.burgundy}`,
+                  color: isDark ? '#FFFFFF' : COLORS.burgundy,
+                  padding: '16px 36px',
+                  width: CTA_ACTION_WIDTH,
+                  minWidth: CTA_ACTION_WIDTH,
+                  maxWidth: '100%',
+                  justifyContent: 'center',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontWeight: 800,
+                  fontSize: '14px',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                   e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(107, 21, 48, 0.05)';
+                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.6)' : COLORS.burgundyHover;
+                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundyHover;
+                   e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                   e.currentTarget.style.background = 'transparent';
+                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.35)' : COLORS.burgundy;
+                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundy;
+                   e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {secondaryAction.label}
+              </a>
+            ) : (
+              <a
+                href={secondaryAction.link}
+                onClick={(e) => {
+                  if (secondaryAction.link.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(secondaryAction.link)?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                style={{
+                  ...TYPOGRAPHY.buttonLarge,
+                  background: 'transparent',
+                  border: isDark ? '1.5px solid rgba(255,255,255,0.35)' : `1.5px solid ${COLORS.burgundy}`,
+                  color: isDark ? '#FFFFFF' : COLORS.burgundy,
+                  padding: '16px 36px',
+                  width: CTA_ACTION_WIDTH,
+                  minWidth: CTA_ACTION_WIDTH,
+                  maxWidth: '100%',
+                  justifyContent: 'center',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontWeight: 800,
+                  fontSize: '14px',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                   e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(107, 21, 48, 0.05)';
+                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.6)' : COLORS.burgundyHover;
+                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundyHover;
+                   e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                   e.currentTarget.style.background = 'transparent';
+                   e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.35)' : COLORS.burgundy;
+                   e.currentTarget.style.color = isDark ? '#FFFFFF' : COLORS.burgundy;
+                   e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {secondaryAction.label}
+              </a>
+            )}
           </motion.div>
         </div>
       </div>

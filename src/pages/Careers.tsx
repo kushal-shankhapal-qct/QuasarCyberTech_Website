@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Target, TrendingUp, Code2, Globe, Globe2, Shield } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
@@ -13,14 +12,25 @@ import { createBreadcrumbSchema, createCareersPageSchema } from '../seo/schema';
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
-const openRoles = [
-  "Cybersecurity Consultant",
-  "SOC Analyst",
-  "Security Engineer",
-  "Cloud Security Consultant",
-  "Pre-Sales & Business Development",
-  "Full Stack Developer",
-  "Security Research Intern"
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfshcNxujjrPu2rXQlWk1Mup2DH1dP6fIgPL_98lStWw1zckg/viewform";
+
+const roles = [
+  { title: "Cybersecurity Consultant", location: "Nashik / Remote", experience: "2–5 yrs", type: "Full-Time", description: "Lead client-facing security engagements across VAPT, compliance, and advisory programs." },
+  { title: "SOC Analyst", location: "Nashik", experience: "1–3 yrs", type: "Full-Time", description: "Monitor, detect, and respond to threats across managed client environments." },
+  { title: "Security Engineer", location: "Remote", experience: "2–4 yrs", type: "Full-Time", description: "Build and maintain internal security platforms including QRGT and QStellar." },
+  { title: "Cloud Security Consultant", location: "Remote / Hybrid", experience: "3–6 yrs", type: "Full-Time", description: "Deliver cloud security assessments, CSPM implementations, and AWS/Azure reviews." },
+  { title: "Pre-Sales & Business Development", location: "Nashik / Mumbai", experience: "2–4 yrs", type: "Full-Time", description: "Drive enterprise pipeline by translating security capabilities into client proposals." },
+  { title: "Full Stack Developer", location: "Nashik / Remote", experience: "2–5 yrs", type: "Full-Time", description: "Build features across the QuasarCyberTech platform ecosystem — QRGT, QStellar, QPulse." },
+  { title: "Security Research Intern", location: "Remote", experience: "0–1 yr", type: "Internship", description: "Contribute to vulnerability research, threat intelligence, and security advisory content." },
+];
+
+const values = [
+  { icon: Target, title: "Ownership", desc: "Work on real enterprise engagements from your first week. No bench time, no busywork." },
+  { icon: TrendingUp, title: "Learning", desc: "Exposure to cutting-edge offensive security, AI threat testing, and SOC operations." },
+  { icon: Code2, title: "Engineering", desc: "Build internal platforms — QRGT, QStellar, QPulse — alongside client delivery." },
+  { icon: Globe, title: "Network", desc: "Join India's leading tech industry body memberships and global partnerships." },
+  { icon: Globe2, title: "Cross-Industry Exposure", desc: "Work with clients across banking, FinTech, healthcare, SaaS, and enterprise manufacturing across 15+ countries." },
+  { icon: Shield, title: "Mission-Driven Work", desc: "Protecting the organizations that run the digital economy is not abstract here — it is Tuesday morning." }
 ];
 
 // ─── COMPONENT ─────────────────────────────────────────────────────────────
@@ -33,6 +43,14 @@ const Careers: React.FC = () => {
   const sectionPad = {
     paddingLeft: LAYOUT_CONTROLS.section.paddingX,
     paddingRight: LAYOUT_CONTROLS.section.paddingX,
+  };
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -53,47 +71,24 @@ const Careers: React.FC = () => {
       <Navbar />
 
       {/* ── 1: THE HERO SECTION (Standardized) ── */}
-      <PageHero 
-        title={<>Build the Future of <span style={{ color: COLORS.gold }}>Cybersecurity</span> with QuasarCyberTech</>}
+      <PageHero
+        title={<>Build the Future of <br />Cybersecurity with Us</>}
         highlight=""
         subtitle="Join one of the fastest-growing cybersecurity consulting and engineering firms where ownership, learning, and innovation come together to create real enterprise impact."
         currentName="Careers"
         breadcrumbPaths={["Home"]}
-        scrollTargetId="growth-story"
+        scrollTargetId="open-roles"
         scrollButtonText="See Open Roles"
+        backgroundOverride={GRADIENTS.CAREERS_HERO_BG}
         image={ASSETS.backdrops.careersHero}
-        imageOpacity={0.6}
-        rightContent={<div style={{ width: '100%', height: '100%', opacity: 0.1, background: 'radial-gradient(circle at center, rgba(107,21,48,0.2) 0%, transparent 70%)' }} />}
-      >
-        <div style={{ marginTop: '24px' }}>
-          <a
-            href="https://qleap-ed.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-block',
-              background: COLORS.burgundy,
-              color: '#FFFFFF',
-              padding: '16px 32px',
-              fontSize: '12px',
-              fontWeight: 800,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-              borderRadius: '4px',
-              transition: 'background 0.3s'
-            }}
-          >
-            Apply via QLeap Pathway
-          </a>
-        </div>
-      </PageHero>
+        imageOpacity={1}
+        imageScale={1}
+      />
 
       {/* ── 2: GROWTH STORY SECTION (Light Mode) ── */}
       <section
-        id="growth-story"
         style={{
-          background: '#FFFFFF',
+          background: '#F5F7FA',
           paddingTop: 'clamp(80px, 8vw, 120px)',
           paddingBottom: 'clamp(80px, 8vw, 120px)',
           ...sectionPad,
@@ -104,180 +99,256 @@ const Careers: React.FC = () => {
             <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
             <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', color: '#888', textTransform: 'uppercase' }}>COMPANY MILESTONES</span>
           </div>
-          
+
           <h2 style={{ ...TYPOGRAPHY.sectionTitle, color: '#000000', marginBottom: '24px', fontWeight: 800, lineHeight: 1.1 }}>
             Our <span style={{ color: COLORS.burgundy }}>Growth</span> Story
           </h2>
-          
-          <p style={{ ...TYPOGRAPHY.bodyLarge, color: '#4A5568', lineHeight: 1.8, maxWidth: '900px' }}>
+
+          <p style={{ ...TYPOGRAPHY.bodyLarge, color: '#64748B', lineHeight: 1.8, maxWidth: '42rem' }}>
             At QuasarCyberTech, we are building more than a cybersecurity company. We are building a high-performance consulting, engineering, and security platform ecosystem serving enterprises across industries. As we scale, we are looking for ambitious professionals and emerging talent who want to grow with us.
           </p>
         </div>
       </section>
 
-      {/* ── 3: EXPERTISE & LEADERSHIP (Light Mode) ── */}
+      {/* ── 3: WHY JOIN (Dark Mode) ── */}
       <section
         style={{
-          background: '#F8FAFC',
+          background: '#0A0A0F',
+          backgroundImage: GRADIENTS.CAREERS_WHY_JOIN_BG,
           paddingTop: 'clamp(80px, 8vw, 120px)',
           paddingBottom: 'clamp(80px, 8vw, 120px)',
-          borderTop: '1px solid #E2E8F0',
-          ...sectionPad,
-        }}
-      >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '64px' }}>
-          
-          {/* Left Column */}
-          <div style={{ flex: '1 1 400px' }}>
-            <h3 style={{ fontSize: '32px', fontWeight: 800, color: '#000000', marginBottom: '24px' }}>Expertise & Leadership</h3>
-            <p style={{ fontSize: '16px', color: '#64748B', lineHeight: 1.8 }}>
-              Executive Cyber Advisory helps leadership teams convert cyber uncertainty into a clear decision agenda. We align business priorities, threat exposure, and governance accountability so strategic programs move faster with controlled risk.
-            </p>
-          </div>
-          
-          {/* Right Column Grid */}
-          <div style={{ flex: '1 1 600px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-            {[
-              { title: "Ownership", desc: "Work on real enterprise engagements from your first week. No bench time, no busywork." },
-              { title: "Learning", desc: "Exposure to cutting-edge offensive security, AI threat testing, and SOC operations." },
-              { title: "Engineering", desc: "Build internal platforms — QRGT, QStellar, QPulse — alongside client delivery." },
-              { title: "Network", desc: "Join India's leading tech industry body memberships and global partnerships." }
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: '#FFFFFF',
-                  padding: '32px',
-                  borderRadius: '0 12px 12px 0', // Sharp corners on the left
-                  border: '1px solid #E2E8F0',
-                  borderLeft: `3.5px solid ${COLORS.burgundy}`,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
-                }}
-              >
-                <h4 style={{ fontSize: '18px', fontWeight: 800, color: '#000', marginBottom: '12px' }}>{item.title}</h4>
-                <p style={{ fontSize: '14px', color: '#64748B', lineHeight: 1.6 }}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4: OPEN POSITIONS SECTION (Dark Mode with Radial Gradient) ── */}
-      <section
-        id="open-positions"
-        style={{
-          background: GRADIENTS.DARK_SECTION_BG, // Proper radial gradient from theme
-          borderTop: '1px solid rgba(214,176,92,0.15)',
-          paddingTop: 'clamp(80px, 8vw, 120px)',
-          paddingBottom: 'clamp(80px, 8vw, 120px)',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
           ...sectionPad,
         }}
       >
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <h2 style={{ ...TYPOGRAPHY.sectionTitle, color: '#FFFFFF', marginBottom: '64px', fontWeight: 800 }}>Open Positions</h2>
-          
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(4, 1fr)', 
-              gap: '20px' 
-            }}
-            className="positions-grid"
-          >
-            {openRoles.map((role, idx) => (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
+            <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase' }}>LIFE AT QCT</span>
+          </div>
+          <h2 style={{ ...TYPOGRAPHY.sectionTitle, color: '#FFFFFF', marginBottom: '24px', fontWeight: 800 }}>
+            Why Join <span style={{ color: COLORS.gold }}>QuasarCyberTech</span>
+          </h2>
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.125rem', maxWidth: '42rem', marginBottom: '64px', lineHeight: 1.6 }}>
+            We are building a high-performance team where ownership, learning, and real enterprise impact come standard.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            {values.map((v, i) => (
               <motion.div
-                key={idx}
-                whileHover={{ y: -8, background: 'rgba(255,255,255,0.06)' }}
+                key={i}
+                whileHover={{ y: -4, borderColor: 'rgba(214,176,92,0.2)' }}
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.08)',
-                  borderTop: `3.5px solid ${COLORS.burgundy}`,
-                  padding: '32px 24px',
-                  borderRadius: '0 0 12px 12px',
+                  padding: '28px',
+                  borderRadius: '12px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '24px',
-                  justifyContent: 'space-between',
-                  minHeight: '180px',
-                  transition: 'background 0.3s'
+                  gap: '12px',
+                  minHeight: '160px',
+                  justifyContent: 'center',
+                  transition: 'border 0.3s ease'
                 }}
               >
-                <h4 style={{ fontSize: '20px', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.3 }}>{role}</h4>
-                <Link
-                  to={`/careers/apply?role=${encodeURIComponent(role)}`}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: COLORS.gold,
-                    textDecoration: 'none',
-                    fontSize: '11px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.12em'
-                  }}
-                >
-                  Apply Now <ArrowUpRight size={16} />
-                </Link>
+                <div style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: COLORS.gold,
+                  opacity: 0.08,
+                }}>
+                  <v.icon size={64} strokeWidth={1} />
+                </div>
+                <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', fontWeight: 600, position: 'relative', zIndex: 2, paddingRight: '60px' }}>{v.title}</h4>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', lineHeight: 1.5, position: 'relative', zIndex: 2, paddingRight: '60px' }}>{v.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 5: QLEAP INTERNSHIP PATHWAY (Light Mode) ── */}
+      {/* ── 4: OPEN POSITIONS (Light Mode) ── */}
       <section
+        id="open-roles"
         style={{
-          background: '#FFFFFF', // Light mode as requested
+          background: '#FFFFFF',
           paddingTop: 'clamp(80px, 8vw, 120px)',
           paddingBottom: 'clamp(80px, 8vw, 120px)',
-          position: 'relative',
-          overflow: 'hidden',
-          borderTop: '1px solid #E2E8F0',
           ...sectionPad,
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '64px', alignItems: 'center' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
+            <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', color: '#888', textTransform: 'uppercase' }}>CAREERS OPENINGS</span>
+          </div>
+          <h2 style={{ ...TYPOGRAPHY.sectionTitle, color: '#000000', marginBottom: '16px', fontWeight: 800 }}>
+            Open <span style={{ color: COLORS.burgundy }}>Positions</span>
+          </h2>
+          <p style={{ color: '#64748B', fontSize: '1.125rem', maxWidth: '42rem', marginBottom: '64px', lineHeight: 1.6 }}>
+            We are hiring across consulting, engineering, and operations.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }} className="roles-grid">
+            {roles.map((role, i) => {
+
+              return (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -4, boxShadow: '0 8px 16px rgba(0,0,0,0.04)' }}
+                  style={{
+                    background: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '12px',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    gap: '24px',
+                    transition: 'box-shadow 0.3s ease, transform 0.3s ease'
+                  }}
+                >
+                  <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.3 }}>{role.title}</h4>
+
+                  <a
+                    href={GOOGLE_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      background: 'transparent',
+                      color: COLORS.burgundy,
+                      border: `1.5px solid ${COLORS.burgundy}`,
+                      padding: '10px 16px',
+                      borderRadius: '4px',
+                      fontSize: '0.9rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.background = 'rgba(107, 21, 48, 0.05)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    Apply Now
+                  </a>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5: QLEAP INTERNSHIP PATHWAY (Dark Mode) ── */}
+      <section
+        style={{
+          background: '#0A0A0F',
+          backgroundImage: GRADIENTS.CAREERS_QLEAP_BG,
+          paddingTop: 'clamp(80px, 8vw, 120px)',
+          paddingBottom: 'clamp(80px, 8vw, 120px)',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
+          ...sectionPad,
+        }}
+      >
+        <div className="qleap-container" style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(320px, 1fr)', gap: '64px', alignItems: 'stretch' }}>
           {/* Left Text */}
-          <div style={{ textAlign: 'left' }}>
-            <span style={{ fontSize: '10px', fontWeight: 800, color: COLORS.burgundy, textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '16px' }}>QLEAP PATHWAY</span>
-            <h3 style={{ fontSize: '32px', fontWeight: 800, color: '#000000', marginBottom: '24px' }}>Internship to Excellence</h3>
-            <p style={{ fontSize: '17px', color: '#4A5568', lineHeight: 1.8 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+              <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
+              <span style={{ fontSize: '11px', fontWeight: 800, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>QLEAP PATHWAY</span>
+            </div>
+            <h3 style={{ fontSize: '32px', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px' }}>
+              Internship to <span style={{ color: COLORS.gold }}>Excellence</span>
+            </h3>
+            <p style={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, marginBottom: '48px' }}>
               Through QLeap, we identify, train, and nurture cybersecurity talent through structured learning, hands-on projects, and internship opportunities. High-performing candidates may be considered for full-time roles within QuasarCyberTech.
             </p>
+
+            <div style={{ display: 'flex' }}>
+              <a
+                href="https://qleap-ed.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '14px 28px',
+                  background: COLORS.burgundy,
+                  color: '#FFFFFF',
+                  borderRadius: '4px',
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'background 0.3s ease'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.background = '#8B1E3F'}
+                onMouseOut={(e) => e.currentTarget.style.background = COLORS.burgundy}
+              >
+                Explore QLeap
+              </a>
+            </div>
           </div>
-          
-          {/* Right Image (No Roundness) */}
-          <div style={{ overflow: 'hidden', border: '1px solid #E2E8F0', boxShadow: '0 24px 64px rgba(0,0,0,0.1)' }}>
-            <img 
-              src={ASSETS.screenshots.qleap} 
-              alt="QLeap Pathway" 
-              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 0 }} 
+
+          {/* Right Image Container - Adjust marginLeft to move it further left/right */}
+          <div style={{
+            borderRadius: '16px 0 0 16px',
+            overflow: 'hidden',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRight: 'none',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+            display: 'flex',
+            flexDirection: 'column',
+            marginLeft: '-32px' // ← Increase/decrease this to move screenshot horizontally
+          }}>
+            <img
+              src={ASSETS.screenshots.qleap}
+              alt="QLeap Pathway"
+              style={{
+                width: '100%',
+                flexGrow: 1,
+                objectFit: 'cover',
+                objectPosition: '40% center', // ← Change 10% to move the image content inside the frame
+                display: 'block'
+              }}
             />
           </div>
         </div>
       </section>
 
-      {/* ── 6: CTA SECTION (Dark) ── */}
-      <CTASection 
-        theme="dark" 
+      {/* ── 6: CTA SECTION (Light) ── */}
+      <CTASection
+        theme="light"
         eyebrowText="READY TO APPLY?"
-        title={<>Secure Your Future <span style={{ color: COLORS.gold }}>with Us</span></>}
-        subtitle="Join our mission to defend the digital frontier and build your career in a high-performance environment."
-        primaryAction={{ label: "Go to Application Form", link: "/careers/apply" }}
-        secondaryAction={{ label: "Back to Roles", link: "#open-positions" }}
+        title={<>Ready to Join the <span style={{ color: COLORS.gold }}>Team?</span></>}
+        subtitle="We review applications on a rolling basis. Apply today and our team will be in touch within 5 business days."
+        primaryAction={{ label: "Apply Now", link: GOOGLE_FORM_URL, isExternal: true }}
+        secondaryAction={{ label: "View Open Roles", link: "#open-roles" }}
       />
 
       <Footer />
-      
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media (max-width: 1100px) {
-          .positions-grid {
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @media (max-width: 1024px) {
+          .roles-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .qleap-container {
+            grid-template-columns: 1fr !important;
           }
         }
         @media (max-width: 640px) {
-          .positions-grid {
+          .roles-grid {
             grid-template-columns: 1fr !important;
           }
         }

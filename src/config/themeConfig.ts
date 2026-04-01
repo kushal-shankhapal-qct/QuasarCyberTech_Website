@@ -161,37 +161,49 @@ export const TYPOGRAPHY = {
 
 // ─── GRADIENTS ───
 export const GRADIENTS = {
-  HERO_CTA_BG: `radial-gradient(circle at ${BRAND_CONTROLS.heroGradient.x} ${BRAND_CONTROLS.heroGradient.y}, rgba(56,8,26,1) 0%, rgba(0,1,18,1) ${BRAND_CONTROLS.heroGradient.radius})`,
-  HERO_BG: `radial-gradient(circle at ${BRAND_CONTROLS.heroGradient.x} ${BRAND_CONTROLS.heroGradient.y}, rgba(56,8,26,1) 0%, rgba(0,1,18,1) ${BRAND_CONTROLS.heroGradient.radius})`,
-  CTA_BG: `radial-gradient(circle at ${BRAND_CONTROLS.heroGradient.x} ${BRAND_CONTROLS.heroGradient.y}, rgba(56,8,26,1) 0%, rgba(0,1,18,1) ${BRAND_CONTROLS.heroGradient.radius})`,
-  ACCENT: 'linear-gradient(90deg, #6B1530 0%, #D6B05C 100%)',
-  BRAND_ACCENT: 'linear-gradient(90deg, #6B1530 0%, #D6B05C 100%)',
-  LIGHT_SECTION_BG: '#F5F7FA',
 
-  // Shared dark presets (legacy-safe)
+
+  // ─── GRADIENT ENGINE ──────────────────────────────────────────────
+  // Arranged by Page/Purpose for visual maintenance.
+
+  // 1: Hero & Global Presets
+  HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   DARK_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  DARK_SECTION_BG_FRAMEWORK: 'radial-gradient(ellipse at 25% 47%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-  DARK_SECTION_BG_PLATFORMS: 'radial-gradient(ellipse at 20% 100%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
-  DARK_SECTION_BG_INSIGHTS: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  DARK_SECTION_BG_LEADERSHIP: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  DARK_SECTION_BG_TESTIMONIALS: 'radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
 
-  // Home section-specific gradients
+  // 2: Home Page Sections
   HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 25% 47%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
   HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 20% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
   HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
 
-  // Dedicated page gradients
+  // 3: Careers Page
+  CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+  CAREERS_WHY_JOIN_BG: 'radial-gradient(circle at 70% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%)',
+  CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 10%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 80%)',
+
+  // 4: Capabilities Pages
   CAPABILITIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+  CAPABILITY_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+
+  // 5: Industry Pages
   INDUSTRIES_OVERVIEW_HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  INDUSTRY_INDIVIDUAL_HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+  INDUSTRY_CHALLENGES_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 55%)',
+
+  // 6: About & Vision
+  ABOUT_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+  ABOUT_ACHIEVEMENT_BG: 'radial-gradient(circle at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
   ABOUT_MISSION_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+
+  // 7: Insights & Individual Blog
   BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   BLOGS_OVERVIEW_NEWSLETTER_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
   BLOG_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+
+  // 8: Contact & Platforms
   CONTACT_RIGHT_CARD_BG: 'radial-gradient(circle at 50% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%)',
+  PLATFORMS_PAGE_BG: '#040B1D',
 };
 
 // ─── SECTION BACKGROUNDS ───

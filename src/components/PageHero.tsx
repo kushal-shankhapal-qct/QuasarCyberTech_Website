@@ -47,6 +47,7 @@ export interface PageHeroProps {
   paddingTopOverride?: string;
   minHeightOverride?: string;
   subtitleMaxWidth?: string;
+  children?: React.ReactNode;
 }
 
 const PageHero: React.FC<PageHeroProps> = ({
@@ -77,6 +78,7 @@ const PageHero: React.FC<PageHeroProps> = ({
   minHeightOverride,
   subtitleMaxWidth,
   compact = false,
+  children,
 }) => {
   const dynamicBg =
     backgroundOverride ||
@@ -150,6 +152,8 @@ const PageHero: React.FC<PageHeroProps> = ({
         >
           {subtitle}
         </motion.p>
+
+        {children}
 
         {scrollTargetId && (
           <motion.div

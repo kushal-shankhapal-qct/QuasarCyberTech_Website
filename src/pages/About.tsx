@@ -547,7 +547,7 @@ export default function About() {
           title="About"
           highlight="Us"
           subtitle="QuasarCyberTech was founded with its primary directive: providing critical infrastructure the security engineering required for a cyber-physical age."
-          backgroundOverride={GRADIENTS.CAPABILITIES_OVERVIEW_HERO_BG}
+          backgroundOverride={GRADIENTS.ABOUT_HERO_BG}
           image={ASSETS.capabilities.worldwideConnection}
           imageRotate="-90deg"
           imageScale={1.3}
@@ -1319,7 +1319,7 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                   style={{
-                    background: "#0F0A12",
+                    background: GRADIENTS.ABOUT_ACHIEVEMENT_BG,
                     borderRadius: "12px",
                     padding: "clamp(24px, 4vw, 32px)",
                     display: "flex",

@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
 import { useParams } from 'react-router-dom';
-import { COLORS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY, GRADIENTS } from '../config/themeConfig';
 import { industriesData } from '../data/industriesData';
 import { getCapabilityBySlug } from '../data/capabilitiesData';
 import PageHero from '../components/PageHero';
@@ -118,7 +118,10 @@ const IndustryIndividual: React.FC = () => {
         </div>
       </section>
 
-      <section className="w-full py-24 bg-[radial-gradient(circle_at_20%_60%,rgba(56,8,26,1)_0%,rgba(0,0,0,1)_55%)] relative overflow-hidden">
+      <section 
+        className="w-full py-24 relative overflow-hidden"
+        style={{ background: GRADIENTS.INDUSTRY_CHALLENGES_BG }}
+      >
         <div className="max-w-7xl mx-auto px-6 text-left">
           <h2 className="text-4xl font-bold text-white mb-3" style={{ fontFamily: TYPOGRAPHY.fontHeading }}>
             <span style={{ color: '#D6B05C' }}>Navigating</span> Risk

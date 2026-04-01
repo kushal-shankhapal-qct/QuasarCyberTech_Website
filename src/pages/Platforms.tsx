@@ -82,7 +82,7 @@ const BrowserFrame: React.FC<{
 
 export default function Platforms() {
   return (
-    <div className="min-h-screen bg-[#040B1D] text-white selection:bg-[#6B1530] selection:text-white">
+    <div className="min-h-screen text-white selection:bg-[#6B1530] selection:text-white" style={{ background: GRADIENTS.PLATFORMS_PAGE_BG }}>
       <Seo
         title="Security Platforms & Cybersecurity Ecosystem"
         description="Explore QuasarCyberTech's security platform ecosystem including QStellar, QPulse, QRGT, and QLeap for enterprise visibility, testing, and cyber intelligence."

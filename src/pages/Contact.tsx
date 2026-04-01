@@ -14,7 +14,7 @@ import { createBreadcrumbSchema, createContactPageSchema } from '../seo/schema';
 // ─── CONFIGURATION OVERRIDES ───
 const CONFIG = {
   layout: {
-    heroPaddingTop: 'clamp(6rem, 8vh, 5rem)',
+    heroPaddingTop: 'clamp(5rem, 8vh, 6rem)',
     heroMinHeight: '100vh',
     cardsLiftUpFromHero: '2.5rem',             // Smaller value => cards move lower
   },
@@ -57,7 +57,7 @@ const CONFIG = {
 };
 
 const PHONE_UTILS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js';
-const CONTACT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwYbyTXPZQQaecwG6iXObk3t1T9ZjcGY_shbdtBSRt36D7rXy-Izs8R-uonO9uoLI-U0w/exec';
+const CONTACT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxUHBnkWoEMoVBT4gv8UTcUyBz_PayUHJXrFdhmMxqyz9y0WQzsIbOLjuvMuf_zaj6a7A/exec';
 
 export default function Contact() {
   const right = CONFIG.card.rightPanel;

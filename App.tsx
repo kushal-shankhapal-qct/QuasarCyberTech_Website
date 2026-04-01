@@ -78,10 +78,6 @@ export const routes: RouteRecord[] = [
         lazy: lazyPage(() => import('./src/pages/Careers')),
       },
       {
-        path: 'careers/apply',
-        lazy: lazyPage(() => import('./src/pages/CareersApply')),
-      },
-      {
         path: 'contact',
         lazy: lazyPage(() => import('./src/pages/Contact')),
       },

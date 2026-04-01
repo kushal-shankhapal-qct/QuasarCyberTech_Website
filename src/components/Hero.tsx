@@ -23,14 +23,14 @@ const Hero: React.FC = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-end",
         alignItems: "flex-start",
         background: GRADIENTS.HERO_BG,
         overflow: "hidden",
         paddingLeft: HS_HOME.paddingLeft,
         paddingRight: "2rem",
         paddingBottom: HS_HOME.paddingBottom,
-        paddingTop: "180px",
+        paddingTop: "clamp(100px, 18vh, 220px)",
         fontFamily: TYPOGRAPHY.fontBody,
       }}
     >
@@ -38,10 +38,10 @@ const Hero: React.FC = () => {
         className="home-hero-mark"
         style={{
           position: "absolute",
-          right: "-24%",
-          top: "44%",
+          right: "clamp(-200px, -8vw, -40px)",
+          top: "50%",
           transform: "translateY(-45%)",
-          width: "min(52vw, 560px)",
+          width: "clamp(280px, 42vw, 600px)",
           aspectRatio: "1 / 1",
           pointerEvents: "none",
           opacity: 0.88,
@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
 
       <div
         className="home-hero-copy"
-        style={{ maxWidth: "720px", position: "relative", zIndex: 1 }}
+        style={{ maxWidth: "clamp(320px, 55vw, 720px)", position: "relative", zIndex: 1 }}
       >
         <motion.h1
           initial={{ opacity: 0, y: 28 }}
@@ -169,17 +169,7 @@ const Hero: React.FC = () => {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-          @media (min-width: 1025px) {
-            .home-hero-section {
-              justify-content: flex-end !important;
-            }
-          }
-
           @media (max-width: 1024px) {
-            .home-hero-section {
-              padding-left: 1.5rem !important;
-              padding-right: 1.5rem !important;
-            }
             .home-hero-mark {
               right: -18% !important;
               width: min(62vw, 440px) !important;
@@ -187,18 +177,10 @@ const Hero: React.FC = () => {
           }
 
           @media (max-width: 768px) {
-            .home-hero-section {
-              min-height: 100vh !important;
-              padding-top: 120px !important;
-              padding-bottom: 3rem !important;
-              justify-content: flex-end !important;
-            }
             .home-hero-mark {
-              opacity: 0.20 !important;
-              right: -26% !important;
-              top: 50% !important;
-              transform: translateY(-50%) !important;
-              width: min(85vw, 400px) !important;
+              opacity: 0.15 !important;
+              width: min(75vw, 340px) !important;
+              right: -10% !important;
             }
             .home-hero-copy {
               max-width: 100% !important;
@@ -217,13 +199,6 @@ const Hero: React.FC = () => {
               min-width: 0 !important;
               padding: 14px 18px !important;
               justify-content: center !important;
-            }
-          }
-
-          @media (max-width: 480px) {
-            .home-hero-section {
-              padding-left: 1.25rem !important;
-              padding-right: 1.25rem !important;
             }
           }
         `,
