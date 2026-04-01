@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 
 import { ASSETS } from "@/constants/assets";
-import { COLORS, GRADIENTS, TYPOGRAPHY } from "../config/themeConfig";
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from "../config/themeConfig";
 import { navigationConfig } from "../config/navigationConfig";
 import { capabilities } from "../data/capabilitiesData";
 
@@ -32,8 +32,8 @@ const NC = {
     position: "fixed" as const,
     zIndex: 1000,
     paddingTop: "0px",
-    paddingLeft: "2em",
-    paddingRight: "2em",
+    paddingLeft: LAYOUT_CONTROLS.global.paddingX,
+    paddingRight: LAYOUT_CONTROLS.global.paddingX,
     background: "transparent",
   },
   logoGroup: {

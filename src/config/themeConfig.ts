@@ -61,10 +61,13 @@ export const SHADOWS = {
 // ─── CENTRALIZED LAYOUT CONTROLS ───
 export const LAYOUT_CONTROLS = {
   globalScale: 0.9,
+  global: {
+    paddingX: 'clamp(3rem, 3vw, 6rem)',
+  },
   section: {
     paddingTop: '64px',
     paddingBottom: '64px',
-    paddingX: '2.5rem',
+    paddingX: 'clamp(3rem, 3vw, 6rem)',
     gapBetweenHeaderAndContent: '48px',
     frameworkHeaderToChassisGapDesktop: '36px',
     frameworkHeaderToChassisGapTablet: '28px',

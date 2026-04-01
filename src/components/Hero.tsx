@@ -2,17 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ASSETS } from "@/constants/assets";
-import { ALPHAS, COLORS, GRADIENTS, TYPOGRAPHY } from "../config/themeConfig";
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from "../config/themeConfig";
 
 const logoSymbol = ASSETS.logos.qct.icon;
-
-const HS_HOME = {
-  paddingLeft: "2rem",
-  paddingBottom: "2rem",
-  titleBottom: "1rem",
-  descBottom: "1rem",
-  buttonGap: "1rem",
-};
 
 const Hero: React.FC = () => {
   return (
@@ -27,21 +19,23 @@ const Hero: React.FC = () => {
         alignItems: "flex-start",
         background: GRADIENTS.HERO_BG,
         overflow: "hidden",
-        paddingLeft: HS_HOME.paddingLeft,
-        paddingRight: "2rem",
-        paddingBottom: HS_HOME.paddingBottom,
-        paddingTop: "clamp(100px, 18vh, 220px)",
+        paddingLeft: LAYOUT_CONTROLS.global.paddingX,
+        paddingRight: LAYOUT_CONTROLS.global.paddingX,
+        paddingTop: "clamp(100px, 14vh, 160px)",
+        paddingBottom: "clamp(3rem, 3vh, 4rem)",
         fontFamily: TYPOGRAPHY.fontBody,
+        boxSizing: "border-box",
       }}
     >
+      {/* Rotating mark */}
       <div
         className="home-hero-mark"
         style={{
           position: "absolute",
-          right: "clamp(-200px, -8vw, -40px)",
+          right: 0,
           top: "50%",
-          transform: "translateY(-45%)",
-          width: "clamp(280px, 42vw, 600px)",
+          transform: "translate(50%, -50%)",
+          width: "min(56vw, 760px)",
           aspectRatio: "1 / 1",
           pointerEvents: "none",
           opacity: 0.88,
@@ -56,11 +50,17 @@ const Hero: React.FC = () => {
         />
       </div>
 
+      {/* Hero copy */}
       <div
         className="home-hero-copy"
-        style={{ maxWidth: "clamp(320px, 55vw, 720px)", position: "relative", zIndex: 1 }}
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: "min(1100px, 75vw)",
+        }}
       >
         <motion.h1
+          className="home-hero-title"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -68,7 +68,9 @@ const Hero: React.FC = () => {
             ...TYPOGRAPHY.heroTitle,
             fontFamily: TYPOGRAPHY.fontHeading,
             color: COLORS.textOnDark,
-            marginBottom: HS_HOME.titleBottom,
+            marginBottom: "1rem",
+            lineHeight: 1.12,
+            fontSize: "clamp(2.6rem, 3.6vw, 3.8rem)",
           }}
         >
           Engineering{" "}
@@ -86,14 +88,15 @@ const Hero: React.FC = () => {
             ...TYPOGRAPHY.bodyLarge,
             color: "rgba(255,255,255,0.78)",
             textAlign: "left",
-            maxWidth: "100%",
-            marginBottom: HS_HOME.descBottom,
-            lineHeight: "1.7",
+            marginBottom: "2rem",
+            lineHeight: 1.7,
+            fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
+            maxWidth: "600px",
           }}
         >
           QuasarCyberTech delivers cybersecurity consulting and engineering
-          designed for enterprise scale from advisory and offensive security to
-          managed defense and advanced security platforms.
+          designed for enterprise scale from advisory and offensive security
+          to managed defense and advanced security platforms.
         </motion.p>
 
         <motion.div
@@ -101,12 +104,12 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          style={{ display: "flex", gap: HS_HOME.buttonGap, flexWrap: "wrap" }}
+          style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
         >
           <Link
             to="/capabilities"
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(107, 21, 48, 0.12)";
+              e.currentTarget.style.background = "rgba(107,21,48,0.12)";
               e.currentTarget.style.borderColor = "#8B1E3F";
               e.currentTarget.style.transform = "translateY(-1px)";
             }}
@@ -119,20 +122,22 @@ const Hero: React.FC = () => {
               ...TYPOGRAPHY.buttonLarge,
               background: "transparent",
               color: "#FFFFFF",
-              border: `1.5px solid #6B1530`,
+              border: "1.5px solid #6B1530",
               borderRadius: "4px",
-              padding: "16px 36px",
-              justifyContent: "center",
+              padding: "16px 40px",
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               textDecoration: "none",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
               fontWeight: 800,
-              fontSize: "14px",
+              fontSize: "15px",
+              letterSpacing: "0.05em",
             }}
           >
             Explore Capabilities
           </Link>
+
           <Link
             to="/contact"
             onMouseEnter={(e) => {
@@ -151,14 +156,15 @@ const Hero: React.FC = () => {
               color: "#FFFFFF",
               border: "1px solid transparent",
               borderRadius: "4px",
-              padding: "16px 36px",
-              justifyContent: "center",
+              padding: "16px 40px",
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               textDecoration: "none",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
               fontWeight: 800,
-              fontSize: "14px",
+              fontSize: "15px",
+              letterSpacing: "0.05em",
             }}
           >
             Talk to an Expert
@@ -169,36 +175,96 @@ const Hero: React.FC = () => {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-          @media (max-width: 1024px) {
-            .home-hero-mark {
-              right: -18% !important;
-              width: min(62vw, 440px) !important;
+          /* ── Large screens (1400px+) ── */
+          @media (min-width: 1400px) {
+            .home-hero-copy {
+              max-width: 1100px !important;
             }
           }
 
-          @media (max-width: 768px) {
+          /* ── Tablet landscape ── */
+          @media (max-width: 1100px) {
+            .home-hero-copy {
+              max-width: 60vw !important;
+            }
             .home-hero-mark {
-              opacity: 0.15 !important;
-              width: min(75vw, 340px) !important;
-              right: -10% !important;
+              right: -18% !important;
+              width: min(50vw, 500px) !important;
+            }
+          }
+
+          /* ── Tablet portrait ── */
+          @media (max-width: 860px) {
+            .home-hero-copy {
+              max-width: 100% !important;
+            }
+            .home-hero-mark {
+              right: 0 !important;
+              transform: translate(40%, -50%) !important;
+              width: 72vw !important;
+              opacity: 0.2 !important;
+            }
+            .home-hero-title {
+              font-size: clamp(2.2rem, 4vw, 2.6rem) !important;
+            }
+            .home-hero-subtitle {
+              max-width: 100% !important;
+              font-size: 1rem !important;
+            }
+          }
+
+          /* ── Mobile ── */
+          @media (max-width: 600px) {
+            .home-hero-section {
+              padding-left: 1.5rem !important;
+              padding-right: 1.5rem !important;
+              padding-top: 160px !important;
+              padding-bottom: 3rem !important;
+              justify-content: flex-start !important;
+              align-items: flex-start !important;
             }
             .home-hero-copy {
               max-width: 100% !important;
             }
+            .home-hero-title {
+              font-size: 1.9rem !important;
+              line-height: 1.25 !important;
+              margin-bottom: 1.25rem !important;
+            }
+            .home-hero-mark {
+              opacity: 0.12 !important;
+              width: 85vw !important;
+              right: 0 !important;
+              transform: translate(30%, -50%) !important;
+              top: 50% !important;
+            }
             .home-hero-subtitle {
+              font-size: 0.95rem !important;
+              margin-bottom: 1.75rem !important;
+              max-width: 100% !important;
+              line-height: 1.7 !important;
               text-align: left !important;
-              margin-bottom: 28px !important;
             }
             .home-hero-actions {
+              flex-direction: column !important;
               width: 100% !important;
               gap: 12px !important;
-              flex-direction: column !important;
             }
             .home-hero-actions a {
               width: 100% !important;
-              min-width: 0 !important;
-              padding: 14px 18px !important;
-              justify-content: center !important;
+              text-align: center !important;
+              padding: 14px 20px !important;
+              font-size: 13px !important;
+            }
+          }
+
+          /* ── Small mobile ── */
+          @media (max-width: 400px) {
+            .home-hero-section {
+              padding-top: 140px !important;
+            }
+            .home-hero-title {
+              font-size: 1.7rem !important;
             }
           }
         `,

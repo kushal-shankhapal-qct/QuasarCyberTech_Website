@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
-import { COLORS, TYPOGRAPHY } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { capabilities } from '../data/capabilitiesData';
 
@@ -82,9 +82,9 @@ const Footer: React.FC = () => {
           grid-template-columns: 220px 1fr;
           gap: 3rem;
           align-items: start;
-          max-width: 1280px;
+          max-width: none;
           margin: 0 auto;
-          padding: 4rem 2.5rem;
+          padding: 4rem ${LAYOUT_CONTROLS.global.paddingX};
         }
 
         /* ───────────────────────────────────────────
@@ -133,6 +133,13 @@ const Footer: React.FC = () => {
             max-width: 340px;
             margin: 0 auto;
             text-align: left;
+          }
+        }
+
+        /* ── Large screens (1400px+) ── */
+        @media (min-width: 1400px) {
+          .ft-grid {
+            padding: 4.5rem ${LAYOUT_CONTROLS.global.paddingX} 4rem;
           }
         }
 

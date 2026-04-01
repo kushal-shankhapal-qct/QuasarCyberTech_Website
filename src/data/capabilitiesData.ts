@@ -314,6 +314,7 @@ export const capabilities: Capability[] = [
       {
         id: 'third-party-supply-chain-risk-management',
         name: 'Third-Party & Supply Chain Risk Management',
+        image: ASSETS.capabilities.subCapabilities.advisory.supplyChain,
         slug: 'third-party-supply-chain-risk-management',
         anchor: 'third-party-supply-chain-risk-management',
         shortDescription: 'Assess, manage, and monitor security risks across your vendor and supplier ecosystem.',
@@ -794,6 +795,7 @@ export const capabilities: Capability[] = [
       {
         id: 'secure-code-review',
         name: 'Secure Code Review',
+        image: ASSETS.capabilities.subCapabilities.offensive.secureCodeReview,
         slug: 'secure-code-review',
         anchor: 'secure-code-review',
         shortDescription: 'Manual and automated review of code paths that introduce exploitable risk.',
@@ -834,6 +836,7 @@ export const capabilities: Capability[] = [
       {
         id: 'ai-agentic-system-security-testing',
         name: 'AI & Agentic System Security Testing',
+        image: ASSETS.capabilities.subCapabilities.offensive.aiSecurity,
         slug: 'ai-agentic-system-security-testing',
         anchor: 'ai-agentic-system-security-testing',
         shortDescription: 'Security testing for AI applications, LLM-powered workflows, and multi-agent systems.',
@@ -903,6 +906,7 @@ export const capabilities: Capability[] = [
       {
         id: 'cloud-security-assessments',
         name: 'Cloud Security Assessments',
+        image: ASSETS.capabilities.subCapabilities.cloud.cloudAssessment,
         slug: 'cloud-security-assessments',
         anchor: 'cloud-security-assessments',
         shortDescription: 'Comprehensive cloud security posture assessment across multi-cloud deployments.',
@@ -982,6 +986,7 @@ export const capabilities: Capability[] = [
       {
         id: 'kubernetes-container-security',
         name: 'Kubernetes & Container Security',
+        image: ASSETS.capabilities.subCapabilities.cloud.containerSecurity,
         slug: 'kubernetes-container-security',
         anchor: 'kubernetes-container-security',
         shortDescription: 'Container lifecycle and cluster security testing for Kubernetes environments.',
@@ -1021,6 +1026,7 @@ export const capabilities: Capability[] = [
       {
         id: 'cloud-security-posture-management-cspm',
         name: 'Cloud Security Posture Management (CSPM)',
+        image: ASSETS.capabilities.subCapabilities.cloud.cspm,
         slug: 'cloud-security-posture-management-cspm',
         anchor: 'cloud-security-posture-management-cspm',
         shortDescription: 'Continuous monitoring for cloud misconfiguration, exposure, and compliance drift.',
@@ -1059,6 +1065,7 @@ export const capabilities: Capability[] = [
       {
         id: 'on-premises-hybrid-infrastructure-hardening',
         name: 'On-Premises & Hybrid Infrastructure Hardening',
+        image: ASSETS.capabilities.subCapabilities.cloud.cloudHardening,
         slug: 'on-premises-hybrid-infrastructure-hardening',
         anchor: 'on-premises-hybrid-infrastructure-hardening',
         shortDescription: 'Adversary-minded review and hardening of on-premises and hybrid infrastructure controls.',

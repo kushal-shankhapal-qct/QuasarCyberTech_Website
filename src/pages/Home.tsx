@@ -10,7 +10,7 @@ import Partners from '../components/Partners';
 import FeaturedInsights from '../components/FeaturedInsights';
 import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
-import AccreditationBar from '../components/AccreditationBar';
+// import AccreditationBar from '../components/AccreditationBar';
 import { LAYOUT_CONTROLS } from '../config/themeConfig';
 import Seo from '../components/seo/Seo';
 import { ASSETS } from '@/constants/assets';
@@ -33,7 +33,7 @@ export default function Home() {
 
         {/* 2. LIGHT: Accreditation Ticker & Metrics */}
         <div style={{ zoom: LAYOUT_CONTROLS.globalScale, background: '#FFFFFF' }}>
-          <AccreditationBar />
+          {/* <AccreditationBar /> */}
           <TrustIndicators centered={true} />
           <Partners centered={true} />
         </div>

@@ -103,6 +103,7 @@ export const ASSETS = {
         vciso: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Virtual_CISO_vCISO_Services/The vCISO Strategic Advantage.png'),
         zeroTrust: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Security_and_Zero_Trust_Architecture_Review/Zero Trust Architecture Review.png'),
         tabletop: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Security_Program_Development/Security Programme Maturity Framework.png'),
+        supplyChain: getAsset('Capabilities_Images/Mastering Supply Chain Resilience.png'),
       },
       offensive: {
         web: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Web_Application_Security_Testing/Deep Web Application Security Validation.png'),
@@ -110,6 +111,14 @@ export const ASSETS = {
         api: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/API_Security_Testing/Critical API Security Testing.png'),
         redTeam: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Red_Team/Red Team Simulation and Resilience.png'),
         simulation: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Adversary_Simulation/Adversary Simulation Defensive Readiness Overview.png'),
+        secureCodeReview: getAsset('Capabilities_Images/Secure Code Review Process Guide.png'),
+        aiSecurity: getAsset('Capabilities_Images/Securing AI and Agentic Systems.png'),
+      },
+      cloud: {
+        cloudAssessment: getAsset('Capabilities_Images/Multi-Cloud Security Assurance Guide.png'),
+        cspm: getAsset('Capabilities_Images/Mastering Cloud Security Posture Management.png'),
+        containerSecurity: getAsset('Capabilities_Images/Container Platform Security Overview.png'),
+        cloudHardening: getAsset('Capabilities_Images/Cloud Security Hardening Framework Guide.png'),
       }
     }
   },
