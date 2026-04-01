@@ -5,11 +5,16 @@ import { COLORS, TYPOGRAPHY } from '@/config/themeConfig';
 export default function Partners({ centered = false }: { centered?: boolean }) {
     // ── Size controls ────────────────────────────────────────────────
     const PARTNERS_LOGO_HEIGHT = '52px';
+    const PARTNERS_LOGO_HEIGHT_MOBILE = '38px';
     const PARTNERS_STRIP_PADDING = '42px';
+    const PARTNERS_STRIP_PADDING_MOBILE = '20px';
     const PARTNERS_MARGIN_BELOW = '24px';
     const PARTNERS_HEADER_PADDING_TOP = '32px';
     const PARTNERS_HEADER_PADDING_BOTTOM = '20px';
     const PARTNERS_HEADER_SIDE_PADDING = '3rem';
+    const PARTNERS_SCROLL_DURATION_DESKTOP = '50s';
+    const PARTNERS_SCROLL_DURATION_MOBILE = '30s';
+    const PARTNERS_MOBILE_SECOND_ROW_GAP = '14px';
     // ─────────────────────────────────────────────────────────────────────
 
     const partners = [
@@ -45,6 +50,7 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
 
             {/* White scrolling strip */}
             <section
+                className="partners-strip"
                 style={{
                     background: '#FFFFFF',
                     borderTop: 'none',
@@ -60,11 +66,22 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                         0% { transform: translateX(0); }
                         100% { transform: translateX(-33.3333%); }
                     }
+                    @keyframes partners-infinite-scroll-reverse {
+                        0% { transform: translateX(-33.3333%); }
+                        100% { transform: translateX(0); }
+                    }
                     .partners-track-forced {
                         display: flex;
                         width: max-content;
-                        animation: partners-infinite-scroll 50s linear infinite !important;
+                        animation: partners-infinite-scroll ${PARTNERS_SCROLL_DURATION_DESKTOP} linear infinite !important;
                         pointer-events: none !important;
+                    }
+                    .partners-track-forced-reverse {
+                        display: none;
+                        width: max-content;
+                        animation: partners-infinite-scroll-reverse ${PARTNERS_SCROLL_DURATION_MOBILE} linear infinite !important;
+                        pointer-events: none !important;
+                        margin-top: ${PARTNERS_MOBILE_SECOND_ROW_GAP};
                     }
                     .partner-item-enhanced {
                         display: flex;
@@ -72,6 +89,28 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                         justify-content: center;
                         padding: 0 3.75rem;
                         flex-shrink: 0;
+                    }
+                    .partner-logo {
+                        height: ${PARTNERS_LOGO_HEIGHT};
+                    }
+
+                    @media (max-width: 40rem) {
+                        .partners-strip {
+                            padding: ${PARTNERS_STRIP_PADDING_MOBILE} 0 !important;
+                        }
+                        .partner-item-enhanced {
+                            padding: 0 1.625rem;
+                        }
+                        .partner-logo {
+                            height: ${PARTNERS_LOGO_HEIGHT_MOBILE} !important;
+                            max-width: 7.5rem !important;
+                        }
+                        .partners-track-forced {
+                            animation-duration: ${PARTNERS_SCROLL_DURATION_MOBILE} !important;
+                        }
+                        .partners-track-forced-reverse {
+                            display: flex !important;
+                        }
                     }
                 `}</style>
 
@@ -85,11 +124,28 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                             <img
                                 src={partner.logo}
                                 alt={partner.name}
-                                className="select-none"
+                                className="select-none partner-logo"
                                 style={{
-                                    height: PARTNERS_LOGO_HEIGHT,
                                     width: 'auto',
                                     maxWidth: '10rem', // 160px
+                                    objectFit: 'contain',
+                                    display: 'block',
+                                }}
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                <div className="partners-track-forced-reverse">
+                    {displayPartners.map((partner, idx) => (
+                        <div key={`reverse-${partner.id}-${idx}`} className="partner-item-enhanced">
+                            <img
+                                src={partner.logo}
+                                alt={partner.name}
+                                className="select-none partner-logo"
+                                style={{
+                                    width: 'auto',
+                                    maxWidth: '10rem',
                                     objectFit: 'contain',
                                     display: 'block',
                                 }}

@@ -187,6 +187,10 @@ const HS_CAP = {
   headerBottom: "2.5rem",
   relatedMarginTop: "3.5rem",
   relatedPaddingTop: "2.5rem",
+  tabBar: {
+    desktopHeight: "3.75rem",
+    desktopFontSize: "clamp(12px, 1.2vw, 14px)",
+  },
 };
 
 const getIndustrySlug = (name: string) => {
@@ -626,7 +630,7 @@ const CapabilityPage: React.FC = () => {
               display: "flex",
               flexDirection: "row",
               flexWrap: "nowrap",
-              minHeight: "52px",
+              minHeight: HS_CAP.tabBar.desktopHeight,
               width: "max-content",
               minWidth: "100%",
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
@@ -652,14 +656,14 @@ const CapabilityPage: React.FC = () => {
                     flexShrink: 0,
                     whiteSpace: "nowrap",
                     padding: "0 20px",
-                    height: "52px",
+                    height: HS_CAP.tabBar.desktopHeight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     cursor: "pointer",
                     textDecoration: "none",
                     fontFamily: TYPOGRAPHY.fontBody,
-                    fontSize: "clamp(11px, 1.1vw, 13px)",
+                    fontSize: HS_CAP.tabBar.desktopFontSize,
                     fontWeight: 600,
                     letterSpacing: "0.02em",
                     transition: "background 0.15s ease, color 0.15s ease",

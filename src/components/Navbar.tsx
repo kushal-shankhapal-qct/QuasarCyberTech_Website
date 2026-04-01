@@ -170,7 +170,7 @@ const NC = {
     fontFamily: TYPOGRAPHY.fontBody,
   },
   tune: {
-    pillNudgeX: "30px",
+    pillNudgeX: "-0.5rem",
     contactNudgeX: "0px",
     contactNudgeY: "0px",
     dropdownOffsetY: "1.25em",
@@ -216,6 +216,13 @@ const NC = {
     enabledMinWidth: 1024,
     axisDefaultY: "4rem", // Centered in 8rem strip
     axisScrolledY: "2.8125rem", // Centered in 5.625rem strip
+    collapseBufferPx: 36,
+    fallbackLogoWidthPx: 220,
+    fallbackPillWidthPx: 640,
+    fallbackContactWidthPx: 152,
+  },
+  mobileToggle: {
+    nudgeY: "0rem",
   },
 };
 
@@ -232,14 +239,16 @@ const Navbar: React.FC = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const [mobileExpandedGroup, setMobileExpandedGroup] = useState<number | null>(null);
-  const [isDesktopViewport, setIsDesktopViewport] = useState<boolean>(() => {
+  const [showDesktopNav, setShowDesktopNav] = useState<boolean>(() => {
     if (typeof window === "undefined") return true;
     return window.innerWidth >= NC.desktopLayout.enabledMinWidth;
   });
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
+  const logoLinkRef = useRef<HTMLAnchorElement | null>(null);
   const pillRef = useRef<HTMLElement | null>(null);
+  const contactRef = useRef<HTMLDivElement | null>(null);
   const lastPublishedBottomRef = useRef<number>(-1);
   const navRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [dropdownPos, setDropdownPos] = useState<number>(0);
@@ -256,11 +265,68 @@ const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const onResize = () => setIsDesktopViewport(window.innerWidth >= NC.desktopLayout.enabledMinWidth);
+    const toPx = (value: string) => Number.parseFloat(value.replace("px", "")) || 0;
+
+    const evaluateNavFit = () => {
+      const viewportWidth = window.innerWidth;
+      const desktopThreshold = viewportWidth >= NC.desktopLayout.enabledMinWidth;
+      if (!desktopThreshold) {
+        setShowDesktopNav(false);
+        return;
+      }
+
+      const headerEl = headerRef.current;
+      const headerStyle = headerEl ? window.getComputedStyle(headerEl) : null;
+      const headerPaddingX =
+        (headerStyle ? toPx(headerStyle.paddingLeft) + toPx(headerStyle.paddingRight) : 0);
+
+      const logoRect = logoLinkRef.current?.getBoundingClientRect();
+      const pillRect = pillRef.current?.getBoundingClientRect();
+      const contactRect = contactRef.current?.getBoundingClientRect();
+
+      const pillVisible = !!pillRef.current && window.getComputedStyle(pillRef.current).display !== "none";
+      const contactVisible =
+        !!contactRef.current && window.getComputedStyle(contactRef.current).display !== "none";
+
+      const logoWidth = (logoRect?.width && logoRect.width > 0)
+        ? logoRect.width
+        : NC.desktopLayout.fallbackLogoWidthPx;
+      const pillWidth = pillVisible && pillRect?.width && pillRect.width > 0
+        ? pillRect.width
+        : NC.desktopLayout.fallbackPillWidthPx;
+      const contactWidth = contactVisible && contactRect?.width && contactRect.width > 0
+        ? contactRect.width
+        : NC.desktopLayout.fallbackContactWidthPx;
+
+      const requiredWidth =
+        logoWidth + pillWidth + contactWidth + headerPaddingX + NC.desktopLayout.collapseBufferPx;
+
+      const hasMeasuredCollision =
+        !!logoRect &&
+        !!pillRect &&
+        !!contactRect &&
+        pillVisible &&
+        contactVisible &&
+        pillRect.width > 0 &&
+        contactRect.width > 0 &&
+        (pillRect.left <= logoRect.right + NC.desktopLayout.collapseBufferPx ||
+          contactRect.left <= pillRect.right + NC.desktopLayout.collapseBufferPx);
+
+      setShowDesktopNav(viewportWidth >= requiredWidth && !hasMeasuredCollision);
+    };
+
+    const onResize = () => evaluateNavFit();
+
     window.addEventListener("resize", onResize, { passive: true });
-    onResize();
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+    evaluateNavFit();
+
+    const timeout = setTimeout(evaluateNavFit, 60);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [scrolled]);
 
   // ── Scroll state ──
   useEffect(() => {
@@ -283,10 +349,10 @@ const Navbar: React.FC = () => {
       const pill = pillRef.current;
       const header = headerRef.current;
       const pillStyle = pill ? window.getComputedStyle(pill) : null;
-      const canUsePill = !!pill && !!pillStyle && pillStyle.display !== "none";
-      const rawBottom = canUsePill
-        ? pill.getBoundingClientRect().bottom
-        : (header?.getBoundingClientRect().bottom ?? 0);
+      const pillVisible = !!pill && !!pillStyle && pillStyle.display !== "none";
+      const pillBottom = pillVisible ? pill.getBoundingClientRect().bottom : 0;
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      const rawBottom = Math.max(pillBottom, headerBottom);
       const bottom = Math.max(0, rawBottom);
       if (Math.abs(bottom - lastPublishedBottomRef.current) < 0.25) return;
       lastPublishedBottomRef.current = bottom;
@@ -524,7 +590,7 @@ const Navbar: React.FC = () => {
   const logoPhase = scrolled ? "scrolled" : "default";
   const logoTransition = { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
   const logoCssTransition = "all 0.42s cubic-bezier(0.22, 1, 0.36, 1)";
-  const logoViewport = isDesktopViewport ? NC.logoTuning.desktop : NC.logoTuning.mobile;
+  const logoViewport = showDesktopNav ? NC.logoTuning.desktop : NC.logoTuning.mobile;
   const groupLogo = logoViewport.group;
   const iconLogo = logoViewport.icon;
   const textLogo = logoViewport.text;
@@ -552,6 +618,7 @@ const Navbar: React.FC = () => {
       >
         {/* ── ZONE 1: LOGO ── */}
         <Link
+          ref={logoLinkRef}
           to="/"
           className="flex items-center justify-center"
           style={{
@@ -654,8 +721,9 @@ const Navbar: React.FC = () => {
         <nav
           ref={pillRef}
           data-qct-navbar-pill="true"
-          className="hidden lg:flex items-center"
+          className="items-center"
           style={{
+            display: showDesktopNav ? "flex" : "none",
             position: "absolute",
             top: desktopAxisY,
             left: "50%",
@@ -731,8 +799,9 @@ const Navbar: React.FC = () => {
           }}
         >
           <div
-            className="hidden lg:block"
+            ref={contactRef}
             style={{
+              display: showDesktopNav ? "block" : "none",
               position: "absolute",
               top: desktopAxisY,
               right: NC.wrapper.paddingRight,
@@ -770,9 +839,17 @@ const Navbar: React.FC = () => {
           </div>
 
           <button
-            className="flex lg:hidden items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
+            className="items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            style={{ padding: "0.5rem", borderRadius: "0.5rem" }}
+            style={{
+              display: showDesktopNav ? "none" : "flex",
+              padding: "0.5rem",
+              borderRadius: "0.5rem",
+              position: "absolute",
+              right: LAYOUT_CONTROLS.global.paddingX,
+              top: "50%",
+              transform: `translateY(calc(-50% + ${NC.mobileToggle.nudgeY}))`,
+            }}
             aria-label="Toggle Menu"
           >
             {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
@@ -783,7 +860,7 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {openMenu && (
             <motion.div
-              className="hidden lg:block"
+              className=""
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -791,6 +868,7 @@ const Navbar: React.FC = () => {
               onMouseEnter={() => closeTimer.current && clearTimeout(closeTimer.current)}
               onMouseLeave={closeDropdown}
               style={{
+                display: showDesktopNav ? "block" : "none",
                 position: "fixed",
                 pointerEvents: "auto",
                 top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.tune.dropdownOffsetY})`,
@@ -906,7 +984,7 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 lg:hidden"
+            className="fixed inset-0"
             style={{
               top: "5.3125rem", // 85px
               background: "#050505",

@@ -8,7 +8,7 @@ import BlogSidebar from '../../components/blogs/SidebarWidget';
 import PageHero from '../../components/PageHero';
 import Seo from '../../components/seo/Seo';
 import { blogsData, BLOG_CATEGORIES } from '../../data/blogsData';
-import { COLORS, GRADIENTS, TYPOGRAPHY } from '../../config/themeConfig';
+import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { createBreadcrumbSchema } from '../../seo/schema';
 
@@ -69,14 +69,6 @@ export default function BlogsOverview() {
   const latestPosts = [...blogsData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
 
   // Category counts
-  const categoryCounts = BLOG_CATEGORIES.filter(c => c !== 'All Posts').reduce((acc, cat) => {
-    acc[cat] = blogsData.filter(p => p.category === cat).length;
-    return acc;
-  }, {} as Record<string, number>);
-
-  // All unique tags
-  const allTags = Array.from(new Set(blogsData.flatMap(p => p.tags)));
-
   const handleSubscribe = () => {
     if (!subscribeEmail) return;
     setSubscribeSuccess(true);
@@ -138,7 +130,7 @@ export default function BlogsOverview() {
             transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
           }}
         >
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 3rem' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: `20px ${LAYOUT_CONTROLS.global.paddingX}` }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -210,8 +202,8 @@ export default function BlogsOverview() {
         </div>
 
         {/* ─── MAIN CONTENT ─── */}
-        <section style={{ background: DARK_BG, padding: '48px 3rem 80px' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '64px', alignItems: 'flex-start' }}>
+        <section style={{ background: DARK_BG, padding: `48px ${LAYOUT_CONTROLS.global.paddingX} 80px` }}>
+          <div className="blogs-main-layout" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '64px', alignItems: 'flex-start' }}>
 
             {/* LEFT: Article Grid */}
             <div style={{ flex: '1', minWidth: 0 }}>
@@ -229,13 +221,9 @@ export default function BlogsOverview() {
             </div>
 
             {/* RIGHT: Sidebar */}
-            <aside style={{ flex: '0 0 320px', position: 'sticky', top: '100px' }}>
+            <aside className="blogs-sidebar-wrap" style={{ flex: '0 0 320px', position: 'sticky', top: '100px' }}>
               <BlogSidebar
                 latestPosts={latestPosts}
-                categoryCounts={categoryCounts}
-                allTags={allTags.slice(0, 8)}
-                activeCategory={activeCategory}
-                setActiveCategory={(cat) => { setActiveCategory(cat); }}
                 subscribeName={subscribeName}
                 setSubscribeName={setSubscribeName}
                 subscribeEmail={subscribeEmail}
@@ -252,6 +240,25 @@ export default function BlogsOverview() {
       </main>
 
       <Footer />
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 64rem) {
+              .blogs-main-layout {
+                flex-direction: column !important;
+                gap: 2rem !important;
+              }
+
+              .blogs-sidebar-wrap {
+                position: static !important;
+                top: auto !important;
+                width: 100% !important;
+              }
+            }
+          `,
+        }}
+      />
     </div>
   );
 }
@@ -310,7 +317,7 @@ function NewsletterCTA() {
         }}>
           <input
             type="email"
-            placeholder="Corporate Email Address"
+            placeholder="Email Address"
             value={email}
             onChange={e => setEmail(e.target.value)}
             style={{

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
-import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { capabilities } from '../data/capabilitiesData';
 
@@ -66,6 +66,8 @@ const Footer: React.FC = () => {
     fontHeading: '0.75rem', // 12px
     linkGap: '0.65rem',
     colGap: '2rem',
+    logoOffsetTopDesktop: '-3rem',
+    logoOffsetTopMobile: '-2rem',
   };
 
   return (
@@ -116,8 +118,20 @@ const Footer: React.FC = () => {
           .ft-brand {
             text-align: center;
           }
+          .ft-brand-logo {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            justify-content: center !important;
+          }
           .ft-brand .ft-contacts { align-items: center !important; }
-          .ft-brand .ft-socials { justify-content: center !important; }
+          .ft-brand .ft-socials {
+            justify-content: center !important;
+            width: auto !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
           .ft-brand .ft-contact-row {
             width: 100%;
             max-width: 340px;
@@ -145,6 +159,7 @@ const Footer: React.FC = () => {
           }
           .ft-brand-logo {
             margin-bottom: 1.15rem !important;
+            margin-top: ${FC.logoOffsetTopMobile} !important;
           }
           .ft-brand-logo img {
             width: 10rem !important;
@@ -248,7 +263,7 @@ const Footer: React.FC = () => {
         {/* Column 1: Branding */}
         <div className="ft-brand" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {/* Logo */}
-          <div className="ft-brand-logo" style={{ marginBottom: '1.4rem', display: 'flex', justifyContent: 'center' }}>
+          <div className="ft-brand-logo" style={{ marginTop: FC.logoOffsetTopDesktop, marginBottom: '1.4rem', display: 'flex', justifyContent: 'center' }}>
             <img src={logoOver} alt="QuasarCyberTech" style={{ width: FOOTER_LOGO_WIDTH, height: 'auto' }} />
           </div>
 

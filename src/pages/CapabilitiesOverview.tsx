@@ -67,7 +67,7 @@ const CapabilitiesOverview: React.FC = () => {
                                 lineHeight: 1.15,
                                 letterSpacing: '-0.01em',
                             }}>
-                                Cybersecurity <span style={{ color: COLORS.burgundy }}>Capabilities</span>
+                                Core <span style={{ color: COLORS.burgundy }}>Capabilities</span>
                             </h2>
                             <p style={{
                                 color: COLORS.textSub,
@@ -81,9 +81,9 @@ const CapabilitiesOverview: React.FC = () => {
                         </div>
 
                         {/* Grid container with Height set to match homepage cards exactly */}
-                        <div style={{
+                                                <div className="capabilities-overview-grid" style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                                                        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
                             gap: '32px',
                             marginTop: '64px'
                         }}>
@@ -91,6 +91,7 @@ const CapabilitiesOverview: React.FC = () => {
                                 <div key={cap.id}>
                                     <CapabilityCardSimple
                                         title={cap.name}
+                                                                                mobileTitle={cap.navLabel}
                                         desc={cap.cardDescription}
                                         href={`/capabilities/${cap.slug}`}
                                         img={cap.image}
@@ -99,6 +100,25 @@ const CapabilitiesOverview: React.FC = () => {
                             ))}
                         </div>
                     </div>
+
+                                        <style
+                                                dangerouslySetInnerHTML={{
+                                                        __html: `
+                                                        @media (max-width: 64rem) {
+                                                            .capabilities-overview-grid {
+                                                                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                                                            }
+                                                        }
+
+                                                        @media (max-width: 40rem) {
+                                                            .capabilities-overview-grid {
+                                                                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                                                                gap: 1.125rem !important;
+                                                            }
+                                                        }
+                                                    `,
+                                                }}
+                                        />
                 </section>
 
                 <CTASection theme="dark" />

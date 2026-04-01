@@ -5,7 +5,7 @@ import CTASection from '../components/CTASection';
 import PageHero from '../components/PageHero';
 import Seo from '../components/seo/Seo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import { COLORS, GRADIENTS } from '../config/themeConfig';
+import { COLORS, GRADIENTS, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 import { ASSETS } from '@/constants/assets';
 import { createBreadcrumbSchema } from '../seo/schema';
@@ -20,6 +20,13 @@ const qStellarScreenshot = ASSETS.platforms.screenshots.qstellar;
 const qPulseScreenshot = ASSETS.platforms.screenshots.qpulse;
 const qrgtScreenshot = ASSETS.platforms.screenshots.qrgt;
 const qLeapScreenshot = ASSETS.platforms.screenshots.qleap;
+
+const PF = {
+  mobileImageScale: 1.1,
+  mobileSectionPadY: '3rem',
+  mobileScreenshotPad: '0',
+  qPulseLogoHeight: '98px',
+};
 
 const BrowserFrame: React.FC<{
   children: React.ReactNode,
@@ -118,6 +125,7 @@ export default function Platforms() {
         {/* ─── PLATFORM 01: QStellar (LIGHT) ─── */}
         <section
           id="platform-highlights"
+          className="platform-section"
           style={{
             background: '#FCFAF8',
             display: 'flex',
@@ -127,7 +135,7 @@ export default function Platforms() {
             scrollMarginTop: '100px'
           }}>
           {/* Text Column */}
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.burgundy, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>01</span>
             <img src={qStellarLogo} alt="QStellar" style={{ height: '48px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>AI-Powered Asset Intelligence & Vulnerability Management</h2>
@@ -140,11 +148,12 @@ export default function Platforms() {
               Visit QStellar Website <ArrowRight size={18} style={{ marginLeft: '10px' }} />
             </a>
           </div>
-          <div style={{ flex: '1 1 min(100%, 480px)', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
-            <BrowserFrame bgColor="#eef2f6">
+          <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
+            <BrowserFrame bgColor="#eef2f6" width="100%" maxWidth="720px">
               <img
                 src={qStellarScreenshot}
                 alt="Dashboard"
+                className="platform-shot"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </BrowserFrame>
@@ -152,21 +161,21 @@ export default function Platforms() {
         </section>
 
         {/* ─── PLATFORM 02: QPulse (DARK) ─── */}
-        <section style={{
+        <section className="platform-section" style={{
           background: GRADIENTS.HERO_BG,
           display: 'flex',
           flexWrap: 'wrap-reverse',
           alignItems: 'center'
         }}>
-          <div style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
-            <BrowserFrame bgColor="#081026" isDark={true}>
-              <img src={qPulseScreenshot} alt="Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
+            <BrowserFrame bgColor="#081026" isDark={true} width="100%" maxWidth="720px">
+              <img src={qPulseScreenshot} alt="Portal" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>02</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-              <img src={qPulseLogo} alt="QPulse" style={{ height: '80px', width: 'auto', objectFit: 'contain' }} />
+              <img src={qPulseLogo} alt="QPulse" style={{ height: PF.qPulseLogoHeight, width: 'auto', objectFit: 'contain' }} />
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '16px', color: '#ffffff', lineHeight: 1.3, opacity: 0.9 }}>Cybersecurity Intelligence & Insights Portal</h2>
             <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
@@ -181,14 +190,14 @@ export default function Platforms() {
         </section>
 
         {/* ─── PLATFORM 03: QRGT (LIGHT) ─── */}
-        <section id="qrgt" style={{
+        <section id="qrgt" className="platform-section" style={{
           background: '#FCFAF8',
           display: 'flex',
           borderTop: '1px solid rgba(0,0,0,0.05)',
           flexWrap: 'wrap',
           alignItems: 'center'
         }}>
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.burgundy, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>03</span>
             <img src={ASSETS.logos.platforms.qrgtLight} alt="QRGT" style={{ height: '82px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px', marginLeft: '-2px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>Penetration Testing as a Service (PTaaS) Platform</h2>
@@ -201,31 +210,32 @@ export default function Platforms() {
               Explore QRGT Platform <ArrowRight size={18} style={{ marginLeft: '10px' }} />
             </a>
           </div>
-          <div style={{ flex: '1 1 500px', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
-            <BrowserFrame bgColor="#f8fafc">
-              <img src={qrgtScreenshot} alt="Platform" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          <div className="platform-media-col" style={{ flex: '1 1 500px', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
+            <BrowserFrame bgColor="#f8fafc" width="100%" maxWidth="720px">
+              <img src={qrgtScreenshot} alt="Platform" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
         </section>
 
         {/* ─── PLATFORM 04: QLeap (DARK - SYNCED RHYTHM) ─── */}
-        <section style={{
+        <section className="platform-section" style={{
           background: GRADIENTS.HERO_BG,
           display: 'flex',
           flexWrap: 'wrap-reverse',
           borderTop: '1px solid rgba(255,255,255,0.05)',
           alignItems: 'center'
         }}>
-          <div style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
-            <BrowserFrame bgColor="#040b1d" isDark={true}>
+          <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
+            <BrowserFrame bgColor="#040b1d" isDark={true} width="100%" maxWidth="720px">
               <img
                 src={qLeapScreenshot}
                 alt="Simulations"
+                className="platform-shot"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </BrowserFrame>
           </div>
-          <div style={{ flex: '1 1 min(100%, 480px)', padding: '80px 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>04</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '20px' }}>
               <img src={qLeapLogo} alt="QLeap Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain' }} />
@@ -250,23 +260,29 @@ export default function Platforms() {
       <style dangerouslySetInnerHTML={{
         __html: `
         @media (max-width: 768px) {
-          /* Platform sections: reduce padding */
-          section[id='platform-highlights'] > div,
-          section > div {
-            padding: 48px 3rem !important;
+          .platform-section {
+            gap: 1rem !important;
           }
-          section[id='platform-highlights'] img,
-          section img[alt='Dashboard'],
-          section img[alt='Portal'],
-          section img[alt='Platform'],
-          section img[alt='Simulations'] {
-            padding: 24px !important;
+
+          .platform-text-col,
+          .platform-media-col {
+            padding: ${PF.mobileSectionPadY} ${LAYOUT_CONTROLS.global.paddingX} !important;
           }
-        }
-        @media (max-width: 480px) {
-          section > div[style*='padding'] {
-            padding-left: 3rem !important;
-            padding-right: 3rem !important;
+
+          .platform-media-col {
+            padding-top: 0 !important;
+          }
+
+          .platform-shot {
+            transform: scale(${PF.mobileImageScale});
+            transform-origin: center center;
+          }
+
+          .platform-media-col img[alt='Dashboard'],
+          .platform-media-col img[alt='Portal'],
+          .platform-media-col img[alt='Platform'],
+          .platform-media-col img[alt='Simulations'] {
+            padding: ${PF.mobileScreenshotPad} !important;
           }
         }
       `}} />

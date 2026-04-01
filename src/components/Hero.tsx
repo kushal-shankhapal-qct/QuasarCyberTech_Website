@@ -8,6 +8,12 @@ const logoSymbol = ASSETS.logos.qct.icon;
 
 // --- HERO CONFIG (HC) ---
 const HC = {
+  section: {
+    mobile: {
+      paddingTop: "3.125rem",
+      paddingTopSmall: "8.25rem",
+    },
+  },
   vortex: {
     size: "100vh",
     opacity: 0.88,
@@ -15,7 +21,7 @@ const HC = {
     // Mobile Overrides
     mobile: {
       size: "100vw",
-      top: "0%", // Upper half peek
+      top: "100%", // Peek from below
       opacity: 0.15,
       nudgeX: "0%",
     }
@@ -234,7 +240,7 @@ const Hero: React.FC = () => {
             .home-hero-section {
               padding-left: 2rem !important;
               padding-right: 2rem !important;
-              padding-top: 6.5rem !important;
+              padding-top: ${HC.section.mobile.paddingTop} !important;
               padding-bottom: 2rem !important;
               justify-content: center !important;
               align-items: flex-start !important;
@@ -281,7 +287,7 @@ const Hero: React.FC = () => {
           /* ── Small mobile ── */
           @media (max-width: 25rem) {
             .home-hero-section {
-              padding-top: 8.75rem !important;
+              padding-top: ${HC.section.mobile.paddingTopSmall} !important;
             }
             .home-hero-title {
               font-size: 1.7rem !important;

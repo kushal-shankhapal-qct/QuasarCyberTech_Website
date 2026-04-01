@@ -130,6 +130,11 @@ export default function QCTSecureFramework() {
     activeWatermarkIconOffsetYRem: -1.375, // -22px
     activeWatermarkShadow: '0 0 0.75rem rgba(255,255,255,0.18)',
     inactiveWatermarkShadow: '0 0 0.25rem rgba(255,255,255,0.1)',
+    panelTransitionDurationSec: 0.55,
+    panelTransitionEase: [0.22, 1, 0.36, 1] as const,
+    mobileInactiveHeaderTop: '1rem',
+    mobileInactiveHeaderPadX: '1rem',
+    mobileInactiveHeaderPadY: '0rem',
   };
 
   return (
@@ -185,7 +190,14 @@ export default function QCTSecureFramework() {
           const { GhostIcon } = stage;
 
           return (
-            <div
+            <motion.div
+              layout
+              transition={{
+                layout: {
+                  duration: FRAMEWORK_LAYOUT.panelTransitionDurationSec,
+                  ease: FRAMEWORK_LAYOUT.panelTransitionEase,
+                },
+              }}
               key={i}
               onMouseEnter={() => setActiveIdx(i)}
               onClick={() => setActiveIdx(i)}
@@ -234,7 +246,7 @@ export default function QCTSecureFramework() {
 
               {/* Header — Absolute Anchor (Stationary Relative to Panel) */}
               <div
-                className={`absolute top-[2.5rem] left-0 w-full flex items-center transition-all duration-700 z-20 pointer-events-none
+                className={`framework-panel-header ${isActive ? 'is-active' : 'is-inactive'} absolute top-[2.5rem] left-0 w-full flex items-center transition-all duration-700 z-20 pointer-events-none
                            ${isActive ? 'px-[1.5rem] lg:px-[2.5rem] justify-start' : 'px-0 justify-center'}`}
               >
                 <h3 className="text-2xl lg:text-3xl font-bold uppercase tracking-[0.15em] flex items-center pointer-events-auto whitespace-nowrap">
@@ -249,8 +261,8 @@ export default function QCTSecureFramework() {
                     key={`content-${i}`}
                     initial={{ opacity: 0, y: 10, height: 0 }}
                     animate={{ opacity: 1, y: 0, height: "auto" }}
-                    exit={{ opacity: 0, y: -10, height: 0, transition: { duration: 0.2, delay: 0 } }}
-                    transition={{ duration: 0.4, delay: 0.25 }} // Wait for panel to expand
+                    exit={{ opacity: 0, y: -8, height: 0, transition: { duration: 0.28, delay: 0 } }}
+                    transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
                     style={{ overflow: 'hidden' }}
                     className="framework-panel-content w-full h-full pt-[7rem] lg:pt-[7rem] px-[1.5rem] lg:px-[2.5rem] pb-8 flex flex-col relative z-10"
                   >
@@ -276,7 +288,7 @@ export default function QCTSecureFramework() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           );
         })}
       </div>
@@ -306,10 +318,19 @@ export default function QCTSecureFramework() {
             }
             .framework-panel {
               min-height: 9rem;
+              transition-duration: ${FRAMEWORK_LAYOUT.panelTransitionDurationSec}s !important;
             }
             .framework-panel-content {
               padding-top: 5.125rem !important;
               padding-bottom: 1.375rem !important;
+            }
+            .framework-panel-header.is-inactive {
+              justify-content: flex-start !important;
+              top: ${FRAMEWORK_LAYOUT.mobileInactiveHeaderTop} !important;
+              padding-left: ${FRAMEWORK_LAYOUT.mobileInactiveHeaderPadX} !important;
+              padding-right: ${FRAMEWORK_LAYOUT.mobileInactiveHeaderPadX} !important;
+              padding-top: ${FRAMEWORK_LAYOUT.mobileInactiveHeaderPadY} !important;
+              padding-bottom: ${FRAMEWORK_LAYOUT.mobileInactiveHeaderPadY} !important;
             }
             .watermark-text {
               font-size: 6.875rem !important;
