@@ -5,17 +5,16 @@ import HeroBreadcrumb from "./HeroBreadcrumb";
 import ScrollIndicatorButton from "./ScrollIndicatorButton";
 import { ASSETS } from "@/constants/assets";
 
-// Access the new standardization tokens
 const HS = {
   paddingTop: "clamp(7rem, 12vh, 11rem)",
   paddingBottom: "2.5rem",
-  paddingX: "2.5rem",
+  paddingX: "clamp(3rem, 6vw, 7rem)",
   breadcrumbBottom: "1rem",
   titleBottom: "1.5rem",
   descBottom: "1.5rem",
   buttonGap: "1.5rem",
   minHeight: "100vh",
-  contentJustify: "flex-end",
+  contentJustify: "center",
 };
 
 export interface PageHeroProps {
@@ -91,13 +90,14 @@ const PageHero: React.FC<PageHeroProps> = ({
         background: dynamicBg,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center", // ← always center vertically
+        justifyContent: "center",
         paddingLeft: HS.paddingX,
         paddingRight: HS.paddingX,
         paddingTop: paddingTopOverride || HS.paddingTop,
         paddingBottom: HS.paddingBottom,
         overflow: "hidden",
         fontFamily: TYPOGRAPHY.fontBody,
+        boxSizing: "border-box",
       }}
     >
       <div
@@ -106,7 +106,7 @@ const PageHero: React.FC<PageHeroProps> = ({
           position: "relative",
           zIndex: 5,
           width: "100%",
-          maxWidth: "min(65%, 780px)",
+          maxWidth: "min(60%, 860px)",
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -115,11 +115,15 @@ const PageHero: React.FC<PageHeroProps> = ({
       >
         {(breadcrumbPaths || currentName) && (
           <div style={{ marginBottom: HS.breadcrumbBottom }}>
-            <HeroBreadcrumb paths={breadcrumbPaths} current={currentName || ""} />
+            <HeroBreadcrumb
+              paths={breadcrumbPaths}
+              current={currentName || ""}
+            />
           </div>
         )}
 
         <motion.h1
+          className="page-hero-title"
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
@@ -129,13 +133,17 @@ const PageHero: React.FC<PageHeroProps> = ({
             color: COLORS.textOnDark,
             marginBottom: HS.titleBottom,
             lineHeight: 1.1,
+            fontSize: "clamp(3rem, 4.2vw, 4.2rem)",
           }}
         >
           {title}
-          {highlight ? <span style={{ color: COLORS.gold }}> {highlight}</span> : null}
+          {highlight ? (
+            <span style={{ color: COLORS.gold }}> {highlight}</span>
+          ) : null}
         </motion.h1>
 
         <motion.p
+          className="page-hero-subtitle"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
@@ -145,6 +153,7 @@ const PageHero: React.FC<PageHeroProps> = ({
             textAlign: "left",
             marginBottom: HS.descBottom,
             lineHeight: 1.8,
+            fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
             maxWidth: subtitleMaxWidth || "100%",
           }}
         >
@@ -156,7 +165,7 @@ const PageHero: React.FC<PageHeroProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            style={{ marginBottom: '0' }}
+            style={{ marginBottom: "0" }}
           >
             <ScrollIndicatorButton
               targetId={scrollTargetId}
@@ -254,7 +263,7 @@ const PageHero: React.FC<PageHeroProps> = ({
                         </div>
                         <div
                           style={{
-                            fontSize: "0.68rem",
+                            fontSize: "0.75rem",
                             fontWeight: 700,
                             color: "rgba(255,255,255,0.6)",
                             textTransform: "uppercase",
@@ -304,45 +313,100 @@ const PageHero: React.FC<PageHeroProps> = ({
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        @keyframes heroPulse {
-          0%, 100% { opacity: 0.1; transform: translateY(-50%) scale(1); }
-          50% { opacity: 0.2; transform: translateY(-50%) scale(1.05); }
-        }
+          @keyframes heroPulse {
+            0%, 100% { opacity: 0.1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.2; transform: translateY(-50%) scale(1.05); }
+          }
 
-        /* Tablet */
-        @media (max-width: 1024px) {
-          .page-hero-text {
-            max-width: 70% !important;
+          /* ── Large screens ── */
+          @media (min-width: 1400px) {
+            .page-hero-text {
+              max-width: 860px !important;
+            }
           }
-          .page-hero-visual {
-            width: 40% !important;
-          }
-        }
 
-        /* Mobile */
-        @media (max-width: 768px) {
-          .page-hero-section {
-            padding-left: 1.5rem !important;
-            padding-right: 1.5rem !important;
-            padding-top: clamp(6rem, 18vw, 9rem) !important;
-            min-height: 100svh !important;
-            justify-content: center !important;
+          /* ── Desktop ── */
+          @media (min-width: 1025px) {
+            .page-hero-text {
+              max-width: min(60%, 860px) !important;
+            }
           }
-          .page-hero-text {
-            max-width: 100% !important;
-          }
-          .page-hero-visual {
-            display: none !important;
-          }
-        }
 
-        @media (max-width: 480px) {
-          .page-hero-section {
-            padding-left: 1.25rem !important;
-            padding-right: 1.25rem !important;
+          /* ── Tablet landscape ── */
+          @media (max-width: 1024px) {
+            .page-hero-text {
+              max-width: 65% !important;
+            }
+            .page-hero-visual {
+              width: 45% !important;
+            }
+            .page-hero-title {
+              font-size: clamp(2.6rem, 4vw, 3.6rem) !important;
+            }
           }
-        }
-      `,
+
+          /* ── Tablet portrait ── */
+          @media (max-width: 860px) {
+            .page-hero-section {
+              padding-left: 2.5rem !important;
+              padding-right: 2.5rem !important;
+            }
+            .page-hero-text {
+              max-width: 100% !important;
+            }
+            .page-hero-visual {
+              width: 50% !important;
+              opacity: 0.5 !important;
+            }
+            .page-hero-title {
+              font-size: 2.4rem !important;
+            }
+            .page-hero-subtitle {
+              font-size: 1rem !important;
+              text-align: left !important;
+            }
+          }
+
+          /* ── Mobile ── */
+          @media (max-width: 768px) {
+            .page-hero-section {
+              padding-left: 1.75rem !important;
+              padding-right: 1.75rem !important;
+              padding-top: clamp(7rem, 14vh, 9rem) !important;
+              min-height: 100svh !important;
+              justify-content: center !important;
+            }
+            .page-hero-text {
+              max-width: 100% !important;
+              padding-bottom: 2rem !important;
+            }
+            .page-hero-visual {
+              display: none !important;
+            }
+            .page-hero-title {
+              font-size: 2rem !important;
+              line-height: 1.2 !important;
+              margin-bottom: 1rem !important;
+            }
+            .page-hero-subtitle {
+              font-size: 0.95rem !important;
+              line-height: 1.7 !important;
+              text-align: left !important;
+              margin-bottom: 1.5rem !important;
+            }
+          }
+
+          /* ── Small mobile ── */
+          @media (max-width: 480px) {
+            .page-hero-section {
+              padding-left: 1.5rem !important;
+              padding-right: 1.5rem !important;
+            }
+            .page-hero-title {
+              font-size: 1.8rem !important;
+            }
+          }
+        `,
         }}
       />
     </section>
