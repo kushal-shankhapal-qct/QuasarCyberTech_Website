@@ -162,52 +162,119 @@ export const TYPOGRAPHY = {
   caption: { fontSize: '0.6875rem', fontWeight: 400, letterSpacing: '0.04rem' },
 };
 
+// ─── GRADIENT ENGINE ──────────────────────────────────────────────
+// Arranged by Page/Purpose for visual maintenance.
+// Desktop and Mobile presets are defined once and mapped to CSS variables.
+export const GRADIENT_PRESETS = {
+  desktop: {
+    // 1: Hero & Global Presets
+    HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    DARK_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+
+    // 2: Home Page Sections
+    HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 25% 47%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 20% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
+    HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
+
+    // 3: Careers Page
+    CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    CAREERS_WHY_JOIN_BG: 'radial-gradient(circle at 70% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%)',
+    CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 10%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 80%)',
+
+    // 4: Capabilities Pages
+    CAPABILITIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    CAPABILITY_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+
+    // 5: Industry Pages
+    INDUSTRIES_OVERVIEW_HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    INDUSTRY_INDIVIDUAL_HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    INDUSTRY_CHALLENGES_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 55%)',
+
+    // 6: About & Vision
+    ABOUT_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    ABOUT_ACHIEVEMENT_BG: 'radial-gradient(circle at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
+    ABOUT_MISSION_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+
+    // 7: Insights & Individual Blog
+    BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    BLOGS_OVERVIEW_NEWSLETTER_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    BLOG_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+
+    // 8: Contact & Platforms
+    CONTACT_RIGHT_CARD_BG: 'radial-gradient(circle at 50% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%)',
+    PLATFORMS_PAGE_BG: '#040B1D',
+  },
+  mobile: {
+    // 1: Hero & Global Presets
+    HERO_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    DARK_SECTION_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+
+    // 2: Home Page Sections
+    HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
+    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 58%)',
+    HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 58%)',
+
+    // 3: Careers Page
+    CAREERS_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
+    CAREERS_WHY_JOIN_BG: 'radial-gradient(circle at 50% 112%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 68%)',
+    CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 84%)',
+
+    // 4: Capabilities Pages
+    CAPABILITIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
+    CAPABILITY_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+
+    // 5: Industry Pages
+    INDUSTRIES_OVERVIEW_HERO_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    INDUSTRY_INDIVIDUAL_HERO_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    INDUSTRY_CHALLENGES_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 62%)',
+
+    // 6: About & Vision
+    ABOUT_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
+    ABOUT_ACHIEVEMENT_BG: 'radial-gradient(circle at 50% 110%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
+    ABOUT_MISSION_SECTION_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+
+    // 7: Insights & Individual Blog
+    BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    BLOGS_OVERVIEW_NEWSLETTER_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    BLOG_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+
+    // 8: Contact & Platforms
+    CONTACT_RIGHT_CARD_BG: 'radial-gradient(circle at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 66%)',
+    PLATFORMS_PAGE_BG: '#040B1D',
+  },
+} as const;
+
 // ─── GRADIENTS ───
+// All components should consume these keys. CSS variables switch desktop/mobile.
 export const GRADIENTS = {
-
-
-  // ─── GRADIENT ENGINE ──────────────────────────────────────────────
-  // Arranged by Page/Purpose for visual maintenance.
-
-  // 1: Hero & Global Presets
-  HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  DARK_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-
-  // 2: Home Page Sections
-  HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 25% 47%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-  HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 20% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
-  HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
-
-  // 3: Careers Page
-  CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-  CAREERS_WHY_JOIN_BG: 'radial-gradient(circle at 70% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%)',
-  CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 10%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 80%)',
-
-  // 4: Capabilities Pages
-  CAPABILITIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-  CAPABILITY_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-
-  // 5: Industry Pages
-  INDUSTRIES_OVERVIEW_HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  INDUSTRY_INDIVIDUAL_HERO_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  INDUSTRY_CHALLENGES_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 55%)',
-
-  // 6: About & Vision
-  ABOUT_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-  ABOUT_ACHIEVEMENT_BG: 'radial-gradient(circle at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
-  ABOUT_MISSION_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-
-  // 7: Insights & Individual Blog
-  BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  BLOGS_OVERVIEW_NEWSLETTER_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-  BLOG_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-
-  // 8: Contact & Platforms
-  CONTACT_RIGHT_CARD_BG: 'radial-gradient(circle at 50% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%)',
-  PLATFORMS_PAGE_BG: '#040B1D',
-};
+  HERO_BG: 'var(--gradient-hero-bg)',
+  DARK_SECTION_BG: 'var(--gradient-dark-section-bg)',
+  HOME_FRAMEWORK_BG: 'var(--gradient-home-framework-bg)',
+  HOME_PLATFORMS_BG: 'var(--gradient-home-platforms-bg)',
+  HOME_INSIGHTS_BG: 'var(--gradient-home-insights-bg)',
+  HOME_LEADERSHIP_BG: 'var(--gradient-home-leadership-bg)',
+  HOME_TESTIMONIALS_BG: 'var(--gradient-home-testimonials-bg)',
+  CAREERS_HERO_BG: 'var(--gradient-careers-hero-bg)',
+  CAREERS_WHY_JOIN_BG: 'var(--gradient-careers-why-join-bg)',
+  CAREERS_QLEAP_BG: 'var(--gradient-careers-qleap-bg)',
+  CAPABILITIES_OVERVIEW_HERO_BG: 'var(--gradient-capabilities-overview-hero-bg)',
+  CAPABILITY_INDIVIDUAL_HERO_BG: 'var(--gradient-capability-individual-hero-bg)',
+  INDUSTRIES_OVERVIEW_HERO_BG: 'var(--gradient-industries-overview-hero-bg)',
+  INDUSTRY_INDIVIDUAL_HERO_BG: 'var(--gradient-industry-individual-hero-bg)',
+  INDUSTRY_CHALLENGES_BG: 'var(--gradient-industry-challenges-bg)',
+  ABOUT_HERO_BG: 'var(--gradient-about-hero-bg)',
+  ABOUT_ACHIEVEMENT_BG: 'var(--gradient-about-achievement-bg)',
+  ABOUT_MISSION_SECTION_BG: 'var(--gradient-about-mission-section-bg)',
+  BLOGS_OVERVIEW_HERO_BG: 'var(--gradient-blogs-overview-hero-bg)',
+  BLOGS_OVERVIEW_NEWSLETTER_BG: 'var(--gradient-blogs-overview-newsletter-bg)',
+  BLOG_INDIVIDUAL_HERO_BG: 'var(--gradient-blog-individual-hero-bg)',
+  CONTACT_RIGHT_CARD_BG: 'var(--gradient-contact-right-card-bg)',
+  PLATFORMS_PAGE_BG: 'var(--gradient-platforms-page-bg)',
+} as const;
 
 // ─── SECTION BACKGROUNDS ───
 export const SECTION_BACKGROUNDS = {

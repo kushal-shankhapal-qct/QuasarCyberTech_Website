@@ -1,5 +1,5 @@
 import React from "react";
-import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from "../config/themeConfig";
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS, GRADIENTS } from "../config/themeConfig";
 import { motion } from "framer-motion";
 import HeroBreadcrumb from "./HeroBreadcrumb";
 import ScrollIndicatorButton from "./ScrollIndicatorButton";
@@ -26,6 +26,7 @@ export interface PageHeroProps {
   image?: string;
   imageKeyword?: string;
   imageRotate?: string;
+  imageRotateMobile?: string;
   imageScale?: number;
   imageOpacity?: number;
   imagePosition?: string;
@@ -57,6 +58,7 @@ const PageHero: React.FC<PageHeroProps> = ({
   currentName,
   image,
   imageRotate = "0deg",
+  imageRotateMobile,
   imageScale = 1.0,
   imageOpacity = 0.8,
   imagePosition = "center center",
@@ -81,7 +83,11 @@ const PageHero: React.FC<PageHeroProps> = ({
 }) => {
   const dynamicBg =
     backgroundOverride ||
+    GRADIENTS.HERO_BG ||
     `radial-gradient(circle at ${gradientCenter}, rgba(56,8,26,1) 0%, rgba(0,1,18,1) ${gradientRadius})`;
+
+  const hasVisualData = Boolean(rightContent || metrics || image);
+  const imageOnlyVisual = Boolean(image && !rightContent && !metrics);
 
   return (
     <section
@@ -179,9 +185,9 @@ const PageHero: React.FC<PageHeroProps> = ({
         )}
       </div>
 
-      {visualVariant !== "none" && (
+      {visualVariant !== "none" && hasVisualData && (
         <div
-          className="page-hero-visual"
+          className={`page-hero-visual ${imageOnlyVisual ? "page-hero-visual--image-only" : ""}`.trim()}
           style={{
             position: "absolute",
             right: 0,
@@ -193,6 +199,7 @@ const PageHero: React.FC<PageHeroProps> = ({
           }}
         >
           <div
+            className="page-hero-visual-mask"
             style={{
               width: "100%",
               height: "100%",
@@ -302,10 +309,13 @@ const PageHero: React.FC<PageHeroProps> = ({
                       height: "100%",
                       objectFit: imageFit,
                       objectPosition: imagePosition,
-                      transform: `scale(${imageScale}) rotate(${imageRotate})`,
+                      transform: "scale(var(--hero-image-scale)) rotate(var(--hero-image-rotate))",
                       transition: "transform 0.5s ease",
                       opacity: imageOpacity,
-                    }}
+                      ["--hero-image-scale" as string]: String(imageScale),
+                      ["--hero-image-rotate" as string]: imageRotate,
+                      ["--hero-image-rotate-mobile" as string]: imageRotateMobile || imageRotate,
+                    } as React.CSSProperties}
                   />
                 )}
               </div>
@@ -383,9 +393,30 @@ const PageHero: React.FC<PageHeroProps> = ({
             .page-hero-text {
               max-width: 100% !important;
               padding-bottom: 2rem !important;
+              position: relative !important;
+              z-index: 5 !important;
             }
             .page-hero-visual {
               display: none !important;
+            }
+            .page-hero-visual--image-only {
+              display: block !important;
+              width: 100% !important;
+              left: 0 !important;
+              right: 0 !important;
+              top: auto !important;
+              bottom: 0 !important;
+              height: 54% !important;
+              opacity: 0.45 !important;
+            }
+            .page-hero-visual--image-only .page-hero-visual-mask {
+              mask-image: linear-gradient(to top, black 18%, transparent 86%) !important;
+              -webkit-mask-image: linear-gradient(to top, black 18%, transparent 86%) !important;
+              align-items: flex-end !important;
+            }
+            .page-hero-visual--image-only img {
+              object-position: center bottom !important;
+              transform: scale(var(--hero-image-scale)) rotate(var(--hero-image-rotate-mobile)) !important;
             }
             .page-hero-title {
               font-size: 2rem !important;

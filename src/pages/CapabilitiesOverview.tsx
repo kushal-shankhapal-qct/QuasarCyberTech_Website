@@ -42,6 +42,7 @@ const CapabilitiesOverview: React.FC = () => {
                 currentName="Capabilities"
                 image={ASSETS.capabilities.worldwideConnection}
                 imageRotate="-90deg"
+                imageRotateMobile="0deg"
                 imageScale={1.3}
                 scrollTargetId="pillars"
                 scrollButtonText="Explore Capabilities"
