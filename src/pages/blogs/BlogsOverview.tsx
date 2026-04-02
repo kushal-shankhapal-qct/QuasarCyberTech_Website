@@ -15,6 +15,7 @@ import { createBreadcrumbSchema } from '../../seo/schema';
 // ─── Design tokens ───────────────────────────────────────────────────────────
 const DARK_BG = '#000112';
 const GOLD = COLORS.gold;
+const BLOGS_DESKTOP_SIDE_MARGIN = '3rem';
 
 export default function BlogsOverview() {
   // State
@@ -130,7 +131,7 @@ export default function BlogsOverview() {
             transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
           }}
         >
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: `20px ${LAYOUT_CONTROLS.global.paddingX}` }}>
+          <div className="blogs-filter-inner" style={{ width: '100%', margin: '0 auto', padding: `20px ${BLOGS_DESKTOP_SIDE_MARGIN}` }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -202,8 +203,8 @@ export default function BlogsOverview() {
         </div>
 
         {/* ─── MAIN CONTENT ─── */}
-        <section style={{ background: DARK_BG, padding: `48px ${LAYOUT_CONTROLS.global.paddingX} 80px` }}>
-          <div className="blogs-main-layout" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '64px', alignItems: 'flex-start' }}>
+        <section className="blogs-content-section" style={{ background: DARK_BG, padding: `48px ${BLOGS_DESKTOP_SIDE_MARGIN} 80px` }}>
+          <div className="blogs-main-layout" style={{ width: '100%', margin: '0 auto', display: 'flex', gap: '64px', alignItems: 'flex-start' }}>
 
             {/* LEFT: Article Grid */}
             <div style={{ flex: '1', minWidth: 0 }}>
@@ -245,6 +246,16 @@ export default function BlogsOverview() {
         dangerouslySetInnerHTML={{
           __html: `
             @media (max-width: 64rem) {
+              .blogs-filter-inner {
+                padding-left: var(--page-padding-x) !important;
+                padding-right: var(--page-padding-x) !important;
+              }
+
+              .blogs-content-section {
+                padding-left: var(--page-padding-x) !important;
+                padding-right: var(--page-padding-x) !important;
+              }
+
               .blogs-main-layout {
                 flex-direction: column !important;
                 gap: 2rem !important;
@@ -280,7 +291,7 @@ function NewsletterCTA() {
       padding: '100px 3rem',
     }}>
       <div style={{
-        maxWidth: '1200px',
+        width: '100%',
         margin: '0 auto',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',

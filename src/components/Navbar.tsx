@@ -241,10 +241,7 @@ const Navbar: React.FC = () => {
   const [mobileExpandedGroup, setMobileExpandedGroup] = useState<number | null>(null);
   const scrolledRef = useRef(false);
   const showDesktopNavRef = useRef(true);
-  const [showDesktopNav, setShowDesktopNav] = useState<boolean>(() => {
-    if (typeof window === "undefined") return true;
-    return window.innerWidth >= NC.desktopLayout.enabledMinWidth;
-  });
+  const [showDesktopNav, setShowDesktopNav] = useState<boolean>(false);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);

@@ -43,6 +43,7 @@ const aboutBreadcrumbSchema = createBreadcrumbSchema([
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
 ]);
+const ABOUT_DESKTOP_SIDE_MARGIN = "3rem";
 
 // --- Metrics Helper ---
 const MetricRow: React.FC<{
@@ -513,8 +514,8 @@ export default function About() {
   const years = Object.keys(milestonesByYear).sort();
 
   const sectionPad = {
-    paddingLeft: LAYOUT_CONTROLS.section.paddingX,
-    paddingRight: LAYOUT_CONTROLS.section.paddingX,
+    paddingLeft: ABOUT_DESKTOP_SIDE_MARGIN,
+    paddingRight: ABOUT_DESKTOP_SIDE_MARGIN,
   };
 
   return (
@@ -560,6 +561,7 @@ export default function About() {
 
         {/* ── 2: WHO WE ARE ── */}
         <section
+          className="about-content-section"
           id="who-we-are"
           style={{
             background: SECTION_BACKGROUNDS.LIGHT,
@@ -572,7 +574,7 @@ export default function About() {
           <div
             className="about-who-grid"
             style={{
-              maxWidth: "1200px",
+              width: "100%",
               margin: "0 auto",
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -672,6 +674,7 @@ export default function About() {
 
         {/* ── 3: MISSION & VISION ── */}
         <section
+          className="about-content-section"
           style={{
             background: GRADIENTS.ABOUT_MISSION_SECTION_BG,
             paddingTop: "80px",
@@ -680,7 +683,7 @@ export default function About() {
             color: "#FFFFFF",
           }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ width: "100%", margin: "0 auto" }}>
             <div style={{ marginBottom: "clamp(32px, 5vw, 64px)" }}>
               <div
                 style={{
@@ -783,6 +786,7 @@ export default function About() {
 
         {/* ── 4: CORE VALUES ── */}
         <section
+          className="about-content-section"
           style={{
             background: SECTION_BACKGROUNDS.LIGHT,
             paddingTop: "clamp(48px, 6vw, 80px)",
@@ -790,7 +794,7 @@ export default function About() {
             ...sectionPad,
           }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ width: "100%", margin: "0 auto" }}>
             <h2
               style={{
                 fontSize: "clamp(22px, 3vw, 36px)",
@@ -875,6 +879,7 @@ export default function About() {
 
         {/* ── 5: GLOBAL PRESENCE MAP ── */}
         <section
+          className="about-content-section"
           style={{
             background: GRADIENTS.HERO_BG,
             paddingTop: "clamp(48px, 6vw, 80px)",
@@ -885,7 +890,7 @@ export default function About() {
           <div
             className="about-map-grid"
             style={{
-              maxWidth: "1240px",
+              width: "100%",
               margin: "0 auto",
               display: "grid",
               gridTemplateColumns: "minmax(240px, 0.9fr) minmax(0, 1.7fr)",
@@ -1148,6 +1153,7 @@ export default function About() {
 
         {/* ── 7: TIMELINE MILESTONES ── */}
         <section
+          className="about-content-section"
           style={{
             background: "#f8f7f5",
             paddingTop: "clamp(60px, 8vw, 90px)",
@@ -1155,7 +1161,7 @@ export default function About() {
             ...sectionPad,
           }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ width: "100%", margin: "0 auto" }}>
             {/* Header */}
             <div style={{ marginBottom: "48px" }}>
               <div
@@ -1327,6 +1333,13 @@ export default function About() {
         @media (max-width: 640px) {
           .ms-cards-grid {
             grid-template-columns: 1fr !important;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .about-content-section {
+            padding-left: var(--page-padding-x) !important;
+            padding-right: var(--page-padding-x) !important;
           }
         }
       `,

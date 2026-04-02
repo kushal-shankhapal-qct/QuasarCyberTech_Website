@@ -114,8 +114,8 @@ const BlogIndividual: React.FC = () => {
                     currentName="Article"
                 />
 
-                <section style={{ padding: '80px 3rem' }}>
-                    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                <section className="blog-individual-content" style={{ padding: '80px 3rem' }}>
+                    <div style={{ width: '100%', margin: '0 auto' }}>
                         
                         {/* Meta bar */}
                         <div style={{ 
@@ -200,6 +200,19 @@ const BlogIndividual: React.FC = () => {
                     </div>
                 </section>
             </main>
+
+            <style
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        @media (max-width: 64rem) {
+                            .blog-individual-content {
+                                padding-left: var(--page-padding-x) !important;
+                                padding-right: var(--page-padding-x) !important;
+                            }
+                        }
+                    `,
+                }}
+            />
 
             <Footer />
         </div>
