@@ -5,6 +5,26 @@ import { routes } from './App';
 import './styles.css';
 
 const patchBrowserLogging = () => {
+  const shouldRedirectTo404 = (value: unknown): boolean => {
+    const text = typeof value === 'string'
+      ? value
+      : value instanceof Error
+        ? `${value.message} ${value.stack || ''}`
+        : JSON.stringify(value || '');
+
+    return (
+      /Unexpected token\s*</i.test(text) ||
+      /<!DOCTYPE\s+html/i.test(text) ||
+      /Minified React error #418/i.test(text) ||
+      /is not valid JSON/i.test(text)
+    );
+  };
+
+  const redirectTo404 = () => {
+    if (window.location.pathname === '/404') return;
+    window.location.assign('/404');
+  };
+
   const postToParent = (level: string, ...args: any[]): void => {
     if (window.parent !== window) {
       window.parent.postMessage(
@@ -19,6 +39,11 @@ const patchBrowserLogging = () => {
   };
 
   window.onerror = function (message, source, lineno, colno, error) {
+    const blob = `${String(message || '')} ${String(error?.message || '')}`;
+    if (shouldRedirectTo404(blob)) {
+      redirectTo404();
+    }
+
     postToParent('error', '[Meku_Error_Caught]', {
       message,
       source,
@@ -29,6 +54,10 @@ const patchBrowserLogging = () => {
   };
 
   window.onunhandledrejection = function (event) {
+    if (shouldRedirectTo404(event.reason)) {
+      redirectTo404();
+    }
+
     postToParent('error', '[Meku_Error_Caught]', { reason: event.reason });
   };
 

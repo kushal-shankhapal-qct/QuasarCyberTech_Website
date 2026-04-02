@@ -78,6 +78,10 @@ export const routes: RouteRecord[] = [
         lazy: lazyPage(() => import('./src/pages/NotFound')),
       },
       {
+        path: '403',
+        lazy: lazyPage(() => import('./src/pages/Forbidden')),
+      },
+      {
         path: '*',
         lazy: lazyPage(() => import('./src/pages/NotFound')),
       },

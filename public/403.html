@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>403 | QuasarCyberTech</title>
+    <style>
+      :root {
+        --gold: #d6b05c;
+        --burgundy: #6b1530;
+        --text: #ffffff;
+        --muted: rgba(255, 255, 255, 0.72);
+        --bg: radial-gradient(circle at 20% 60%, rgba(56, 8, 26, 1) 0%, rgba(0, 1, 18, 1) 55%);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+        text-align: center;
+      }
+      .eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+      h1 {
+        margin: 0 0 1rem;
+        font-size: clamp(2.4rem, 5.8vw, 3.8rem);
+        line-height: 1.1;
+      }
+      h1 span {
+        color: var(--gold);
+      }
+      p {
+        margin: 0 auto 2rem;
+        max-width: 680px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 1rem;
+      }
+      a {
+        display: inline-block;
+        text-decoration: none;
+        color: #fff;
+        background: var(--burgundy);
+        border-radius: 4px;
+        padding: 1rem 2.25rem;
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        text-transform: uppercase;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 8px 24px rgba(107, 21, 48, 0.25);
+      }
+      a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(107, 21, 48, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section>
+        <div class="eyebrow">403 ERROR</div>
+        <h1>Access <span>Forbidden</span></h1>
+        <p>
+          This resource is restricted or unavailable. If you believe this is an error, please contact the
+          QuasarCyberTech team.
+        </p>
+        <a href="/">Return to Home</a>
+      </section>
+    </main>
+  </body>
+</html>
