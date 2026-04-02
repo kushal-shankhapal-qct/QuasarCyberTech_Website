@@ -13,6 +13,16 @@ const assertJsonResponse = (res: Response) => {
   }
 };
 
+const safeReadJson = async (res: Response) => {
+  const body = await res.text();
+  try {
+    return JSON.parse(body);
+  } catch {
+    const snippet = body.slice(0, 120).replace(/\s+/g, ' ').trim();
+    throw new Error(`Invalid JSON response body${snippet ? `: ${snippet}` : ''}`);
+  }
+};
+
 /**
  * Normalizes Strapi API response format to match the internal BlogPost interface.
  */
@@ -45,7 +55,7 @@ export async function fetchBlogs(): Promise<BlogPost[]> {
     const res = await fetch(`${API_URL}/blogs?populate=*`);
     if (!res.ok) throw new Error('CMS unreachable');
     assertJsonResponse(res);
-    const json = await res.json();
+    const json = await safeReadJson(res);
     return json.data.map(normalizeBlog);
   } catch (error) {
     console.warn('Using static fallback for blogs list:', error);
@@ -62,7 +72,7 @@ export async function fetchBlogBySlug(slug: string): Promise<BlogPost | undefine
     const res = await fetch(`${API_URL}/blogs?filters[slug][$eq]=${slug}&populate=*`);
     if (!res.ok) throw new Error('CMS unreachable');
     assertJsonResponse(res);
-    const json = await res.json();
+    const json = await safeReadJson(res);
     if (json.data && json.data.length > 0) {
       return normalizeBlog(json.data[0]);
     }

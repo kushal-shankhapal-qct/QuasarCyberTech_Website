@@ -1,5 +1,6 @@
 import React from 'react';
 import type { RouteRecord } from 'vite-react-ssg';
+import { Navigate } from 'react-router-dom';
 
 import RootLayout from './src/layouts/RootLayout';
 import { blogsData } from './src/data/blogsData';
@@ -23,8 +24,12 @@ export const routes: RouteRecord[] = [
         lazy: lazyPage(() => import('./src/pages/Home')),
       },
       {
-        path: 'about',
+        path: 'aboutus',
         lazy: lazyPage(() => import('./src/pages/About')),
+      },
+      {
+        path: 'about',
+        element: <Navigate to="/aboutus" replace />,
       },
       {
         path: 'platforms',

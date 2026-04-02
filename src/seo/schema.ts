@@ -132,7 +132,7 @@ export const createAboutPageSchema = () => ({
   name: `About ${SITE_NAME}`,
   description:
     'QuasarCyberTech is an enterprise cybersecurity consulting and engineering company providing advisory, offensive security, managed defense, cloud security, and risk governance services.',
-  url: absoluteUrl('/about'),
+  url: absoluteUrl('/aboutus'),
   mainEntity: {
     '@type': 'Organization',
     name: SITE_NAME,

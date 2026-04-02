@@ -24,7 +24,7 @@ const getPriority = (route: string) => {
   if (route === '/') return '1.0';
   if (route === '/capabilities' || route === '/industries' || route === '/blogs') return '0.9';
   if (route.startsWith('/capabilities/') || route.startsWith('/industries/') || route.startsWith('/blogs/')) return '0.8';
-  if (route === '/about' || route === '/platforms' || route === '/contact' || route === '/careers') return '0.7';
+  if (route === '/aboutus' || route === '/platforms' || route === '/contact' || route === '/careers') return '0.7';
   return '0.5';
 };
 

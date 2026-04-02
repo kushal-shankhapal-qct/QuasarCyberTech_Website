@@ -88,5 +88,5 @@ export const navigationConfig = [
   // Blogs: plain link, no dropdown
   { label: 'Blogs', href: '/blogs' },
   // About Us: plain link, no dropdown
-  { label: 'About Us', href: '/about' },
+  { label: 'About Us', href: '/aboutus' },
 ];

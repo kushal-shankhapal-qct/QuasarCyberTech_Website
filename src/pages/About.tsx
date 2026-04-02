@@ -52,7 +52,7 @@ const LOCATION_ZOOM_CONFIG: Record<string, { center: [number, number]; zoom: num
 };
 const aboutBreadcrumbSchema = createBreadcrumbSchema([
   { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
+  { name: "About", path: "/aboutus" },
 ]);
 const ABOUT_DESKTOP_SIDE_MARGIN = "3rem";
 
@@ -591,12 +591,12 @@ export default function About() {
       <Seo
         title="About QuasarCyberTech — Our Mission, Values & Story"
         description="Learn about QuasarCyberTech — an enterprise cybersecurity consulting and engineering firm committed to building a safer digital world through offensive security, advisory, and managed defense."
-        path="/about"
+        path="/aboutus"
         image={ASSETS.capabilities.advisory}
         jsonLd={[
           createBreadcrumbSchema([
             { name: 'Home', path: '/' },
-            { name: 'About', path: '/about' },
+            { name: 'About', path: '/aboutus' },
           ]),
           createAboutPageSchema(),
         ]}

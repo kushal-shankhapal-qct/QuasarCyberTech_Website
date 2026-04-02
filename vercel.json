@@ -4,7 +4,12 @@
   "redirects": [
     {
       "source": "/who-we-are",
-      "destination": "/about",
+      "destination": "/aboutus",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/aboutus",
       "permanent": true
     }
   ],

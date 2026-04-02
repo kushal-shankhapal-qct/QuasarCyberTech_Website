@@ -13,6 +13,8 @@ import { createBreadcrumbSchema } from '../seo/schema';
 
 
 const CapabilitiesOverview: React.FC = () => {
+    const CAPABILITIES_SIDE_MARGIN = '3rem';
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'instant' });
     }, []);
@@ -53,9 +55,12 @@ const CapabilitiesOverview: React.FC = () => {
 
             <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
                 {/* ─── SECTION 2: CAPABILITIES GRID (LIGHT) ─── */}
-                <section id="pillars" style={{
+                <section id="pillars" className="capabilities-overview-section" style={{
                     background: '#FFFFFF', // Use Pure White to match Homepage grid background
-                    padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX} ${LAYOUT_CONTROLS.section.paddingBottom}`
+                    paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+                    paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+                    paddingLeft: CAPABILITIES_SIDE_MARGIN,
+                    paddingRight: CAPABILITIES_SIDE_MARGIN,
                 }}>
                     <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
                         <div style={{ marginBottom: '48px' }}>
@@ -112,6 +117,11 @@ const CapabilitiesOverview: React.FC = () => {
                                                         }
 
                                                         @media (max-width: 40rem) {
+                                                            .capabilities-overview-section {
+                                                                padding-left: 1rem !important;
+                                                                padding-right: 1rem !important;
+                                                            }
+
                                                             .capabilities-overview-grid {
                                                                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
                                                                 gap: 1.125rem !important;
