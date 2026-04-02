@@ -1,10 +1,23 @@
 import { ViteReactSSG } from 'vite-react-ssg';
-import { HelmetProvider } from 'react-helmet-async';
 
 import { routes } from './App';
 import './styles.css';
 
 const patchBrowserLogging = () => {
+  const BROWSER_NOISE_PATTERN = /(chrome-extension:|moz-extension:|safari-extension:|ERR_BLOCKED_BY_CLIENT)/i;
+
+  const isSameOriginAssetSource = (source?: string): boolean => {
+    if (!source) return false;
+    if (BROWSER_NOISE_PATTERN.test(source)) return false;
+
+    try {
+      const url = new URL(source, window.location.href);
+      return url.origin === window.location.origin && /\/assets\/.*\.js$/i.test(url.pathname);
+    } catch {
+      return false;
+    }
+  };
+
   const shouldRedirectTo404 = (value: unknown): boolean => {
     const text = typeof value === 'string'
       ? value
@@ -12,11 +25,14 @@ const patchBrowserLogging = () => {
         ? `${value.message} ${value.stack || ''}`
         : JSON.stringify(value || '');
 
+    if (BROWSER_NOISE_PATTERN.test(text)) {
+      return false;
+    }
+
     return (
       /Unexpected token\s*</i.test(text) ||
       /<!DOCTYPE\s+html/i.test(text) ||
-      /Minified React error #418/i.test(text) ||
-      /is not valid JSON/i.test(text)
+      /Minified React error #418/i.test(text)
     );
   };
 
@@ -40,7 +56,7 @@ const patchBrowserLogging = () => {
 
   window.onerror = function (message, source, lineno, colno, error) {
     const blob = `${String(message || '')} ${String(error?.message || '')}`;
-    if (shouldRedirectTo404(blob)) {
+    if (isSameOriginAssetSource(source) && shouldRedirectTo404(blob)) {
       redirectTo404();
     }
 
@@ -54,7 +70,14 @@ const patchBrowserLogging = () => {
   };
 
   window.onunhandledrejection = function (event) {
-    if (shouldRedirectTo404(event.reason)) {
+    const reasonText = typeof event.reason === 'string'
+      ? event.reason
+      : `${event.reason?.message || ''} ${event.reason?.stack || ''}`;
+
+    const hasSameOriginBundleInStack =
+      reasonText.includes(window.location.origin) && /\/assets\/.*\.js/i.test(reasonText);
+
+    if (hasSameOriginBundleInStack && shouldRedirectTo404(event.reason)) {
       redirectTo404();
     }
 
@@ -78,9 +101,7 @@ export const createRoot = ViteReactSSG(
       v7_relativeSplatPath: true,
     },
   },
-  ({ isClient, app }) => {
-    // Wrap the entire app in HelmetProvider for react-helmet-async to work
-    // during both SSG pre-rendering and client hydration
+  ({ isClient }) => {
     if (isClient) {
       patchBrowserLogging();
     }
