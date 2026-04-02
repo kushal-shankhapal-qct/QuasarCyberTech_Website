@@ -5,6 +5,12 @@ import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, BRAND_CONTROLS, TY
 
 const METRICS_DURATION = 0.8; // Faster animation as requested
 
+const getMetricLabelMaxWidth = (label: string) => {
+    if (label.includes('Vulnerabilities')) return 'min(14rem, 100%)';
+    if (label.includes('Monitoring')) return 'min(11rem, 100%)';
+    return 'min(10rem, 100%)';
+};
+
 /* ───────── COUNT-UP COMPONENT ───────── */
 const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end: number; suffix: string; label: string; delay: number; duration: number; isDark?: boolean }) => {
     const [count, setCount] = React.useState(0);
@@ -58,12 +64,18 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
     };
 
     return (
-        <div ref={ref} className="relative flex flex-col items-center justify-center w-full py-6 px-4">
-            <div className="relative z-10 flex flex-col items-center">
-                <div className="relative mb-2 flex flex-row items-end justify-center">
+        <div ref={ref} className="relative flex flex-col items-center justify-center w-full min-w-0 py-5 sm:py-6 px-4 sm:px-5">
+            <div className="relative z-10 flex w-full flex-col items-center">
+                <div className="relative mb-2 flex flex-row items-end justify-center max-w-full">
                     <div className="relative inline-flex flex-col items-center">
-                        <div className="flex flex-row items-center">
-                            <span style={{ ...TYPOGRAPHY.metricNumber, color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor }}>
+                        <div className="flex flex-row items-center whitespace-nowrap">
+                            <span
+                                style={{
+                                    ...TYPOGRAPHY.metricNumber,
+                                    fontSize: 'clamp(2.3rem, 7vw, 4rem)',
+                                    color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor
+                                }}
+                            >
                                 {end > 999 ? count.toLocaleString() : count}
                             </span>
                             {renderSuffix()}
@@ -82,11 +94,13 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
 
                 {/* Descriptor */}
                 <div
-                    className={`mt-6 text-center whitespace-pre-line ${label.includes('Monitoring') ? 'max-w-[7.5rem]' : 'max-w-[9.375rem]'}`}
+                    className="mt-5 sm:mt-6 text-center whitespace-pre-line text-balance"
                     style={{
                         ...TYPOGRAPHY.metricLabel,
+                        fontSize: 'clamp(0.7rem, 1.9vw, 0.75rem)',
                         color: isDark ? 'rgba(255,255,255,0.5)' : BRAND_CONTROLS.metricsLabelColor,
-                        lineHeight: '1.4'
+                        lineHeight: '1.45',
+                        maxWidth: getMetricLabelMaxWidth(label)
                     }}
                 >
                     {label}
@@ -107,10 +121,10 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
     // ─────────────────────────────────────────────────────────────────────
 
     const metrics = [
-        { value: 120, suffix: '+', label: 'Security Engagements' },
-        { value: 15, suffix: '+', label: 'Countries Served' },
-        { value: 70, suffix: '+', label: 'Enterprise Apps Assessed' },
-        { value: 24, suffix: '×7', label: 'Security Operations\nMonitoring' }
+        { value: 60, suffix: '+', label: 'Security Engagements' },
+        { value: 2000, suffix: '+', label: 'Security Vulnerabilities Reported' },
+        { value: 100, suffix: '%', label: 'Client Retention' },
+        { value: 24, suffix: '*7', label: 'Security Operations\nMonitoring' }
     ];
 
     return (
@@ -147,11 +161,11 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
                 }}
             >
                 {/* 4-column horizontal on desktop, 2x2 on mobile/tablet */}
-                <div className="relative z-[30] grid grid-cols-2 lg:grid-cols-4 gap-y-12 sm:gap-y-16">
+                <div className="relative z-[30] grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-y-8 min-[480px]:gap-y-12 sm:gap-y-16">
                     {metrics.map((metric, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col items-center text-center relative"
+                            className="flex flex-col items-center text-center relative min-w-0"
                         >
                             {/* Desktop Dividers */}
                             {idx % 4 !== 3 && (
@@ -159,14 +173,14 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
                             )}
                             {/* Mobile/Tablet Vertical Divider (between col 1 and 2 in the 2x2 grid) */}
                             {idx % 2 === 0 && (
-                                <div className="lg:hidden absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
+                                <div className="hidden min-[480px]:block lg:hidden absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
                             )}
 
                             <CountUp end={metric.value} suffix={metric.suffix} label={metric.label} delay={0.1 + (idx * 0.05)} duration={METRICS_DURATION} isDark={isDark} />
 
                             {/* Mobile/Tablet Horizontal Dividers (only under row 1 of the 2x2) */}
                             {(idx < 2) && (
-                                <div className="lg:hidden absolute bottom-[-24px] left-[15%] right-[15%] h-px"
+                                <div className="hidden min-[480px]:block lg:hidden absolute bottom-[-24px] left-[15%] right-[15%] h-px"
                                     style={{
                                         background: 'linear-gradient(90deg, transparent 0%, rgba(11,31,59,0.12) 20%, rgba(11,31,59,0.12) 80%, transparent 100%)'
                                     }}

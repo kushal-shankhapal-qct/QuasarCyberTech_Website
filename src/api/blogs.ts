@@ -1,8 +1,17 @@
 import type { BlogPost } from '../data/blogsData';
 import { blogsData } from '../data/blogsData';
 
-const API_URL = 'http://localhost:1337/api';
-const IMAGE_BASE = 'http://localhost:1337';
+const RAW_API_URL = import.meta.env.VITE_STRAPI_API_URL?.trim() ?? '';
+const RAW_IMAGE_BASE = import.meta.env.VITE_STRAPI_BASE_URL?.trim() ?? '';
+const API_URL = RAW_API_URL.replace(/\/$/, '');
+const IMAGE_BASE = RAW_IMAGE_BASE.replace(/\/$/, '');
+
+const assertJsonResponse = (res: Response) => {
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.toLowerCase().includes('application/json')) {
+    throw new Error(`Expected JSON but received ${contentType || 'unknown content type'}`);
+  }
+};
 
 /**
  * Normalizes Strapi API response format to match the internal BlogPost interface.
@@ -32,8 +41,10 @@ const normalizeBlog = (strapiData: any): BlogPost => {
  */
 export async function fetchBlogs(): Promise<BlogPost[]> {
   try {
+    if (!API_URL) throw new Error('Missing Strapi API URL');
     const res = await fetch(`${API_URL}/blogs?populate=*`);
     if (!res.ok) throw new Error('CMS unreachable');
+    assertJsonResponse(res);
     const json = await res.json();
     return json.data.map(normalizeBlog);
   } catch (error) {
@@ -47,8 +58,10 @@ export async function fetchBlogs(): Promise<BlogPost[]> {
  */
 export async function fetchBlogBySlug(slug: string): Promise<BlogPost | undefined> {
   try {
+    if (!API_URL) throw new Error('Missing Strapi API URL');
     const res = await fetch(`${API_URL}/blogs?filters[slug][$eq]=${slug}&populate=*`);
     if (!res.ok) throw new Error('CMS unreachable');
+    assertJsonResponse(res);
     const json = await res.json();
     if (json.data && json.data.length > 0) {
       return normalizeBlog(json.data[0]);
