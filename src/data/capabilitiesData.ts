@@ -391,6 +391,7 @@ export const capabilities: Capability[] = [
         slug: 'regulatory-gap-assessment',
         anchor: 'regulatory-gap-assessment',
         shortDescription: 'Identify control gaps early and prioritize remediation before formal audits.',
+        image: ASSETS.capabilities.subCapabilities.compliance.regulatoryGapAssessment,
         positioning:
           'Know where you stand before regulators do. Our gap assessments give you a clear, honest picture of compliance posture and a prioritized remediation roadmap.',
         whatWeAssess: [
@@ -428,6 +429,7 @@ export const capabilities: Capability[] = [
         slug: 'risk-compliance-monitoring',
         anchor: 'risk-compliance-monitoring',
         shortDescription: 'Continuous monitoring of control effectiveness and compliance drift.',
+        image: ASSETS.capabilities.subCapabilities.compliance.riskMonitoring,
         positioning:
           'Compliance is not a point-in-time event. Continuous monitoring ensures controls remain effective as your environment evolves.',
         whatWeAssess: [
@@ -465,6 +467,7 @@ export const capabilities: Capability[] = [
         slug: 'rbi-cyber-security-framework-compliance',
         anchor: 'rbi-cyber-security-framework-compliance',
         shortDescription: 'End-to-end compliance support for RBI cyber security obligations.',
+        image: ASSETS.capabilities.subCapabilities.compliance.rbiCompliance,
         positioning:
           'RBI-regulated entities face strict cybersecurity mandates. We translate the RBI CSF into practical implementation - from gap to attestation.',
         whatWeAssess: [
@@ -499,6 +502,7 @@ export const capabilities: Capability[] = [
         slug: 'dpdp-act-compliance',
         anchor: 'dpdp-act-compliance',
         shortDescription: 'Achieve readiness and compliance with India\'s Digital Personal Data Protection Act.',
+        image: ASSETS.capabilities.subCapabilities.compliance.dpdpCompliance,
         positioning:
           'India\'s DPDP Act establishes binding obligations for organizations processing personal data of Indian residents. We help design consent workflows, data principal rights handling, and governance needed for sustained compliance.',
         whatWeAssess: [

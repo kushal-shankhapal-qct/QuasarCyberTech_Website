@@ -56,7 +56,6 @@ const socialLinks = [
 ];
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
   const [hoveredLink, setHoveredLink] = useState<{ col: number; idx: number } | null>(null);
   const FOOTER_LOGO_WIDTH = '14rem'; // 224px
 
@@ -370,7 +369,7 @@ const Footer: React.FC = () => {
         fontSize: '0.8rem',
       }}>
         <div style={{ opacity: 0.7, fontSize: '0.85rem', textAlign: 'left' }}>
-          © {currentYear} QuasarCyberTech. All rights reserved.
+          © 2024 - Present, QuasarCyberTech, Inc. All rights reserved.
         </div>
         <div style={{ opacity: 0.7, fontSize: '0.85rem', textAlign: 'right' }}>
           Resilience Engineered, Security Delivered

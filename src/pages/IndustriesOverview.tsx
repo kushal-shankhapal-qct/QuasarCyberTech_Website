@@ -14,6 +14,10 @@ import { createBreadcrumbSchema } from '../seo/schema';
 
 const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
 
+const IO = {
+  desktopPaddingX: '3rem',
+};
+
 import { ASSETS } from '@/constants/assets';
 import PageHero from '../components/PageHero';
 
@@ -58,7 +62,7 @@ const IndustriesOverview: React.FC = () => {
       {/* ─── SECTION 2: INDUSTRIES GRID (LIGHT) ─── */}
       <section id="grid" style={{
         background: SECTION_BACKGROUNDS.LIGHT,
-        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`
+        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${IO.desktopPaddingX}`
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SectionHeader
@@ -150,10 +154,17 @@ const IndustriesOverview: React.FC = () => {
       <style dangerouslySetInnerHTML={{
         __html: `
         @media (max-width: 1024px) {
-          .industries-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .industries-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         }
         @media (max-width: 640px) {
-          .industries-grid { grid-template-columns: 1fr !important; }
+          .industries-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 1rem !important;
+          }
+          #grid {
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
+          }
         }
       `}} />
     </div>

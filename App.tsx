@@ -49,22 +49,6 @@ export const routes: RouteRecord[] = [
         getStaticPaths: () => blogsData.map((post) => `blogs/${post.id}`),
       },
       {
-        path: 'case-studies',
-        lazy: lazyPage(() => import('./src/pages/resources/CaseStudies')),
-      },
-      {
-        path: 'advisories',
-        lazy: lazyPage(() => import('./src/pages/resources/Advisories')),
-      },
-      {
-        path: 'infosec-dictionary',
-        lazy: lazyPage(() => import('./src/pages/resources/InfosecDictionary')),
-      },
-      {
-        path: 'security-mindmap',
-        lazy: lazyPage(() => import('./src/pages/resources/SecurityMindmap')),
-      },
-      {
         path: 'industries',
         lazy: lazyPage(() => import('./src/pages/IndustriesOverview')),
       },

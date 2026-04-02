@@ -97,6 +97,12 @@ export const ASSETS = {
     intelligence: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Cyber_Intelligence_and_Security_Research.webp'),
     worldwideConnection: getAsset('Capabilities_Images/worldwide_connection/80909.jpg'),
     subCapabilities: {
+      compliance: {
+        regulatoryGapAssessment: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/Regulatory_Gap_Assessment/Regulatory Gap Assessment Framework.png'),
+        riskMonitoring: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/Risk_and_Compliance_Monitoring/Risk and Compliance Monitoring Overview.png'),
+        rbiCompliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/RBI_Cyber_Security_Framework_Compliance/Cyber Security Framework Compliance Overview.png'),
+        dpdpCompliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/SOC2_Readiness/DPDP Act Compliance Guide.png'),
+      },
       advisory: {
         strategy: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Executive_Cyber_Advisory/Executive Cyber Advisory Framework.png'),
         architecture: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Security_and_Zero_Trust_Architecture_Review/Zero Trust Architecture Review.png'),
