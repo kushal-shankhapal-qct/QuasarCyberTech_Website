@@ -205,7 +205,7 @@ export default function Platforms() {
             <p style={{ fontSize: '1rem', color: '#64748B', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
               QRGT transforms traditional penetration testing into a continuous, governed program. Track findings and manage remediation workflows in one platform.
             </p>
-            <a href="#qrgt" style={{
+            <a href="/contact" style={{
               background: COLORS.burgundy, color: 'white', padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', width: 'fit-content', textDecoration: 'none', transition: 'all 0.3s ease'
             }}>
               Explore QRGT Platform <ArrowRight size={18} style={{ marginLeft: '10px' }} />

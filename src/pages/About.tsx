@@ -7,6 +7,7 @@ import LeadershipVision from "../components/LeadershipVision";
 import { motion, useInView } from "framer-motion";
 import {
   ComposableMap,
+  ZoomableGroup,
   Geographies,
   Geography,
   Line,
@@ -36,9 +37,19 @@ import Seo from "../components/seo/Seo";
 import { createBreadcrumbSchema, createAboutPageSchema } from "../seo/schema";
 
 const METRIC_ANIMATION_DURATION = 1.2;
-const DEFAULT_MAP_SCALE = 700;
-const DEFAULT_MAP_CENTER: [number, number] = [79.6, 20.1];
+const DEFAULT_MAP_SCALE = 190;
+const DEFAULT_MAP_CENTER: [number, number] = [0, 24];
 const MAP_LEGEND_HEIGHT = 46;
+const LOCATION_ZOOM_CONFIG: Record<string, { center: [number, number]; zoom: number }> = {
+  Nashik: {
+    center: [78.5, 21.5],
+    zoom: 3,
+  },
+  Dallas: {
+    center: [-96.9, 32.8],
+    zoom: 3.3,
+  },
+};
 const aboutBreadcrumbSchema = createBreadcrumbSchema([
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
@@ -353,6 +364,9 @@ export default function About() {
   const [activeLocation, setActiveLocation] = React.useState<string | null>(
     null,
   );
+  const [hoveredMapNode, setHoveredMapNode] = React.useState<string | null>(
+    null,
+  );
 
   const coreValues = [
     {
@@ -400,16 +414,6 @@ export default function About() {
       label: "office" as const,
     },
     {
-      name: "Mumbai",
-      coordinates: [72.8777, 19.076] as [number, number],
-      label: "office" as const,
-    },
-    {
-      name: "Bengaluru",
-      coordinates: [77.5946, 12.9716] as [number, number],
-      label: "office" as const,
-    },
-    {
       name: "Dallas",
       coordinates: [-96.7970, 32.7767] as [number, number],
       label: "office" as const,
@@ -418,6 +422,63 @@ export default function About() {
 
   const mapNodes = officeLocations;
   const officeArcSegments: any[] = [];
+
+  const targetMapView = React.useMemo(() => {
+    if (activeLocation && LOCATION_ZOOM_CONFIG[activeLocation]) {
+      return LOCATION_ZOOM_CONFIG[activeLocation];
+    }
+
+    return {
+      center: DEFAULT_MAP_CENTER,
+      zoom: 1,
+    };
+  }, [activeLocation]);
+
+  const [mapView, setMapView] = React.useState<{
+    center: [number, number];
+    zoom: number;
+  }>({
+    center: DEFAULT_MAP_CENTER,
+    zoom: 1,
+  });
+
+  const markerStableZoom = React.useMemo(() => {
+    if (activeLocation && LOCATION_ZOOM_CONFIG[activeLocation]) {
+      return LOCATION_ZOOM_CONFIG[activeLocation].zoom;
+    }
+    return mapView.zoom;
+  }, [activeLocation, mapView.zoom]);
+
+  React.useEffect(() => {
+    const startCenter = mapView.center;
+    const startZoom = mapView.zoom;
+    const endCenter = targetMapView.center;
+    const endZoom = targetMapView.zoom;
+    const startTs = performance.now();
+    const durationMs = 700;
+
+    let rafId = 0;
+
+    const animate = (now: number) => {
+      const progress = Math.min((now - startTs) / durationMs, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setMapView({
+        center: [
+          startCenter[0] + (endCenter[0] - startCenter[0]) * eased,
+          startCenter[1] + (endCenter[1] - startCenter[1]) * eased,
+        ],
+        zoom: startZoom + (endZoom - startZoom) * eased,
+      });
+
+      if (progress < 1) {
+        rafId = window.requestAnimationFrame(animate);
+      }
+    };
+
+    rafId = window.requestAnimationFrame(animate);
+    return () => window.cancelAnimationFrame(rafId);
+  }, [targetMapView.center, targetMapView.zoom]);
 
   const getGlassStyle = (isActive: boolean): React.CSSProperties => ({
     background: isActive ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.03)",
@@ -955,7 +1016,7 @@ export default function About() {
                 </div>
               </div>
               <div style={{ display: "grid", gap: "10px" }}>
-                {["Mumbai", "Bengaluru", "Dallas"].map((city) => (
+                {["Dallas"].map((city) => (
                   <div
                     key={city}
                     onMouseEnter={() => setActiveLocation(city)}
@@ -1029,86 +1090,95 @@ export default function About() {
                   height={500}
                   style={{ width: "100%", height: "100%" }}
                 >
-                  <Geographies geography={geoUrl}>
-                    {({ geographies }) =>
-                      geographies.map((geo) => (
-                        <Geography
-                          key={geo.rsmKey}
-                          geography={geo}
-                          style={{
-                            default: {
-                              fill: "rgba(255,255,255,0.12)",
-                              stroke: "rgba(4,11,29,0.9)",
-                              strokeWidth: 0.55,
-                              outline: "none",
-                            },
-                            hover: {
-                              fill: "rgba(255,255,255,0.17)",
-                              stroke: "rgba(4,11,29,0.9)",
-                              strokeWidth: 0.55,
-                              outline: "none",
-                            },
-                            pressed: {
-                              fill: "rgba(255,255,255,0.12)",
-                              stroke: "rgba(4,11,29,0.9)",
-                              strokeWidth: 0.55,
-                              outline: "none",
-                            },
-                          }}
-                        />
-                      ))
-                    }
-                  </Geographies>
-                  {officeArcSegments.map((s) => (
-                    <Line
-                      key={s.key}
-                      from={s.from}
-                      to={s.to}
-                      stroke={COLORS.gold}
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                    />
-                  ))}
-                  {mapNodes.map((node) => (
-                    <Marker
-                      key={node.name}
-                      coordinates={node.coordinates}
-                      onMouseEnter={() => setActiveLocation(node.name)}
-                      onMouseLeave={() => setActiveLocation(null)}
-                    >
-                      <circle
-                        r={activeLocation === node.name ? 9 : 6}
-                        fill={COLORS.gold}
-                        stroke="#0B1F3B"
-                        strokeWidth={1.4}
-                        style={{ transition: "all 0.2s ease" }}
-                      />
-                      {activeLocation === node.name && (
-                        <>
-                          <rect
-                            x={12}
-                            y={-24}
-                            rx={4}
-                            ry={4}
-                            width={Math.max(76, node.name.length * 8.5)}
-                            height={24}
-                            fill="rgba(4,11,29,0.95)"
-                            stroke="rgba(214,176,92,0.6)"
-                            strokeWidth={1}
+                  <ZoomableGroup center={mapView.center} zoom={mapView.zoom}>
+                    <Geographies geography={geoUrl}>
+                      {({ geographies }) =>
+                        geographies.map((geo) => (
+                          <Geography
+                            key={geo.rsmKey}
+                            geography={geo}
+                            style={{
+                              default: {
+                                fill: "rgba(255,255,255,0.12)",
+                                stroke: "rgba(4,11,29,0.9)",
+                                strokeWidth: 0.55,
+                                outline: "none",
+                              },
+                              hover: {
+                                fill: "rgba(255,255,255,0.17)",
+                                stroke: "rgba(4,11,29,0.9)",
+                                strokeWidth: 0.55,
+                                outline: "none",
+                              },
+                              pressed: {
+                                fill: "rgba(255,255,255,0.12)",
+                                stroke: "rgba(4,11,29,0.9)",
+                                strokeWidth: 0.55,
+                                outline: "none",
+                              },
+                            }}
                           />
-                          <text
-                            x={18}
-                            y={-8}
-                            fill="#FFFFFF"
-                            fontSize={12}
-                            fontWeight={700}
-                          >
-                            {node.name}
-                          </text>
-                        </>
-                      )}
-                    </Marker>
-                  ))}
+                        ))
+                      }
+                    </Geographies>
+                    {officeArcSegments.map((s) => (
+                      <Line
+                        key={s.key}
+                        from={s.from}
+                        to={s.to}
+                        stroke={COLORS.gold}
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                      />
+                    ))}
+                    {mapNodes.map((node) => (
+                      <Marker
+                        key={node.name}
+                        coordinates={node.coordinates}
+                        onMouseEnter={() => setHoveredMapNode(node.name)}
+                        onMouseLeave={() => setHoveredMapNode(null)}
+                      >
+                        <g
+                          transform={`scale(${1 / Math.max(markerStableZoom, 1)})`}
+                          style={{ transition: "transform 0.2s ease" }}
+                        >
+                          <circle
+                            r={activeLocation === node.name || hoveredMapNode === node.name ? 9 : 6}
+                            fill={COLORS.gold}
+                            stroke="#0B1F3B"
+                            strokeWidth={1.4}
+                            style={{ transition: "all 0.2s ease" }}
+                          />
+                          {(activeLocation === node.name || hoveredMapNode === node.name) && (
+                            <>
+                              <rect
+                                x={12}
+                                y={-24}
+                                rx={4}
+                                ry={4}
+                                width={Math.max(76, node.name.length * 8.5)}
+                                height={24}
+                                fill="rgba(4,11,29,0.95)"
+                                stroke="rgba(214,176,92,0.6)"
+                                strokeWidth={1}
+                                pointerEvents="none"
+                              />
+                              <text
+                                x={18}
+                                y={-8}
+                                fill="#FFFFFF"
+                                fontSize={12}
+                                fontWeight={700}
+                                pointerEvents="none"
+                              >
+                                {node.name}
+                              </text>
+                            </>
+                          )}
+                        </g>
+                      </Marker>
+                    ))}
+                  </ZoomableGroup>
                 </ComposableMap>
               </div>
               <div

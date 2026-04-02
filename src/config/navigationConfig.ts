@@ -27,7 +27,7 @@ export const navigationConfig = [
       {
         title: 'Advisory & Governance',
         items: [
-          { label: 'Cyber Advisory & Risk Governance', href: '/capabilities/cyber-advisory-risk-governance', LucideIcon: Shield },
+          { label: 'Cyber Security Advisory & Risk Governance', href: '/capabilities/cyber-advisory-risk-governance', LucideIcon: Shield },
           { label: 'Security Architecture Review', href: '/capabilities/cyber-advisory-risk-governance#security-architecture-review', LucideIcon: BookOpen },
           { label: 'Zero Trust Architecture Design', href: '/capabilities/cyber-advisory-risk-governance#zero-trust-architecture-design-review', LucideIcon: Server },
           { label: 'Security Program Development', href: '/capabilities/cyber-advisory-risk-governance#vciso-services', LucideIcon: ClipboardCheck }
@@ -37,10 +37,10 @@ export const navigationConfig = [
         title: 'Security Engineering',
         items: [
           { label: 'Offensive Security Engineering', href: '/capabilities/offensive-security-engineering', LucideIcon: Target },
+          { label: 'Red Teaming', href: '/capabilities/offensive-security-engineering#red-team-assessments', LucideIcon: Activity },
+          { label: 'AI & Agentic System Security Testing', href: '/capabilities/offensive-security-engineering#llm-penetration-testing', LucideIcon: Brain },
           { label: 'Web / Mobile / API Security Testing', href: '/capabilities/offensive-security-engineering#web-application-vapt', LucideIcon: Code },
-          { label: 'Red Team & Adversary Simulation', href: '/capabilities/offensive-security-engineering#red-team-assessments', LucideIcon: Activity },
-          { label: 'Secure Code Review', href: '/capabilities/offensive-security-engineering#secure-code-review', LucideIcon: FileText },
-          { label: 'LLM & AI Security Testing', href: '/capabilities/offensive-security-engineering#llm-penetration-testing', LucideIcon: Brain }
+          { label: 'Secure Code Review', href: '/capabilities/offensive-security-engineering#secure-code-review', LucideIcon: FileText }
         ]
       },
       {
@@ -69,7 +69,7 @@ export const navigationConfig = [
     subItems: [
       { label: 'QStellar', href: 'https://qstellar.co', icon: ASSETS.logos.platforms.qstellar, isExternal: true },
       { label: 'QPulse', href: 'https://qpulse.quasarcybertech.com', icon: ASSETS.logos.platforms.qpulse, isExternal: true },
-      { label: 'QRGT', href: '/platforms#qrgt', icon: ASSETS.logos.platforms.qrgt },
+      { label: 'QRGT', href: '/contact', icon: ASSETS.logos.platforms.qrgt },
       { label: 'QLeap', href: 'https://qleap-ed.com', icon: ASSETS.logos.platforms.qleap, isExternal: true }
     ]
   },

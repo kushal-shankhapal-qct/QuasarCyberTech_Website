@@ -81,7 +81,7 @@ export const platformConfigs: Record<string, PlatformConfig> = {
     id: 'qrgt',
     name: 'QRGT',
     description: 'Penetration Testing as a Service Platform',
-    link: 'https://qrgt.quasarcybertech.com',
+    link: '/contact',
     logoKey: 'qrgt',
     screenshotKey: 'qrgt',
     highlights: [
@@ -121,9 +121,9 @@ export const platformConfigs: Record<string, PlatformConfig> = {
 export const capabilities: Capability[] = [
   {
     id: 'cyber-advisory',
-    name: 'Cyber Advisory & Risk Governance',
+    name: 'Cyber Security Advisory & Risk Governance',
     slug: 'cyber-advisory',
-    navLabel: 'Cyber Advisory',
+    navLabel: 'Cyber Security Advisory',
     navColumn: 'advisory-governance',
     icon: 'compass',
     image: ASSETS.capabilities.advisory,
@@ -723,7 +723,7 @@ export const capabilities: Capability[] = [
       },
       {
         id: 'red-team',
-        name: 'Red Team',
+        name: 'Red Teaming',
         slug: 'red-team',
         anchor: 'red-team',
         shortDescription: 'Goal-oriented adversary simulation across technical and human controls.',
@@ -1522,7 +1522,7 @@ export const capabilitiesData = capabilities;
 
 export const capabilityHighlights: Record<string, { capability: string[]; subCapabilities: Record<string, string[]> }> = {
   'cyber-advisory': {
-    capability: ['Cyber'],
+    capability: ['Cyber Security'],
     subCapabilities: {
       'executive-cyber-advisory': ['Cyber'],
       'security-zero-trust-architecture-review': ['Security'],
@@ -1547,7 +1547,7 @@ export const capabilityHighlights: Record<string, { capability: string[]; subCap
       'web-application-security-testing': ['Security'],
       'mobile-application-security-testing': ['Security'],
       'api-security-testing': ['Security'],
-      'red-team': ['Red Team'],
+      'red-team': ['Red Teaming'],
       'adversary-simulation': ['Adversary'],
       'secure-code-review': ['Secure'],
       'ai-agentic-system-security-testing': ['Security'],

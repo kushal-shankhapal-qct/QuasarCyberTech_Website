@@ -51,7 +51,7 @@ const platforms = [
     screenshot: ASSETS.platforms.screenshots.qrgt,
     highlights: ['Continuous testing visibility', 'Governed remediation tracking', 'Risk and findings management', 'Supports lifecycle-driven application security programs'],
     ctaText: 'Explore QRGT Platform',
-    link: '/platforms/qrgt',
+    link: '/contact',
     styles: {
       logoHeight: '4.75rem', // 76px
       logoWidth: 'auto',   

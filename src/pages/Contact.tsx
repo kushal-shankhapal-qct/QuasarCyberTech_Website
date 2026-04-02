@@ -16,7 +16,7 @@ const CONFIG = {
   layout: {
     heroPaddingTop: 'clamp(5rem, 8vh, 6rem)',
     heroMinHeight: '100vh',
-    cardsLiftUpFromHero: '2.5rem',             // Smaller value => cards move lower
+    cardsLiftUpFromHero: '13rem',             // Smaller value => cards move lower
   },
   card: {
     paddingX: '3rem',
@@ -33,11 +33,11 @@ const CONFIG = {
       sectionGap: '2rem',
 
       // Logo block
-      logoHeight: '13em',
+      logoHeight: '8.25em',
       logoMarginBottom: '1rem',
 
       // Email/Phone/Follow blocks
-      infoGroupsGap: '1.5rem',
+      infoGroupsGap: '1rem',
       infoRowGap: '16px',
       infoLabelMarginBottom: '0.3em',
       followGroupGap: '12px',
@@ -47,10 +47,10 @@ const CONFIG = {
       socialIconRadius: '12px',
 
       // Map block
-      mapTopGap: '15.5em',
+      mapTopGap: '1.25rem',
       mapMarginX: '3rem',
-      mapMarginBottom: '0rem',
-      mapHeight: '300px',
+      mapMarginBottom: '1.6rem',
+      mapHeight: '220px',
       mapBorderRadius: '12px',
     }
   }
@@ -59,6 +59,15 @@ const CONFIG = {
 const PHONE_UTILS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js';
 const CONTACT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzuaTzR23HnYEkgM_8DSPGYZ4wYkbGmRk7pNt7SuiaslUse1fo_MueZC9E8yWUkeLfS-w/exec';
 const SUBMIT_TIMEOUT_MS = 12000;
+const CONTACT_DESKTOP_SIDE_MARGIN = '3rem';
+
+const stripUnsupportedControlChars = (value: string): string =>
+  Array.from(value)
+    .filter((ch) => {
+      const code = ch.charCodeAt(0);
+      return !(code <= 31 || code === 127) || code === 9 || code === 10 || code === 13;
+    })
+    .join('');
 
 const FIELD_MAX_LENGTH = {
   name: 80,
@@ -89,7 +98,9 @@ const sanitizeInput = (value: string, maxLength?: number): string => {
   if (!value) return '';
 
   let sanitized = value
-    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+    .replace(/\r\n/g, '\n');
+
+  sanitized = stripUnsupportedControlChars(sanitized)
     .replace(/<\s*script[\s\S]*?>[\s\S]*?<\s*\/\s*script\s*>/gi, '')
     .replace(/<[^>]*>/g, '')
     .replace(/javascript\s*:/gi, '')
@@ -108,8 +119,13 @@ const sanitizeInput = (value: string, maxLength?: number): string => {
 export default function Contact() {
   const right = CONFIG.card.rightPanel;
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   const phoneInputRef = useRef<HTMLInputElement | null>(null);
   const phonePluginRef = useRef<ReturnType<typeof intlTelInput> | null>(null);
+  const formCardRef = useRef<HTMLDivElement | null>(null);
 
   const [formState, setFormState] = useState({
     name: '',
@@ -138,19 +154,19 @@ export default function Contact() {
       case 'name': {
         if (!trimmed) return 'Full Name is required.';
         if (trimmed.length > FIELD_MAX_LENGTH.name) return 'Full Name cannot exceed 80 characters.';
-        if (!/^[A-Za-z][A-Za-z\s'\-]{1,79}$/.test(trimmed)) return 'Use letters, spaces, apostrophe, or hyphen only.';
+        if (!/^[A-Za-z][A-Za-z\s'-]{1,79}$/.test(trimmed)) return 'Use letters, spaces, apostrophe, or hyphen only.';
         return '';
       }
       case 'company': {
         if (!trimmed) return 'Company Name is required.';
         if (trimmed.length > FIELD_MAX_LENGTH.company) return 'Company Name cannot exceed 100 characters.';
-        if (!/^[A-Za-z0-9][A-Za-z0-9\s.,&()'\-]{1,99}$/.test(trimmed)) return 'Please enter a valid company name.';
+        if (!/^[A-Za-z0-9][A-Za-z0-9\s.,&()'-]{1,99}$/.test(trimmed)) return 'Please enter a valid company name.';
         return '';
       }
       case 'designation': {
         if (!trimmed) return 'Designation / Role is required.';
         if (trimmed.length > FIELD_MAX_LENGTH.designation) return 'Designation / Role cannot exceed 80 characters.';
-        if (!/^[A-Za-z0-9][A-Za-z0-9\s/&()'\-.,]{1,79}$/.test(trimmed)) return 'Please enter a valid designation or role.';
+        if (!/^[A-Za-z0-9][A-Za-z0-9\s/&()'.,-]{1,79}$/.test(trimmed)) return 'Please enter a valid designation or role.';
         return '';
       }
       case 'email': {
@@ -274,10 +290,14 @@ export default function Contact() {
       }
 
       setFormState((prev) => ({ ...prev, phone: limitedDigits }));
-      if (errors.phone) {
-        const msg = validateField('phone', limitedDigits);
-        setErrors((prev) => ({ ...prev, phone: msg || undefined }));
-      }
+      setErrors((prev) => {
+        if (!prev.phone) {
+          return prev;
+        }
+
+        const phoneError = !limitedDigits ? 'Phone Number is required.' : '';
+        return { ...prev, phone: phoneError || undefined };
+      });
     };
 
     inputEl.addEventListener('input', syncPhone);
@@ -295,6 +315,22 @@ export default function Contact() {
       phonePluginRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isSubmitted || !formCardRef.current) {
+      return;
+    }
+
+    const scrollTimer = window.setTimeout(() => {
+      const rect = formCardRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      const targetTop = rect.top + window.scrollY + rect.height / 2 - window.innerHeight / 2;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+    }, 120);
+
+    return () => window.clearTimeout(scrollTimer);
+  }, [isSubmitted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -391,12 +427,12 @@ export default function Contact() {
           position: 'relative',
           marginTop: `-${CONFIG.layout.cardsLiftUpFromHero}`,
           paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
-          paddingLeft: LAYOUT_CONTROLS.section.paddingX,
-          paddingRight: LAYOUT_CONTROLS.section.paddingX,
+          paddingLeft: CONTACT_DESKTOP_SIDE_MARGIN,
+          paddingRight: CONTACT_DESKTOP_SIDE_MARGIN,
           zIndex: 10
         }}>
           <div style={{
-            maxWidth: '1200px',
+            width: '100%',
             margin: '0 auto',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
@@ -409,6 +445,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
+              ref={formCardRef}
               style={{
                 background: '#FFFFFF',
                 borderRadius: '8px',
@@ -418,10 +455,13 @@ export default function Contact() {
                 boxShadow: SHADOWS.lightCard,
                 border: '1px solid #E2E8F0',
                 borderTop: `${CONFIG.card.topAccentHeight} solid ${COLORS.burgundy}`,
-                position: 'relative'
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column'
               }}
             >
-              <>
+              {!isSubmitted ? (
+                <>
                 <h2 style={{
                   fontSize: '1.5rem',
                   fontWeight: 800,
@@ -432,7 +472,7 @@ export default function Contact() {
                   Request a <span style={{ color: COLORS.burgundy }}>Consultation</span>
                 </h2>
 
-                <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <form className="contact-form-grid" onSubmit={handleSubmit} noValidate style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', columnGap: '16px', rowGap: '1rem', flex: 1 }}>
                   <input
                     type="text"
                     name="website"
@@ -452,7 +492,7 @@ export default function Contact() {
                   />
 
                   {/* Full Name */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label htmlFor="name" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Full Name</label>
                     <input
                       type="text"
@@ -476,7 +516,7 @@ export default function Contact() {
                   </div>
 
                   {/* Company Name */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label htmlFor="company" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Company Name</label>
                     <input
                       type="text"
@@ -500,7 +540,7 @@ export default function Contact() {
                   </div>
 
                   {/* Designation / Role */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label htmlFor="designation" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Designation / Role</label>
                     <input
                       type="text"
@@ -524,7 +564,7 @@ export default function Contact() {
                   </div>
 
                   {/* Work Email */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label htmlFor="email" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Work Email</label>
                     <input
                       type="email"
@@ -548,7 +588,7 @@ export default function Contact() {
                   </div>
 
                   {/* Phone Number */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label htmlFor="phone" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Phone Number</label>
                     <div className="phone-input-container">
                       <input
@@ -567,7 +607,7 @@ export default function Contact() {
                   </div>
 
                   {/* Service of Interest */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label htmlFor="service" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Service of Interest</label>
                     <select
                       id="service"
@@ -587,7 +627,7 @@ export default function Contact() {
                       onBlur={() => { markField('service'); }}
                     >
                       <option value="">Select a Service</option>
-                      <option value="cyber-advisory">Cyber Advisory & Risk Governance</option>
+                      <option value="cyber-advisory">Cyber Security Advisory & Risk Governance</option>
                       <option value="compliance">Compliance & Regulatory Assurance</option>
                       <option value="offensive-security">Offensive Security Engineering</option>
                       <option value="cloud-security">Cloud & Infrastructure Security</option>
@@ -599,7 +639,7 @@ export default function Contact() {
                   </div>
 
                   {/* Tell us about your requirement */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="contact-field contact-field-full" style={{ display: 'flex', flexDirection: 'column', gap: '8px', gridColumn: '1 / -1' }}>
                     <label htmlFor="message" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Tell us about your requirement</label>
                     <textarea
                       id="message"
@@ -623,41 +663,62 @@ export default function Contact() {
                     {errors.message && <div style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '-2px' }}>{errors.message}</div>}
                   </div>
 
-                  {isSubmitted ? (
-                    <div style={{
-                      minHeight: '56px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: `1px solid ${COLORS.burgundy}22`,
-                      background: `${COLORS.burgundy}10`,
-                      borderRadius: '8px',
-                      color: COLORS.burgundy,
-                      fontWeight: 800,
-                      fontSize: '1rem',
-                      fontFamily: TYPOGRAPHY.fontHeading,
-                      letterSpacing: '0.02em'
-                    }}>
-                      Message sent!
-                    </div>
-                  ) : (
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#6B1530] text-white font-bold rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#8B1E3F] hover:scale-[1.02] shadow-lg shadow-maroon/20"
-                      style={{ opacity: isSubmitting ? 0.75 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
-                    >
-                      {isSubmitting ? 'Sending...' : 'Confirm Submission'}
-                      <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                    </button>
-                  )}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-[#6B1530] text-white font-bold rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#8B1E3F] hover:scale-[1.02] shadow-lg shadow-maroon/20"
+                    style={{ opacity: isSubmitting ? 0.75 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer', gridColumn: '1 / -1' }}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Confirm Submission'}
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  </button>
                   {submitError && (
-                    <p style={{ margin: 0, color: '#B91C1C', fontSize: '0.85rem', fontWeight: 600 }}>
+                    <p style={{ margin: 0, color: '#B91C1C', fontSize: '0.85rem', fontWeight: 600, gridColumn: '1 / -1' }}>
                       {submitError}
                     </p>
                   )}
                 </form>
-              </>
+                </>
+              ) : (
+                <div
+                  style={{
+                    height: '100%',
+                    minHeight: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    padding: '3rem',
+                  }}
+                >
+                  <div style={{ maxWidth: '560px' }}>
+                    <h2
+                      style={{
+                        margin: 0,
+                        marginBottom: '14px',
+                        color: COLORS.burgundy,
+                        fontFamily: TYPOGRAPHY.fontHeading,
+                        fontSize: 'clamp(1.5rem, 2.6vw, 2rem)',
+                        fontWeight: 800,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      Request Received
+                    </h2>
+                    <p
+                      style={{
+                        margin: 0,
+                        color: '#0F172A',
+                        fontSize: '1rem',
+                        lineHeight: 1.7,
+                        fontWeight: 500,
+                      }}
+                    >
+                      Thank you. We have received your inquiry. Our experts will connect with you soon.
+                    </p>
+                  </div>
+                </div>
+              )}
             </motion.div>
 
             {/* RIGHT CARD: THE CONTACT MODULE */}
@@ -686,7 +747,7 @@ export default function Contact() {
                 paddingBottom: right.paddingBottom,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: right.sectionGap,
+                gap: '1.25rem',
               }}>
                 {/* 1. LOGO */}
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: right.logoMarginBottom }}>
@@ -697,68 +758,10 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* 2. CONTACT INFO (Vertical Stack) */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: right.infoGroupsGap }}>
-                  {/* Email */}
-                  <div style={{ display: 'flex', gap: right.infoRowGap, alignItems: 'flex-start' }}>
-                    <span
-                      style={{
-                        width: right.socialIconSize,
-                        height: right.socialIconSize,
-                        borderRadius: right.socialIconRadius,
-                        border: '1px solid rgba(214, 176, 92, 0.25)',
-                        backgroundColor: 'rgba(214, 176, 92, 0.06)',
-                        color: COLORS.gold,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.3s ease',
-                        flexShrink: 0,
-                        marginTop: '2px'
-                      }}
-                    >
-                      <Mail size={18} />
-                    </span>
-                    <div>
-                      <div style={{ fontSize: '0.7rem', fontWeight: 800, color: COLORS.gold, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: right.infoLabelMarginBottom }}>Email</div>
-                      <a href="mailto:contactus@quasarcybertech.com" style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '0.95rem', opacity: 0.9 }}>
-                        contactus@quasarcybertech.com
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Phone */}
-                  <div style={{ display: 'flex', gap: right.infoRowGap, alignItems: 'flex-start' }}>
-                    <span
-                      style={{
-                        width: right.socialIconSize,
-                        height: right.socialIconSize,
-                        borderRadius: right.socialIconRadius,
-                        border: '1px solid rgba(214, 176, 92, 0.25)',
-                        backgroundColor: 'rgba(214, 176, 92, 0.06)',
-                        color: COLORS.gold,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.3s ease',
-                        flexShrink: 0,
-                        marginTop: '2px'
-                      }}
-                    >
-                      <Phone size={18} />
-                    </span>
-                    <div>
-                      <div style={{ fontSize: '0.7rem', fontWeight: 800, color: COLORS.gold, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: right.infoLabelMarginBottom }}>Phone</div>
-                      <a href="tel:+919730691190" style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '0.95rem', opacity: 0.9 }}>
-                        +91 97306 91190
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Follow Us - Footer icon style + label on right */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: right.followGroupGap }}>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 800, color: COLORS.gold, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Follow Us</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: right.followRowsGap }}>
+                {/* 2. FOLLOW US */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 800, color: COLORS.gold, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Follow Us</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
                       {[
                         { icon: Linkedin, name: 'LinkedIn', href: 'https://www.linkedin.com/company/quasar-cybertech' },
                         { icon: Instagram, name: 'Instagram', href: 'https://www.instagram.com/quasarcybertech/' },
@@ -772,31 +775,22 @@ export default function Contact() {
                           style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: right.socialItemGap,
                             transition: 'all 0.3s ease',
                             textDecoration: 'none',
                             width: 'fit-content'
                           }}
                           onMouseOver={(e) => {
                             const iconWrap = e.currentTarget.querySelector('[data-social-icon]') as HTMLElement | null;
-                            const label = e.currentTarget.querySelector('[data-social-label]') as HTMLElement | null;
                             if (iconWrap) {
                               iconWrap.style.backgroundColor = 'rgba(214, 176, 92, 0.15)';
                               iconWrap.style.transform = 'translateY(-4px)';
                             }
-                            if (label) {
-                              label.style.color = '#FFFFFF';
-                            }
                           }}
                           onMouseOut={(e) => {
                             const iconWrap = e.currentTarget.querySelector('[data-social-icon]') as HTMLElement | null;
-                            const label = e.currentTarget.querySelector('[data-social-label]') as HTMLElement | null;
                             if (iconWrap) {
                               iconWrap.style.backgroundColor = 'rgba(214, 176, 92, 0.06)';
                               iconWrap.style.transform = 'translateY(0)';
-                            }
-                            if (label) {
-                              label.style.color = 'rgba(255,255,255,0.9)';
                             }
                           }}
                         >
@@ -817,11 +811,61 @@ export default function Contact() {
                           >
                             <social.icon size={18} />
                           </span>
-                          <span data-social-label style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                            {social.name}
-                          </span>
                         </a>
                       ))}
+                  </div>
+                </div>
+
+                {/* 3. CONTACT INFO */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                    <span
+                      style={{
+                        width: '34px',
+                        height: '34px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(214, 176, 92, 0.25)',
+                        backgroundColor: 'rgba(214, 176, 92, 0.06)',
+                        color: COLORS.gold,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        marginTop: '1px'
+                      }}
+                    >
+                      <Mail size={16} />
+                    </span>
+                    <div>
+                      <div style={{ fontSize: '0.7rem', fontWeight: 800, color: COLORS.gold, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.28rem' }}>Email</div>
+                      <a href="mailto:contactus@quasarcybertech.com" style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '0.95rem', opacity: 0.9 }}>
+                        contactus@quasarcybertech.com
+                      </a>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                    <span
+                      style={{
+                        width: '34px',
+                        height: '34px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(214, 176, 92, 0.25)',
+                        backgroundColor: 'rgba(214, 176, 92, 0.06)',
+                        color: COLORS.gold,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        marginTop: '1px'
+                      }}
+                    >
+                      <Phone size={16} />
+                    </span>
+                    <div>
+                      <div style={{ fontSize: '0.7rem', fontWeight: 800, color: COLORS.gold, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.28rem' }}>Phone</div>
+                      <a href="tel:+919730691190" style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '0.95rem', opacity: 0.9 }}>
+                        +91 97306 91190
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -854,10 +898,19 @@ export default function Contact() {
         {/* Responsive Fix for Contact Section */}
         <style dangerouslySetInnerHTML={{
           __html: `
-          @media (max-width: 768px) {
+          @media (max-width: 64rem) {
             #contact-form {
-              padding-left: 3rem !important;
-              padding-right: 3rem !important;
+              padding-left: var(--page-padding-x) !important;
+              padding-right: var(--page-padding-x) !important;
+            }
+
+            .contact-form-grid {
+              grid-template-columns: 1fr !important;
+            }
+
+            .contact-field,
+            .contact-field-full {
+              grid-column: 1 / -1 !important;
             }
           }
         `}} />

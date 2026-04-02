@@ -453,15 +453,31 @@ const Navbar: React.FC = () => {
           id,
           label: item.label,
           href: item.href,
-          megaMenuGroups: capabilities.map((c) => ({
-            title: c.navLabel,
-            slug: c.slug,
-            items: c.subCapabilities.map((sub) => ({
-              label: sub.name,
-              href: `/capabilities/${c.slug}#${sub.slug}`,
-              desc: sub.shortDescription,
-            })),
-          })),
+          megaMenuGroups: capabilities.map((c) => {
+            const orderedSubCapabilities =
+              c.slug === "offensive-security"
+                ? [...c.subCapabilities].sort((a, b) => {
+                    const priority: Record<string, number> = {
+                      "red-team": 0,
+                      "ai-agentic-system-security-testing": 1,
+                    };
+                    const aRank = priority[a.slug] ?? 99;
+                    const bRank = priority[b.slug] ?? 99;
+                    if (aRank !== bRank) return aRank - bRank;
+                    return c.subCapabilities.findIndex((s) => s.slug === a.slug) - c.subCapabilities.findIndex((s) => s.slug === b.slug);
+                  })
+                : c.subCapabilities;
+
+            return {
+              title: c.navLabel,
+              slug: c.slug,
+              items: orderedSubCapabilities.map((sub) => ({
+                label: sub.name,
+                href: `/capabilities/${c.slug}#${sub.slug}`,
+                desc: sub.shortDescription,
+              })),
+            };
+          }),
         };
       }
       return {

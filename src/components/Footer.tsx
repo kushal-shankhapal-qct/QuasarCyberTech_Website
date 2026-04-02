@@ -21,7 +21,7 @@ const footerColumns = [
     links: [
       { label: 'QStellar', href: 'https://qstellar.co', external: true },
       { label: 'QPulse', href: 'https://qpulse.quasarcybertech.com', external: true },
-      { label: 'QRGT', href: '/platforms#qrgt', external: false },
+      { label: 'QRGT', href: '/contact', external: false },
       { label: 'QLeap', href: 'https://qleap-ed.com', external: true },
     ],
   },
