@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
 import { useParams } from 'react-router-dom';
-import { COLORS, TYPOGRAPHY, GRADIENTS } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY, GRADIENTS, LAYOUT_CONTROLS } from '../config/themeConfig';
 import { industriesData } from '../data/industriesData';
 import { getCapabilityBySlug } from '../data/capabilitiesData';
 import PageHero from '../components/PageHero';
@@ -67,8 +67,12 @@ const IndustryIndividual: React.FC = () => {
         currentName={industry.name}
       />
 
-      <section id="industry-overview" className="w-full bg-white pt-14 pb-24 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-[3rem] grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+      {/* ─── SECTION: INDUSTRY OVERVIEW ─── */}
+      <section id="industry-overview" className="w-full bg-white pt-16 pb-24 border-t border-gray-100" style={{
+        paddingLeft: LAYOUT_CONTROLS.section.paddingX,
+        paddingRight: LAYOUT_CONTROLS.section.paddingX,
+      }}>
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
           <div className="text-left lg:col-span-7">
             <h2 style={{
               fontFamily: TYPOGRAPHY.fontHeading,
@@ -119,10 +123,14 @@ const IndustryIndividual: React.FC = () => {
       </section>
 
       <section 
-        className="w-full py-24 relative overflow-hidden"
-        style={{ background: GRADIENTS.INDUSTRY_CHALLENGES_BG }}
+        className="w-full py-20 relative overflow-hidden"
+        style={{ 
+          background: GRADIENTS.INDUSTRY_CHALLENGES_BG,
+          paddingLeft: LAYOUT_CONTROLS.section.paddingX,
+          paddingRight: LAYOUT_CONTROLS.section.paddingX,
+        }}
       >
-        <div className="max-w-7xl mx-auto px-[3rem] text-left">
+        <div className="w-full text-left">
           <h2 className="text-4xl font-bold text-white mb-3" style={{ fontFamily: TYPOGRAPHY.fontHeading }}>
             <span style={{ color: '#D6B05C' }}>Navigating</span> Risk
           </h2>
@@ -131,7 +139,7 @@ const IndustryIndividual: React.FC = () => {
           </p>
         </div>
 
-        <div className="max-w-7xl mx-auto px-[3rem] grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           {industry.challenges.map((challenge) => {
             const Icon = challenge.icon;
             return (
@@ -155,13 +163,16 @@ const IndustryIndividual: React.FC = () => {
         </div>
       </section>
 
-      <section className="w-full py-24 bg-[#F5F7FA] border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-[3rem] text-left">
+      <section className="w-full py-20 bg-[#F5F7FA] border-t border-gray-200" style={{
+        paddingLeft: LAYOUT_CONTROLS.section.paddingX,
+        paddingRight: LAYOUT_CONTROLS.section.paddingX,
+      }}>
+        <div className="w-full text-left">
           <h2 className="text-4xl font-bold text-[#0B1F3B] mb-10" style={{ fontFamily: TYPOGRAPHY.fontHeading }}>
             Related <span style={{ color: '#D6B05C' }}>Services</span> We Provide
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industry.overview.capabilities.map((capability) => {
               const capabilityData = getCapabilityBySlug(capability.slug);
               return (

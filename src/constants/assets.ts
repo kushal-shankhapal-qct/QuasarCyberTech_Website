@@ -98,8 +98,8 @@ export const ASSETS = {
       compliance: {
         regulatoryGapAssessment: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/Regulatory_Gap_Assessment/Regulatory Gap Assessment Framework.png'),
         riskMonitoring: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/Risk_and_Compliance_Monitoring/Risk and Compliance Monitoring Overview.png'),
-        rbiCompliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/RBI_Cyber_Security_Framework_Compliance/Cyber Security Framework Compliance Overview.png'),
-        dpdpCompliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/SOC2_Readiness/DPDP Act Compliance Guide.png'),
+        rbiCompliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/RBI_Cyber_Security_Framework_Compliance/RBI Cyber Security Framework Compliance.png'),
+        dpdpCompliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/DPDP_Act_Compliance/DPDP Act Compliance Guide.png'),
       },
       advisory: {
         strategy: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Executive_Cyber_Advisory/Executive Cyber Advisory Framework.png'),
@@ -107,7 +107,7 @@ export const ASSETS = {
         vciso: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Virtual_CISO_vCISO_Services/The vCISO Strategic Advantage.png'),
         zeroTrust: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Security_and_Zero_Trust_Architecture_Review/Zero Trust Architecture Review.png'),
         tabletop: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Security_Program_Development/Security Programme Maturity Framework.png'),
-        supplyChain: getAsset('Capabilities_Images/Mastering Supply Chain Resilience.png'),
+        supplyChain: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Third_Party_and_Supply_Chain_Risk_Management/Mastering Supply Chain Resilience.png'),
       },
       offensive: {
         web: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Web_Application_Security_Testing/Deep Web Application Security Validation.png'),
@@ -115,14 +115,14 @@ export const ASSETS = {
         api: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/API_Security_Testing/Critical API Security Testing.png'),
         redTeam: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Red_Team/Red Team Simulation and Resilience.png'),
         simulation: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Adversary_Simulation/Adversary Simulation Defensive Readiness Overview.png'),
-        secureCodeReview: getAsset('Capabilities_Images/Secure Code Review Process Guide.png'),
-        aiSecurity: getAsset('Capabilities_Images/Securing AI and Agentic Systems.png'),
+        secureCodeReview: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Secure_Code_Review/Secure Code Review Process Guide.png'),
+        aiSecurity: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/AI_and_Agentic_System_Security_Testing/Securing AI and Agentic Systems.png'),
       },
       cloud: {
-        cloudAssessment: getAsset('Capabilities_Images/Multi-Cloud Security Assurance Guide.png'),
-        cspm: getAsset('Capabilities_Images/Mastering Cloud Security Posture Management.png'),
-        containerSecurity: getAsset('Capabilities_Images/Container Platform Security Overview.png'),
-        cloudHardening: getAsset('Capabilities_Images/Cloud Security Hardening Framework Guide.png'),
+        cloudAssessment: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/Cloud_Security_Assessments/Multi-Cloud Security Assurance Guide.png'),
+        cspm: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/Cloud_Security_Posture_Management_CSPM/Mastering Cloud Security Posture Management.png'),
+        containerSecurity: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/Kubernetes_and_Container_Security/Container Platform Security Overview.png'),
+        cloudHardening: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/On_Premises_and_Hybrid_Infrastructure_Hardening/Cloud Security Hardening Framework Guide.png'),
       }
     }
   },

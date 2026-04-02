@@ -216,9 +216,12 @@ const NC = {
     enabledMinWidth: 1024,
     axisDefaultY: "4rem", // Centered in 8rem strip
     axisScrolledY: "2.8125rem", // Centered in 5.625rem strip
-    collapseBufferPx: 36,
+    collapseBufferPx: 28,
+    enterDesktopSlackPx: 56,
+    stayDesktopSlackPx: 8,
+    minReliableDesktopWidthPx: 1120,
     fallbackLogoWidthPx: 220,
-    fallbackPillWidthPx: 640,
+    fallbackPillWidthPx: 560,
     fallbackContactWidthPx: 152,
   },
   mobileToggle: {
@@ -233,7 +236,7 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [hoveredMegaGroup, setHoveredMegaGroup] = useState<number | null>(0);
+  const [hoveredMegaGroup, setHoveredMegaGroup] = useState<number | null>(null);
 
   // Mobile
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -312,12 +315,14 @@ const Navbar: React.FC = () => {
         (pillRect.left <= logoRect.right + NC.desktopLayout.collapseBufferPx ||
           contactRect.left <= pillRect.right + NC.desktopLayout.collapseBufferPx);
 
-      const nearThreshold = widthSlack < 24;
-      const collisionCritical = hasMeasuredCollision && nearThreshold;
+      const collisionCritical = hasMeasuredCollision;
+      const reliableDesktopWidth = viewportWidth >= NC.desktopLayout.minReliableDesktopWidthPx;
+      const enterSlack = NC.desktopLayout.enterDesktopSlackPx;
+      const staySlack = NC.desktopLayout.stayDesktopSlackPx;
 
       const nextShowDesktopNav = showDesktopNavRef.current
-        ? widthSlack >= -20 && !collisionCritical
-        : widthSlack >= 40;
+        ? reliableDesktopWidth && widthSlack >= staySlack && !collisionCritical
+        : reliableDesktopWidth && widthSlack >= enterSlack && !collisionCritical;
 
       showDesktopNavRef.current = nextShowDesktopNav;
       setShowDesktopNav(nextShowDesktopNav);
@@ -431,7 +436,7 @@ const Navbar: React.FC = () => {
   const openDropdown = (id: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpenMenu(id);
-    if (id === "capabilities") setHoveredMegaGroup(0);
+    if (id === "capabilities") setHoveredMegaGroup(null);
     updateDropdownPos(id);
   };
 

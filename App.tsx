@@ -3,6 +3,7 @@ import type { RouteRecord } from 'vite-react-ssg';
 import { Navigate } from 'react-router-dom';
 
 import RootLayout from './src/layouts/RootLayout';
+import ErrorPage from './src/pages/ErrorPage';
 import { blogsData } from './src/data/blogsData';
 import { capabilities } from './src/data/capabilitiesData';
 import { industriesData } from './src/data/industriesData';
@@ -18,6 +19,7 @@ export const routes: RouteRecord[] = [
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

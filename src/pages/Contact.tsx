@@ -56,8 +56,8 @@ const CONFIG = {
   }
 };
 
-const PHONE_UTILS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js';
-const CONTACT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzuaTzR23HnYEkgM_8DSPGYZ4wYkbGmRk7pNt7SuiaslUse1fo_MueZC9E8yWUkeLfS-w/exec';
+const PHONE_UTILS_URL = import.meta.env.VITE_PHONE_UTILS_URL?.trim() || 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js';
+const CONTACT_WEBHOOK_URL = import.meta.env.VITE_CONTACT_WEBHOOK_URL?.trim() || '';
 const SUBMIT_TIMEOUT_MS = 12000;
 const CONTACT_DESKTOP_SIDE_MARGIN = '3rem';
 
@@ -350,6 +350,12 @@ export default function Contact() {
 
     setSubmitError('');
     setIsSubmitting(true);
+
+    if (!CONTACT_WEBHOOK_URL) {
+      setSubmitError('Contact service is not configured. Please try again later.');
+      setIsSubmitting(false);
+      return;
+    }
 
     const payload = {
       fullName: sanitizeInput(formState.name, FIELD_MAX_LENGTH.name),

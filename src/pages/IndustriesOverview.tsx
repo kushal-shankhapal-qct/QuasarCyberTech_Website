@@ -19,7 +19,7 @@ import PageHero from '../components/PageHero';
 
 const IndustriesOverview: React.FC = () => {
   return (
-    <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh' }}>
+    <div className="min-h-screen w-full relative overflow-x-hidden" style={{ background: SECTION_BACKGROUNDS.DARK }}>
       <Seo
         title="Cybersecurity Solutions by Industry"
         description="See how QuasarCyberTech tailors cybersecurity consulting, testing, and managed defense for banking, fintech, SaaS, healthcare, ecommerce, and enterprise operations."
@@ -55,13 +55,15 @@ const IndustriesOverview: React.FC = () => {
         scrollMethod="motion"
       />
 
-
       {/* ─── SECTION 2: INDUSTRIES GRID (LIGHT) ─── */}
       <section id="grid" style={{
         background: SECTION_BACKGROUNDS.LIGHT,
-        padding: `${LAYOUT_CONTROLS.section.paddingTop} ${IO.desktopPaddingX}`
+        paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+        paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+        paddingLeft: LAYOUT_CONTROLS.section.paddingX,
+        paddingRight: LAYOUT_CONTROLS.section.paddingX
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
           <SectionHeader
             title="Across Every"
             highlight="Industry"
@@ -146,8 +148,6 @@ const IndustriesOverview: React.FC = () => {
         </div>
       </section>
 
-      <CTASection theme="dark" showEyebrow={true} />
-      <Footer />
       <style dangerouslySetInnerHTML={{
         __html: `
         @media (max-width: 1024px) {
@@ -158,12 +158,11 @@ const IndustriesOverview: React.FC = () => {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             gap: 1rem !important;
           }
-          #grid {
-            padding-left: 2rem !important;
-            padding-right: 2rem !important;
-          }
         }
       `}} />
+
+      <CTASection theme="dark" showEyebrow={true} />
+      <Footer />
     </div>
   );
 };

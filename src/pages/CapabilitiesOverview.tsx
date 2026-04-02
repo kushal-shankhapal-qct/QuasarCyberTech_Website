@@ -10,17 +10,13 @@ import { ASSETS } from '@/constants/assets';
 import { capabilities } from '../data/capabilitiesData';
 import { createBreadcrumbSchema } from '../seo/schema';
 
-
-
 const CapabilitiesOverview: React.FC = () => {
-    const CAPABILITIES_SIDE_MARGIN = '3rem';
-
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'instant' });
     }, []);
 
     return (
-        <div style={{ background: SECTION_BACKGROUNDS.DARK, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div className="min-h-screen w-full relative overflow-x-hidden" style={{ background: SECTION_BACKGROUNDS.DARK, display: 'flex', flexDirection: 'column' }}>
             <Seo
                 title="Cybersecurity Capabilities & Services"
                 description="Discover QuasarCyberTech's cybersecurity capabilities across advisory, compliance, offensive security, cloud protection, managed defense, and cyber intelligence."
@@ -53,16 +49,15 @@ const CapabilitiesOverview: React.FC = () => {
 
             {/* Redundant Manual Scroll Button Removed - PageHero now handles this */}
 
-            <div style={{ zoom: LAYOUT_CONTROLS.globalScale }}>
-                {/* ─── SECTION 2: CAPABILITIES GRID (LIGHT) ─── */}
-                <section id="pillars" className="capabilities-overview-section" style={{
-                    background: '#FFFFFF', // Use Pure White to match Homepage grid background
-                    paddingTop: LAYOUT_CONTROLS.section.paddingTop,
-                    paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
-                    paddingLeft: CAPABILITIES_SIDE_MARGIN,
-                    paddingRight: CAPABILITIES_SIDE_MARGIN,
-                }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+            {/* ─── SECTION 2: CAPABILITIES GRID (LIGHT) ─── */}
+            <section id="pillars" className="capabilities-overview-section" style={{
+                background: '#FFFFFF', // Use Pure White to match Homepage grid background
+                paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+                paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+                paddingLeft: LAYOUT_CONTROLS.section.paddingX,
+                paddingRight: LAYOUT_CONTROLS.section.paddingX,
+            }}>
+                    <div style={{ width: '100%' }}>
                         <div style={{ marginBottom: '48px' }}>
                             <h2 style={{
                                 fontFamily: TYPOGRAPHY.fontHeading,
@@ -117,11 +112,6 @@ const CapabilitiesOverview: React.FC = () => {
                                                         }
 
                                                         @media (max-width: 40rem) {
-                                                            .capabilities-overview-section {
-                                                                padding-left: 1rem !important;
-                                                                padding-right: 1rem !important;
-                                                            }
-
                                                             .capabilities-overview-grid {
                                                                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
                                                                 gap: 1.125rem !important;
@@ -130,11 +120,10 @@ const CapabilitiesOverview: React.FC = () => {
                                                     `,
                                                 }}
                                         />
-                </section>
+            </section>
 
-                <CTASection theme="dark" />
-                <Footer />
-            </div>
+            <CTASection theme="dark" />
+            <Footer />
         </div>
     );
 };

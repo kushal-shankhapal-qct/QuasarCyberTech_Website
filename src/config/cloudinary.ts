@@ -3,7 +3,8 @@
 /**
  * Cloudinary delivery base URL for the 'dmdpzphcz' cloud.
  */
-export const CLOUDINARY_BASE = 'https://res.cloudinary.com/dmdpzphcz/image/upload/';
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME?.trim() || 'dmdpzphcz';
+export const CLOUDINARY_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/`;
 
 interface CloudinaryOptions {
   width?: number;
