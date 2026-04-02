@@ -31,8 +31,7 @@ const patchBrowserLogging = () => {
 
     return (
       /Unexpected token\s*</i.test(text) ||
-      /<!DOCTYPE\s+html/i.test(text) ||
-      /Minified React error #418/i.test(text)
+      /<!DOCTYPE\s+html/i.test(text)
     );
   };
 
@@ -70,17 +69,6 @@ const patchBrowserLogging = () => {
   };
 
   window.onunhandledrejection = function (event) {
-    const reasonText = typeof event.reason === 'string'
-      ? event.reason
-      : `${event.reason?.message || ''} ${event.reason?.stack || ''}`;
-
-    const hasSameOriginBundleInStack =
-      reasonText.includes(window.location.origin) && /\/assets\/.*\.js/i.test(reasonText);
-
-    if (hasSameOriginBundleInStack && shouldRedirectTo404(event.reason)) {
-      redirectTo404();
-    }
-
     postToParent('error', '[Meku_Error_Caught]', { reason: event.reason });
   };
 
