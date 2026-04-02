@@ -92,7 +92,7 @@ const Hero: React.FC = () => {
             color: COLORS.textOnDark,
             marginBottom: "1rem",
             lineHeight: 1.12,
-            fontSize: "clamp(2.6rem, 3.6vw, 3.8rem)",
+            fontSize: "clamp(2.6rem, 3vw, 3.8rem)",
           }}
         >
           Engineering{" "}
@@ -131,30 +131,32 @@ const Hero: React.FC = () => {
           <Link
             to="/capabilities"
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(107,21,48,0.12)";
-              e.currentTarget.style.borderColor = "#8B1E3F";
-              e.currentTarget.style.transform = "translateY(-0.0625rem)";
+              e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.96)";
+              e.currentTarget.style.color = "#FFFFFF";
+              e.currentTarget.style.transform = "translateY(-0.125rem)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.borderColor = "#6B1530";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.78)";
+              e.currentTarget.style.color = "#FFFFFF";
               e.currentTarget.style.transform = "translateY(0)";
             }}
             style={{
               ...TYPOGRAPHY.buttonLarge,
               background: "transparent",
               color: "#FFFFFF",
-              border: "0.09375rem solid #6B1530", // 1.5px
+              border: "0.09375rem solid rgba(255,255,255,0.78)",
               borderRadius: "0.25rem",
-              padding: "1rem 2.5rem", // 16px 40px
+              padding: "1rem 2.25rem", // 16px 36px
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               textDecoration: "none",
-              transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+              transition: "all 0.3s ease",
               fontWeight: 800,
-              fontSize: "0.9375rem", // 15px
-              letterSpacing: "0.05em",
+              fontSize: "0.875rem", // 14px
+              whiteSpace: "nowrap",
             }}
           >
             Explore Capabilities

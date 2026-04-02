@@ -1,76 +1,77 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { COLORS } from '../config/themeConfig';
+import { CircleArrowDown } from 'lucide-react';
+import { TYPOGRAPHY } from '../config/themeConfig';
+import { scrollToTarget, type ScrollMethod } from '@/utils/scrollToTarget';
 
 interface ScrollIndicatorButtonProps {
   targetId: string;
   text: string;
+  method?: ScrollMethod;
+  offsetPx?: number;
 }
 
-const ScrollIndicatorButton: React.FC<ScrollIndicatorButtonProps> = ({ text }) => {
+const ScrollIndicatorButton: React.FC<ScrollIndicatorButtonProps> = ({
+  targetId,
+  text,
+  method = 'native',
+  offsetPx = 20,
+}) => {
   return (
-    <div
+    <motion.button
+      type="button"
+      onClick={() =>
+        scrollToTarget({
+          targetId,
+          method,
+          extraOffsetPx: offsetPx,
+        })
+      }
+      whileHover={{ y: -1 }}
+      whileTap={{ y: 0 }}
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
-        padding: '0px 0px',
+        justifyContent: 'center',
+        gap: '0.5rem',
+        padding: '1rem 2.25rem',
         background: 'transparent',
-        border: 'none',
-        color: COLORS.gold,
-        fontSize: '13px',
-        fontWeight: 700,
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        opacity: 0.9,
+        border: '0.09375rem solid rgba(255,255,255,0.78)',
+        borderRadius: '0.25rem',
+        color: '#FFFFFF',
+        textDecoration: 'none',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        fontWeight: 800,
+        fontSize: '0.875rem',
+        whiteSpace: 'nowrap',
+        ...TYPOGRAPHY.buttonLarge,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.96)';
+        e.currentTarget.style.color = '#FFFFFF';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = 'transparent';
+        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.78)';
+        e.currentTarget.style.color = '#FFFFFF';
       }}
     >
-      {/* ─── MOUSE / PILL INDICATOR (Matching User Screenshot) ─── */}
-      <div style={{
-        width: '20px',
-        height: '32px',
-        borderRadius: '20px',
-        border: `1.5px solid ${COLORS.gold}`,
+      <span>{text}</span>
+      <motion.span
+        animate={{ y: [-1.4, 1.6, -1.4], opacity: [0.85, 1, 0.85] }}
+        transition={{ repeat: Infinity, duration: 1.35, ease: 'easeInOut' }}
+        style={{
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: '4px',
-        position: 'relative',
-        flexShrink: 0,
-        opacity: 0.8
-      }}>
-        <motion.div
-          animate={{ 
-            y: [0, 8, 0],
-            opacity: [0.3, 1, 0.3]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 1.8, 
-            ease: "easeInOut" 
-          }}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
-          {/* Arrow stem */}
-          <div style={{ width: '1.5px', height: '10px', background: COLORS.gold }} />
-          {/* Arrow tip (V-shape) */}
-          <div style={{ 
-            width: '6px', 
-            height: '6px', 
-            borderRight: `1.5px solid ${COLORS.gold}`,
-            borderBottom: `1.5px solid ${COLORS.gold}`,
-            transform: 'rotate(45deg)',
-            marginTop: '-4px'
-          }} />
-        </motion.div>
-      </div>
-
-      <span style={{ marginTop: '1px' }}>{text}</span>
-    </div>
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}
+      >
+        <CircleArrowDown size={19} strokeWidth={2.15} />
+      </motion.span>
+    </motion.button>
   );
 };
 

@@ -553,6 +553,7 @@ export default function About() {
           imageScale={1.3}
           scrollTargetId="who-we-are"
           scrollButtonText="Discover Our Heritage"
+          scrollMethod="motion"
           breadcrumbPaths={["Home"]}
           currentName="About"
         />

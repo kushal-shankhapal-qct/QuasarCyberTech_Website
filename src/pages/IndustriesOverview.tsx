@@ -56,6 +56,7 @@ const IndustriesOverview: React.FC = () => {
         gradientRadius="55%"
         scrollTargetId="grid"
         scrollButtonText="Explore Industries"
+        scrollMethod="motion"
       />
 
 

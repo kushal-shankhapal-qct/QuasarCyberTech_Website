@@ -563,6 +563,7 @@ const CapabilityPage: React.FC = () => {
         subtitleMaxWidth="640px"
         scrollTargetId="capability-content"
         scrollButtonText="Explore Capability"
+        scrollMethod="motion"
       />
 
       <div

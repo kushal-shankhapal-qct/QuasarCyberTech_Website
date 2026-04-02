@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import HeroBreadcrumb from "./HeroBreadcrumb";
 import ScrollIndicatorButton from "./ScrollIndicatorButton";
 import { ASSETS } from "@/constants/assets";
+import type { ScrollMethod } from '@/utils/scrollToTarget';
 
 const HS = {
   paddingTop: "clamp(7rem, 12vh, 11rem)",
@@ -36,6 +37,8 @@ export interface PageHeroProps {
   metrics?: { value: string; label: string }[];
   scrollTargetId?: string;
   scrollButtonText?: string;
+  scrollMethod?: ScrollMethod;
+  scrollOffsetPx?: number;
   visualVariant?: "standard" | "fingerprint" | "none";
   backgroundOverride?: string;
   visualFullWidth?: boolean;
@@ -68,6 +71,8 @@ const PageHero: React.FC<PageHeroProps> = ({
   metrics,
   scrollTargetId,
   scrollButtonText = "Explore",
+  scrollMethod = 'motion',
+  scrollOffsetPx = 20,
   visualVariant = "standard",
   backgroundOverride,
   visualFullWidth = false,
@@ -141,7 +146,7 @@ const PageHero: React.FC<PageHeroProps> = ({
             color: COLORS.textOnDark,
             marginBottom: HS.titleBottom,
             lineHeight: 1.1,
-            fontSize: "clamp(3rem, 4.2vw, 4.2rem)",
+            fontSize: "clamp(3rem, 3vw, 4.2rem)",
           }}
         >
           {title}
@@ -161,7 +166,7 @@ const PageHero: React.FC<PageHeroProps> = ({
             textAlign: "left",
             marginBottom: HS.descBottom,
             lineHeight: 1.8,
-            fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
+            fontSize: "clamp(1rem, 1.2vw, 1.2rem)",
             maxWidth: subtitleMaxWidth || "100%",
           }}
         >
@@ -180,6 +185,8 @@ const PageHero: React.FC<PageHeroProps> = ({
             <ScrollIndicatorButton
               targetId={scrollTargetId}
               text={scrollButtonText}
+              method={scrollMethod}
+              offsetPx={scrollOffsetPx}
             />
           </motion.div>
         )}

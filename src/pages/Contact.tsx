@@ -57,7 +57,53 @@ const CONFIG = {
 };
 
 const PHONE_UTILS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js';
-const CONTACT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxUHBnkWoEMoVBT4gv8UTcUyBz_PayUHJXrFdhmMxqyz9y0WQzsIbOLjuvMuf_zaj6a7A/exec';
+const CONTACT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzuaTzR23HnYEkgM_8DSPGYZ4wYkbGmRk7pNt7SuiaslUse1fo_MueZC9E8yWUkeLfS-w/exec';
+const SUBMIT_TIMEOUT_MS = 12000;
+
+const FIELD_MAX_LENGTH = {
+  name: 80,
+  company: 100,
+  designation: 80,
+  email: 120,
+  message: 1000,
+} as const;
+
+const MALICIOUS_PATTERNS: RegExp[] = [
+  /<\s*script\b/i,
+  /<\s*\/\s*script\s*>/i,
+  /<\s*\/?\s*[a-z][^>]*>/i,
+  /javascript\s*:/i,
+  /data\s*:\s*text\/html/i,
+  /vbscript\s*:/i,
+  /on\w+\s*=/i,
+  /(?:\b|_)(?:alert|prompt|confirm|eval|Function)\s*\(/i,
+  /document\.(?:cookie|write)|window\.(?:location|open)/i,
+];
+
+const isMaliciousInput = (value: string): boolean => {
+  if (!value) return false;
+  return MALICIOUS_PATTERNS.some((pattern) => pattern.test(value));
+};
+
+const sanitizeInput = (value: string, maxLength?: number): string => {
+  if (!value) return '';
+
+  let sanitized = value
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+    .replace(/<\s*script[\s\S]*?>[\s\S]*?<\s*\/\s*script\s*>/gi, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/javascript\s*:/gi, '')
+    .replace(/vbscript\s*:/gi, '')
+    .replace(/data\s*:\s*text\/html/gi, '')
+    .replace(/on\w+\s*=\s*/gi, '')
+    .trim();
+
+  if (typeof maxLength === 'number') {
+    sanitized = sanitized.slice(0, maxLength);
+  }
+
+  return sanitized;
+};
 
 export default function Contact() {
   const right = CONFIG.card.rightPanel;
@@ -72,7 +118,8 @@ export default function Contact() {
     email: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    website: ''
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof typeof formState, string>>>({});
@@ -83,24 +130,32 @@ export default function Contact() {
   const validateField = (field: keyof typeof formState, value: string) => {
     const trimmed = value.trim();
 
+    if (field !== 'phone' && field !== 'website' && isMaliciousInput(trimmed)) {
+      return 'Invalid input detected. Please remove unsupported characters or code-like content.';
+    }
+
     switch (field) {
       case 'name': {
         if (!trimmed) return 'Full Name is required.';
+        if (trimmed.length > FIELD_MAX_LENGTH.name) return 'Full Name cannot exceed 80 characters.';
         if (!/^[A-Za-z][A-Za-z\s'\-]{1,79}$/.test(trimmed)) return 'Use letters, spaces, apostrophe, or hyphen only.';
         return '';
       }
       case 'company': {
         if (!trimmed) return 'Company Name is required.';
+        if (trimmed.length > FIELD_MAX_LENGTH.company) return 'Company Name cannot exceed 100 characters.';
         if (!/^[A-Za-z0-9][A-Za-z0-9\s.,&()'\-]{1,99}$/.test(trimmed)) return 'Please enter a valid company name.';
         return '';
       }
       case 'designation': {
         if (!trimmed) return 'Designation / Role is required.';
+        if (trimmed.length > FIELD_MAX_LENGTH.designation) return 'Designation / Role cannot exceed 80 characters.';
         if (!/^[A-Za-z0-9][A-Za-z0-9\s/&()'\-.,]{1,79}$/.test(trimmed)) return 'Please enter a valid designation or role.';
         return '';
       }
       case 'email': {
         if (!trimmed) return 'Work Email is required.';
+        if (trimmed.length > FIELD_MAX_LENGTH.email) return 'Work Email cannot exceed 120 characters.';
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed)) return 'Enter a valid work email address.';
         return '';
       }
@@ -117,6 +172,10 @@ export default function Contact() {
       }
       case 'message': {
         if (!trimmed) return 'Requirement details are required.';
+        if (trimmed.length > FIELD_MAX_LENGTH.message) return 'Requirement details cannot exceed 1000 characters.';
+        return '';
+      }
+      case 'website': {
         return '';
       }
       default:
@@ -137,9 +196,23 @@ export default function Contact() {
   };
 
   const setField = (field: keyof typeof formState, value: string) => {
-    setFormState((prev) => ({ ...prev, [field]: value }));
+    const maxLength =
+      field === 'name'
+        ? FIELD_MAX_LENGTH.name
+        : field === 'company'
+          ? FIELD_MAX_LENGTH.company
+          : field === 'designation'
+            ? FIELD_MAX_LENGTH.designation
+            : field === 'email'
+              ? FIELD_MAX_LENGTH.email
+              : field === 'message'
+                ? FIELD_MAX_LENGTH.message
+                : undefined;
+
+    const sanitizedValue = sanitizeInput(value, maxLength);
+    setFormState((prev) => ({ ...prev, [field]: sanitizedValue }));
     if (errors[field]) {
-      const msg = validateField(field, value);
+      const msg = validateField(field, sanitizedValue);
       setErrors((prev) => ({ ...prev, [field]: msg || undefined }));
     }
   };
@@ -226,6 +299,15 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isSubmitting) {
+      return;
+    }
+
+    if (formState.website.trim()) {
+      setSubmitError('Unable to process this submission. Please refresh and try again.');
+      return;
+    }
+
     if (!validateForm()) {
       return;
     }
@@ -234,20 +316,24 @@ export default function Contact() {
     setIsSubmitting(true);
 
     const payload = {
-      fullName: formState.name.trim(),
-      companyName: formState.company.trim(),
-      role: formState.designation.trim(),
-      workEmail: formState.email.trim(),
+      fullName: sanitizeInput(formState.name, FIELD_MAX_LENGTH.name),
+      companyName: sanitizeInput(formState.company, FIELD_MAX_LENGTH.company),
+      role: sanitizeInput(formState.designation, FIELD_MAX_LENGTH.designation),
+      workEmail: sanitizeInput(formState.email, FIELD_MAX_LENGTH.email),
       phone: formState.phone.trim(),
-      serviceInterest: formState.service.trim(),
-      message: formState.message.trim(),
+      serviceInterest: sanitizeInput(formState.service, 80),
+      message: sanitizeInput(formState.message, FIELD_MAX_LENGTH.message),
     };
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
 
     try {
       const response = await fetch(CONTACT_WEBHOOK_URL, {
         method: 'POST',
         // Send as a simple request so Apps Script is not blocked by OPTIONS preflight.
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
 
       const responseText = (await response.text()).trim();
@@ -256,10 +342,16 @@ export default function Contact() {
       }
 
       setIsSubmitted(true);
+      setSubmitError('');
     } catch (error) {
-      setSubmitError('Unable to send your message right now. Please try again in a moment.');
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        setSubmitError('Request timed out. Please check your connection and try again.');
+      } else {
+        setSubmitError('Unable to send your message right now. Please try again in a moment.');
+      }
       console.error('Contact form submission failed:', error);
     } finally {
+      window.clearTimeout(timeoutId);
       setIsSubmitting(false);
     }
   };
@@ -341,13 +433,32 @@ export default function Contact() {
                 </h2>
 
                 <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  <input
+                    type="text"
+                    name="website"
+                    value={formState.website}
+                    onChange={(e) => setField('website', e.target.value)}
+                    autoComplete="off"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      left: '-9999px',
+                      width: '1px',
+                      height: '1px',
+                      opacity: 0,
+                      pointerEvents: 'none'
+                    }}
+                  />
+
                   {/* Full Name */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="name" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Full Name</label>
+                    <label htmlFor="name" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Full Name</label>
                     <input
                       type="text"
                       id="name"
                       required
+                      maxLength={FIELD_MAX_LENGTH.name}
                       placeholder="John Doe"
                       value={formState.name}
                       onChange={(e) => setField('name', e.target.value)}
@@ -366,11 +477,12 @@ export default function Contact() {
 
                   {/* Company Name */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="company" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Company Name</label>
+                    <label htmlFor="company" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Company Name</label>
                     <input
                       type="text"
                       id="company"
                       required
+                      maxLength={FIELD_MAX_LENGTH.company}
                       placeholder="Acme Corporation"
                       value={formState.company}
                       onChange={(e) => setField('company', e.target.value)}
@@ -389,11 +501,12 @@ export default function Contact() {
 
                   {/* Designation / Role */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="designation" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Designation / Role</label>
+                    <label htmlFor="designation" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Designation / Role</label>
                     <input
                       type="text"
                       id="designation"
                       required
+                      maxLength={FIELD_MAX_LENGTH.designation}
                       placeholder="e.g. CISO, IT Manager, Founder"
                       value={formState.designation}
                       onChange={(e) => setField('designation', e.target.value)}
@@ -412,11 +525,12 @@ export default function Contact() {
 
                   {/* Work Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="email" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Work Email</label>
+                    <label htmlFor="email" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Work Email</label>
                     <input
                       type="email"
                       id="email"
                       required
+                      maxLength={FIELD_MAX_LENGTH.email}
                       placeholder="john@enterprise.com"
                       value={formState.email}
                       onChange={(e) => setField('email', e.target.value)}
@@ -435,7 +549,7 @@ export default function Contact() {
 
                   {/* Phone Number */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="phone" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Phone Number</label>
+                    <label htmlFor="phone" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Phone Number</label>
                     <div className="phone-input-container">
                       <input
                         id="phone"
@@ -454,7 +568,7 @@ export default function Contact() {
 
                   {/* Service of Interest */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="service" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Service of Interest</label>
+                    <label htmlFor="service" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Service of Interest</label>
                     <select
                       id="service"
                       required
@@ -486,10 +600,11 @@ export default function Contact() {
 
                   {/* Tell us about your requirement */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label htmlFor="message" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Tell us about your requirement</label>
+                    <label htmlFor="message" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}><span style={{ color: '#DC2626' }}>*</span> Tell us about your requirement</label>
                     <textarea
                       id="message"
                       required
+                      maxLength={FIELD_MAX_LENGTH.message}
                       rows={4}
                       placeholder="Briefly describe your security challenge or goal..."
                       value={formState.message}

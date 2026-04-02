@@ -120,6 +120,7 @@ export default function Platforms() {
           currentName="Platforms"
           scrollTargetId="platform-highlights"
           scrollButtonText="Explore Platforms"
+          scrollMethod="motion"
         />
 
         {/* ─── PLATFORM 01: QStellar (LIGHT) ─── */}

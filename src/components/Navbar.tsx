@@ -239,6 +239,8 @@ const Navbar: React.FC = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const [mobileExpandedGroup, setMobileExpandedGroup] = useState<number | null>(null);
+  const scrolledRef = useRef(false);
+  const showDesktopNavRef = useRef(true);
   const [showDesktopNav, setShowDesktopNav] = useState<boolean>(() => {
     if (typeof window === "undefined") return true;
     return window.innerWidth >= NC.desktopLayout.enabledMinWidth;
@@ -300,6 +302,7 @@ const Navbar: React.FC = () => {
 
       const requiredWidth =
         logoWidth + pillWidth + contactWidth + headerPaddingX + NC.desktopLayout.collapseBufferPx;
+      const widthSlack = viewportWidth - requiredWidth;
 
       const hasMeasuredCollision =
         !!logoRect &&
@@ -312,7 +315,15 @@ const Navbar: React.FC = () => {
         (pillRect.left <= logoRect.right + NC.desktopLayout.collapseBufferPx ||
           contactRect.left <= pillRect.right + NC.desktopLayout.collapseBufferPx);
 
-      setShowDesktopNav(viewportWidth >= requiredWidth && !hasMeasuredCollision);
+      const nearThreshold = widthSlack < 24;
+      const collisionCritical = hasMeasuredCollision && nearThreshold;
+
+      const nextShowDesktopNav = showDesktopNavRef.current
+        ? widthSlack >= -20 && !collisionCritical
+        : widthSlack >= 40;
+
+      showDesktopNavRef.current = nextShowDesktopNav;
+      setShowDesktopNav(nextShowDesktopNav);
     };
 
     const onResize = () => evaluateNavFit();
@@ -330,14 +341,36 @@ const Navbar: React.FC = () => {
 
   // ── Scroll state ──
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > NC.scroll.logoTextHideAt);
+    const enterAt = NC.scroll.logoTextHideAt + 10;
+    const exitAt = Math.max(0, NC.scroll.logoTextHideAt - 18);
+    let rafId = 0;
 
-    const onForceScrolled = () => setScrolled(true);
+    const updateScrolled = () => {
+      const y = window.scrollY;
+      const next = scrolledRef.current ? y > exitAt : y > enterAt;
+      if (next === scrolledRef.current) return;
+      scrolledRef.current = next;
+      setScrolled(next);
+    };
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        updateScrolled();
+      });
+    };
+
+    const onForceScrolled = () => {
+      scrolledRef.current = true;
+      setScrolled(true);
+    };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("qct:force-scrolled", onForceScrolled);
-    onScroll();
+    updateScrolled();
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("qct:force-scrolled", onForceScrolled);
     };
@@ -718,10 +751,12 @@ const Navbar: React.FC = () => {
         />
 
         {/* ── ZONE 2: NAV CONTENT ── */}
-        <nav
+        <motion.nav
           ref={pillRef}
           data-qct-navbar-pill="true"
           className="items-center"
+          animate={{ top: desktopAxisY }}
+          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           style={{
             display: showDesktopNav ? "flex" : "none",
             position: "absolute",
@@ -736,7 +771,6 @@ const Navbar: React.FC = () => {
             background: "transparent",
             border: "none",
             boxShadow: "none",
-            transition: `top ${NC.scroll.duration} ${NC.scroll.easing}, color 0.2s ease`,
             zIndex: 1001,
             pointerEvents: "auto",
           }}
@@ -786,7 +820,7 @@ const Navbar: React.FC = () => {
               </div>
             );
           })}
-        </nav>
+        </motion.nav>
 
         {/* ── ZONE 3: CONTACT + MOBILE TOGGLE ── */}
         <div
@@ -798,15 +832,16 @@ const Navbar: React.FC = () => {
             zIndex: 1002,
           }}
         >
-          <div
+          <motion.div
             ref={contactRef}
+            animate={{ top: desktopAxisY }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             style={{
               display: showDesktopNav ? "block" : "none",
               position: "absolute",
               top: desktopAxisY,
               right: NC.wrapper.paddingRight,
               transform: `translate(${NC.tune.contactNudgeX}, calc(-50% + ${NC.tune.contactNudgeY}))`,
-              transition: `top ${NC.scroll.duration} ${NC.scroll.easing}`,
             }}
           >
             <Link
@@ -836,7 +871,7 @@ const Navbar: React.FC = () => {
             >
               {NC.contactButton.text}
             </Link>
-          </div>
+          </motion.div>
 
           <button
             className="items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"

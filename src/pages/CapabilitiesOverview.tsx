@@ -46,6 +46,7 @@ const CapabilitiesOverview: React.FC = () => {
                 imageScale={1.3}
                 scrollTargetId="pillars"
                 scrollButtonText="Explore Capabilities"
+                scrollMethod="motion"
             />
 
             {/* Redundant Manual Scroll Button Removed - PageHero now handles this */}
