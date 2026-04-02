@@ -44,11 +44,11 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
 
     // Helper to render suffix with specific symbol coloring
     const renderSuffix = () => {
-        if (suffix === '×7') {
+        if (suffix === 'x7') {
             return (
                 <span className="flex items-center">
                     <span style={{ ...TYPOGRAPHY.metricNumber, color: BRAND_CONTROLS.metricsSymbolColor }}>
-                        ×
+                        x
                     </span>
                     <span style={{ ...TYPOGRAPHY.metricNumber, color: isDark ? '#FFFFFF' : BRAND_CONTROLS.metricsNumberColor }}>
                         7
@@ -124,7 +124,7 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
         { value: 60, suffix: '+', label: 'Security Engagements' },
         { value: 2000, suffix: '+', label: 'Security Vulnerabilities Reported' },
         { value: 100, suffix: '%', label: 'Client Retention' },
-        { value: 24, suffix: '*7', label: 'Security Operations\nMonitoring' }
+        { value: 24, suffix: 'x7', label: 'Security Operations\nMonitoring' }
     ];
 
     return (
@@ -161,7 +161,7 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
                 }}
             >
                 {/* 4-column horizontal on desktop, 2x2 on mobile/tablet */}
-                <div className="relative z-[30] grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-y-8 min-[480px]:gap-y-12 sm:gap-y-16">
+                <div className="relative z-[30] grid grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-12">
                     {metrics.map((metric, idx) => (
                         <div
                             key={idx}
@@ -173,14 +173,14 @@ export default function TrustIndicators({ isDark = false, centered = false }: { 
                             )}
                             {/* Mobile/Tablet Vertical Divider (between col 1 and 2 in the 2x2 grid) */}
                             {idx % 2 === 0 && (
-                                <div className="hidden min-[480px]:block lg:hidden absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
+                                <div className="block lg:hidden absolute right-0 top-[30%] bottom-[30%] w-px bg-[#0B1F3B] opacity-[0.1]" />
                             )}
 
                             <CountUp end={metric.value} suffix={metric.suffix} label={metric.label} delay={0.1 + (idx * 0.05)} duration={METRICS_DURATION} isDark={isDark} />
 
                             {/* Mobile/Tablet Horizontal Dividers (only under row 1 of the 2x2) */}
                             {(idx < 2) && (
-                                <div className="hidden min-[480px]:block lg:hidden absolute bottom-[-24px] left-[15%] right-[15%] h-px"
+                                <div className="block lg:hidden absolute bottom-[-24px] left-[15%] right-[15%] h-px"
                                     style={{
                                         background: 'linear-gradient(90deg, transparent 0%, rgba(11,31,59,0.12) 20%, rgba(11,31,59,0.12) 80%, transparent 100%)'
                                     }}

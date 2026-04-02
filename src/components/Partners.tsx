@@ -21,7 +21,6 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
         { name: 'Burp Suite', logo: ASSETS.partners.burp, id: 1 },
         { name: 'D-Link', logo: ASSETS.partners.dlink, id: 2 },
         { name: 'NinjaOne', logo: ASSETS.partners.ninja, id: 3 },
-        { name: 'RAH Infotech', logo: ASSETS.partners.rah, id: 4 },
         { name: 'Rapid7', logo: ASSETS.partners.rapid7, id: 5 },
         { name: 'Satcom Infotech', logo: ASSETS.partners.satcom, id: 6 },
         { name: 'Sophos', logo: ASSETS.partners.sophos, id: 7 },
