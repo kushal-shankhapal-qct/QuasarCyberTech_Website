@@ -1,8 +1,97 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
-import { themeConfig, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS, ALPHAS, GRADIENTS } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import SectionHeader from './SectionHeader';
+
+type TestimonialItem = {
+    quote: string;
+    name: string;
+    role: string;
+    initials: string;
+};
+
+function TestimonialCard({
+    testimonial,
+    idx,
+}: {
+    testimonial: TestimonialItem;
+    idx: number;
+}) {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: idx * 0.2 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="relative px-8 py-8 flex flex-col group transition-all duration-500 overflow-hidden testimonial-card"
+            style={{
+                border: `0.0625rem solid rgba(0,0,0,0.05)`,
+                background: '#FFFFFF',
+                minHeight: '16.25rem',
+                boxShadow: isHovered ? '0 1.25rem 2.5rem rgba(0,0,0,0.1)' : '0 0.625rem 1.875rem rgba(0,0,0,0.05)',
+                transform: isHovered ? 'translateY(-0.375rem)' : 'translateY(0)',
+                borderRadius: idx === 0 ? '0 2rem 2rem 0' : '2rem 0 0 2rem'
+            }}
+        >
+            <div
+                className="absolute top-0 bottom-0 w-[0.3125rem] transition-colors duration-500"
+                style={{
+                    background: COLORS.gold,
+                    left: idx === 0 ? '0' : 'auto',
+                    right: idx === 1 ? '0' : 'auto'
+                }}
+            />
+
+            <div className="mb-8 relative">
+                <Quote
+                    className="w-10 h-10 transition-colors duration-500"
+                    style={{ color: COLORS.gold }}
+                    fill="currentColor"
+                    fillOpacity={0.15}
+                />
+            </div>
+
+            <p
+                className="testimonial-quote text-[0.90625rem] leading-relaxed mb-8 flex-grow font-medium italic transition-opacity px-2"
+                style={{
+                    color: '#0B1F3B',
+                    opacity: isHovered ? 1 : 0.9,
+                    textAlign: 'justify'
+                }}
+            >
+                "{testimonial.quote}"
+            </p>
+
+            <div
+                className="flex items-center gap-4 mt-auto p-4 rounded-xl transition-all duration-300"
+                style={{
+                    backgroundColor: isHovered ? 'rgba(214, 176, 92, 0.05)' : 'rgba(0,0,0,0.02)',
+                    border: `0.0625rem solid rgba(0,0,0,0.05)`,
+                }}
+            >
+                <div className="flex flex-col">
+                    <span
+                        className="text-[0.9375rem] font-black transition-colors duration-300"
+                        style={{ color: COLORS.burgundy }}
+                    >
+                        {testimonial.name}
+                    </span>
+                    <span
+                        className="text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-300"
+                        style={{ color: '#5A6478' }}
+                    >
+                        {testimonial.role}
+                    </span>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
 
 export default function Testimonials() {
     const testimonials = [
@@ -46,82 +135,13 @@ export default function Testimonials() {
                     gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))',
                     gap: LAYOUT_CONTROLS.grid.capabilityGap,
                 }}>
-                    {testimonials.map((testimonial, idx) => {
-                        const [isHovered, setIsHovered] = useState(false);
-                        return (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: idx * 0.2 }}
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
-                                className={`relative px-8 py-8 flex flex-col group transition-all duration-500 overflow-hidden testimonial-card`}
-                                style={{
-                                    border: `0.0625rem solid rgba(0,0,0,0.05)`,
-                                    background: '#FFFFFF',
-                                    minHeight: '16.25rem',
-                                    boxShadow: isHovered ? '0 1.25rem 2.5rem rgba(0,0,0,0.1)' : '0 0.625rem 1.875rem rgba(0,0,0,0.05)',
-                                    transform: isHovered ? 'translateY(-0.375rem)' : 'translateY(0)',
-                                    borderRadius: idx === 0 ? '0 2rem 2rem 0' : '2rem 0 0 2rem'
-                                }}
-                            >
-                                {/* Sharp Vertical Accent Line */}
-                                <div
-                                    className="absolute top-0 bottom-0 w-[0.3125rem] transition-colors duration-500"
-                                    style={{
-                                        background: COLORS.gold,
-                                        left: idx === 0 ? '0' : 'auto',
-                                        right: idx === 1 ? '0' : 'auto'
-                                    }}
-                                />
-
-                                <div className="mb-8 relative">
-                                    <Quote 
-                                        className="w-10 h-10 transition-colors duration-500" 
-                                        style={{ color: COLORS.gold }} 
-                                        fill="currentColor" 
-                                        fillOpacity={0.15} 
-                                    />
-                                </div>
-
-                                <p className="testimonial-quote text-[0.90625rem] leading-relaxed mb-8 flex-grow font-medium italic transition-opacity px-2"
-                                    style={{
-                                        color: '#0B1F3B',
-                                        opacity: isHovered ? 1 : 0.9,
-                                        textAlign: 'justify'
-                                    }}
-                                >
-                                    "{testimonial.quote}"
-                                </p>
-
-                                {/* Author Block */}
-                                <div
-                                    className="flex items-center gap-4 mt-auto p-4 rounded-xl transition-all duration-300"
-                                    style={{
-                                        backgroundColor: isHovered ? 'rgba(214, 176, 92, 0.05)' : 'rgba(0,0,0,0.02)',
-                                        border: `0.0625rem solid rgba(0,0,0,0.05)`,
-                                    }}
-                                >
-                                    <div className="flex flex-col">
-                                        <span 
-                                            className="text-[0.9375rem] font-black transition-colors duration-300"
-                                            style={{ color: COLORS.burgundy }}
-                                        >
-                                            {testimonial.name}
-                                        </span>
-                                        <span 
-                                            className="text-[0.75rem] font-bold uppercase tracking-wider transition-colors duration-300"
-                                            style={{ color: '#5A6478' }}
-                                        >
-                                            {testimonial.role}
-                                        </span>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                    {testimonials.map((testimonial, idx) => (
+                        <TestimonialCard
+                            key={idx}
+                            testimonial={testimonial}
+                            idx={idx}
+                        />
+                    ))}
                 </div>
             </div>
             <style

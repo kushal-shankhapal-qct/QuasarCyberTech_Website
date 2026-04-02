@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import CTASection from "../components/CTASection";
-import LeadershipVision from "../components/LeadershipVision";
+import MilestonesJourney from "../components/MilestonesJourney";
 import { motion, useInView } from "framer-motion";
 import {
   ComposableMap,
@@ -40,7 +40,10 @@ const METRIC_ANIMATION_DURATION = 1.2;
 const DEFAULT_MAP_SCALE = 190;
 const DEFAULT_MAP_CENTER: [number, number] = [0, 24];
 const MAP_LEGEND_HEIGHT = 46;
-const LOCATION_ZOOM_CONFIG: Record<string, { center: [number, number]; zoom: number }> = {
+const LOCATION_ZOOM_CONFIG: Record<
+  string,
+  { center: [number, number]; zoom: number }
+> = {
   Nashik: {
     center: [78.5, 21.5],
     zoom: 3,
@@ -50,10 +53,6 @@ const LOCATION_ZOOM_CONFIG: Record<string, { center: [number, number]; zoom: num
     zoom: 3.3,
   },
 };
-const aboutBreadcrumbSchema = createBreadcrumbSchema([
-  { name: "Home", path: "/" },
-  { name: "About", path: "/aboutus" },
-]);
 const ABOUT_DESKTOP_SIDE_MARGIN = "3rem";
 
 // --- Metrics Helper ---
@@ -204,161 +203,6 @@ const MetricRow: React.FC<{
   );
 };
 
-// --- Timeline Year Node ---
-const TimelineYearNode: React.FC<{ year: string }> = ({ year }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: "8px",
-      zIndex: 3,
-      position: "relative",
-    }}
-  >
-    <div
-      style={{
-        width: "60px",
-        height: "60px",
-        borderRadius: "50%",
-        border: "1px dashed rgba(214,176,92,0.22)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "44px",
-          height: "44px",
-          borderRadius: "50%",
-          border: "1px solid rgba(214,176,92,0.45)",
-          background: "#0B1F3B",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "10px",
-            height: "10px",
-            borderRadius: "50%",
-            background: COLORS.gold,
-            boxShadow: "0 0 10px rgba(214,176,92,0.6)",
-          }}
-        />
-      </div>
-    </div>
-    <span
-      style={{
-        fontSize: "11px",
-        fontWeight: 700,
-        letterSpacing: "0.14em",
-        color: COLORS.gold,
-        fontFamily: TYPOGRAPHY.fontHeading,
-        textTransform: "uppercase" as const,
-      }}
-    >
-      {year}
-    </span>
-  </div>
-);
-
-// --- Timeline Card ---
-const TimelineCard: React.FC<{
-  tag: string;
-  title: string;
-  description: string;
-  accentColor: string;
-  index: number;
-}> = ({ tag, title, description, accentColor, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.08 }}
-    whileHover={{ background: "rgba(255,255,255,0.07)" }}
-    style={{
-      background: "rgba(255,255,255,0.04)",
-      border: `1px solid ${ALPHAS.white08}`,
-      borderLeft: `3px solid ${accentColor}`,
-      borderRadius: "4px",
-      padding: "26px 24px",
-      position: "relative",
-      overflow: "hidden",
-    }}
-  >
-    <div
-      style={{
-        position: "absolute",
-        bottom: "-10px",
-        right: "-10px",
-        width: "72px",
-        height: "72px",
-        opacity: 0.05,
-        pointerEvents: "none",
-      }}
-    >
-      <svg viewBox="0 0 72 72" fill="none">
-        <circle cx="36" cy="36" r="28" stroke={COLORS.gold} strokeWidth="2" />
-        <circle cx="36" cy="36" r="10" fill={COLORS.gold} />
-        <line
-          x1="36"
-          y1="8"
-          x2="36"
-          y2="64"
-          stroke={COLORS.gold}
-          strokeWidth="2"
-        />
-        <line
-          x1="8"
-          y1="36"
-          x2="64"
-          y2="36"
-          stroke={COLORS.gold}
-          strokeWidth="2"
-        />
-      </svg>
-    </div>
-    <p
-      style={{
-        fontSize: "10px",
-        fontWeight: 700,
-        letterSpacing: "0.2em",
-        color: COLORS.gold,
-        textTransform: "uppercase" as const,
-        marginBottom: "10px",
-        opacity: 0.85,
-      }}
-    >
-      {tag}
-    </p>
-    <h3
-      style={{
-        color: "#FFFFFF",
-        fontSize: "1.05rem",
-        fontWeight: 800,
-        marginBottom: "10px",
-        fontFamily: TYPOGRAPHY.fontHeading,
-        lineHeight: 1.3,
-      }}
-    >
-      {title}
-    </h3>
-    <p
-      style={{
-        color: "rgba(255,255,255,0.72)",
-        fontSize: "0.93rem",
-        lineHeight: 1.7,
-        margin: 0,
-      }}
-    >
-      {description}
-    </p>
-  </motion.div>
-);
-
 export default function About() {
   const geoUrl = "/data/countries-110m.json";
   const [activeLocation, setActiveLocation] = React.useState<string | null>(
@@ -367,7 +211,6 @@ export default function About() {
   const [hoveredMapNode, setHoveredMapNode] = React.useState<string | null>(
     null,
   );
-
   const coreValues = [
     {
       title: "Integrity in every engagement",
@@ -415,7 +258,7 @@ export default function About() {
     },
     {
       name: "Dallas",
-      coordinates: [-96.7970, 32.7767] as [number, number],
+      coordinates: [-96.797, 32.7767] as [number, number],
       label: "office" as const,
     },
   ];
@@ -427,11 +270,7 @@ export default function About() {
     if (activeLocation && LOCATION_ZOOM_CONFIG[activeLocation]) {
       return LOCATION_ZOOM_CONFIG[activeLocation];
     }
-
-    return {
-      center: DEFAULT_MAP_CENTER,
-      zoom: 1,
-    };
+    return { center: DEFAULT_MAP_CENTER, zoom: 1 };
   }, [activeLocation]);
 
   const [mapView, setMapView] = React.useState<{
@@ -441,6 +280,11 @@ export default function About() {
     center: DEFAULT_MAP_CENTER,
     zoom: 1,
   });
+  const mapViewRef = React.useRef(mapView);
+
+  React.useEffect(() => {
+    mapViewRef.current = mapView;
+  }, [mapView]);
 
   const markerStableZoom = React.useMemo(() => {
     if (activeLocation && LOCATION_ZOOM_CONFIG[activeLocation]) {
@@ -450,19 +294,16 @@ export default function About() {
   }, [activeLocation, mapView.zoom]);
 
   React.useEffect(() => {
-    const startCenter = mapView.center;
-    const startZoom = mapView.zoom;
+    const startCenter = mapViewRef.current.center;
+    const startZoom = mapViewRef.current.zoom;
     const endCenter = targetMapView.center;
     const endZoom = targetMapView.zoom;
     const startTs = performance.now();
     const durationMs = 700;
-
     let rafId = 0;
-
     const animate = (now: number) => {
       const progress = Math.min((now - startTs) / durationMs, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-
       setMapView({
         center: [
           startCenter[0] + (endCenter[0] - startCenter[0]) * eased,
@@ -470,12 +311,8 @@ export default function About() {
         ],
         zoom: startZoom + (endZoom - startZoom) * eased,
       });
-
-      if (progress < 1) {
-        rafId = window.requestAnimationFrame(animate);
-      }
+      if (progress < 1) rafId = window.requestAnimationFrame(animate);
     };
-
     rafId = window.requestAnimationFrame(animate);
     return () => window.cancelAnimationFrame(rafId);
   }, [targetMapView.center, targetMapView.zoom]);
@@ -494,85 +331,6 @@ export default function About() {
     { value: 70, suffix: "+", label: "Enterprise Apps Assessed" },
     { value: 24, suffix: "x7", label: "Security Operations\nMonitoring" },
   ];
-
-  const milestones = [
-    {
-      year: "2024",
-      month: "Jul",
-      title: "Incorporation",
-      description: "QCTPL was incorporated, marking the beginning of our cybersecurity journey.",
-    },
-    {
-      year: "2024",
-      month: "Oct",
-      title: "Nashik Office Launch",
-      description: "Established our first operational headquarters in Nashik.",
-    },
-    {
-      year: "2024",
-      month: "Nov",
-      title: "Startup India Recognition",
-      description: "Recognized under the Startup India initiative, validating our innovation approach.",
-    },
-    {
-      year: "2024",
-      month: "Dec",
-      title: "Strategic Partnerships",
-      description: "Partnered with VANAPS and AIKouKab for global collaboration.",
-    },
-    {
-      year: "2025",
-      month: "Jan",
-      title: "Bengaluru & Mumbai Expansion",
-      description: "Strengthened national presence with new offices in two major cities.",
-    },
-    {
-      year: "2025",
-      month: "Jan",
-      title: "NASSCOM Membership",
-      description: "Joined India's leading tech industry body, NASSCOM.",
-    },
-    {
-      year: "2025",
-      month: "Jun",
-      title: "QStellar Development",
-      description: "Initiated development of our flagship AI-powered asset intelligence platform.",
-    },
-    {
-      year: "2025",
-      month: "Aug",
-      title: "Indian Business Excellence Award",
-      description: "Featured and recognized at the Indian Business Excellence Awards 2025.",
-    },
-    {
-      year: "2025",
-      month: "Aug",
-      title: "UltraTech Partnership",
-      description: "Achieved official partner status with UltraTech, enhancing enterprise reach.",
-    },
-    {
-      year: "2025",
-      month: "Aug",
-      title: "Global Expansion",
-      description: "Established international presence in Dallas, USA.",
-    },
-    {
-      year: "2025",
-      month: "Sep",
-      title: "Emerging Company of the Year",
-      description: "Recognized by Business Connect Magazine as Emerging Company of the Year 2025.",
-    },
-  ];
-
-  const milestonesByYear = milestones.reduce((acc, current) => {
-    if (!acc[current.year]) {
-      acc[current.year] = [];
-    }
-    acc[current.year].push(current);
-    return acc;
-  }, {} as Record<string, typeof milestones>);
-
-  const years = Object.keys(milestonesByYear).sort();
 
   const sectionPad = {
     paddingLeft: ABOUT_DESKTOP_SIDE_MARGIN,
@@ -595,8 +353,8 @@ export default function About() {
         image={ASSETS.capabilities.advisory}
         jsonLd={[
           createBreadcrumbSchema([
-            { name: 'Home', path: '/' },
-            { name: 'About', path: '/aboutus' },
+            { name: "Home", path: "/" },
+            { name: "About", path: "/aboutus" },
           ]),
           createAboutPageSchema(),
         ]}
@@ -678,7 +436,6 @@ export default function About() {
                 </p>
               </div>
             </div>
-
             <div
               style={{
                 display: "grid",
@@ -1078,7 +835,10 @@ export default function About() {
                 }}
               />
               <div
-                style={{ position: "relative", height: `calc(100% - ${MAP_LEGEND_HEIGHT}px)` }}
+                style={{
+                  position: "relative",
+                  height: `calc(100% - ${MAP_LEGEND_HEIGHT}px)`,
+                }}
               >
                 <ComposableMap
                   projection="geoMercator"
@@ -1143,13 +903,19 @@ export default function About() {
                           style={{ transition: "transform 0.2s ease" }}
                         >
                           <circle
-                            r={activeLocation === node.name || hoveredMapNode === node.name ? 9 : 6}
+                            r={
+                              activeLocation === node.name ||
+                              hoveredMapNode === node.name
+                                ? 9
+                                : 6
+                            }
                             fill={COLORS.gold}
                             stroke="#0B1F3B"
                             strokeWidth={1.4}
                             style={{ transition: "all 0.2s ease" }}
                           />
-                          {(activeLocation === node.name || hoveredMapNode === node.name) && (
+                          {(activeLocation === node.name ||
+                            hoveredMapNode === node.name) && (
                             <>
                               <rect
                                 x={12}
@@ -1219,158 +985,8 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── 6: REMOVED LEADERSHIP ── */}
-
         {/* ── 7: TIMELINE MILESTONES ── */}
-        <section
-          className="about-content-section"
-          style={{
-            background: "#f8f7f5",
-            paddingTop: "clamp(60px, 8vw, 90px)",
-            paddingBottom: "clamp(60px, 8vw, 100px)",
-            ...sectionPad,
-          }}
-        >
-          <div style={{ width: "100%", margin: "0 auto" }}>
-            {/* Header */}
-            <div style={{ marginBottom: "48px" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  marginBottom: "12px",
-                }}
-              >
-                <span style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", color: "#888", textTransform: "uppercase" }}>
-                  Company Milestones
-                </span>
-                <div style={{ height: "1px", width: "40px", background: "#D6B05C" }} />
-              </div>
-              <h2
-                style={{
-                  fontSize: "30px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  margin: "0 0 8px",
-                  lineHeight: 1.2,
-                }}
-              >
-                Milestones Since <span style={{ color: "#6B1530", fontStyle: "normal" }}>Inception</span>
-              </h2>
-              <p style={{ fontSize: "14px", color: "#666", maxWidth: "480px", lineHeight: 1.6, margin: 0 }}>
-                A clear progression of strategic growth moments shaping QuasarCyberTech into a trusted cybersecurity authority.
-              </p>
-            </div>
-
-            {/* Timeline View */}
-            <div style={{ position: "relative", paddingLeft: "24px" }}>
-              {/* Gray Dashed Spine */}
-              <div 
-                style={{ 
-                  position: "absolute", 
-                  left: "7px", 
-                  top: "0", 
-                  bottom: "0", 
-                  width: "2px", 
-                  borderLeft: "2px dashed #e8e8e8" 
-                }} 
-              />
-              {/* Burgundy Solid Progress */}
-              <div 
-                style={{ 
-                  position: "absolute", 
-                  left: "7px", 
-                  top: "0", 
-                  width: "2px", 
-                  background: "#6B1530", 
-                  height: "calc(100% - 80px)",
-                  borderRadius: "2px"
-                }} 
-              />
-
-              {years.map((year, yIdx) => (
-                <div key={year} style={{ marginBottom: "40px" }}>
-                  {/* Year Marker & Label */}
-                  <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px", position: "relative" }}>
-                    <div 
-                      style={{ 
-                        position: "absolute", 
-                        left: "-24px", 
-                        width: "16px", 
-                        height: "16px", 
-                        borderRadius: "50%", 
-                        background: "#6B1530", 
-                        border: "3px solid #f8f7f5", 
-                        zIndex: 1, 
-                        marginTop: "2px" 
-                      }} 
-                    />
-                    <div style={{ width: "16px", flexShrink: 0 }} />
-                    <div style={{ fontSize: "42px", fontWeight: 800, color: "#6B1530", lineHeight: 1, flexShrink: 0 }}>
-                      {year}
-                    </div>
-                    <div style={{ flex: 1, height: "1.5px", background: "linear-gradient(to right, #6B1530 0%, #e0e0e0 100%)" }} />
-                  </div>
-
-                  {/* Cards Grid */}
-                  <div style={{ paddingLeft: "16px" }}>
-                    <div 
-                      className="ms-cards-grid"
-                      style={{ 
-                        display: "grid", 
-                        gridTemplateColumns: "repeat(4, 1fr)", 
-                        gap: "12px" 
-                      }}
-                    >
-                      {milestonesByYear[year].map((milestone, idx) => (
-                        <motion.div
-                          key={`${year}-${idx}`}
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.3, delay: (yIdx * 0.1) + (idx * 0.04) }}
-                          style={{
-                            background: "#fff",
-                            border: "0.5px solid #e0e0e0",
-                            borderLeft: `2.5px solid #6B1530`,
-                            borderRadius: "0 8px 8px 0",
-                            padding: "14px",
-                            position: "relative"
-                          }}
-                        >
-                          <span 
-                            style={{ 
-                              display: "inline-block", 
-                              background: "rgba(214,176,92,0.15)", 
-                              color: "#8a6a1a", 
-                              fontSize: "10px", 
-                              fontWeight: 700, 
-                              letterSpacing: "0.1em", 
-                              textTransform: "uppercase", 
-                              padding: "2px 8px", 
-                              borderRadius: "20px", 
-                              marginBottom: "8px" 
-                            }}
-                          >
-                            {milestone.month}
-                          </span>
-                          <h4 style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", margin: "0 0 5px", lineHeight: 1.3 }}>
-                            {milestone.title}
-                          </h4>
-                          <p style={{ fontSize: "11.5px", color: "#777", lineHeight: 1.5, margin: 0 }}>
-                            {milestone.description}
-                          </p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-            </div>
-          </div>
-        </section>
+        <MilestonesJourney />
 
         {/* ── 8: CTA ── */}
         <CTASection theme="dark" showEyebrow={true} />
@@ -1386,23 +1002,13 @@ export default function About() {
           50%       { opacity: 0.45; transform: scale(0.7); }
         }
 
-        .ms-cards-grid {
-          grid-template-columns: repeat(4, 1fr) !important;
-        }
-
         @media (max-width: 1100px) {
-          .ms-cards-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-           .about-who-grid, .about-map-grid, .about-mission-grid {
+          .about-who-grid, .about-map-grid, .about-mission-grid {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
           }
-        }
-
-        @media (max-width: 640px) {
-          .ms-cards-grid {
-            grid-template-columns: 1fr !important;
+          .about-values-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
 

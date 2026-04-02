@@ -68,7 +68,21 @@ const scrollHtml = (target: HTMLElement, offsetPx: number): void => {
 };
 
 const scrollGsap = (to: number): boolean => {
-  const g = (window as unknown as { gsap?: { to?: Function } }).gsap;
+  const g = (
+    window as unknown as {
+      gsap?: {
+        to?: (
+          target: Window,
+          options: {
+            duration: number;
+            scrollTo: { y: number; autoKill: boolean };
+            overwrite: string;
+            ease: string;
+          },
+        ) => void;
+      };
+    }
+  ).gsap;
   if (!g?.to) return false;
 
   try {

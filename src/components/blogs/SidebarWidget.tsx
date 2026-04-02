@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, ChevronRight } from 'lucide-react';
 import { COLORS } from '../../config/themeConfig';
@@ -27,24 +27,12 @@ const widgetCard: React.CSSProperties = {
   marginBottom: '20px',
 };
 
-const widgetLabelStyle: React.CSSProperties = {
-  fontSize: '11px',
-  fontWeight: 700,
-  color: GOLD,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase',
-  marginBottom: '16px',
-};
-
 export default function BlogSidebar({
-  latestPosts,
   subscribeEmail,
   setSubscribeEmail,
   subscribeSuccess,
   handleSubscribe,
 }: SidebarProps) {
-  const [imgErrors] = useState<Record<string, boolean>>({});
-
   return (
     <div>
       {/* Latest posts, categories, and tags intentionally removed from sidebar

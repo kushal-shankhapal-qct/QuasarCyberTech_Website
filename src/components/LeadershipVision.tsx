@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
-import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, ALPHAS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
-import { ASSETS } from '@/constants/assets';
+import { GRADIENTS, COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 import SectionHeader from './SectionHeader';
 
 export default function LeadershipVision({ isDark = false }: { isDark?: boolean }) {

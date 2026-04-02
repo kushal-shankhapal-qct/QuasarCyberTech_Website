@@ -26,8 +26,6 @@ import { cld } from '@/config/cloudinary';
  * Global toggle to switch between local assets and Cloudinary CDN.
  * Since all local assets are now disconnected, this must remain TRUE for production builds.
  */
-const USE_CLOUDINARY = true;
-
 /**
  * Converts a local file path to a Cloudinary-friendly delivery path.
  * - Replaces spaces with underscores.
@@ -176,6 +174,5 @@ export const ASSETS = {
     certin: getAsset('Logos/Certifications/CERT-In_Logo.png'),
   }
 };
-
 
 

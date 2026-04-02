@@ -8,7 +8,7 @@ import BlogSidebar from '../../components/blogs/SidebarWidget';
 import PageHero from '../../components/PageHero';
 import Seo from '../../components/seo/Seo';
 import { blogsData, BLOG_CATEGORIES } from '../../data/blogsData';
-import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../../config/themeConfig';
+import { COLORS, GRADIENTS } from '../../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { createBreadcrumbSchema } from '../../seo/schema';
 

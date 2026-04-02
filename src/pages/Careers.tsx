@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Target, TrendingUp, Code2, Globe, Globe2, Shield } from 'lucide-react';
+import { Target, TrendingUp, Code2, Globe, Globe2, Shield } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
@@ -43,14 +43,6 @@ const Careers: React.FC = () => {
   const sectionPad = {
     paddingLeft: LAYOUT_CONTROLS.section.paddingX,
     paddingRight: LAYOUT_CONTROLS.section.paddingX,
-  };
-
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   };
 
   return (

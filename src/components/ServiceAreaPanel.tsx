@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ArrowRight } from 'lucide-react';
-import { COLORS, TYPOGRAPHY, SHADOWS } from '../config/themeConfig';
+import { COLORS, TYPOGRAPHY } from '../config/themeConfig';
 
 interface Service {
   name: string;

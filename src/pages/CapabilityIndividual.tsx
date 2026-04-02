@@ -5,21 +5,16 @@ import Footer from '../components/Footer';
 import SectionHeader from '../components/SectionHeader';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    ChevronRight,
     Zap,
     MoveRight,
     ArrowRight
 } from 'lucide-react';
-import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS, GRADIENTS } from '../config/themeConfig';
-import Breadcrumb from '../components/Breadcrumb';
+import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS, GRADIENTS } from '../config/themeConfig';
 import PageHero from '../components/PageHero';
 import CTASection from '../components/CTASection';
 import { capabilities as capabilitiesData } from '../data/capabilitiesData';
 
 import { ASSETS } from '@/constants/assets';
-
-// Photo Imports for Hero removed - now using ASSETS constant
-const qStellarLogo = ASSETS.logos.platforms.qstellarLight;
 
 
 const heroImages: Record<string, string> = {
@@ -98,7 +93,7 @@ const CapabilityIndividual: React.FC = () => {
         } else {
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
-    }, [slug, capability?.services]);
+    }, [slug, capability]);
 
     if (!capability) {
         return <Navigate to="/capabilities" />;

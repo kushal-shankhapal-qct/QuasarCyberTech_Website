@@ -2,9 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { COLORS, GRADIENTS, TYPOGRAPHY, SECTION_BACKGROUNDS, LAYOUT_CONTROLS } from '../config/themeConfig';
-import TrustIndicators from './TrustIndicators';
-import { ASSETS } from '@/constants/assets';
+import { COLORS, TYPOGRAPHY, SECTION_BACKGROUNDS, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 interface CTASectionProps {
   title?: string | React.ReactNode;
@@ -17,7 +15,6 @@ interface CTASectionProps {
 }
 
 const CTASection: React.FC<CTASectionProps> = ({
-  title = "Secure Your Digital Enterprise",
   subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.",
   showEyebrow = true,
   theme = 'light',

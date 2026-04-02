@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInView, motion } from 'framer-motion';
 
-import { themeConfig, GRADIENTS, COLORS, SECTION_BACKGROUNDS, BRAND_CONTROLS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { COLORS, BRAND_CONTROLS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 const METRICS_DURATION = 0.8; // Faster animation as requested
 
@@ -112,7 +112,6 @@ const CountUp = ({ end, suffix, label, delay, duration, isDark = false }: { end:
 
 export default function TrustIndicators({ isDark = false, centered = false }: { isDark?: boolean; centered?: boolean }) {
     // ── Padding/Margin controls ──────────────────────────────────────────
-    const METRICS_PADDING_TOP = '1.875rem'; // 30px
     const METRICS_PADDING_BOTTOM = '1em';
     const METRICS_MARGIN_BELOW = '0px';   // gap before partners if needed
     const GLOBAL_IMPACT_HEADER_TOP_GAP = '4.5rem'; // Increased separation from hero

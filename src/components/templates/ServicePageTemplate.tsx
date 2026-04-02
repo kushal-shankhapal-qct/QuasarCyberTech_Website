@@ -44,8 +44,7 @@ export default function ServicePageTemplate({
     engagementModel,
     advantages,
     caseStudyPreview,
-    crossLinkBanner,
-    relatedServices
+    crossLinkBanner
 }: ServicePageProps) {
     const [activeCategory, setActiveCategory] = useState<number | null>(0);
 

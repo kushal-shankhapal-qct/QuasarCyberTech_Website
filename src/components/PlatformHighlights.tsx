@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, Target } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { ASSETS } from '@/constants/assets';
-import { ALPHAS, COLORS, GRADIENTS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { ALPHAS, COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 import SectionHeader from './SectionHeader';
 

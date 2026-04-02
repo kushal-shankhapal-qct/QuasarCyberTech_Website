@@ -13,7 +13,6 @@ import Footer from '../components/Footer';
 // import AccreditationBar from '../components/AccreditationBar';
 import { LAYOUT_CONTROLS } from '../config/themeConfig';
 import Seo from '../components/seo/Seo';
-import { ASSETS } from '@/constants/assets';
 import { DEFAULT_OG_IMAGE_SOCIAL } from '../seo/site';
 
 export default function Home() {

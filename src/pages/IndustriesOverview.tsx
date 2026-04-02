@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
 import SectionHeader from '../components/SectionHeader';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { COLORS, GRADIENTS, SHADOWS, SECTION_BACKGROUNDS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
-import Breadcrumb from '../components/Breadcrumb';
 import { industriesData } from '../data/industriesData';
 import Seo from '../components/seo/Seo';
 import { createBreadcrumbSchema } from '../seo/schema';
-
-const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
 
 const IO = {
   desktopPaddingX: '3rem',

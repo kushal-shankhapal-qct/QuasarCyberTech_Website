@@ -39,7 +39,7 @@ const BlogIndividual: React.FC = () => {
                 return <li key={i} style={{ marginLeft: '24px', marginBottom: '8px', color: '#4A3040' }}>{line.replace('* ', '')}</li>;
             }
             if (line.startsWith('![') && line.includes('](')) {
-                const alt = line.match(/\!\[(.*?)\]/)?.[1] || "";
+                const alt = line.match(/!\[(.*?)\]/)?.[1] || "";
                 const src = line.match(/\((.*?)\)/)?.[1] || "";
                 return (
                     <div key={i} style={{ margin: '40px 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.05)' }}>

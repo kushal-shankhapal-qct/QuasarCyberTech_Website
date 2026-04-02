@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLORS, BRAND_CONTROLS } from '../../config/themeConfig';
+import { BRAND_CONTROLS } from '../../config/themeConfig';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'ghost';
