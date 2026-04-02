@@ -326,9 +326,13 @@ export default function About() {
   });
 
   const aboutMetrics = [
-    { value: 120, suffix: "+", label: "Security Engagements" },
-    { value: 15, suffix: "+", label: "Countries Served" },
-    { value: 70, suffix: "+", label: "Enterprise Apps Assessed" },
+    { value: 60, suffix: "+", label: "Security Engagements" },
+    {
+      value: 2000,
+      suffix: "+",
+      label: "Security Vulnerabilities Reported",
+    },
+    { value: 100, suffix: "%", label: "Client Retention" },
     { value: 24, suffix: "x7", label: "Security Operations\nMonitoring" },
   ];
 
