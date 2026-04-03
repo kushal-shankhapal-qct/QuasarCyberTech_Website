@@ -304,7 +304,7 @@ const Careers: React.FC = () => {
           }}>
             <img
               src={ASSETS.screenshots.qleap}
-              alt="QLeap Pathway"
+              alt="QuasarCyberTech | QLeap Learning Pathway"
               style={{
                 width: '100%',
                 flexGrow: 1,

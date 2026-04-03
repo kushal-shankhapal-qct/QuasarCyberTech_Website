@@ -759,7 +759,7 @@ export default function Contact() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: right.logoMarginBottom }}>
                   <img
                     src={ASSETS.logos.qct.over}
-                    alt="QuasarCyberTech"
+                    alt="QuasarCyberTech | Logo"
                     style={{ height: right.logoHeight, width: 'auto', objectFit: 'contain' }}
                   />
                 </div>

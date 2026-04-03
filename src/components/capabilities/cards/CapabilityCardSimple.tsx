@@ -57,7 +57,7 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
       >
         <img 
           src={img} 
-          alt={title} 
+          alt={`QuasarCyberTech | ${title}`} 
           style={{
             width: '100%',
             height: '100%',

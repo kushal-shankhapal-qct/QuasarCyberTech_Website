@@ -138,7 +138,7 @@ export default function Platforms() {
           {/* Text Column */}
           <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.burgundy, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>01</span>
-            <img src={qStellarLogo} alt="QStellar" style={{ height: '48px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px' }} />
+            <img src={qStellarLogo} alt="QuasarCyberTech | QStellar Platform Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>AI-Powered Asset Intelligence & Vulnerability Management</h2>
             <p style={{ fontSize: '1rem', color: '#64748B', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
               QStellar gives security teams continuous visibility into their asset landscape — automatically discovering, prioritizing, and tracking vulnerabilities with AI-assisted intelligence.
@@ -153,7 +153,7 @@ export default function Platforms() {
             <BrowserFrame bgColor="#eef2f6" width="100%" maxWidth="720px">
               <img
                 src={qStellarScreenshot}
-                alt="Dashboard"
+                alt="QuasarCyberTech | QStellar Asset Intelligence Dashboard"
                 className="platform-shot"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
@@ -170,13 +170,13 @@ export default function Platforms() {
         }}>
           <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
             <BrowserFrame bgColor="#081026" isDark={true} width="100%" maxWidth="720px">
-              <img src={qPulseScreenshot} alt="Portal" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
+              <img src={qPulseScreenshot} alt="QuasarCyberTech | QPulse Threat Intelligence Portal" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
           <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>02</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-              <img src={qPulseLogo} alt="QPulse" style={{ height: PF.qPulseLogoHeight, width: 'auto', objectFit: 'contain' }} />
+              <img src={qPulseLogo} alt="QuasarCyberTech | QPulse Platform Logo" style={{ height: PF.qPulseLogoHeight, width: 'auto', objectFit: 'contain' }} />
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '16px', color: '#ffffff', lineHeight: 1.3, opacity: 0.9 }}>Cybersecurity Intelligence & Insights Portal</h2>
             <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
@@ -200,7 +200,7 @@ export default function Platforms() {
         }}>
           <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.burgundy, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>03</span>
-            <img src={ASSETS.logos.platforms.qrgtLight} alt="QRGT" style={{ height: '82px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px', marginLeft: '-2px' }} />
+            <img src={ASSETS.logos.platforms.qrgtLight} alt="QuasarCyberTech | QRGT Platform Logo" style={{ height: '82px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px', marginLeft: '-2px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>Penetration Testing as a Service (PTaaS) Platform</h2>
             <p style={{ fontSize: '1rem', color: '#64748B', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
               QRGT transforms traditional penetration testing into a continuous, governed program. Track findings and manage remediation workflows in one platform.
@@ -213,7 +213,7 @@ export default function Platforms() {
           </div>
           <div className="platform-media-col" style={{ flex: '1 1 500px', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
             <BrowserFrame bgColor="#f8fafc" width="100%" maxWidth="720px">
-              <img src={qrgtScreenshot} alt="Platform" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
+              <img src={qrgtScreenshot} alt="QuasarCyberTech | QRGT Penetration Testing Platform" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
         </section>
@@ -230,7 +230,7 @@ export default function Platforms() {
             <BrowserFrame bgColor="#040b1d" isDark={true} width="100%" maxWidth="720px">
               <img
                 src={qLeapScreenshot}
-                alt="Simulations"
+                alt="QuasarCyberTech | QLeap Cybersecurity Training Simulations"
                 className="platform-shot"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
@@ -239,7 +239,7 @@ export default function Platforms() {
           <div className="platform-text-col" style={{ flex: '1 1 min(100%, 480px)', padding: `80px ${LAYOUT_CONTROLS.global.paddingX}`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: COLORS.gold, letterSpacing: '0.2em', marginBottom: '12px', fontWeight: 700 }}>04</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '20px' }}>
-              <img src={qLeapLogo} alt="QLeap Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain' }} />
+              <img src={qLeapLogo} alt="QuasarCyberTech | QLeap Platform Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain' }} />
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '16px', color: '#ffffff', lineHeight: 1.3 }}>Cybersecurity Training & Talent</h2>
             <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>

@@ -651,7 +651,7 @@ const Navbar: React.FC = () => {
           >
             <img
               src={ASSETS.logos.qct.icon}
-              alt="QCT Icon"
+              alt="QuasarCyberTech | Icon Logo"
               style={{
                 height: iconLogo.height[logoPhase],
                 width: iconLogo.width[logoPhase],
@@ -671,7 +671,7 @@ const Navbar: React.FC = () => {
             />
             <img
               src={ASSETS.logos.qct.textLight}
-              alt="QuasarCyberTech"
+              alt="QuasarCyberTech | Wordmark Logo"
               style={{
                 width: textLogo.width[logoPhase],
                 height: textLogo.height[logoPhase],

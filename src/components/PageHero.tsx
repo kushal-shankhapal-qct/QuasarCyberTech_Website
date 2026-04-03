@@ -310,7 +310,7 @@ const PageHero: React.FC<PageHeroProps> = ({
                 {image && (
                   <img
                     src={image}
-                    alt="Hero Visual"
+                    alt="QuasarCyberTech | Hero Visual"
                     style={{
                       width: "100%",
                       height: "100%",

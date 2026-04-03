@@ -130,7 +130,7 @@ export default function PlatformHighlights() {
               {platform.screenshot ? (
                   <img
                     src={platform.screenshot}
-                    alt={platform.name}
+                    alt={`QuasarCyberTech | ${platform.name} Platform Screenshot`}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -169,7 +169,7 @@ export default function PlatformHighlights() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
                   <img
                     src={platform.logo}
-                    alt={platform.name}
+                    alt={`QuasarCyberTech | ${platform.name} Platform Logo`}
                     style={{
                       maxHeight: platform.styles?.logoHeight || '2.25rem',
                       maxWidth: platform.name === 'QRGT' ? 'none' : '8.125rem',

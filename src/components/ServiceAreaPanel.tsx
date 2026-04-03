@@ -133,7 +133,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                 {services[activeIndex].image && (
                   <img 
                     src={services[activeIndex].image} 
-                    alt={services[activeIndex].name} 
+                    alt={`QuasarCyberTech | ${services[activeIndex].name}`} 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', position: 'relative', zIndex: 1 }}
                   />
                 )}
@@ -238,7 +238,7 @@ const ServiceAreaPanel: React.FC<ServiceAreaPanelProps> = ({ services }) => {
                   <div style={{ padding: '0 20px 24px', color: 'rgba(255,255,255,0.7)' }}>
                     {svc.image && (
                       <div style={{ height: '200px', borderRadius: '8px', overflow: 'hidden', marginBottom: '20px' }}>
-                        <img src={svc.image} alt={svc.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <img src={svc.image} alt={`QuasarCyberTech | ${svc.name}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
                     )}
                     <p style={{ fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>{svc.description}</p>

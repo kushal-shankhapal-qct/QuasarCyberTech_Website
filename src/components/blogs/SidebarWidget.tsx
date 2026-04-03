@@ -105,7 +105,7 @@ export default function BlogSidebar({
           }}>
             <img
               src={ASSETS.logos.platforms.qpulseLight}
-              alt="QPulse"
+              alt="QuasarCyberTech | QPulse Platform"
               style={{ width: 'auto', height: '1.6em', objectFit: 'contain' }}
             />
           </div>

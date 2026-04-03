@@ -265,7 +265,7 @@ const CapabilityIndividual: React.FC = () => {
                                         <div style={{ position: 'relative' }}>
                                             <img
                                                 src={capability.services[activeServiceIndex].image}
-                                                alt=""
+                                                alt={`QuasarCyberTech | ${capability.services[activeServiceIndex]?.title || capability.services[activeServiceIndex]?.name || 'Service Visual'}`}
                                                 style={{ width: '100%', height: '260px', objectFit: 'cover', objectPosition: 'center center', opacity: 0.9 }}
                                             />
                                             <div style={{
@@ -449,7 +449,7 @@ const CapabilityIndividual: React.FC = () => {
                                         </p>
                                     </div>
                                     <div style={{ height: '200px', overflow: 'hidden', opacity: 0.85 }}>
-                                        <img src={industryImages[ind.slug]} alt={ind.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <img src={industryImages[ind.slug]} alt={`QuasarCyberTech | ${ind.name} Industry`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
                                 </div>
                             </Link>

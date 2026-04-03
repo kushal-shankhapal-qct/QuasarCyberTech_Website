@@ -101,7 +101,7 @@ const IndustriesOverview: React.FC = () => {
                 <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
                   <img
                     src={ind.image}
-                    alt={ind.name}
+                    alt={`QuasarCyberTech | ${ind.name} Industry`}
                     loading="lazy"
                     decoding="async"
                     style={{

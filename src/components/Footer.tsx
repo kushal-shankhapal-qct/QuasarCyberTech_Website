@@ -263,7 +263,7 @@ const Footer: React.FC = () => {
         <div className="ft-brand" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {/* Logo */}
           <div className="ft-brand-logo" style={{ marginTop: FC.logoOffsetTopDesktop, marginBottom: '1.4rem', display: 'flex', justifyContent: 'center' }}>
-            <img src={logoOver} alt="QuasarCyberTech" style={{ width: FOOTER_LOGO_WIDTH, height: 'auto' }} />
+            <img src={logoOver} alt="QuasarCyberTech | Logo" style={{ width: FOOTER_LOGO_WIDTH, height: 'auto' }} />
           </div>
 
           {/* Socials */}

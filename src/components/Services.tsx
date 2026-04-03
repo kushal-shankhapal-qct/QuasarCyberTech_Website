@@ -179,7 +179,7 @@ const ServicesSection: React.FC = () => {
                     <div className="w-full md:w-[260px] lg:w-[280px] shrink-0 flex flex-col justify-start h-full pt-1">
                       <div className="w-full h-[140px] bg-[#EEF2F6] rounded-[8px] border border-[#E1E6EB] shadow-inner flex flex-col items-center justify-center text-[#52606D] gap-3 relative overflow-hidden">
                         {activeService.image ? (
-                          <img src={activeService.image} alt={activeService.title} className="w-full h-full object-cover" />
+                          <img src={activeService.image} alt={`QuasarCyberTech | ${activeService.title}`} className="w-full h-full object-cover" />
                         ) : (
                           <>
                             <ImageIcon className="w-8 h-8 opacity-60 text-[#1E2A38]" strokeWidth={1} />

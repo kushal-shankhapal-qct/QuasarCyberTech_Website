@@ -43,7 +43,7 @@ export default function ArticleCard({ post, index }: ArticleCardProps) {
           {!imgError && post.image ? (
             <img
               src={post.image}
-              alt={post.title}
+              alt={`QuasarCyberTech | ${post.title}`}
               onError={() => setImgError(true)}
               style={{
                 width: '100%',

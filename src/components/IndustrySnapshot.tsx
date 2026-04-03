@@ -89,7 +89,7 @@ export default function IndustrySnapshot() {
                 <div style={{ height: '210px', overflow: 'hidden', position: 'relative', borderRadius: `0 0 ${CARD_ROUNDNESS} ${CARD_ROUNDNESS}` }}>
                   <img 
                     src={industry.image} 
-                    alt={industry.name} 
+                    alt={`QuasarCyberTech | ${industry.name} Industry`} 
                     style={{
                       width: '100%',
                       height: '100%',

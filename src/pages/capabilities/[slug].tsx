@@ -816,7 +816,7 @@ const CapabilityPage: React.FC = () => {
                   <div className="absolute inset-0 flex items-start justify-center">
                     <img
                       src={activeVisual}
-                      alt={`${activeSub.name} visual`}
+                      alt={`QuasarCyberTech | ${activeSub.name}`}
                       className="subcap-visual-image h-full w-full object-contain object-center"
                       loading="eager"
                       decoding="sync"
@@ -956,7 +956,7 @@ const CapabilityPage: React.FC = () => {
                       {image ? (
                         <img
                           src={image}
-                          alt={industry.name}
+                          alt={`QuasarCyberTech | ${industry.name} Industry`}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
@@ -1082,7 +1082,7 @@ const CapabilityPage: React.FC = () => {
               <div>
                 <img
                   src={getPlatformLogo(platform.logoKey)}
-                  alt={platform.name}
+                  alt={`QuasarCyberTech | ${platform.name} Platform Logo`}
                   className="mb-4 w-auto object-contain"
                   style={{ height: `${platformLogoHeight}px` }}
                 />
@@ -1128,7 +1128,7 @@ const CapabilityPage: React.FC = () => {
               >
                 <img
                   src={getPlatformScreenshot(platform.screenshotKey)}
-                  alt={`${platform.name} screenshot`}
+                  alt={`QuasarCyberTech | ${platform.name} Platform Screenshot`}
                   className="w-full h-full object-cover"
                 />
               </div>

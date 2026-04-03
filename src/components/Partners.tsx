@@ -122,7 +122,7 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                         <div key={`${partner.id}-${idx}`} className="partner-item-enhanced">
                             <img
                                 src={partner.logo}
-                                alt={partner.name}
+                                alt={`QuasarCyberTech | ${partner.name} Partner Logo`}
                                 className="select-none partner-logo"
                                 style={{
                                     width: 'auto',
@@ -140,7 +140,7 @@ export default function Partners({ centered = false }: { centered?: boolean }) {
                         <div key={`reverse-${partner.id}-${idx}`} className="partner-item-enhanced">
                             <img
                                 src={partner.logo}
-                                alt={partner.name}
+                                alt={`QuasarCyberTech | ${partner.name} Partner Logo`}
                                 className="select-none partner-logo"
                                 style={{
                                     width: 'auto',

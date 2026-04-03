@@ -61,7 +61,7 @@ const Features: React.FC = () => {
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-[#0B1F3B]/10 to-[#007AFF]/10 border border-gray-200">
               <img
                 src="https://placehold.co/600x600"
-                alt="Cybersecurity monitoring dashboard"
+                alt="QuasarCyberTech | Cybersecurity Monitoring Dashboard"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/20 to-transparent" />

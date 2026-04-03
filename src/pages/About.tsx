@@ -893,7 +893,7 @@ export default function About() {
                     >
                       <img
                         src={plat.logo}
-                        alt={plat.name}
+                        alt={`QuasarCyberTech | ${plat.name} Platform Logo`}
                         style={{
                           maxHeight: "2.5rem",
                           maxWidth: "100%",

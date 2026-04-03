@@ -87,7 +87,7 @@ export default function WorldMap({
                 <img
                     src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
                     className="h-full w-full opacity-40 pointer-events-none select-none"
-                    alt="world map dots"
+                    alt="QuasarCyberTech | Global Presence Map"
                     height="400"
                     width="800"
                     draggable={false}

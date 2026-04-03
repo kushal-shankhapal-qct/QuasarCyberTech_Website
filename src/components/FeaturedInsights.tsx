@@ -146,7 +146,7 @@ export default function FeaturedInsights() {
                                     {item.image ? (
                                       <img 
                                         src={item.image} 
-                                        alt={item.title} 
+                                        alt={`QuasarCyberTech | ${item.title}`} 
                                         loading="lazy"
                                         decoding="async"
                                         style={{ 

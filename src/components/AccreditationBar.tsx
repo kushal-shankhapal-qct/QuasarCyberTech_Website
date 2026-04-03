@@ -126,7 +126,7 @@ const AccreditationBar: React.FC = () => {
       >
         <img
           src={ASSETS.certifications.certin}
-          alt="CERT-In Logo"
+          alt="QuasarCyberTech | CERT-In Accreditation"
           className="accreditation-logo w-auto object-contain"
           style={{
             height: CONFIG.logoHeightMobile,
