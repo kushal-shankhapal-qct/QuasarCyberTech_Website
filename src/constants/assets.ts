@@ -133,6 +133,10 @@ export const ASSETS = {
         cti: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Cyber_Threat_Intelligence_CTI_as_a_Service/Cyber Security Framework Compliance Overview.png'),
         vulnerabilityResearch: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Vulnerability_Research_and_Security_Advisories/Vulnerability Research & Security Advisories.png'),
         attackSurface: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Attack_Surface_Intelligence/Attack Surface Intelligence.png'),
+        threatHunting: getAsset('Capabilities_Images/Managed_Detection_Response_and_SOC_Operations/Threat_Hunting/Cyber_Threat_Hunting_Overview.png'),
+        soc2: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/SOC2_Readiness/SOC2_Compliance_Readiness_Journey.png'),
+        ctiNew: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Cyber_Threat_Intelligence_CTI_as_a_Service/Cyber_Threat_Intelligence_Service_Infographic.png'),
+        darkWebNew: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Dark_Web_and_Brand_Intelligence/Dark_Web_Brand_Intelligence_Overview.png'),
       },
       serviceSet2: {
         svc1: getAsset('Capabilities_Images/SVCs_Set_2/SVC_1.png'),
@@ -156,6 +160,19 @@ export const ASSETS = {
     qpulse: getAsset('Platforms_Screenshots/QPulse/QPulse_Hero_Screenshot.png'),
     qleap: getAsset('Platforms_Screenshots/QLeap/QLeap_Website_Screenshot.png'),
     qrgt: getAsset('Platforms_Screenshots/QRGT/QRGT_Screenshot.png'),
+  },
+  qctWebsite: {
+    advisory: getAsset('QCT-WEBSITE/Advisory and risk Governance.webp'),
+    banking: getAsset('QCT-WEBSITE/banking.png'),
+    cloud: getAsset('QCT-WEBSITE/Cloud_and_Infrastructure_Security-burgundy.jpg'),
+    contact: getAsset('QCT-WEBSITE/contactus.png'),
+    digitalPayments: getAsset('QCT-WEBSITE/Digital-Payments.jpg'),
+    ecommerce: getAsset('QCT-WEBSITE/E-commerce.jpg'),
+    enterprise: getAsset('QCT-WEBSITE/Enterprise-Manufacturing.jpg'),
+    healthcare: getAsset('QCT-WEBSITE/Health-Care.png'),
+    regulatoryCompliance: getAsset('QCT-WEBSITE/Regulatory Compliance.jpg'),
+    saas: getAsset('QCT-WEBSITE/SAAS.jpg'),
+    soc: getAsset('QCT-WEBSITE/SOC and Managed Defence.jpeg'),
   },
   platforms: {
     screenshots: {

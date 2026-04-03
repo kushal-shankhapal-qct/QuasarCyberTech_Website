@@ -404,7 +404,7 @@ export default function Contact() {
         title="Contact Us — Get a Free Cybersecurity Consultation"
         description="Talk to India's top cybersecurity consulting experts at QuasarCyberTech. Get a free consultation on VAPT, penetration testing, managed SOC, cloud security, RBI compliance, and enterprise cyber resilience programs."
         path="/contact"
-        image={ASSETS.capabilities.advisory}
+        image={ASSETS.qctWebsite.contact}
         jsonLd={[
           createBreadcrumbSchema([
             { name: 'Home', path: '/' },
@@ -421,7 +421,12 @@ export default function Contact() {
           title="Let's"
           highlight="Connect"
           subtitle="Tell us about your security challenge. We respond within 24 hours to help you solve your most complex security engineering problems."
-          visualVariant="none"
+          visualVariant="standard"
+          image={ASSETS.qctWebsite.contact}
+          imageScale={1.3}
+          imageRotate="0deg"
+          maskStart="0%"
+          maskEnd="90%"
           breadcrumbPaths={["Home"]}
           currentName="Contact"
           paddingTopOverride={CONFIG.layout.heroPaddingTop}

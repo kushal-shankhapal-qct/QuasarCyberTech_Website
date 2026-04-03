@@ -3,6 +3,8 @@ import { ASSETS } from '@/constants/assets';
 export type IndustryApplication = {
   name: string;
   description: string;
+  slug?: string;
+  image?: string;
 };
 
 export type FAQ = {
@@ -121,13 +123,13 @@ export const platformConfigs: Record<string, PlatformConfig> = {
 export const capabilities: Capability[] = [
   {
     id: 'cyber-advisory',
-    name: 'Cyber Security Advisory & Risk Governance',
+    name: 'Cyber Advisory & Risk Governance',
     slug: 'cyber-advisory',
-    navLabel: 'Cyber Security Advisory',
+    navLabel: 'Cyber Advisory',
     navColumn: 'advisory-governance',
     icon: 'compass',
-    image: ASSETS.capabilities.advisory,
-    cardDescription: 'Security strategy consulting, governance frameworks, Zero Trust architecture design, vCISO services, security program development, and third-party risk management.',
+    image: ASSETS.qctWebsite.advisory,
+    cardDescription: 'Enterprise security strategy, zero-trust architecture, vCISO leadership, and third-party risk management.',
     heroSubtitle: 'Strategic cybersecurity leadership and governance frameworks that align security posture with business objectives.',
     platform: 'qstellar',
     relatedCapabilities: ['compliance-assurance', 'managed-defense'],
@@ -180,8 +182,10 @@ export const capabilities: Capability[] = [
         industries: [
           {
             name: 'Banking & Financial Services',
+            slug: 'banking',
+            image: ASSETS.qctWebsite.banking,
             description:
-              'Securing core banking infrastructure, digital channels, and regulatory adherence for modern financial frameworks.',
+              'Securing core banking systems, digital payment gateways, and regulatory compliance for global financial institutions.',
           },
           {
             name: 'Enterprise & Manufacturing',
@@ -221,7 +225,9 @@ export const capabilities: Capability[] = [
         industries: [
           {
             name: 'SaaS & Technology',
-            description: 'Securing highly distributed, cloud-native applications scaling to millions of users.',
+            slug: 'saas',
+            image: ASSETS.qctWebsite.saas,
+            description: 'DevSecOps, API security testing, and multi-tenant isolation for cloud-native software and technology platforms.',
           },
           {
             name: 'Banking & Financial Services',
@@ -352,13 +358,13 @@ export const capabilities: Capability[] = [
   },
   {
     id: 'compliance-assurance',
-    name: 'Regulatory Compliance & Assurance',
+    name: 'Compliance & Assurance',
     slug: 'compliance-assurance',
-    navLabel: 'Compliance & Assurance',
+    navLabel: 'Compliance',
     navColumn: 'advisory-governance',
     icon: 'clipboard-check',
-    image: ASSETS.capabilities.compliance,
-    cardDescription: 'Regulatory readiness across RBI Cyber Security Framework, DPDP Act, SOC2, ISO 27001, and global compliance standards with ongoing risk and compliance monitoring.',
+    image: ASSETS.qctWebsite.regulatoryCompliance,
+    cardDescription: 'RBI compliance, DPDP Act readiness, ISO 27001, SOC2, and comprehensive regulatory gap assessments.',
     heroSubtitle: 'Structured compliance programs that turn regulatory obligations into a competitive advantage.',
     platform: 'qstellar',
     relatedCapabilities: ['cyber-advisory', 'cloud-infrastructure'],
@@ -560,7 +566,9 @@ export const capabilities: Capability[] = [
           },
           {
             name: 'FinTech & Digital Payments',
-            description: 'Demonstrating unshakeable data security and availability to financial partners.',
+            slug: 'fintech',
+            image: ASSETS.qctWebsite.digitalPayments,
+            description: 'Protecting transaction integrity, wallet security, and DPDP / RBI compliance for high-growth FinTech ecosystems.',
           },
           {
             name: 'E-commerce & Digital',
@@ -678,7 +686,9 @@ export const capabilities: Capability[] = [
           },
           {
             name: 'Healthcare & HealthTech',
-            description: 'Protecting patient health information and telemedicine application data.',
+            slug: 'healthcare',
+            image: ASSETS.qctWebsite.healthcare,
+            description: 'HIPAA alignment, patient data protection, and security for IoT-enabled medical devices and systems.',
           },
         ],
       },
@@ -880,13 +890,13 @@ export const capabilities: Capability[] = [
   },
   {
     id: 'cloud-infrastructure',
-    name: 'Cloud, Infrastructure & Platform Security',
+    name: 'Cloud & Infrastructure Security',
     slug: 'cloud-infrastructure',
-    navLabel: 'Cloud & Infrastructure',
+    navLabel: 'Cloud Security',
     navColumn: 'cloud-infrastructure',
     icon: 'shield',
-    image: ASSETS.capabilities.cloud,
-    cardDescription: 'Cloud security architecture, assessments across AWS, Azure, and GCP, Kubernetes and container security, hybrid hardening, and CSPM.',
+    image: ASSETS.qctWebsite.cloud,
+    cardDescription: 'Kubernetes security, cloud posture management (CSPM), and hybrid infrastructure hardening.',
     heroSubtitle: 'Architecture-to-operations security for cloud and hybrid platforms, built to reduce drift and sustain trustworthy scale.',
     platform: 'qstellar',
     relatedCapabilities: ['offensive-security', 'compliance-assurance'],
@@ -1023,7 +1033,9 @@ export const capabilities: Capability[] = [
           },
           {
             name: 'E-commerce & Digital',
-            description: 'Ensuring secure, rapid deployment pipelines for containerized retail platforms.',
+            slug: 'ecommerce',
+            image: ASSETS.qctWebsite.ecommerce,
+            description: 'Securing customer data, payment processing, and mobile commerce applications for digital retail leaders.',
           },
         ],
       },

@@ -201,6 +201,7 @@ const subCapabilityImages: Record<string, string> = {
   "risk-compliance-monitoring": ASSETS.capabilities.subCapabilities.compliance.riskMonitoring,
   "rbi-cyber-security-framework-compliance": ASSETS.capabilities.subCapabilities.compliance.rbiCompliance,
   "dpdp-act-compliance": ASSETS.capabilities.subCapabilities.compliance.dpdpCompliance,
+  "soc2-readiness": ASSETS.capabilities.subCapabilities.threatIntelligence.soc2,
 
   // Offensive Security
   "web-application-security-testing": ASSETS.capabilities.subCapabilities.offensive.web,
@@ -222,24 +223,24 @@ const subCapabilityImages: Record<string, string> = {
   // Managed Defense
   "managed-soc": ASSETS.capabilities.subCapabilities.managedDefense.managedSOC,
   "incident-response": ASSETS.capabilities.subCapabilities.managedDefense.incidentResponse,
-  "threat-hunting": ASSETS.capabilities.subCapabilities.managedDefense.socialEngineering, // Placeholder
+  "threat-hunting": ASSETS.capabilities.subCapabilities.threatIntelligence.threatHunting,
   "user-awareness-social-engineering-simulations": ASSETS.capabilities.subCapabilities.managedDefense.socialEngineering,
 
   // Cyber Intelligence
-  "cyber-threat-intelligence-cti-service": ASSETS.capabilities.subCapabilities.threatIntelligence.cti,
-  "dark-web-brand-intelligence": ASSETS.capabilities.subCapabilities.threatIntelligence.attackSurface,
+  "cyber-threat-intelligence-cti-service": ASSETS.capabilities.subCapabilities.threatIntelligence.ctiNew,
+  "dark-web-brand-intelligence": ASSETS.capabilities.subCapabilities.threatIntelligence.darkWebNew,
   "attack-surface-intelligence": ASSETS.capabilities.subCapabilities.threatIntelligence.attackSurface,
   "vulnerability-research-security-advisories": ASSETS.capabilities.subCapabilities.threatIntelligence.vulnerabilityResearch,
 };
 
 const industryImageMap: Record<string, string> = {
-  "Banking & Financial Services": ASSETS.industries.banking,
-  "FinTech & Digital Payments": ASSETS.industries.fintech,
-  "SaaS & Technology": ASSETS.industries.saas,
-  "E-commerce & Digital": ASSETS.industries.ecommerce,
-  "E-commerce & Digital Platforms": ASSETS.industries.ecommerce,
-  "Healthcare & HealthTech": ASSETS.industries.healthcare,
-  "Enterprise & Manufacturing": ASSETS.industries.enterprise,
+  "Banking & Financial Services": ASSETS.qctWebsite.banking,
+  "FinTech & Digital Payments": ASSETS.qctWebsite.digitalPayments,
+  "SaaS & Technology": ASSETS.qctWebsite.saas,
+  "E-commerce & Digital": ASSETS.qctWebsite.ecommerce,
+  "E-commerce & Digital Platforms": ASSETS.qctWebsite.ecommerce,
+  "Healthcare & HealthTech": ASSETS.qctWebsite.healthcare,
+  "Enterprise & Manufacturing": ASSETS.qctWebsite.enterprise,
 };
 
 const HS_CAP = {

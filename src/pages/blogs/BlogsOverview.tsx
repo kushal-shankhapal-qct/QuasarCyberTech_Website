@@ -143,12 +143,14 @@ export default function BlogsOverview() {
           }}
         >
           <div className="blogs-filter-inner" style={{ width: '100%', margin: '0 auto', padding: `20px ${BLOGS_DESKTOP_SIDE_MARGIN}` }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '24px',
-              flexWrap: 'nowrap',
-            }}>
+            <div 
+              className="blogs-filter-wrap"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '24px',
+                flexWrap: 'nowrap',
+              }}>
               {/* Search */}
               <div style={{ position: 'relative', width: '280px', flexShrink: 0 }}>
                 <Search size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)', pointerEvents: 'none' }} />
@@ -260,6 +262,16 @@ export default function BlogsOverview() {
               .blogs-filter-inner {
                 padding-left: var(--page-padding-x) !important;
                 padding-right: var(--page-padding-x) !important;
+              }
+
+              .blogs-filter-wrap {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 16px !important;
+              }
+
+              .blogs-filter-wrap > div:first-child {
+                width: 100% !important;
               }
 
               .blogs-content-section {

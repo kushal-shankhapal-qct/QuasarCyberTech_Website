@@ -89,36 +89,38 @@ export default function BlogSidebar({
       </div>
 
       {/* ── Widget 5: QPulse Promo ─────────────────────────── */}
-      <div style={{ ...widgetCard, border: '1px solid rgba(201,168,76,0.15)' }}>
+      <div style={{ ...widgetCard, border: '1px solid rgba(201,168,76,0.15)', background: 'rgba(214,176,92,0.03)' }}>
         <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
           <div style={{
-            width: '56px',
-            height: '56px',
+            width: '64px',
+            height: '64px',
             flexShrink: 0,
-            borderRadius: '10px',
-            background: 'rgba(255, 255, 255, 0)',
+            borderRadius: '12px',
+            background: 'rgba(255, 255, 255, 0.05)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '4px',
-            border: '1px solid rgba(255, 255, 255, 0)'
+            padding: '10px',
+            border: '1px solid rgba(255, 255, 255, 0.08)'
           }}>
             <img
               src={ASSETS.logos.platforms.qpulseLight}
               alt="QuasarCyberTech | QPulse Platform"
-              style={{ width: 'auto', height: '1.6em', objectFit: 'contain' }}
+              style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
           </div>
           <div>
             <div style={{ fontSize: '15px', fontWeight: 700, color: '#FFFFFF', marginBottom: '2px' }}>
               Live Threat Intelligence
             </div>
-            <Link
-              to="/platforms"
+            <a
+              href="https://qpulse.quasarcybertech.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ fontSize: '13px', color: GOLD, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}
             >
               Visit QPulse Portal <ChevronRight size={13} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>

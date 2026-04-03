@@ -116,27 +116,36 @@ const Footer: React.FC = () => {
             gap: 1.5rem 2rem;
           }
           .ft-brand {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
             text-align: center;
+            width: 100% !important;
           }
           .ft-brand-logo {
+            width: 100% !important;
             margin-left: auto !important;
             margin-right: auto !important;
             justify-content: center !important;
+            display: flex !important;
           }
-          .ft-brand .ft-contacts { align-items: center !important; }
+          .ft-brand .ft-contacts { 
+            align-items: center !important; 
+            width: 100% !important;
+          }
           .ft-brand .ft-socials {
             justify-content: center !important;
-            width: auto !important;
+            width: 100% !important;
             margin-left: auto !important;
             margin-right: auto !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            display: flex !important;
           }
           .ft-brand .ft-contact-row {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
             margin: 0 auto;
             text-align: left;
+            justify-content: flex-start;
           }
         }
 
