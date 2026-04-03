@@ -417,7 +417,7 @@ export default function About() {
         {/* ── 4: GROWTH JOURNEY ── */}
         <MilestonesJourney />
 
-        {/* ── 5: WHY ORGANIZATIONS CHOOSE US (no eyebrow) ── */}
+        {/* ── 5: WHY ORGANIZATIONS CHOOSE US (High-Fidelity) ── */}
         <section
           className="about-content-section"
           style={{ background: GRADIENTS.ABOUT_WHY_US_BG, paddingTop: LAYOUT_CONTROLS.section.paddingTop, paddingBottom: LAYOUT_CONTROLS.section.paddingBottom, ...sectionPad, color: "#FFFFFF" }}
@@ -448,143 +448,71 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── 6: OUR ECOSYSTEM – 2×2 PlatformHighlights style ── */}
+        {/* ── 6: SECURITY PLATFORMS & ECOSYSTEM (Mac-Frame High Fidelity) ── */}
         <section
           className="about-platforms-section"
           style={{ background: GRADIENTS.ABOUT_ACHIEVEMENT_BG, padding: `clamp(2rem, 5vh, 4rem) ${ABOUT_DESKTOP_SIDE_MARGIN} clamp(2rem, 5vh, 4rem)`, fontFamily: TYPOGRAPHY.fontBody }}
         >
-          <div style={{ width: "100%", margin: "0 auto" }}>
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              style={{
-                ...TYPOGRAPHY.eyebrow,
-                color: COLORS.burgundy,
-                marginBottom: "0.75rem",
-              }}
-            >
-              OUR ECOSYSTEM
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.06 }}
-              style={{
-                fontSize: "clamp(24px, 3.5vw, 40px)",
-                fontWeight: 800,
-                color: "#1A0A0F",
-                marginBottom: "clamp(2rem, 4vw, 3.5rem)",
-                lineHeight: 1.15,
-              }}
-            >
-              Our <span style={{ color: COLORS.gold }}>Platforms</span>
-            </motion.h2>
-            <div
-              className="about-ecosystem-grid"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: "1.5rem",
-              }}
-            >
-              {ecosystemPlatforms.map((plat, i) => {
-                const CardInner = (
-                  <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: i * 0.06 }}
-                    whileHover={{ boxShadow: "0 10px 36px rgba(0,0,0,0.12)" }}
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #E2E8F0",
-                      borderRadius: "0.5rem",
-                      padding: "clamp(1.25rem, 2vw, 2rem)",
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "100%",
-                      transition: "box-shadow 0.3s",
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: "3rem",
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: "1rem",
-                      }}
-                    >
-                      <img
-                        src={plat.logo}
-                        alt={`QuasarCyberTech | ${plat.name} Platform Logo`}
-                        style={{
-                          maxHeight: "2.5rem",
-                          maxWidth: "100%",
-                          objectFit: "contain",
-                        }}
+          <div style={{ textAlign: "left", marginBottom: "var(--gap-ecosystem)" }}>
+            <h2 style={{ ...TYPOGRAPHY.sectionTitle, fontFamily: TYPOGRAPHY.fontHeading, color: COLORS.textOnDark, marginBottom: "0.5rem" }}>
+              <span style={{ color: COLORS.gold }}>Security</span> Platforms & Ecosystem
+            </h2>
+            <p style={{ ...TYPOGRAPHY.bodyBase, color: "rgba(255,255,255,0.78)", maxWidth: "46.25rem", lineHeight: "1.7" }}>
+              Platforms and initiatives within the QuasarCyberTech ecosystem that support continuous security operations, visibility, and cyber resilience.
+            </p>
+          </div>
+
+          <div className="about-ecosystem-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem" }}>
+            {ecosystemPlatforms.map((platform) => (
+              <article key={platform.name}
+                style={{ borderRadius: "0 0 1rem 1rem", background: COLORS.cardOnDark, border: `0.0625rem solid rgba(214, 176, 92, 0.3)`, borderTop: `0.1875rem solid ${COLORS.gold}`, display: "flex", flexDirection: "column", transition: "transform 0.25s ease, border-top-color 0.25s ease", overflow: "hidden", boxShadow: "0 1.25rem 2.5rem rgba(0,0,0,0.3)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-0.375rem)"; e.currentTarget.style.borderTopColor = COLORS.burgundy; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderTopColor = COLORS.gold; }}
+              >
+                {/* Screenshot – wrapped in a "Mac ribbon" browser frame */}
+                <div style={{ padding: "0", background: "rgba(31, 54, 114, 0.98)", borderBottom: `1px solid rgba(255,255,255,0.08)`, overflow: "hidden", position: "relative" }}>
+                  {/* Mac-style ribbon */}
+                  <div style={{ height: "24px", background: "#6B1530", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", paddingLeft: "10px", gap: "6px" }}>
+                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FF5F56" }} />
+                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FFBD2E" }} />
+                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#27C93F" }} />
+                  </div>
+                  <div style={{ padding: "0 8px", background: "rgba(226, 219, 202, 0.95)", display: "flex", alignItems: "center", justifyContent: "center", height: "18rem" }}>
+                    {platform.screenshot && (
+                      <img src={platform.screenshot} alt={platform.name}
+                        style={{ height: "100%", width: "auto", maxWidth: "100%", objectFit: "contain", display: "block", borderRadius: "0", border: "1px solid rgba(255,255,255,0.12)" }}
                       />
+                    )}
+                  </div>
+                </div>
+                {/* Logo strip */}
+                <div style={{ width: "100%", minHeight: "5rem", background: "rgba(4,11,29,0.98)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 1.5rem", borderTop: `0.0625rem solid ${COLORS.burgundy}`, borderBottom: "0.0625rem solid rgba(255,255,255,0.03)", gap: "1.25rem" }}>
+                  {platform.logo && (
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
+                      <img src={platform.logo} alt={platform.name} style={{ maxHeight: platform.styles?.logoHeight || "2.25rem", maxWidth: platform.name === "QRGT" ? "none" : "8.125rem", width: "auto", objectFit: "contain", objectPosition: "left center" }} />
                     </div>
-                    <h3
-                      style={{
-                        fontSize: "clamp(14px, 1.3vw, 18px)",
-                        fontWeight: 700,
-                        color: "#1A0A0F",
-                        marginBottom: "0.5rem",
-                        fontFamily: TYPOGRAPHY.fontHeading,
-                      }}
-                    >
-                      {plat.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: "clamp(12px, 1vw, 14px)",
-                        color: "#475569",
-                        lineHeight: 1.65,
-                        margin: 0,
-                        flex: 1,
-                      }}
-                    >
-                      {plat.desc}
-                    </p>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        fontSize: "0.8125rem",
-                        fontWeight: 600,
-                        color: COLORS.burgundy,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.375rem",
-                      }}
-                    >
-                      Learn More →
-                    </div>
-                  </motion.div>
-                );
-                return plat.external ? (
-                  <a
-                    key={plat.name}
-                    href={plat.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    {CardInner}
+                  )}
+                  <div style={{ flex: 1, textAlign: "left", borderLeft: "0.0625rem solid rgba(255,255,255,0.1)", paddingLeft: "1rem" }}>
+                    <span style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.4, fontWeight: 500, display: "block" }}>{platform.subtitle}</span>
+                  </div>
+                </div>
+                {/* Highlights */}
+                <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                  <ul style={{ listStyle: "none", margin: "0 0 1.5rem 0", padding: 0, display: "grid", gap: "0.75rem", flexGrow: 1 }}>
+                    {platform.highlights.map((h) => (
+                      <li key={h} style={{ display: "flex", gap: "0.75rem", color: "rgba(255,255,255,0.9)", ...TYPOGRAPHY.bodySmall, fontWeight: 500, lineHeight: 1.5 }}>
+                        <CheckCircle2 size={16} style={{ flexShrink: 0, marginTop: "0.125rem", color: COLORS.gold, opacity: 0.75 }} />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a href={platform.link} target={platform.external ? "_blank" : undefined} rel={platform.external ? "noopener noreferrer" : undefined}
+                    style={{ color: "#FFFFFF", opacity: 0.85, fontSize: "0.8125rem", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "space-between", gap: "0.625rem", borderTop: `0.0625rem solid ${ALPHAS.white06}`, paddingTop: "1.25rem", marginTop: "auto", transition: "all 0.3s ease" }}>
+                    {platform.ctaText} <ArrowRight size={16} />
                   </a>
-                ) : (
-                  <Link
-                    key={plat.name}
-                    to={plat.href}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    {CardInner}
-                  </Link>
-                );
-              })}
-            </div>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
