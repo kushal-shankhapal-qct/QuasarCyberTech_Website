@@ -39,7 +39,7 @@ const NC = {
   logoTuning: {
     desktop: {
       group: {
-        width: { default: "14rem", scrolled: "10rem" },
+        width: { default: "11.5rem", scrolled: "9rem" },
         scale: { default: 1, scrolled: 0.85 },
         x: { default: "0rem", scrolled: "0rem" },
         y: { default: "0rem", scrolled: "0rem" },
@@ -74,7 +74,7 @@ const NC = {
         },
       },
       text: {
-        width: { default: "14rem", scrolled: "13.5rem" },
+        width: { default: "11.5rem", scrolled: "11rem" },
         height: { default: "auto", scrolled: "auto" },
         margin: {
           top: { default: "0", scrolled: "0" },
@@ -174,11 +174,12 @@ const NC = {
     contactNudgeX: "0px",
     contactNudgeY: "0px",
     dropdownOffsetY: "1.25em",
-    bridgePaddingLeft: "2rem",
-    pillPaddingLeft: "1.5rem",
+    bridgePaddingLeft: "1rem",
+    pillPaddingLeft: "1rem",
     pillPaddingRight: "0.375rem",
-    pillLinkGap: "0.75em",
-    pillLinkPaddingX: "1.125rem",
+    // Tighter link spacing so the pill fits comfortably at 1280-1400px widths
+    pillLinkGap: "1.4em",
+    pillLinkPaddingX: "0.85rem",
   },
   dropdown: {
     verticalOffset: "1.25rem",
@@ -214,14 +215,20 @@ const NC = {
   },
   desktopLayout: {
     enabledMinWidth: 1024,
-    axisDefaultY: "4rem", // Centered in 8rem strip
-    axisScrolledY: "2.8125rem", // Centered in 5.625rem strip
-    collapseBufferPx: 28,
-    enterDesktopSlackPx: 56,
+    axisDefaultY: "4rem",
+    axisScrolledY: "2.8125rem",
+    // Proximity guard: fires only on actual measured DOM overlap (small = avoids false positives)
+    proximityBufferPx: 32,
+    // Sum-of-widths buffer: conservative allowance for unmeasured state
+    collapseBufferPx: 40,
+    // Very small slack — the proximityBufferPx is the real collision guard
+    enterDesktopSlackPx: 24,
     stayDesktopSlackPx: 8,
-    minReliableDesktopWidthPx: 1120,
-    fallbackLogoWidthPx: 220,
-    fallbackPillWidthPx: 560,
+    // Allow desktop nav at any viewport >= enabledMinWidth (1024px)
+    minReliableDesktopWidthPx: 1024,
+    // Accurate fallbacks for 7 nav links with 1.4em gap (used when pill is display:none)
+    fallbackLogoWidthPx: 184,
+    fallbackPillWidthPx: 780,
     fallbackContactWidthPx: 152,
   },
   mobileToggle: {
@@ -269,7 +276,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const toPx = (value: string) => Number.parseFloat(value.replace("px", "")) || 0;
 
-    const evaluateNavFit = () => {
+    const evaluateNavFit = (opts?: { afterScrollTransition?: boolean }) => {
       const viewportWidth = window.innerWidth;
       const desktopThreshold = viewportWidth >= NC.desktopLayout.enabledMinWidth;
       if (!desktopThreshold) {
@@ -304,6 +311,9 @@ const Navbar: React.FC = () => {
         logoWidth + pillWidth + contactWidth + headerPaddingX + NC.desktopLayout.collapseBufferPx;
       const widthSlack = viewportWidth - requiredWidth;
 
+      // Pixel-proximity collision uses a SMALLER buffer to avoid false-positives
+      // on hi-DPI displays (e.g. 1920px physical @ Windows 125% → ~1536 CSS px)
+      const prox = NC.desktopLayout.proximityBufferPx;
       const hasMeasuredCollision =
         !!logoRect &&
         !!pillRect &&
@@ -312,10 +322,12 @@ const Navbar: React.FC = () => {
         contactVisible &&
         pillRect.width > 0 &&
         contactRect.width > 0 &&
-        (pillRect.left <= logoRect.right + NC.desktopLayout.collapseBufferPx ||
-          contactRect.left <= pillRect.right + NC.desktopLayout.collapseBufferPx);
+        (pillRect.left <= logoRect.right + prox ||
+          contactRect.left <= pillRect.right + prox);
 
-      const collisionCritical = hasMeasuredCollision;
+      // During a scroll-triggered re-eval we skip the collision check because
+      // the logo is mid-animation and its rect is temporarily wrong
+      const collisionCritical = opts?.afterScrollTransition ? false : hasMeasuredCollision;
       const reliableDesktopWidth = viewportWidth >= NC.desktopLayout.minReliableDesktopWidthPx;
       const enterSlack = NC.desktopLayout.enterDesktopSlackPx;
       const staySlack = NC.desktopLayout.stayDesktopSlackPx;
@@ -339,6 +351,44 @@ const Navbar: React.FC = () => {
       clearTimeout(timeout);
       window.removeEventListener("resize", onResize);
     };
+    // NOTE: intentionally NOT depending on `scrolled` — scroll changes are handled
+    // below with a deferred timeout so evaluation fires after the logo animation ends
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ── Re-evaluate nav fit AFTER logo animation completes on scroll transition ──
+  useEffect(() => {
+    // Logo animation is 420ms — wait for it to finish before re-measuring
+    const t = setTimeout(() => {
+      const viewportWidth = window.innerWidth;
+      if (viewportWidth < NC.desktopLayout.enabledMinWidth) return;
+      const headerEl = headerRef.current;
+      const headerStyle = headerEl ? window.getComputedStyle(headerEl) : null;
+      const toPx = (v: string) => Number.parseFloat(v.replace("px", "")) || 0;
+      const headerPaddingX = headerStyle ? toPx(headerStyle.paddingLeft) + toPx(headerStyle.paddingRight) : 0;
+      const logoRect = logoLinkRef.current?.getBoundingClientRect();
+      const pillRect = pillRef.current?.getBoundingClientRect();
+      const contactRect = contactRef.current?.getBoundingClientRect();
+      const pillVisible = !!pillRef.current && window.getComputedStyle(pillRef.current).display !== "none";
+      const contactVisible = !!contactRef.current && window.getComputedStyle(contactRef.current).display !== "none";
+      const logoWidth = (logoRect?.width && logoRect.width > 0) ? logoRect.width : NC.desktopLayout.fallbackLogoWidthPx;
+      const pillWidth = (pillVisible && pillRect?.width && pillRect.width > 0) ? pillRect.width : NC.desktopLayout.fallbackPillWidthPx;
+      const contactWidth = (contactVisible && contactRect?.width && contactRect.width > 0) ? contactRect.width : NC.desktopLayout.fallbackContactWidthPx;
+      const requiredWidth = logoWidth + pillWidth + contactWidth + headerPaddingX + NC.desktopLayout.collapseBufferPx;
+      const widthSlack = viewportWidth - requiredWidth;
+      const prox = NC.desktopLayout.proximityBufferPx;
+      const hasMeasuredCollision =
+        !!logoRect && !!pillRect && !!contactRect &&
+        pillVisible && contactVisible && pillRect.width > 0 && contactRect.width > 0 &&
+        (pillRect.left <= logoRect.right + prox || contactRect.left <= pillRect.right + prox);
+      const reliableDesktopWidth = viewportWidth >= NC.desktopLayout.minReliableDesktopWidthPx;
+      const nextShow = showDesktopNavRef.current
+        ? reliableDesktopWidth && widthSlack >= NC.desktopLayout.stayDesktopSlackPx && !hasMeasuredCollision
+        : reliableDesktopWidth && widthSlack >= NC.desktopLayout.enterDesktopSlackPx && !hasMeasuredCollision;
+      showDesktopNavRef.current = nextShow;
+      setShowDesktopNav(nextShow);
+    }, 450);
+    return () => clearTimeout(t);
   }, [scrolled]);
 
   // ── Scroll state ──
@@ -462,15 +512,15 @@ const Navbar: React.FC = () => {
             const orderedSubCapabilities =
               c.slug === "offensive-security"
                 ? [...c.subCapabilities].sort((a, b) => {
-                    const priority: Record<string, number> = {
-                      "red-team": 0,
-                      "ai-agentic-system-security-testing": 1,
-                    };
-                    const aRank = priority[a.slug] ?? 99;
-                    const bRank = priority[b.slug] ?? 99;
-                    if (aRank !== bRank) return aRank - bRank;
-                    return c.subCapabilities.findIndex((s) => s.slug === a.slug) - c.subCapabilities.findIndex((s) => s.slug === b.slug);
-                  })
+                  const priority: Record<string, number> = {
+                    "red-team": 0,
+                    "ai-agentic-system-security-testing": 1,
+                  };
+                  const aRank = priority[a.slug] ?? 99;
+                  const bRank = priority[b.slug] ?? 99;
+                  if (aRank !== bRank) return aRank - bRank;
+                  return c.subCapabilities.findIndex((s) => s.slug === a.slug) - c.subCapabilities.findIndex((s) => s.slug === b.slug);
+                })
                 : c.subCapabilities;
 
             return {
@@ -651,6 +701,7 @@ const Navbar: React.FC = () => {
     <>
       <header
         ref={headerRef}
+        suppressHydrationWarning
         className="flex items-center justify-between"
         style={{
           position: NC.wrapper.position,
@@ -688,7 +739,7 @@ const Navbar: React.FC = () => {
           }}
         >
           <motion.div
-            animate={{ 
+            animate={{
               scale: groupLogo.scale[logoPhase],
               x: groupLogo.x[logoPhase],
               y: groupLogo.y[logoPhase],
@@ -696,8 +747,8 @@ const Navbar: React.FC = () => {
               gap: groupLogo.gap[logoPhase],
             }}
             transition={logoTransition}
-            style={{ 
-              display: "flex", 
+            style={{
+              display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",

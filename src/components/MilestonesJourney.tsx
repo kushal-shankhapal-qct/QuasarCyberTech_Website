@@ -17,14 +17,15 @@ const milestones = [
     month: "Jul",
     title: "Incorporation",
     description:
-      "QCTPL was incorporated, marking the beginning of our cybersecurity journey.",
+      "QuasarCyberTech was officially incorporated, marking the beginning of our mission to engineer cyber resilience for modern enterprises.",
     tag: "Foundation",
   },
   {
     year: "2024",
     month: "Oct",
-    title: "Nashik Office Launch",
-    description: "Established our first operational headquarters in Nashik.",
+    title: "Headquarters Launch",
+    description:
+      "Established our first operational headquarters in Nashik, creating the foundation for our consulting and engineering operations.",
     tag: "Presence",
   },
   {
@@ -32,70 +33,88 @@ const milestones = [
     month: "Nov",
     title: "Startup India Recognition",
     description:
-      "Recognized under the Startup India initiative, validating our innovation approach.",
+      "Recognized under the Startup India initiative, validating our innovation-driven approach and strategic vision.",
     tag: "Recognition",
   },
   {
     year: "2024",
     month: "Dec",
-    title: "Strategic Collaboration",
+    title: "Strategic Partnerships",
     description:
-      "Closed the year by strengthening the company ecosystem through early collaboration and market alignment.",
+      "Entered into strategic collaborations with ecosystem partners to strengthen delivery capabilities and market reach.",
     tag: "Alliance",
   },
   {
     year: "2025",
     month: "Jan",
-    title: "Bengaluru & Mumbai",
+    title: "National Expansion",
     description:
-      "Strengthened national presence with new offices in two major cities.",
+      "Expanded our operational footprint across key business hubs including Mumbai, Pune, Bengaluru, and Nashik.",
     tag: "Expansion",
   },
   {
     year: "2025",
-    month: "Jan",
-    title: "NASSCOM Membership",
-    description: "Joined India's leading tech industry body, NASSCOM.",
+    month: "Feb",
+    title: "Industry Membership & Recognition",
+    description:
+      "Joined leading industry bodies such as NASSCOM, reinforcing our commitment to technology leadership and industry alignment.",
     tag: "Credibility",
   },
   {
     year: "2025",
     month: "Jun",
-    title: "QStellar Development",
+    title: "QStellar Platform Development",
     description:
-      "Initiated development of our flagship AI-powered asset intelligence platform.",
+      "Initiated development of QStellar, our flagship AI-powered asset visibility and vulnerability intelligence platform.",
+    tag: "Platform",
+  },
+  {
+    year: "2025",
+    month: "Jul",
+    title: "QPulse Platform Launch",
+    description:
+      "Launched QPulse, our cybersecurity intelligence and regulatory insights platform focused on India and global threat intelligence.",
     tag: "Platform",
   },
   {
     year: "2025",
     month: "Aug",
-    title: "Business Excellence Award",
+    title: "Business Excellence Recognition",
     description:
-      "Featured and recognized at the Indian Business Excellence Awards 2025.",
+      "Recognized at national industry platforms for business excellence and cybersecurity innovation.",
     tag: "Recognition",
   },
   {
     year: "2025",
     month: "Aug",
-    title: "Enterprise Momentum",
+    title: "International Expansion",
     description:
-      "Expanded enterprise reach through stronger market traction and deeper engagement.",
-    tag: "Growth",
-  },
-  {
-    year: "2025",
-    month: "Aug",
-    title: "Global Expansion",
-    description: "Established international presence in Dallas, USA.",
+      "Established international presence in Dallas, USA, marking our expansion into global markets.",
     tag: "Global",
   },
   {
     year: "2025",
     month: "Sep",
-    title: "Emerging Company of the Year",
+    title: "Emerging Company Recognition",
     description:
-      "Recognized by Business Connect Magazine as Emerging Company of the Year 2025.",
+      "Recognized as an emerging cybersecurity company by reputed industry and business platforms.",
     tag: "Recognition",
+  },
+  {
+    year: "2025",
+    month: "Oct",
+    title: "QLeap Ecosystem Expansion",
+    description:
+      "Expanded the QLeap talent and learning ecosystem, building a strong pathway from training to internships and enterprise readiness.",
+    tag: "Ecosystem",
+  },
+  {
+    year: "2026",
+    month: "Q1",
+    title: "CERT-In Milestone Progress",
+    description:
+      "Successfully cleared critical stages toward CERT-In empanelment, strengthening national credibility and regulatory positioning.",
+    tag: "Milestone",
   },
 ];
 
@@ -207,7 +226,7 @@ export default function MilestonesJourney() {
   }, [progress]);
 
   /* Build the horizontal wavy SVG path */
-  const NODE_W = 210; // px per node slot
+  const NODE_W = 240; // px per node slot (scaled up from 210)
   const totalW = milestones.length * NODE_W;
   const pathD = (() => {
     const pts: string[] = [];
@@ -249,7 +268,7 @@ export default function MilestonesJourney() {
           transition={{ duration: 0.5 }}
         >
           <span className="mj-ey-dash" />
-          <span>Our Journey</span>
+          <span>Milestones Since Inception</span>
           <span className="mj-ey-dash" />
         </motion.div>
         <motion.h2
@@ -259,7 +278,7 @@ export default function MilestonesJourney() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.06 }}
         >
-          The Path That <em>Built</em> Us
+          Growth <em>Journey</em>
         </motion.h2>
         <motion.p
           className="mj-sub"
@@ -268,8 +287,9 @@ export default function MilestonesJourney() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.12 }}
         >
-          From incorporation to global presence — every milestone connected on a
-          single unbroken thread.
+          A clear progression of strategic growth milestones shaping
+          QuasarCyberTech into a trusted cybersecurity consulting and
+          engineering firm.
         </motion.p>
       </div>
 
@@ -388,13 +408,13 @@ export default function MilestonesJourney() {
         .mj-ey-dash { display: block; width: 26px; height: 1.5px; background: linear-gradient(90deg, transparent, ${COLORS.gold}, transparent); }
         .mj-h2 {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: clamp(28px, 4.2vw, 46px); font-weight: 800;
+          font-size: clamp(30px, 4.5vw, 50px); font-weight: 800;
           color: #1A0A0F; line-height: 1.08; margin: 0 0 12px;
         }
         .mj-h2 em { color: ${COLORS.burgundy}; font-style: italic; }
         .mj-sub {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: clamp(13px, 1.3vw, 16px); color: #6b5760;
+          font-size: clamp(14px, 1.5vw, 17px); color: #6b5760;
           line-height: 1.7; max-width: 480px; margin: 0 auto;
         }
 
@@ -414,7 +434,7 @@ export default function MilestonesJourney() {
 
         .mj-track {
           position: relative;
-          min-height: clamp(360px, 52vh, 460px);
+          min-height: clamp(380px, 54vh, 480px);
         }
 
         /* ── SVG wire ── */
@@ -436,8 +456,8 @@ export default function MilestonesJourney() {
 
         /* ── Individual node ── */
         .mj-node {
-          flex: 0 0 210px;
-          height: clamp(360px, 52vh, 460px);
+          flex: 0 0 240px;
+          height: clamp(380px, 54vh, 480px);
           position: relative;
           display: flex;
           flex-direction: column;
@@ -527,7 +547,7 @@ export default function MilestonesJourney() {
         .mj-card {
           position: absolute; left: 50%;
           transform: translateX(-50%);
-          width: 184px; z-index: 5;
+          width: 200px; z-index: 5;
         }
         .mj-node--top .mj-card { top: 8px; }
         .mj-node--bot .mj-card { bottom: 8px; }
@@ -585,12 +605,12 @@ export default function MilestonesJourney() {
         }
         .mj-card-title {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 13px; font-weight: 700;
+          font-size: 15px; font-weight: 700;
           color: #1a0a0f; line-height: 1.22; margin: 0 0 6px;
         }
         .mj-card-desc {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 10.5px; color: rgba(26,10,15,0.58);
+          font-size: 12px; color: rgba(26,10,15,0.58);
           line-height: 1.45; margin: 0;
         }
         .mj-card-bar {

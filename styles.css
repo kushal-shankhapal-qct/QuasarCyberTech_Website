@@ -49,6 +49,9 @@
     --gradient-about-hero-bg: radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
     --gradient-about-achievement-bg: radial-gradient(circle at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%);
     --gradient-about-mission-section-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
+    --gradient-about-founders-vision-bg: radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%);
+    --gradient-about-why-us-bg: radial-gradient(ellipse at 70% 30%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%);
+    --gradient-about-industries-bg: radial-gradient(ellipse at 80% 80%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 80%);
     --gradient-blogs-overview-hero-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
     --gradient-blogs-overview-newsletter-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
     --gradient-blog-individual-hero-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
@@ -123,6 +126,9 @@
     --gradient-about-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%);
     --gradient-about-achievement-bg: radial-gradient(circle at 50% 110%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%);
     --gradient-about-mission-section-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
+    --gradient-about-founders-vision-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
+    --gradient-about-why-us-bg: radial-gradient(ellipse at 50% 108%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
+    --gradient-about-industries-bg: radial-gradient(ellipse at 50% 108%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 82%);
     --gradient-blogs-overview-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
     --gradient-blogs-overview-newsletter-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
     --gradient-blog-individual-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);

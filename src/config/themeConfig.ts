@@ -196,6 +196,9 @@ export const GRADIENT_PRESETS = {
     ABOUT_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
     ABOUT_ACHIEVEMENT_BG: 'radial-gradient(circle at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
     ABOUT_MISSION_SECTION_BG: 'radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
+    ABOUT_FOUNDERS_VISION_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%)',
+    ABOUT_WHY_US_BG: 'radial-gradient(ellipse at 70% 30%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%)',
+    ABOUT_INDUSTRIES_BG: 'radial-gradient(ellipse at 80% 80%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 80%)',
 
     // 7: Insights & Individual Blog
     BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
@@ -236,6 +239,9 @@ export const GRADIENT_PRESETS = {
     ABOUT_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
     ABOUT_ACHIEVEMENT_BG: 'radial-gradient(circle at 50% 110%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
     ABOUT_MISSION_SECTION_BG: 'radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    ABOUT_FOUNDERS_VISION_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    ABOUT_WHY_US_BG: 'radial-gradient(ellipse at 50% 108%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    ABOUT_INDUSTRIES_BG: 'radial-gradient(ellipse at 50% 108%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 82%)',
 
     // 7: Insights & Individual Blog
     BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
@@ -269,6 +275,9 @@ export const GRADIENTS = {
   ABOUT_HERO_BG: 'var(--gradient-about-hero-bg)',
   ABOUT_ACHIEVEMENT_BG: 'var(--gradient-about-achievement-bg)',
   ABOUT_MISSION_SECTION_BG: 'var(--gradient-about-mission-section-bg)',
+  ABOUT_FOUNDERS_VISION_BG: 'var(--gradient-about-founders-vision-bg)',
+  ABOUT_WHY_US_BG: 'var(--gradient-about-why-us-bg)',
+  ABOUT_INDUSTRIES_BG: 'var(--gradient-about-industries-bg)',
   BLOGS_OVERVIEW_HERO_BG: 'var(--gradient-blogs-overview-hero-bg)',
   BLOGS_OVERVIEW_NEWSLETTER_BG: 'var(--gradient-blogs-overview-newsletter-bg)',
   BLOG_INDIVIDUAL_HERO_BG: 'var(--gradient-blog-individual-hero-bg)',

@@ -22,7 +22,7 @@ const HC = {
     mobile: {
       size: "100vw",
       top: "100%", // Peek from below
-      opacity: 0.15,
+      opacity: 0.42,
       nudgeX: "0%",
     }
   }

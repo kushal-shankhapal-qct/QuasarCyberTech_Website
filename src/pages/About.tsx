@@ -17,11 +17,8 @@ import {
   Eye,
   Target,
   ShieldCheck,
-  Lightbulb,
-  Users,
-  Award,
-  Handshake,
   Radar,
+  Settings,
 } from "lucide-react";
 import {
   COLORS,
@@ -35,6 +32,7 @@ import {
 import { ASSETS } from "@/constants/assets";
 import Seo from "../components/seo/Seo";
 import { createBreadcrumbSchema, createAboutPageSchema } from "../seo/schema";
+import { Link } from "react-router-dom";
 
 const METRIC_ANIMATION_DURATION = 1.2;
 const DEFAULT_MAP_SCALE = 190;
@@ -211,44 +209,6 @@ export default function About() {
   const [hoveredMapNode, setHoveredMapNode] = React.useState<string | null>(
     null,
   );
-  const coreValues = [
-    {
-      title: "Integrity in every engagement",
-      description:
-        "We operate with uncompromising ethics in every client decision and technical recommendation.",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Innovation as a way of life",
-      description:
-        "We continuously evolve our methods to stay ahead of adversaries and emerging attack surfaces.",
-      icon: Lightbulb,
-    },
-    {
-      title: "Customer-Centricity in all solutions",
-      description:
-        "Security outcomes are designed around business context, not generic control checklists.",
-      icon: Users,
-    },
-    {
-      title: "Excellence through expertise",
-      description:
-        "Our engineers are practitioners first, bringing precision and depth to each engagement.",
-      icon: Award,
-    },
-    {
-      title: "Collaboration for greater impact",
-      description:
-        "We embed with leadership and technical teams to deliver change that sticks.",
-      icon: Handshake,
-    },
-    {
-      title: "Adaptability in a changing landscape",
-      description:
-        "We architect resilient programs that can absorb rapid shifts in threat and technology.",
-      icon: Radar,
-    },
-  ];
 
   const officeLocations = [
     {
@@ -341,6 +301,74 @@ export default function About() {
     paddingRight: ABOUT_DESKTOP_SIDE_MARGIN,
   };
 
+  // Why Choose Us pillars
+  const whyChooseUs = [
+    {
+      icon: Radar,
+      title: "Proactive Engagement",
+      desc: "We identify and address risks before they escalate, embedding threat-aware thinking into every layer of your operations.",
+    },
+    {
+      icon: Target,
+      title: "Outcome-Driven Delivery",
+      desc: "Every engagement is measured by its business impact — not just findings, but actionable security improvements.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Standards-Aligned Approach",
+      desc: "Our methodology aligns with ISO 27001, NIST, SOC 2, PCI-DSS, and regional frameworks for comprehensive compliance.",
+    },
+    {
+      icon: Settings,
+      title: "Tailored Solutions",
+      desc: "No two enterprises are the same. We architect security programs around your unique risk profile and growth trajectory.",
+    },
+  ];
+
+  // Ecosystem platforms
+  const ecosystemPlatforms = [
+    {
+      name: "QStellar",
+      logo: ASSETS.logos.platforms.qstellarLight,
+      desc: "AI-powered asset visibility and vulnerability intelligence platform",
+      href: "https://qstellar.co",
+      external: true,
+    },
+    {
+      name: "QRGT",
+      logo: ASSETS.logos.platforms.qrgtLight,
+      desc: "PTaaS and risk governance platform",
+      href: "/contact",
+      external: false,
+    },
+    {
+      name: "QPulse",
+      logo: ASSETS.logos.platforms.qpulseLight,
+      desc: "Cybersecurity intelligence and regulatory insights portal",
+      href: "https://qpulse.quasarcybertech.com",
+      external: true,
+    },
+    {
+      name: "QLeap",
+      logo: ASSETS.logos.platforms.qleap,
+      desc: "Talent development, training, and internship ecosystem",
+      href: "https://qleap-ed.com",
+      external: true,
+    },
+  ];
+
+  // Industries
+  const industries = [
+    "BFSI",
+    "Government & PSU",
+    "Healthcare",
+    "Manufacturing",
+    "Technology",
+    "Consulting",
+    "Startups & SaaS",
+    "E-commerce",
+  ];
+
   return (
     <div
       style={{
@@ -368,9 +396,9 @@ export default function About() {
       <main>
         {/* ── 1: HERO ── */}
         <PageHero
-          title="About"
-          highlight="Us"
-          subtitle="QuasarCyberTech was founded with its primary directive: providing critical infrastructure the security engineering required for a cyber-physical age."
+          title="Built on Experience. Engineered for"
+          highlight="Cyber Resilience."
+          subtitle="QuasarCyberTech is an enterprise cybersecurity consulting and engineering firm built to help organizations strengthen resilience, reduce risk, and scale securely in an increasingly complex digital world. Founded on deep industry expertise and driven by an outcome-first approach, we partner with enterprises, financial institutions, government organizations, and high-growth businesses to protect their digital ecosystems."
           backgroundOverride={GRADIENTS.ABOUT_HERO_BG}
           image={ASSETS.capabilities.worldwideConnection}
           imageRotate="-90deg"
@@ -380,6 +408,8 @@ export default function About() {
           scrollMethod="motion"
           breadcrumbPaths={["Home"]}
           currentName="About"
+          compact={true}
+          subtitleMaxWidth="52rem"
         />
 
         {/* ── 2: WHO WE ARE ── */}
@@ -400,43 +430,39 @@ export default function About() {
               width: "100%",
               margin: "0 auto",
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "80px",
-              alignItems: "center",
+              gridTemplateColumns: "3fr 2fr",
+              gap: "3rem",
+              alignItems: "stretch",
             }}
           >
-            <div>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <h2
                 style={{
                   fontSize: "clamp(26px, 4vw, 42px)",
                   fontWeight: 800,
                   color: "#1A0A0F",
-                  marginBottom: "32px",
+                  marginBottom: "1.5rem",
                   lineHeight: 1.1,
                 }}
               >
-                Engineering Resilience for
-                <br />
-                <span style={{ color: COLORS.gold }}>Global Enterprises</span>
+                Who <span style={{ color: COLORS.gold }}>We</span> Are
               </h2>
               <div
                 style={{
-                  fontSize: "clamp(14px, 1.3vw, 15px)",
+                  fontSize: "clamp(14px, 1.3vw, 15.5px)",
                   color: "#4A3040",
                   lineHeight: 1.9,
-                  textAlign: "justify",
                 }}
               >
-                <p style={{ marginBottom: "24px" }}>
-                  Founded at the intersection of offensive security and
-                  defensive engineering, QuasarCyberTech (QCT) emerged to solve
-                  the most complex challenges in modern digital infrastructure.
+                <p style={{ marginBottom: "1.25rem" }}>
+                  At QuasarCyberTech, we combine strategic advisory, offensive
+                  security, managed defense, cloud security, compliance
+                  assurance, and intelligent security platforms to help
+                  organizations stay ahead of evolving threats.
                 </p>
                 <p>
-                  Today, we serve as the authoritative security partner for
-                  Fortune 500 leaders, leveraging a proprietary ecosystem of
-                  threat research and architectural excellence to defend
-                  critical assets worldwide.
+                  Our approach is built around proactive engagement, technical
+                  depth, and measurable business outcomes.
                 </p>
               </div>
             </div>
@@ -446,6 +472,7 @@ export default function About() {
                 gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
                 gap: "26px 0",
                 position: "relative",
+                alignContent: "center",
               }}
             >
               {aboutMetrics.map((m, i) => (
@@ -494,111 +521,295 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── 3: MISSION & VISION ── */}
+        {/* ── 3: FOUNDER'S VISION ── */}
         <section
           className="about-content-section"
           style={{
-            background: GRADIENTS.ABOUT_MISSION_SECTION_BG,
-            paddingTop: "80px",
-            paddingBottom: "40px",
+            background: GRADIENTS.ABOUT_FOUNDERS_VISION_BG,
+            paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+            paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
             ...sectionPad,
             color: "#FFFFFF",
           }}
         >
           <div style={{ width: "100%", margin: "0 auto" }}>
-            <div style={{ marginBottom: "clamp(32px, 5vw, 64px)" }}>
-              <div
-                style={{
-                  fontStyle: "italic",
-                  fontSize: "clamp(16px, 2.5vw, 24px)",
-                  fontWeight: 700,
-                  color: COLORS.gold,
-                  opacity: 0.9,
-                }}
-              >
-                Resilience Engineered, Security Delivered
-              </div>
-            </div>
-            <div
-              className="about-mission-grid"
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                gap: "24px",
+                ...TYPOGRAPHY.eyebrow,
+                color: COLORS.gold,
+                marginBottom: "1rem",
               }}
             >
-              {[
-                {
-                  title: "MISSION",
-                  icon: Target,
-                  iconColor: "rgba(214,176,92,0.11)",
-                  border: COLORS.gold,
-                  text: "To deliver authoritative cybersecurity engineering that empowers enterprise leaders to innovate with confidence in an adversarial landscape.",
-                },
-                {
-                  title: "VISION",
-                  icon: Eye,
-                  iconColor: "rgba(107,21,48,0.2)",
-                  border: COLORS.burgundy,
-                  text: "To redefine the standard for cyber-physical security, becoming the global benchmark for trust in critical infrastructure.",
-                },
-              ].map((card, i) => (
+              FOUNDER'S VISION
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.06 }}
+              style={{
+                fontSize: "clamp(24px, 3.5vw, 40px)",
+                fontWeight: 800,
+                color: "#FFFFFF",
+                marginBottom: "clamp(1.5rem, 3vw, 2.5rem)",
+                lineHeight: 1.15,
+                maxWidth: "38rem",
+              }}
+            >
+              A Founder-Led Vision Built on Trust and Execution
+            </motion.h2>
+            <div
+              className="about-founder-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "clamp(2rem, 4vw, 4rem)",
+                alignItems: "start",
+              }}
+            >
+              <div>
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.12 }}
+                  style={{
+                    fontSize: "clamp(14px, 1.3vw, 16px)",
+                    color: "rgba(255,255,255,0.78)",
+                    lineHeight: 1.85,
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  QuasarCyberTech was founded by{" "}
+                  <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>
+                    Kishor Sonawane
+                  </strong>
+                  , a cybersecurity leader with over 23+ years of industry
+                  experience and former Founder & CEO of Varutra Consulting.
+                </motion.p>
                 <motion.div
-                  key={card.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  style={{
+                    borderLeft: `4px solid ${COLORS.gold}`,
+                    paddingLeft: "1.5rem",
+                    marginTop: "1.5rem",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "clamp(15px, 1.4vw, 18px)",
+                      fontStyle: "italic",
+                      color: "rgba(255,255,255,0.9)",
+                      lineHeight: 1.7,
+                      fontWeight: 400,
+                    }}
+                  >
+                    "To build one of the most trusted cybersecurity consulting
+                    and engineering companies, delivering measurable resilience
+                    and long-term value."
+                  </p>
+                </motion.div>
+              </div>
+              {/* Right: Founder info card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: `1px solid ${ALPHAS.white08}`,
+                  borderRadius: "0.5rem",
+                  padding: "clamp(1.5rem, 3vw, 2.5rem)",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                {/* Decorative glow */}
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "180px",
+                    height: "180px",
+                    top: "-60px",
+                    right: "-60px",
+                    borderRadius: "50%",
+                    background: `radial-gradient(circle, ${ALPHAS.gold20}, transparent 70%)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div
+                    style={{
+                      fontSize: "clamp(18px, 2vw, 24px)",
+                      fontWeight: 800,
+                      color: "#FFFFFF",
+                      marginBottom: "0.5rem",
+                      fontFamily: TYPOGRAPHY.fontHeading,
+                    }}
+                  >
+                    Kishor Sonawane
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "clamp(12px, 1vw, 14px)",
+                      color: COLORS.gold,
+                      fontWeight: 600,
+                      letterSpacing: "0.04em",
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    Founder & CEO, QuasarCyberTech
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    {[
+                      "23+ Years Industry Experience",
+                      "Former Founder & CEO, Varutra Consulting",
+                      "Enterprise Security Architecture Expert",
+                    ].map((stat, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.75rem",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: COLORS.gold,
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: "clamp(12px, 1.1vw, 14px)",
+                            color: "rgba(255,255,255,0.72)",
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          {stat}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 4: GROWTH JOURNEY (MilestonesJourney) ── */}
+        <MilestonesJourney />
+
+        {/* ── 5: WHY ORGANIZATIONS CHOOSE US ── */}
+        <section
+          className="about-content-section"
+          style={{
+            background: GRADIENTS.ABOUT_WHY_US_BG,
+            paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+            paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+            ...sectionPad,
+            color: "#FFFFFF",
+          }}
+        >
+          <div style={{ width: "100%", margin: "0 auto" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{
+                ...TYPOGRAPHY.eyebrow,
+                color: COLORS.gold,
+                marginBottom: "0.75rem",
+              }}
+            >
+              WHY CHOOSE US
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.06 }}
+              style={{
+                fontSize: "clamp(24px, 3.5vw, 40px)",
+                fontWeight: 800,
+                color: "#FFFFFF",
+                marginBottom: "clamp(2rem, 4vw, 3.5rem)",
+                lineHeight: 1.15,
+              }}
+            >
+              Why Organizations{" "}
+              <span style={{ color: COLORS.gold }}>Choose Us</span>
+            </motion.h2>
+            <div
+              className="about-why-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                gap: "1.5rem",
+              }}
+            >
+              {whyChooseUs.map((item, i) => (
+                <motion.div
+                  key={item.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
                   style={{
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "2px",
-                    padding: "clamp(20px, 3vw, 36px)",
-                    borderLeft: `4px solid ${card.border}`,
+                    background: "rgba(255,255,255,0.03)",
+                    border: `1px solid ${ALPHAS.white08}`,
+                    borderRadius: "0.5rem",
+                    padding: "clamp(1.25rem, 2.5vw, 2rem)",
                     position: "relative",
                     overflow: "hidden",
+                    transition: "border-color 0.3s, box-shadow 0.3s",
+                  }}
+                  whileHover={{
+                    borderColor: "rgba(214,176,92,0.3)",
+                    boxShadow: "0 12px 40px rgba(0,0,0,0.3)",
                   }}
                 >
-                  <div
+                  <item.icon
+                    size={32}
+                    strokeWidth={1.5}
                     style={{
-                      position: "absolute",
-                      inset: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      pointerEvents: "none",
+                      color: COLORS.gold,
+                      marginBottom: "1rem",
                     }}
-                  >
-                    <card.icon
-                      size={96}
-                      strokeWidth={1.1}
-                      style={{ color: card.iconColor }}
-                    />
-                  </div>
+                  />
                   <h3
                     style={{
-                      fontSize: "clamp(16px, 2vw, 24px)",
-                      fontWeight: 800,
-                      marginBottom: "14px",
+                      fontSize: "clamp(14px, 1.3vw, 18px)",
+                      fontWeight: 700,
+                      color: "#FFFFFF",
+                      marginBottom: "0.75rem",
                       fontFamily: TYPOGRAPHY.fontHeading,
-                      letterSpacing: "0.02em",
-                      position: "relative",
-                      zIndex: 2,
                     }}
                   >
-                    {card.title}
+                    {item.title}
                   </h3>
                   <p
                     style={{
-                      fontSize: "clamp(13px, 1.3vw, 15.5px)",
-                      color: "rgba(255,255,255,0.7)",
-                      lineHeight: 1.75,
+                      fontSize: "clamp(12px, 1.1vw, 14px)",
+                      color: "rgba(255,255,255,0.65)",
+                      lineHeight: 1.7,
                       margin: 0,
-                      position: "relative",
-                      zIndex: 2,
                     }}
                   >
-                    {card.text}
+                    {item.desc}
                   </p>
                 </motion.div>
               ))}
@@ -606,100 +817,240 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── 4: CORE VALUES ── */}
+        {/* ── 6: OUR ECOSYSTEM ── */}
         <section
           className="about-content-section"
           style={{
             background: SECTION_BACKGROUNDS.LIGHT,
-            paddingTop: "clamp(48px, 6vw, 80px)",
-            paddingBottom: "clamp(48px, 6vw, 80px)",
+            paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+            paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
             ...sectionPad,
           }}
         >
           <div style={{ width: "100%", margin: "0 auto" }}>
-            <h2
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               style={{
-                fontSize: "clamp(22px, 3vw, 36px)",
+                ...TYPOGRAPHY.eyebrow,
+                color: COLORS.burgundy,
+                marginBottom: "0.75rem",
+              }}
+            >
+              OUR ECOSYSTEM
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.06 }}
+              style={{
+                fontSize: "clamp(24px, 3.5vw, 40px)",
                 fontWeight: 800,
                 color: "#1A0A0F",
-                marginBottom: "clamp(28px, 5vw, 64px)",
+                marginBottom: "clamp(2rem, 4vw, 3.5rem)",
+                lineHeight: 1.15,
               }}
             >
-              Our <span style={{ color: COLORS.gold }}>Core Values</span>
-            </h2>
+              Our <span style={{ color: COLORS.gold }}>Platforms</span>
+            </motion.h2>
             <div
-              className="about-values-grid"
+              className="about-ecosystem-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "20px",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                gap: "1.5rem",
               }}
             >
-              {coreValues.map((value, i) => (
+              {ecosystemPlatforms.map((plat, i) => {
+                const CardInner = (
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: i * 0.06 }}
+                    whileHover={{ boxShadow: "0 10px 36px rgba(0,0,0,0.12)" }}
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #E2E8F0",
+                      borderRadius: "0.5rem",
+                      padding: "clamp(1.25rem, 2vw, 2rem)",
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  >
+                    <div
+                      style={{
+                        height: "3rem",
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      <img
+                        src={plat.logo}
+                        alt={plat.name}
+                        style={{
+                          maxHeight: "2.5rem",
+                          maxWidth: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </div>
+                    <h3
+                      style={{
+                        fontSize: "clamp(14px, 1.3vw, 18px)",
+                        fontWeight: 700,
+                        color: "#1A0A0F",
+                        marginBottom: "0.5rem",
+                        fontFamily: TYPOGRAPHY.fontHeading,
+                      }}
+                    >
+                      {plat.name}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "clamp(12px, 1vw, 14px)",
+                        color: "#475569",
+                        lineHeight: 1.65,
+                        margin: 0,
+                        flex: 1,
+                      }}
+                    >
+                      {plat.desc}
+                    </p>
+                    <div
+                      style={{
+                        marginTop: "1rem",
+                        fontSize: "0.8125rem",
+                        fontWeight: 600,
+                        color: COLORS.burgundy,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.375rem",
+                      }}
+                    >
+                      Learn More →
+                    </div>
+                  </motion.div>
+                );
+                return plat.external ? (
+                  <a
+                    key={plat.name}
+                    href={plat.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {CardInner}
+                  </a>
+                ) : (
+                  <Link
+                    key={plat.name}
+                    to={plat.href}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {CardInner}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 7: INDUSTRIES WE SERVE ── */}
+        <section
+          className="about-content-section"
+          style={{
+            background: GRADIENTS.ABOUT_INDUSTRIES_BG,
+            paddingTop: LAYOUT_CONTROLS.section.paddingTop,
+            paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+            ...sectionPad,
+            color: "#FFFFFF",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              margin: "0 auto",
+              textAlign: "center",
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{
+                ...TYPOGRAPHY.eyebrow,
+                color: COLORS.gold,
+                marginBottom: "0.75rem",
+              }}
+            >
+              SECTORS WE PROTECT
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.06 }}
+              style={{
+                fontSize: "clamp(24px, 3.5vw, 40px)",
+                fontWeight: 800,
+                color: "#FFFFFF",
+                marginBottom: "clamp(2rem, 4vw, 3.5rem)",
+                lineHeight: 1.15,
+              }}
+            >
+              Industries We{" "}
+              <span style={{ color: COLORS.gold }}>Serve</span>
+            </motion.h2>
+            <div
+              className="about-industries-badges"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "1rem",
+              }}
+            >
+              {industries.map((ind, i) => (
                 <motion.div
-                  key={value.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  key={ind}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.05 }}
-                  whileHover={{ boxShadow: "0 8px 30px rgba(0,0,0,0.10)" }}
+                  transition={{ duration: 0.35, delay: i * 0.04 }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: `0 0 24px ${ALPHAS.gold30}`,
+                    borderColor: COLORS.gold,
+                  }}
                   style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #E2E8F0",
-                    borderLeft: `4px solid ${COLORS.burgundy}`,
-                    padding: "clamp(18px, 2.5vw, 32px)",
-                    position: "relative",
-                    overflow: "hidden",
-                    transition: "box-shadow 0.3s",
+                    padding: "0.75rem 2rem",
+                    border: `1px solid ${ALPHAS.gold20}`,
+                    borderRadius: "100px",
+                    background: "rgba(255,255,255,0.03)",
+                    fontSize: "clamp(13px, 1.2vw, 16px)",
+                    fontWeight: 600,
+                    color: "rgba(255,255,255,0.88)",
+                    cursor: "default",
+                    transition: "all 0.3s ease",
+                    backdropFilter: "blur(4px)",
                   }}
                 >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      pointerEvents: "none",
-                    }}
-                  >
-                    <value.icon
-                      size={96}
-                      strokeWidth={1.15}
-                      style={{ color: "rgba(11,31,59,0.06)" }}
-                    />
-                  </div>
-                  <h3
-                    style={{
-                      fontSize: "clamp(13px, 1.3vw, 18px)",
-                      fontWeight: 800,
-                      color: COLORS.darkBase,
-                      marginBottom: "12px",
-                      position: "relative",
-                      zIndex: 2,
-                    }}
-                  >
-                    {value.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: "#475569",
-                      fontSize: "clamp(12px, 1vw, 15px)",
-                      lineHeight: 1.7,
-                      position: "relative",
-                      zIndex: 2,
-                      margin: 0,
-                    }}
-                  >
-                    {value.description}
-                  </p>
+                  {ind}
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── 5: GLOBAL PRESENCE MAP ── */}
+        {/* ── 8: GLOBAL PRESENCE MAP ── */}
         <section
           className="about-content-section"
           style={{
@@ -989,11 +1340,15 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── 7: TIMELINE MILESTONES ── */}
-        <MilestonesJourney />
-
-        {/* ── 8: CTA ── */}
-        <CTASection theme="dark" showEyebrow={true} />
+        {/* ── 9: CTA ── */}
+        <CTASection
+          theme="light"
+          showEyebrow={true}
+          eyebrowText="READY TO BUILD RESILIENCE?"
+          subtitle="Whether you are looking for strategic advisory, offensive security, managed defense, or platform-led cybersecurity transformation, QuasarCyberTech is ready to partner with you."
+          primaryAction={{ label: "Talk to a Security Expert", link: "/contact" }}
+          secondaryAction={{ label: "Explore Capabilities", link: "/capabilities" }}
+        />
       </main>
 
       <Footer />
@@ -1007,12 +1362,24 @@ export default function About() {
         }
 
         @media (max-width: 1100px) {
-          .about-who-grid, .about-map-grid, .about-mission-grid {
+          .about-who-grid, .about-map-grid, .about-founder-grid {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 2.5rem !important;
           }
-          .about-values-grid {
+          .about-why-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .about-ecosystem-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .about-why-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .about-ecosystem-grid {
+            grid-template-columns: 1fr !important;
           }
         }
 
