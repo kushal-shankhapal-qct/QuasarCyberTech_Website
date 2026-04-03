@@ -250,8 +250,8 @@ const Navbar: React.FC = () => {
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const [mobileExpandedGroup, setMobileExpandedGroup] = useState<number | null>(null);
   const scrolledRef = useRef(false);
-  const showDesktopNavRef = useRef(true);
-  const [showDesktopNav, setShowDesktopNav] = useState<boolean>(false);
+  const showDesktopNavRef = useRef(true); // desktop-first: matches useState(true) to avoid SSG hydration mismatch
+  const [showDesktopNav, setShowDesktopNav] = useState<boolean>(true);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
