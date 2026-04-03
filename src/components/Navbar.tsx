@@ -717,11 +717,10 @@ const Navbar: React.FC = () => {
         <motion.nav
           ref={pillRef}
           data-qct-navbar-pill="true"
-          className="items-center"
+          className="hidden lg:flex items-center"
           animate={{ top: desktopAxisY }}
           transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            display: showDesktopNav ? "flex" : "none",
             position: "absolute",
             top: desktopAxisY,
             left: "50%",
@@ -797,10 +796,10 @@ const Navbar: React.FC = () => {
         >
           <motion.div
             ref={contactRef}
+            className="hidden lg:block"
             animate={{ top: desktopAxisY }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              display: showDesktopNav ? "block" : "none",
               position: "absolute",
               top: desktopAxisY,
               right: NC.wrapper.paddingRight,
@@ -837,10 +836,9 @@ const Navbar: React.FC = () => {
           </motion.div>
 
           <button
-            className="items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
+            className="flex lg:hidden items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             style={{
-              display: showDesktopNav ? "none" : "flex",
               padding: "0.5rem",
               borderRadius: "0.5rem",
               position: "absolute",
@@ -856,9 +854,8 @@ const Navbar: React.FC = () => {
 
         {/* ── DESKTOP DROPDOWNS ── */}
         <AnimatePresence>
-          {openMenu && (
+          {openMenu && showDesktopNav && (
             <motion.div
-              className=""
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -866,7 +863,7 @@ const Navbar: React.FC = () => {
               onMouseEnter={() => closeTimer.current && clearTimeout(closeTimer.current)}
               onMouseLeave={closeDropdown}
               style={{
-                display: showDesktopNav ? "block" : "none",
+                display: "block",
                 position: "fixed",
                 pointerEvents: "auto",
                 top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.tune.dropdownOffsetY})`,
