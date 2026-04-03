@@ -379,7 +379,7 @@ export default function About() {
       }}
     >
       <Seo
-        title="About QuasarCyberTech — Our Mission, Values & Story"
+        title="About Us — Our Mission, Values & Story"
         description="Learn about QuasarCyberTech — an enterprise cybersecurity consulting and engineering firm committed to building a safer digital world through offensive security, advisory, and managed defense."
         path="/aboutus"
         image={ASSETS.capabilities.advisory}

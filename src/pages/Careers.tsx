@@ -48,7 +48,7 @@ const Careers: React.FC = () => {
   return (
     <div style={{ background: '#FFFFFF', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: TYPOGRAPHY.fontBody }}>
       <Seo
-        title="Cybersecurity Careers at QuasarCyberTech"
+        title="Cybersecurity Careers"
         description="Explore cybersecurity consulting, engineering, SOC, cloud security, and research career opportunities at QuasarCyberTech. Join India's leading cybersecurity firm."
         path="/careers"
         image={ASSETS.backdrops.careersHero}

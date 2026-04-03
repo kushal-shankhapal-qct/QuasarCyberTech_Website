@@ -19,7 +19,7 @@ export const absoluteUrl = (path = '/') => {
 };
 
 export const buildTitle = (title?: string) =>
-  title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} | Enterprise Cybersecurity & Engineering`;
+  title ? `${SITE_NAME} | ${title}` : `${SITE_NAME} | Enterprise Cybersecurity & Engineering`;
 
 export const toAbsoluteAssetUrl = (assetUrl?: string) => {
   if (!assetUrl) {
