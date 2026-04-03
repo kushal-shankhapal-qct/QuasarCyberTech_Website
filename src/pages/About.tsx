@@ -244,6 +244,7 @@ export default function About() {
           backgroundOverride={GRADIENTS.ABOUT_HERO_BG}
           image={ASSETS.capabilities.worldwideConnection}
           imageRotate="-90deg"
+          imageRotateMobile="0deg"
           imageScale={1.3}
           scrollTargetId="who-we-are"
           scrollButtonText="Discover Our Heritage"
@@ -688,11 +689,11 @@ export default function About() {
 
         /* Mobile responsive adjustments for About page */
         @media (max-width: 1000px) {
-          .about-who-grid, .about-vm-grid, .about-industries-grid, .about-map-grid, .about-ecosystem-grid {
+          .about-who-grid, .about-vm-grid, .about-map-grid, .about-ecosystem-grid {
             grid-template-columns: 1fr !important;
             gap: 2rem !important;
           }
-          .about-why-grid {
+          .about-why-grid, .about-industries-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
           .about-founder-grid {

@@ -8,13 +8,6 @@ import {
 import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from "../config/themeConfig";
 
 /* ═══════════════════════════════════════════════
-   SCROLL TUNING
-   ═══════════════════════════════════════════════ */
-const SCROLL_MULTIPLIER = 0.35;
-const SCROLL_FRICTION = 0.91;
-const SCROLL_MIN_VEL = 0.5;
-
-/* ═══════════════════════════════════════════════
    LAYOUT TUNING — all in px, adjust freely
    ═══════════════════════════════════════════════ */
 const NODE_W = 260;   // horizontal slot per milestone
@@ -24,8 +17,8 @@ const CARD_W = 210;   // card width
 const DOT_Y_BIAS = 0;   // move the whole wire up/down (negative = up)
 const STEM_X_BIAS = 0;   // stem left/right nudge
 
-const EXIT_TAIL_W = 220;   // how far the wire extends past the last dot
-const EXIT_RISE_Y = -90;   // how high the wire rises at the tip (negative = up)
+const EXIT_RISE_Y = -120; // how high the wire naturally rises at the end (negative = up)
+const EXIT_TAIL_W = 180;  // extra length to extend past the last milestone dot
 
 /* ═══════════════════════════════════════════════
    DATA
@@ -105,15 +98,7 @@ const milestones = [
   },
 ];
 
-/* Last node — CERT-In — treated separately as a pinnacle */
-const certInMilestone = {
-  year: "2026", month: "Active",
-  title: "CERT-In Empanelled",
-  tag: "Pinnacle",
-};
-
 const ALL_NODES = milestones.length; // number of regular nodes
-const CERT_INDEX = ALL_NODES;        // cert-in sits at the very end
 
 /* ═══════════════════════════════════════════════
    REGULAR NODE
@@ -218,106 +203,57 @@ function MilestoneNode({
   );
 }
 
-/* ═══════════════════════════════════════════════
-   CERT-IN PINNACLE NODE
-   ═══════════════════════════════════════════════ */
-function CertInNode({ index }: { index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-  const wireY = TRACK_H / 2 + DOT_Y_BIAS;
-  // Cert-In is always on top (even index = top)
-  const isTop = index % 2 === 0;
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        position: "absolute",
-        left: `${index * NODE_W}px`,
-        width: `${NODE_W + 60}px`, // slightly wider for the big card
-        height: `${TRACK_H}px`,
-        pointerEvents: "none",
-      }}
-    >
-      <div style={{ position: "relative", width: "100%", height: "100%", pointerEvents: "auto" }}>
-
-        {/* Year watermark */}
-        <div className="mj-year-label">2026</div>
-
-        {/* Gold dot — larger marking the endpoint */}
-        <motion.div
-          style={{
-            position: "absolute",
-            top: `${wireY}px`,
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            zIndex: 6,
-          }}
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.15, type: "spring", stiffness: 260, damping: 16 }}
-        >
-          <div className="mj-dot mj-dot--cert">
-            <div className="mj-dot-core mj-dot-core--cert" />
-          </div>
-          <div className="mj-dot-ring mj-dot-ring--cert" />
-        </motion.div>
-
-        {/* Stem */}
-        <motion.div
-          initial={{ scaleY: 0 }}
-          animate={isInView ? { scaleY: 1 } : {}}
-          transition={{ duration: 0.45, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: "absolute",
-            left: `calc(50% - 1px + ${STEM_X_BIAS}px)`,
-            width: "2px",
-            top: isTop ? 12 : `${wireY}px`,
-            bottom: isTop ? `${TRACK_H - wireY}px` : 12,
-            background: isTop
-              ? `linear-gradient(to top, ${COLORS.burgundy}00, ${COLORS.burgundy})`
-              : `linear-gradient(to bottom, ${COLORS.gold}00, ${COLORS.gold})`,
-            zIndex: 2,
-            transformOrigin: isTop ? "bottom" : "top",
-          }}
-        />
-
-        {/* Pinnace Card — Match regular style */}
-        <motion.div
-          className={`mj-card mj-card--${isTop ? "top" : "bot"}`}
-          initial={{ opacity: 0, y: isTop ? -24 : 24, scale: 0.93 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.55, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: `${CARD_W}px`,
-            zIndex: 5,
-            ...(isTop ? { top: 12 } : { bottom: 12 }),
-          }}
-        >
-          <div className="mj-card-body">
-            <h4 className="mj-card-title">CERT-In Empanelled</h4>
-            <p className="mj-card-desc">
-              Authorized to conduct national-level cybersecurity audits for critical government and enterprise infrastructure across India.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════
-   MAIN EXPORT
-   ═══════════════════════════════════════════════ */
+// Main Export
 export default function MilestonesJourney() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const progress = useMotionValue(0);
   const smoothProg = useSpring(progress, { stiffness: 90, damping: 24 });
 
   /* Progress sync */
+  /* ═══════════════════════════════════════════════
+     DRAG SCROLL LOGIC
+     ═══════════════════════════════════════════════ */
+  useEffect(() => {
+    const el = scrollAreaRef.current;
+    if (!el) return;
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+
+    const onMouseDown = (e: MouseEvent) => {
+      // Don't trigger if clicking on something interactive like a card
+      if ((e.target as HTMLElement).closest('.mj-card')) return;
+      isDown = true;
+      el.classList.add("mj-grabbing");
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    };
+    const onMouseLeave = () => {
+      isDown = false;
+      el.classList.remove("mj-grabbing");
+    };
+    const onMouseUp = () => {
+      isDown = false;
+      el.classList.remove("mj-grabbing");
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 1.5; 
+      el.scrollLeft = scrollLeft - walk;
+    };
+
+    el.onmousedown = onMouseDown;
+    el.onmouseleave = onMouseLeave;
+    el.onmouseup = onMouseUp;
+    el.onmousemove = onMouseMove;
+
+    return () => {
+      el.onmousedown = null; el.onmouseleave = null; el.onmouseup = null; el.onmousemove = null;
+    };
+  }, []);
+
   useEffect(() => {
     const el = scrollAreaRef.current;
     if (!el) return;
@@ -334,57 +270,36 @@ export default function MilestonesJourney() {
     };
   }, [progress]);
 
-  /* Inertia wheel scroll */
-  useEffect(() => {
-    const el = scrollAreaRef.current;
-    if (!el) return;
-    let velocity = 0;
-    let rafId = 0;
-    const animate = () => {
-      if (Math.abs(velocity) < SCROLL_MIN_VEL) { velocity = 0; return; }
-      el.scrollLeft += velocity;
-      velocity *= SCROLL_FRICTION;
-      rafId = requestAnimationFrame(animate);
-    };
-    const onWheel = (e: WheelEvent) => {
-      const max = el.scrollWidth - el.clientWidth;
-      if (max <= 0) return;
-      if (el.scrollLeft <= 0 && e.deltaY < 0) return;
-      if (el.scrollLeft >= max - 1 && e.deltaY > 0) return;
-      e.preventDefault();
-      cancelAnimationFrame(rafId);
-      velocity = e.deltaY * SCROLL_MULTIPLIER;
-      rafId = requestAnimationFrame(animate);
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => { el.removeEventListener("wheel", onWheel); cancelAnimationFrame(rafId); };
-  }, []);
-
-  /* SVG wire — clean sine wave, terminates with a small arrow at CERT-In dot */
+  /* SVG wire — clean sine wave, ends naturally without a forced tail */
   const wireY = TRACK_H / 2 + DOT_Y_BIAS;
-  // Total nodes including CERT-In
-  const totalNodes = milestones.length + 1;
-  const totalW = totalNodes * NODE_W + EXIT_TAIL_W + 60;
+  const totalNodes = milestones.length;
+  // Total width is number of nodes * Node Width + extra tail buffer
+  const totalW = (totalNodes - 1) * NODE_W + (NODE_W / 2) + EXIT_TAIL_W + 60;
   const A = 65; // amplitude
 
   const pathD = (() => {
-    const pts: string[] = [`M 0,${wireY}`];
-    // Smooth start
-    pts.push(`C ${NODE_W / 4},${wireY} ${NODE_W / 3},${wireY} ${NODE_W / 2},${wireY}`);
+    // Start at the center of the first node
+    const firstX = NODE_W / 2;
+    const pts: string[] = [`M ${firstX},${wireY}`];
 
+    // standard wave segments
     for (let i = 1; i < totalNodes; i++) {
       const prevX = (i - 1) * NODE_W + NODE_W / 2;
       const curX = i * NODE_W + NODE_W / 2;
       const s = i % 2 === 1 ? -1 : 1;
       const cY = wireY + s * A;
+      
+      // Standard smooth wave segment that always ends at (curX, wireY)
       pts.push(`C ${prevX + NODE_W / 3},${cY} ${curX - NODE_W / 3},${cY} ${curX},${wireY}`);
     }
+
+    const lastX = (totalNodes - 1) * NODE_W + NODE_W / 2;
+    // We want the curve to naturally continue our sine wave pattern but stop at the upward peak.
+    // Making it a half-wave segment for a natural feel.
+    const peakY = wireY - A; 
+    const peakX = lastX + NODE_W / 2;
     
-    // Smooth upward exit tail
-    const certDotX = (totalNodes - 1) * NODE_W + NODE_W / 2;
-    pts.push(`C ${certDotX + EXIT_TAIL_W * 0.3},${wireY} 
-                 ${certDotX + EXIT_TAIL_W * 0.6},${wireY + EXIT_RISE_Y} 
-                 ${certDotX + EXIT_TAIL_W},${wireY + EXIT_RISE_Y}`);
+    pts.push(`C ${lastX + NODE_W / 4},${wireY} ${peakX - NODE_W / 4},${peakY} ${peakX},${peakY}`);
 
     return pts.join(" ");
   })();
@@ -413,7 +328,7 @@ export default function MilestonesJourney() {
           initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.12 }}
         >
-          A clear progression of strategic growth milestones shaping QuasarCyberTech into a trusted cybersecurity authority — culminating in CERT-In Empanelment.
+          A clear progression of strategic growth milestones shaping QuasarCyberTech into a trusted cybersecurity authority.
         </motion.p>
       </div>
 
@@ -424,7 +339,7 @@ export default function MilestonesJourney() {
           style={{ width: `${totalW}px`, height: `${TRACK_H}px` }}
         >
           {/* Wire */}
-          <svg className="mj-wire" viewBox={`0 0 ${totalW} ${TRACK_H}`} preserveAspectRatio="none">
+          <svg className="mj-wire" viewBox={`0 0 ${totalW} ${TRACK_H}`}>
             <defs>
               <linearGradient id="mj-wg" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor={COLORS.burgundy} />
@@ -432,9 +347,6 @@ export default function MilestonesJourney() {
                 <stop offset="75%" stopColor={COLORS.burgundy} />
                 <stop offset="100%" stopColor={COLORS.gold} />
               </linearGradient>
-              <marker id="mj-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-                <path d="M1,1 L7,4 L1,7" fill="none" stroke={COLORS.gold} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </marker>
             </defs>
             {/* Ghost track */}
             <path d={pathD} fill="none" stroke="rgba(107,21,48,0.06)" strokeWidth="3" />
@@ -443,18 +355,15 @@ export default function MilestonesJourney() {
               d={pathD} fill="none"
               stroke="url(#mj-wg)" strokeWidth="2.5"
               strokeLinecap="round"
-              markerEnd="url(#mj-arrow)"
               style={{ pathLength: smoothProg }}
             />
           </svg>
 
           {/* Regular nodes */}
-          <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 3 }}>
+           <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 3 }}>
             {milestones.map((m, i) => (
               <MilestoneNode key={`${m.year}-${m.month}-${m.title}`} milestone={m} index={i} />
             ))}
-            {/* CERT-In pinnacle */}
-            <CertInNode index={CERT_INDEX} />
           </div>
         </div>
       </div>
@@ -517,16 +426,43 @@ export default function MilestonesJourney() {
 
         /* Scroll area */
         .mj-scroll-area {
-          overflow-x: auto; overflow-y: visible;
-          padding: 0 clamp(16px, 3vw, 48px) 16px;
+          overflow-x: auto; 
+          overflow-y: visible;
+          position: relative; 
+          width: 100%;
+          cursor: grab;
+          user-select: none;
+          padding: 2.5rem clamp(24px, 4vw, 64px) 1.5rem;
+          z-index: 2;
+
+          /* Elegant Big Scrollbar */
           scrollbar-width: thin;
-          scrollbar-color: rgba(107,21,48,0.16) transparent;
-          position: relative; z-index: 2;
-          overscroll-behavior-x: contain;
+          scrollbar-color: rgba(107,21,48,0.2) transparent;
         }
-        .mj-scroll-area::-webkit-scrollbar { height: 4px; }
-        .mj-scroll-area::-webkit-scrollbar-thumb { background: rgba(107,21,48,0.16); border-radius: 2px; }
-        .mj-scroll-area::-webkit-scrollbar-track { background: transparent; }
+        
+        .mj-scroll-area::-webkit-scrollbar {
+          height: 12px;
+          display: block;
+        }
+        .mj-scroll-area::-webkit-scrollbar-track {
+           background: rgba(107,21,48,0.04);
+           border-radius: 8px;
+           margin: 0 clamp(24px, 4vw, 64px);
+        }
+        .mj-scroll-area::-webkit-scrollbar-thumb {
+           background: rgba(107,21,48,0.18);
+           border-radius: 8px;
+           border: 3px solid transparent; 
+           background-clip: padding-box;
+           transition: background 0.2s ease;
+        }
+        .mj-scroll-area::-webkit-scrollbar-thumb:hover {
+           background: ${COLORS.gold}44;
+           background-clip: padding-box;
+        }
+
+        .mj-scroll-area.mj-grabbing { cursor: grabbing; cursor: -webkit-grabbing; }
+        
         .mj-track { position: relative; }
         .mj-wire {
           position: absolute; left: 0; top: 0;

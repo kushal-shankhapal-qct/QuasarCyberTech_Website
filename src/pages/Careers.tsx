@@ -15,13 +15,42 @@ import { createBreadcrumbSchema, createCareersPageSchema } from '../seo/schema';
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfshcNxujjrPu2rXQlWk1Mup2DH1dP6fIgPL_98lStWw1zckg/viewform";
 
 const roles = [
-  { title: "Cybersecurity Consultant", location: "Nashik / Remote", experience: "2–5 yrs", type: "Full-Time", description: "Lead client-facing security engagements across VAPT, compliance, and advisory programs." },
-  { title: "SOC Analyst", location: "Nashik", experience: "1–3 yrs", type: "Full-Time", description: "Monitor, detect, and respond to threats across managed client environments." },
-  { title: "Security Engineer", location: "Remote", experience: "2–4 yrs", type: "Full-Time", description: "Build and maintain internal security platforms including QRGT and QStellar." },
-  { title: "Cloud Security Consultant", location: "Remote / Hybrid", experience: "3–6 yrs", type: "Full-Time", description: "Deliver cloud security assessments, CSPM implementations, and AWS/Azure reviews." },
-  { title: "Pre-Sales & Business Development", location: "Nashik / Mumbai", experience: "2–4 yrs", type: "Full-Time", description: "Drive enterprise pipeline by translating security capabilities into client proposals." },
-  { title: "Full Stack Developer", location: "Nashik / Remote", experience: "2–5 yrs", type: "Full-Time", description: "Build features across the QuasarCyberTech platform ecosystem — QRGT, QStellar, QPulse." },
-  { title: "Security Research Intern", location: "Remote", experience: "0–1 yr", type: "Internship", description: "Contribute to vulnerability research, threat intelligence, and security advisory content." },
+  {
+    title: "Security Consultant",
+    applyUrl: "https://forms.gle/JHBjAqYvjpvTthip8",
+    description: "Lead client-facing engagements across advisory, assessments, and enterprise security programs.",
+    icon: Shield,
+  },
+  {
+    title: "Product Development Engineer",
+    applyUrl: "https://forms.gle/XiKeCpAN5S4sSUcw6",
+    description: "Build and ship product capabilities across QRGT, QStellar, and QPulse ecosystems.",
+    icon: Code2,
+  },
+  {
+    title: "HR Executive",
+    applyUrl: "https://forms.gle/T2tsbASiPWiguDNE6",
+    description: "Drive hiring operations, people processes, and culture-building across growing teams.",
+    icon: Target,
+  },
+  {
+    title: "SOC Analyst",
+    applyUrl: "https://forms.gle/5JW3RjVefc7qnFSJ9",
+    description: "Monitor, investigate, and respond to security events across managed enterprise environments.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Internship",
+    applyUrl: "https://forms.gle/ZqnMXRnjSQzFmbnX8",
+    description: "Get hands-on exposure to real delivery projects, research, and platform engineering workflows.",
+    icon: Globe,
+  },
+  {
+    title: "Sales and Business Development",
+    applyUrl: "https://forms.gle/VW1TzpADkVVx2Nca6",
+    description: "Grow enterprise pipeline and strategic partnerships by mapping capabilities to client outcomes.",
+    icon: Globe2,
+  },
 ];
 
 const values = [
@@ -40,9 +69,10 @@ const Careers: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  const sidebarMargin = "clamp(1rem, 5vw, 3rem)";
   const sectionPad = {
-    paddingLeft: LAYOUT_CONTROLS.section.paddingX,
-    paddingRight: LAYOUT_CONTROLS.section.paddingX,
+    paddingLeft: sidebarMargin,
+    paddingRight: sidebarMargin,
   };
 
   return (
@@ -86,7 +116,7 @@ const Careers: React.FC = () => {
           ...sectionPad,
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'left' }}>
+        <div style={{ width: '100%', textAlign: 'left' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
             <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', color: '#888', textTransform: 'uppercase' }}>COMPANY MILESTONES</span>
@@ -113,7 +143,7 @@ const Careers: React.FC = () => {
           ...sectionPad,
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
             <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase' }}>LIFE AT QCT</span>
@@ -125,7 +155,7 @@ const Careers: React.FC = () => {
             We are building a high-performance team where ownership, learning, and real enterprise impact come standard.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          <div className="careers-values-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '20px' }}>
             {values.map((v, i) => (
               <motion.div
                 key={i}
@@ -151,7 +181,7 @@ const Careers: React.FC = () => {
                   top: '50%',
                   transform: 'translateY(-50%)',
                   color: COLORS.gold,
-                  opacity: 0.08,
+                  opacity: 0.2,
                 }}>
                   <v.icon size={64} strokeWidth={1} />
                 </div>
@@ -173,7 +203,7 @@ const Careers: React.FC = () => {
           ...sectionPad,
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div style={{ height: '1.5px', width: '48px', background: COLORS.gold }} />
             <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', color: '#888', textTransform: 'uppercase' }}>CAREERS OPENINGS</span>
@@ -185,51 +215,91 @@ const Careers: React.FC = () => {
             We are hiring across consulting, engineering, and operations.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }} className="roles-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '20px' }} className="roles-grid">
             {roles.map((role, i) => {
+              const RoleIcon = role.icon;
 
               return (
                 <motion.div
                   key={i}
-                  whileHover={{ y: -4, boxShadow: '0 8px 16px rgba(0,0,0,0.04)' }}
+                  whileHover={{ y: -3 }}
                   style={{
-                    background: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '12px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    background: '#F5F7FA',
+                    borderLeft: `4px solid ${COLORS.burgundy}`,
+                    borderTop: '1px solid #E2E8F0',
+                    borderRight: '1px solid #E2E8F0',
+                    borderBottom: '1px solid #E2E8F0',
+                    borderRadius: '0',
                     padding: '24px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    gap: '24px',
-                    transition: 'box-shadow 0.3s ease, transform 0.3s ease'
+                    gap: '16px',
+                    minHeight: '220px',
+                    transition: 'transform 0.3s ease, border-left-color 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderLeftColor = COLORS.gold;
+                    const iconDiv = e.currentTarget.querySelector('div[style*="position: absolute"]');
+                    if (iconDiv) (iconDiv as HTMLElement).style.opacity = '0.4';
+                    const applyLink = e.currentTarget.querySelector('a');
+                    if (applyLink) applyLink.style.color = COLORS.gold;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderLeftColor = COLORS.burgundy;
+                    const iconDiv = e.currentTarget.querySelector('div[style*="position: absolute"]');
+                    if (iconDiv) (iconDiv as HTMLElement).style.opacity = '0.2';
+                    const applyLink = e.currentTarget.querySelector('a');
+                    if (applyLink) applyLink.style.color = COLORS.burgundy;
                   }}
                 >
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.3 }}>{role.title}</h4>
+                  <div style={{
+                    position: 'absolute',
+                    right: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: COLORS.gold,
+                    opacity: 0.2,
+                    pointerEvents: 'none',
+                    transition: 'opacity 0.3s ease',
+                  }}>
+                    <RoleIcon size={64} strokeWidth={1} />
+                  </div>
+
+                  <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.3, margin: 0, position: 'relative', zIndex: 2 }}>{role.title}</h4>
+
+                  <p style={{ color: '#475569', fontSize: '0.92rem', lineHeight: 1.55, margin: 0, position: 'relative', zIndex: 2 }}>
+                    {role.description}
+                  </p>
 
                   <a
-                    href={GOOGLE_FORM_URL}
+                    href={role.applyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '100%',
                       background: 'transparent',
                       color: COLORS.burgundy,
-                      border: `1.5px solid ${COLORS.burgundy}`,
-                      padding: '10px 16px',
-                      borderRadius: '4px',
+                      border: 'none',
+                      padding: '0',
+                      borderRadius: '0',
                       fontSize: '0.9rem',
                       fontWeight: 700,
+                      letterSpacing: '0.02em',
                       textDecoration: 'none',
-                      transition: 'all 0.3s ease',
+                      transition: 'color 0.2s ease',
+                      marginTop: 'auto',
+                      position: 'relative',
+                      zIndex: 2,
                     }}
                     onMouseOver={(e) => {
-                      e.currentTarget.style.background = 'rgba(107, 21, 48, 0.05)';
+                      e.currentTarget.style.color = '#8B1E3F';
                     }}
                     onMouseOut={(e) => {
-                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = COLORS.burgundy;
                     }}
                   >
                     Apply Now
@@ -252,7 +322,7 @@ const Careers: React.FC = () => {
           ...sectionPad,
         }}
       >
-        <div className="qleap-container" style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(320px, 1fr)', gap: '64px', alignItems: 'stretch' }}>
+        <div className="qleap-container" style={{ width: '100%', display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(320px, 1fr)', gap: '64px', alignItems: 'stretch' }}>
           {/* Left Text */}
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
@@ -332,14 +402,20 @@ const Careers: React.FC = () => {
       <style dangerouslySetInnerHTML={{
         __html: `
         @media (max-width: 1024px) {
+          .careers-values-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
           .roles-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           }
           .qleap-container {
             grid-template-columns: 1fr !important;
           }
         }
         @media (max-width: 640px) {
+          .careers-values-grid {
+            grid-template-columns: 1fr !important;
+          }
           .roles-grid {
             grid-template-columns: 1fr !important;
           }

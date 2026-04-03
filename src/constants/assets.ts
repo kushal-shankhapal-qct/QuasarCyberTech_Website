@@ -79,12 +79,12 @@ export const ASSETS = {
   },
   industries: {
     banking: getAsset('Industries_Images/Banking_and_Financial_Services.jpg'),
-    ecommerce: getAsset('Industries_Images/E_commerce_and_Digital_Platforms.jpg'),
-    enterprise: getAsset('Industries_Images/Enterprise_and_Manufacturing.jpg'),
-    fintech: getAsset('Industries_Images/FinTech_and_Digital_Payments.jpg'),
+    ecommerce: getAsset('QCT-WEBSITE/E-commerce.jpg'),
+    enterprise: getAsset('QCT-WEBSITE/Enterprise-Manufacturing.jpg'),
+    fintech: getAsset('QCT-WEBSITE/Digital-Payments.jpg'),
     healthcare: getAsset('Industries_Images/Healthcare_and_HealthTech.png'),
-    saas: getAsset('Industries_Images/saas_optimized.jpg'),
-    overviewHero: getAsset('Industries_Images/Industries_Overview_Hero.png'),
+    saas: getAsset('QCT-WEBSITE/SAAS.jpg'),
+    overviewHero: getAsset('QCT-WEBSITE/Advisory and risk Governance.webp'),
   },
   capabilities: {
     advisory: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Cyber_Advisory_and_Risk_Governance.jpg'),

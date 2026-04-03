@@ -236,6 +236,23 @@ const NC = {
   },
 };
 
+const NAVBAR_COLLAPSE_WIDTH = 960;
+const NAVBAR_COMPACT_REFERENCE_WIDTH = 1280;
+const NAVBAR_MIN_COMPACT_SCALE = 0.74;
+
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+const scaleCssLength = (value: string, scale: number): string => {
+  const trimmed = value.trim();
+  const match = trimmed.match(/^(-?\d*\.?\d+)(px|rem|em)$/i);
+  if (!match) return value;
+
+  const numeric = Number(match[1]);
+  const unit = match[2];
+  const scaled = Number((numeric * scale).toFixed(4));
+  return `${scaled}${unit}`;
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -252,6 +269,7 @@ const Navbar: React.FC = () => {
   const scrolledRef = useRef(false);
   const showDesktopNavRef = useRef(true); // desktop-first: matches useState(true) to avoid SSG hydration mismatch
   const [showDesktopNav, setShowDesktopNav] = useState<boolean>(true);
+  const [viewportWidth, setViewportWidth] = useState<number>(NAVBAR_COMPACT_REFERENCE_WIDTH);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
@@ -275,7 +293,8 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const evaluateNavFit = () => {
-      const next = window.innerWidth >= NC.desktopLayout.enabledMinWidth;
+      const next = window.innerWidth >= NAVBAR_COLLAPSE_WIDTH;
+      setViewportWidth(window.innerWidth);
       showDesktopNavRef.current = next;
       setShowDesktopNav(next);
     };
@@ -589,6 +608,21 @@ const Navbar: React.FC = () => {
   const groupLogo = logoViewport.group;
   const iconLogo = logoViewport.icon;
   const textLogo = logoViewport.text;
+  const navCompactScale = showDesktopNav
+    ? clamp(viewportWidth / NAVBAR_COMPACT_REFERENCE_WIDTH, NAVBAR_MIN_COMPACT_SCALE, 1)
+    : 1;
+  const compactedPillGap = scaleCssLength(NC.tune.pillLinkGap, navCompactScale);
+  const compactedPillPaddingLeft = scaleCssLength(NC.tune.pillPaddingLeft, navCompactScale);
+  const compactedPillPaddingRight = scaleCssLength(NC.tune.pillPaddingRight, navCompactScale);
+  const compactedBridgePaddingLeft = scaleCssLength(NC.tune.bridgePaddingLeft, navCompactScale);
+  const compactedPillLinkPaddingX = scaleCssLength(NC.tune.pillLinkPaddingX, navCompactScale);
+  const compactedLogoGroupWidth = scaleCssLength(groupLogo.width[logoPhase], navCompactScale);
+  const compactedLogoIconHeight = scaleCssLength(iconLogo.height[logoPhase], navCompactScale);
+  const compactedLogoTextWidth = scaleCssLength(textLogo.width[logoPhase], navCompactScale);
+  const compactedBandHeight = scaleCssLength(bandHeight, scrolled ? 0.96 : 1);
+  const compactedContactHeight = scaleCssLength(NC.contactButton.height, navCompactScale);
+  const compactedContactPaddingX = scaleCssLength(NC.contactButton.paddingX, navCompactScale);
+  const compactedDropdownOffsetY = scaleCssLength(NC.tune.dropdownOffsetY, navCompactScale);
 
   // ─── JSX ─────────────────────────────────────────────────────────────────────
   return (
@@ -602,7 +636,7 @@ const Navbar: React.FC = () => {
           top: 0,
           left: 0,
           right: 0,
-          height: bandHeight,
+          height: compactedBandHeight,
           zIndex: NC.wrapper.zIndex,
           background: isMobileOpen ? "#050505" : NC.wrapper.background,
           paddingTop: NC.wrapper.paddingTop,
@@ -637,7 +671,7 @@ const Navbar: React.FC = () => {
               scale: groupLogo.scale[logoPhase],
               x: groupLogo.x[logoPhase],
               y: groupLogo.y[logoPhase],
-              width: groupLogo.width[logoPhase],
+              width: compactedLogoGroupWidth,
               gap: groupLogo.gap[logoPhase],
             }}
             transition={logoTransition}
@@ -653,7 +687,7 @@ const Navbar: React.FC = () => {
               src={ASSETS.logos.qct.icon}
               alt="QuasarCyberTech | Icon Logo"
               style={{
-                height: iconLogo.height[logoPhase],
+                height: compactedLogoIconHeight,
                 width: iconLogo.width[logoPhase],
                 marginTop: iconLogo.margin.top[logoPhase],
                 marginRight: iconLogo.margin.right[logoPhase],
@@ -673,7 +707,7 @@ const Navbar: React.FC = () => {
               src={ASSETS.logos.qct.textLight}
               alt="QuasarCyberTech | Wordmark Logo"
               style={{
-                width: textLogo.width[logoPhase],
+                width: compactedLogoTextWidth,
                 height: textLogo.height[logoPhase],
                 marginTop: textLogo.margin.top[logoPhase],
                 marginRight: textLogo.margin.right[logoPhase],
@@ -700,7 +734,7 @@ const Navbar: React.FC = () => {
             top: NC.backgroundBand.topNudgeY,
             left: 0,
             right: 0,
-            height: bandHeight,
+            height: compactedBandHeight,
             transform: "none",
             borderRadius: "0",
             background: bandBg,
@@ -717,18 +751,19 @@ const Navbar: React.FC = () => {
         <motion.nav
           ref={pillRef}
           data-qct-navbar-pill="true"
-          className="hidden lg:flex items-center"
+          className="items-center"
           animate={{ top: desktopAxisY }}
           transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "absolute",
+            display: showDesktopNav ? "flex" : "none",
             top: desktopAxisY,
             left: "50%",
             transform: `translate(calc(-50% + ${NC.tune.pillNudgeX}), -50%)`,
-            gap: NC.tune.pillLinkGap,
+            gap: compactedPillGap,
             height: NC.pill.height,
             // paddingLeft always present so nav links never shift on scroll
-            padding: `0 ${NC.tune.pillPaddingRight} 0 calc(${NC.tune.bridgePaddingLeft} + ${NC.tune.pillPaddingLeft})`,
+            padding: `0 ${compactedPillPaddingRight} 0 calc(${compactedBridgePaddingLeft} + ${compactedPillPaddingLeft})`,
             borderRadius: NC.pill.borderRadius,
             background: "transparent",
             border: "none",
@@ -757,7 +792,7 @@ const Navbar: React.FC = () => {
                     fontFamily: NC.typography.fontFamily,
                     letterSpacing: NC.typography.letterSpacing,
                     lineHeight: NC.typography.lineHeight,
-                    padding: `0 ${NC.tune.pillLinkPaddingX}`,
+                    padding: `0 ${compactedPillLinkPaddingX}`,
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
@@ -796,11 +831,12 @@ const Navbar: React.FC = () => {
         >
           <motion.div
             ref={contactRef}
-            className="hidden lg:block"
+            className=""
             animate={{ top: desktopAxisY }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: "absolute",
+              display: showDesktopNav ? "block" : "none",
               top: desktopAxisY,
               right: NC.wrapper.paddingRight,
               transform: `translate(${NC.tune.contactNudgeX}, calc(-50% + ${NC.tune.contactNudgeY}))`,
@@ -809,8 +845,8 @@ const Navbar: React.FC = () => {
             <Link
               to="/contact"
               style={{
-                height: NC.contactButton.height,
-                padding: `0 ${NC.contactButton.paddingX}`,
+                height: compactedContactHeight,
+                padding: `0 ${compactedContactPaddingX}`,
                 borderRadius: NC.contactButton.borderRadius,
                 background: NC.contactButton.background,
                 border: "1px solid rgba(255,255,255,0.12)",
@@ -836,9 +872,10 @@ const Navbar: React.FC = () => {
           </motion.div>
 
           <button
-            className="flex lg:hidden items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
+            className="items-center justify-center p-2 text-white bg-white/5 border border-white/10 rounded-lg"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             style={{
+              display: showDesktopNav ? "none" : "flex",
               padding: "0.5rem",
               borderRadius: "0.5rem",
               position: "absolute",
@@ -866,7 +903,7 @@ const Navbar: React.FC = () => {
                 display: "block",
                 position: "fixed",
                 pointerEvents: "auto",
-                top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${NC.tune.dropdownOffsetY})`,
+                top: `calc(${NC.wrapper.paddingTop} + ${NC.pill.height} + ${compactedDropdownOffsetY})`,
                 left: `${dropdownPos}px`,
                 background: NC.dropdown.background,
                 border: NC.dropdown.border,
