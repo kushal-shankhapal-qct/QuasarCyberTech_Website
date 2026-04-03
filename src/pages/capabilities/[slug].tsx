@@ -189,14 +189,47 @@ const getDeliveryStepWatermarkIcon = (text: string): LucideIcon => {
 };
 
 const subCapabilityImages: Record<string, string> = {
-  "executive-cyber-advisory":
-    ASSETS.capabilities.subCapabilities.advisory.strategy,
-  "security-zero-trust-architecture-review":
-    ASSETS.capabilities.subCapabilities.advisory.architecture,
-  "virtual-ciso-vciso-services":
-    ASSETS.capabilities.subCapabilities.advisory.vciso,
-  "security-program-development":
-    ASSETS.capabilities.subCapabilities.advisory.tabletop,
+  // Advisory & Governance
+  "executive-cyber-advisory": ASSETS.capabilities.subCapabilities.advisory.strategy,
+  "security-zero-trust-architecture-review": ASSETS.capabilities.subCapabilities.advisory.architecture,
+  "virtual-ciso-vciso-services": ASSETS.capabilities.subCapabilities.advisory.vciso,
+  "security-program-development": ASSETS.capabilities.subCapabilities.advisory.tabletop,
+  "third-party-supply-chain-risk-management": ASSETS.capabilities.subCapabilities.advisory.supplyChain,
+
+  // Compliance & Assurance
+  "regulatory-gap-assessment": ASSETS.capabilities.subCapabilities.compliance.regulatoryGapAssessment,
+  "risk-compliance-monitoring": ASSETS.capabilities.subCapabilities.compliance.riskMonitoring,
+  "rbi-cyber-security-framework-compliance": ASSETS.capabilities.subCapabilities.compliance.rbiCompliance,
+  "dpdp-act-compliance": ASSETS.capabilities.subCapabilities.compliance.dpdpCompliance,
+
+  // Offensive Security
+  "web-application-security-testing": ASSETS.capabilities.subCapabilities.offensive.web,
+  "mobile-application-security-testing": ASSETS.capabilities.subCapabilities.offensive.mobile,
+  "api-security-testing": ASSETS.capabilities.subCapabilities.offensive.api,
+  "red-team": ASSETS.capabilities.subCapabilities.offensive.redTeam,
+  "adversary-simulation": ASSETS.capabilities.subCapabilities.offensive.simulation,
+  "secure-code-review": ASSETS.capabilities.subCapabilities.offensive.secureCodeReview,
+  "ai-agentic-system-security-testing": ASSETS.capabilities.subCapabilities.offensive.aiSecurity,
+
+  // Cloud & Infrastructure
+  "cloud-security-assessments": ASSETS.capabilities.subCapabilities.cloud.cloudAssessment,
+  "aws-azure-gcp-security-assessment": ASSETS.capabilities.subCapabilities.cloud.cloudAssessment,
+  "cloud-security-posture-management-cspm": ASSETS.capabilities.subCapabilities.cloud.cspm,
+  "kubernetes-container-security": ASSETS.capabilities.subCapabilities.cloud.containerSecurity,
+  "on-premises-hybrid-infrastructure-hardening": ASSETS.capabilities.subCapabilities.cloud.cloudHardening,
+  "cloud-compliance-review": ASSETS.capabilities.subCapabilities.compliance.regulatoryGapAssessment, // Fallback
+
+  // Managed Defense
+  "managed-soc": ASSETS.capabilities.subCapabilities.managedDefense.managedSOC,
+  "incident-response": ASSETS.capabilities.subCapabilities.managedDefense.incidentResponse,
+  "threat-hunting": ASSETS.capabilities.subCapabilities.managedDefense.socialEngineering, // Placeholder
+  "user-awareness-social-engineering-simulations": ASSETS.capabilities.subCapabilities.managedDefense.socialEngineering,
+
+  // Cyber Intelligence
+  "cyber-threat-intelligence-cti-service": ASSETS.capabilities.subCapabilities.threatIntelligence.cti,
+  "dark-web-brand-intelligence": ASSETS.capabilities.subCapabilities.threatIntelligence.attackSurface,
+  "attack-surface-intelligence": ASSETS.capabilities.subCapabilities.threatIntelligence.attackSurface,
+  "vulnerability-research-security-advisories": ASSETS.capabilities.subCapabilities.threatIntelligence.vulnerabilityResearch,
 };
 
 const industryImageMap: Record<string, string> = {
@@ -299,23 +332,54 @@ const TABBAR_NAV_GAP_PX = 0;
 const TABBAR_NAV_TRANSITION = "top 300ms cubic-bezier(0.23, 1, 0.32, 1)";
 
 const subCapabilitySlugAliases: Record<string, Record<string, string>> = {
+  "cyber-advisory": {
+    "strategy-governance": "executive-cyber-advisory",
+    "zero-trust": "security-zero-trust-architecture-review",
+    "vciso": "virtual-ciso-vciso-services",
+    "program-development": "security-program-development",
+    "third-party-risk": "third-party-supply-chain-risk-management",
+  },
+  "compliance-assurance": {
+    "gap-assessment": "regulatory-gap-assessment",
+    "monitoring": "risk-compliance-monitoring",
+    "rbi": "rbi-cyber-security-framework-compliance",
+    "dpdp": "dpdp-act-compliance",
+    "soc2": "soc2-readiness",
+  },
   "offensive-security": {
+    "web": "web-application-security-testing",
+    "mobile": "mobile-application-security-testing",
+    "api": "api-security-testing",
+    "red-team-simulation": "red-team",
+    "adversary-simulation": "adversary-simulation",
+    "secure-code": "secure-code-review",
+    "ai-agentic-system-security-testing": "ai-agentic-system-security-testing",
     "llm-ai-security-testing": "ai-agentic-system-security-testing",
     "agentic-ai-security-review": "ai-agentic-system-security-testing",
   },
   "cloud-infrastructure": {
+    "assessments": "cloud-security-assessments",
+    "cspm": "cloud-security-posture-management-cspm",
+    "kubernetes": "kubernetes-and-container-security",
+    "hardening": "on-premises-hybrid-infrastructure-hardening",
     "aws-azure-security-assessment": "aws-azure-gcp-security-assessment",
-    "infrastructure-security-reviews":
-      "on-premises-hybrid-infrastructure-hardening",
+    "infrastructure-security-reviews": "on-premises-hybrid-infrastructure-hardening",
   },
   "managed-defense": {
+    "soc": "managed-soc",
     "security-monitoring-alerting": "managed-soc",
-    "social-engineering-phishing-simulations":
-      "user-awareness-social-engineering-simulations",
+    "incident-response": "incident-response-and-digital-forensics",
+    "social-engineering": "user-awareness-social-engineering-simulations",
+    "social-engineering-phishing-simulations": "user-awareness-social-engineering-simulations",
   },
   "cyber-intelligence": {
+    "cti": "cyber-threat-intelligence-cti-as-a-service",
+    "vulnerability-intelligence": "vulnerability-research-and-security-advisories",
+    "dark-web": "dark-web-brand-intelligence",
+    "brand-protection": "dark-web-brand-intelligence",
     "dark-web-monitoring": "dark-web-brand-intelligence",
     "brand-intelligence": "dark-web-brand-intelligence",
+    "asm": "attack-surface-intelligence",
   },
 };
 
@@ -679,11 +743,19 @@ const CapabilityPage: React.FC = () => {
                       { replace: true, preventScrollReset: true },
                     );
                     window.requestAnimationFrame(scrollToSubCapabilityTop);
+                    
+                    // Center the clicked element in the tab bar
+                    e.currentTarget.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'nearest',
+                      inline: 'center'
+                    });
                   }}
                   style={{
                     flexShrink: 0,
                     whiteSpace: "nowrap",
-                    padding: "0 20px",
+                    padding: "0 22px",
+                    minWidth: "160px",
                     height: HS_CAP.tabBar.desktopHeight,
                     display: "flex",
                     alignItems: "center",
@@ -875,8 +947,12 @@ const CapabilityPage: React.FC = () => {
             }}
           >
             <h3
-              className="text-4xl font-bold text-white mb-2"
-              style={{ fontFamily: TYPOGRAPHY.fontHeading }}
+              className="text-3xl md:text-4xl font-bold text-white mb-2"
+              style={{ 
+                fontFamily: TYPOGRAPHY.fontHeading,
+                overflowWrap: "anywhere",
+                wordBreak: "break-word"
+              }}
             >
               How <span style={{ color: "#D6B05C" }}>QuasarCyberTech</span>{" "}
               Delivers
@@ -1090,8 +1166,12 @@ const CapabilityPage: React.FC = () => {
             }}
           >
             <h3
-              className="text-4xl font-bold text-white mb-2"
-              style={{ fontFamily: TYPOGRAPHY.fontHeading }}
+              className="text-3xl md:text-4xl font-bold text-white mb-2"
+              style={{ 
+                fontFamily: TYPOGRAPHY.fontHeading,
+                overflowWrap: "anywhere",
+                wordBreak: "break-word"
+              }}
             >
               Powered by the{" "}
               <span style={{ color: "#D6B05C" }}>QuasarCyberTech</span>{" "}

@@ -123,6 +123,24 @@ export const ASSETS = {
         cspm: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/Cloud_Security_Posture_Management_CSPM/Mastering Cloud Security Posture Management.png'),
         containerSecurity: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/Kubernetes_and_Container_Security/Container Platform Security Overview.png'),
         cloudHardening: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/On_Premises_and_Hybrid_Infrastructure_Hardening/Cloud Security Hardening Framework Guide.png'),
+      },
+      managedDefense: {
+        managedSOC: getAsset('Capabilities_Images/Managed_Detection_Response_and_SOC_Operations/Managed_SOC_and_Security_Monitoring/Managed SOC Security Monitoring Overview.png'),
+        incidentResponse: getAsset('Capabilities_Images/Managed_Detection_Response_and_SOC_Operations/Incident_Response_and_Digital_Forensics/Incident Response Digital Forensics.png'),
+        socialEngineering: getAsset('Capabilities_Images/Managed_Detection_Response_and_SOC_Operations/User_Awareness_and_Social_Engineering_Simulations/Social Engineering Simulation Training Framework.png'),
+      },
+      threatIntelligence: {
+        cti: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Cyber_Threat_Intelligence_CTI_as_a_Service/Cyber Security Framework Compliance Overview.png'),
+        vulnerabilityResearch: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Vulnerability_Research_and_Security_Advisories/Vulnerability Research & Security Advisories.png'),
+        attackSurface: getAsset('Capabilities_Images/Threat_Intelligence_Exposure_Monitoring_and_Research/Attack_Surface_Intelligence/Attack Surface Intelligence.png'),
+      },
+      serviceSet2: {
+        svc1: getAsset('Capabilities_Images/SVCs_Set_2/SVC_1.png'),
+        svc2: getAsset('Capabilities_Images/SVCs_Set_2/SVC_2.png'),
+        svc3: getAsset('Capabilities_Images/SVCs_Set_2/SVC_3.png'),
+        svc4: getAsset('Capabilities_Images/SVCs_Set_2/SVC_4.png'),
+        svc5: getAsset('Capabilities_Images/SVCs_Set_2/SVC_5.png'),
+        svc6: getAsset('Capabilities_Images/SVCs_Set_2/SVC_6.png'),
       }
     }
   },

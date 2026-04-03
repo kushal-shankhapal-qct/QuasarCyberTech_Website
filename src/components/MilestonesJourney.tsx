@@ -590,6 +590,10 @@ export default function MilestonesJourney() {
           100% { opacity: 0;   width: ${DOT_R * 4}px; height: ${DOT_R * 4}px; }
         }
 
+        @media (max-width: 768px) {
+          .mj-dot, .mj-dot-ring { display: none !important; }
+        }
+
 
 
         /* Regular card */

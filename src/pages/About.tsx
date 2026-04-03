@@ -253,29 +253,7 @@ export default function About() {
           subtitleMaxWidth="60rem"
           paddingTopOverride="var(--about-hero-pad-top, clamp(10rem, 18vh, 12rem))"
           minHeightOverride="var(--about-hero-min-height, 100vh)"
-        >
-          {/* Second paragraph as children so we get a separate <p> tag */}
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="page-hero-subtitle"
-            style={{
-              ...TYPOGRAPHY.bodyLarge,
-              color: "rgba(255,255,255,0.76)",
-              textAlign: "justify",
-              marginBottom: "1.5rem",
-              lineHeight: 1.8,
-              fontSize: "clamp(1rem, 1.2vw, 1.2rem)",
-              maxWidth: "60rem",
-            }}
-          >
-            Founded on deep industry expertise and driven by an outcome-first
-            approach, we partner with enterprises, financial institutions,
-            government organizations, and high-growth businesses to protect
-            their digital ecosystems.
-          </motion.p>
-        </PageHero>
+        />
 
         {/* ── 2: WHO WE ARE + VISION / MISSION / CORE VALUES ── */}
         <section
@@ -302,7 +280,10 @@ export default function About() {
                 <p style={{ marginBottom: "1.25rem" }}>
                   At QuasarCyberTech, we combine strategic advisory, offensive security, managed defense, cloud security, compliance assurance, and intelligent security platforms to help organizations stay ahead of evolving threats.
                 </p>
-                <p>Our approach is built around proactive engagement, technical depth, and measurable business outcomes.</p>
+                <p style={{ marginBottom: "1.25rem" }}>Our approach is built around proactive engagement, technical depth, and measurable business outcomes.</p>
+                <p style={{ margin: 0, opacity: 0.85 }}>
+                  Founded on deep industry expertise and driven by an outcome-first approach, we partner with enterprises, financial institutions, government organizations, and high-growth businesses to protect their digital ecosystems.
+                </p>
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "26px 0", position: "relative", alignContent: "flex-start", paddingTop: "0" }}>
