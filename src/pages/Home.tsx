@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <div className="min-h-screen w-full relative overflow-x-hidden bg-canvas">
       <Seo
-        title="Enterprise Cybersecurity Consulting, Managed Defense & Security Engineering"
-        description="QuasarCyberTech helps enterprises strengthen cyber resilience through advisory, offensive security, managed defense, cloud security, and platform-led security engineering."
+        title="Best Cybersecurity Consulting Company in India | Enterprise Security Services"
+        description="QuasarCyberTech is India's leading cybersecurity consulting company. We deliver VAPT, penetration testing, managed SOC, cloud security, compliance assurance, and cyber risk advisory for enterprises across India and globally."
         path="/"
         image={DEFAULT_OG_IMAGE_SOCIAL}
         jsonLd={[

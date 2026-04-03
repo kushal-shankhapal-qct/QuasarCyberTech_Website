@@ -93,8 +93,8 @@ export default function BlogsOverview() {
   return (
     <div style={{ background: DARK_BG, minHeight: '100vh', overflowX: 'hidden' }}>
       <Seo
-        title="Cybersecurity Blog, Threat Research & Insights"
-        description="Read QuasarCyberTech research on cyber threats, vulnerability intelligence, defensive engineering, cloud security, and incident response."
+        title="Cybersecurity Blog India — Threat Research, VAPT Insights & Security Trends 2026"
+        description="Expert cybersecurity research from QuasarCyberTech — ransomware threats, penetration testing insights, zero trust architecture, cloud security, SOC operations, and the latest cyber attack trends in India."
         path="/blogs"
         image={featuredPost?.image || ASSETS.blogs.threats}
         jsonLd={[

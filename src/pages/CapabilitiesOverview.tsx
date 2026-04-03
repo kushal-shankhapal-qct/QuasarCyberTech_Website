@@ -18,8 +18,8 @@ const CapabilitiesOverview: React.FC = () => {
     return (
         <div className="min-h-screen w-full relative overflow-x-hidden" style={{ background: SECTION_BACKGROUNDS.DARK, display: 'flex', flexDirection: 'column' }}>
             <Seo
-                title="Cybersecurity Capabilities & Services"
-                description="Discover QuasarCyberTech's cybersecurity capabilities across advisory, compliance, offensive security, cloud protection, managed defense, and cyber intelligence."
+                title="Top Enterprise Cybersecurity Services India — VAPT, SOC, Cloud & Compliance"
+                description="QuasarCyberTech offers the full spectrum of enterprise cybersecurity services in India — VAPT, penetration testing, managed SOC, cloud security, RBI compliance, ISO 27001, vCISO, and cyber threat intelligence."
                 path="/capabilities"
                 image={ASSETS.capabilities.worldwideConnection}
                 jsonLd={[

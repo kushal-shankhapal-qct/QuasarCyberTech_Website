@@ -91,8 +91,8 @@ export default function Platforms() {
   return (
     <div className="min-h-screen text-white selection:bg-[#6B1530] selection:text-white" style={{ background: GRADIENTS.PLATFORMS_PAGE_BG }}>
       <Seo
-        title="Security Platforms & Cybersecurity Ecosystem"
-        description="Explore QuasarCyberTech's security platform ecosystem including QStellar, QPulse, QRGT, and QLeap for enterprise visibility, testing, and cyber intelligence."
+        title="Cybersecurity Platforms — QStellar, QPulse, QRGT & QLeap | India"
+        description="Explore QuasarCyberTech's cybersecurity platform ecosystem. QStellar for AI-powered asset intelligence, QPulse for threat intelligence, QRGT for penetration testing as a service, and QLeap for cybersecurity training in India."
         path="/platforms"
         image={ASSETS.backdrops.platformsHero}
         jsonLd={[

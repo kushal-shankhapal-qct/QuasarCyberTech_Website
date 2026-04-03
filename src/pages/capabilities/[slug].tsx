@@ -45,6 +45,33 @@ import {
   createServiceSchema,
 } from "../../seo/schema";
 
+const CAPABILITY_SEO: Record<string, { title: string; description: string }> = {
+  'cyber-advisory': {
+    title: 'Cyber Risk Consulting & vCISO Services India | Cyber Advisory',
+    description: 'Expert cyber risk management, virtual CISO (vCISO) services, zero trust architecture, and security governance consulting for enterprises in India. Trusted cyber advisory partner for banking, FinTech, and SaaS.',
+  },
+  'compliance-assurance': {
+    title: 'Cybersecurity Compliance Services — RBI, DPDP Act, ISO 27001 India',
+    description: 'End-to-end compliance consulting for RBI cybersecurity framework, DPDP Act, ISO 27001, SOC 2 readiness, and SEBI IT guidelines. Trusted cybersecurity compliance auditors in India.',
+  },
+  'offensive-security': {
+    title: 'Leading VAPT & Penetration Testing Services India | Offensive Security',
+    description: 'Top-rated VAPT services, web and mobile application penetration testing, API security testing, red teaming, and adversary simulation for enterprises across India. Ethical hacking experts.',
+  },
+  'cloud-infrastructure': {
+    title: 'Cloud Security Services India — AWS, Azure & GCP Security Consulting',
+    description: 'Cloud security assessments for AWS, Azure, and GCP. CSPM solutions, Kubernetes security, container security, and cloud compliance consulting. India\'s leading cloud security services provider.',
+  },
+  'managed-defense': {
+    title: 'Managed SOC & MDR Services India | 24/7 Security Monitoring',
+    description: '24/7 managed SOC services, MDR (Managed Detection & Response), threat hunting, SIEM monitoring, and incident response services for enterprises in India. SOC as a service experts.',
+  },
+  'cyber-intelligence': {
+    title: 'Cyber Threat Intelligence & Dark Web Monitoring India',
+    description: 'Cyber threat intelligence services, dark web monitoring, brand protection, attack surface management, and vulnerability intelligence feeds for Indian enterprises. Stay ahead of adversaries.',
+  },
+};
+
 const splitStep = (step: string) => {
   const firstColon = step.indexOf(":");
   if (firstColon === -1) {
@@ -518,8 +545,8 @@ const CapabilityPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-[#000000]">
       <Seo
-        title={capability.name}
-        description={activeSub.positioning || capability.heroSubtitle}
+        title={CAPABILITY_SEO[capability.slug]?.title || capability.name}
+        description={CAPABILITY_SEO[capability.slug]?.description || activeSub.positioning || capability.heroSubtitle}
         path={`/capabilities/${capability.slug}`}
         image={capability.image}
         jsonLd={[

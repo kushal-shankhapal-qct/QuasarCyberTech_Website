@@ -402,7 +402,7 @@ export default function Contact() {
     <div style={{ background: '#F8FAFC', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
       <Seo
         title="Contact Us — Get a Free Cybersecurity Consultation"
-        description="Talk to QuasarCyberTech about offensive security, managed SOC, cloud security, compliance, and enterprise cyber resilience programs."
+        description="Talk to India's top cybersecurity consulting experts at QuasarCyberTech. Get a free consultation on VAPT, penetration testing, managed SOC, cloud security, RBI compliance, and enterprise cyber resilience programs."
         path="/contact"
         image={ASSETS.capabilities.advisory}
         jsonLd={[

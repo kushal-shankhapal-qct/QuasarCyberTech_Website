@@ -35,6 +35,9 @@ const Seo: React.FC<SeoProps> = ({
       <meta name="description" content={description} />
       <meta name="robots" content={robots} />
       <link rel="canonical" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="en" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="en-IN" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       {/* Open Graph — required for LinkedIn, WhatsApp, Facebook */}
       <meta property="og:site_name" content={SITE_NAME} />

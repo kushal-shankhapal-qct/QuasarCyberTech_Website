@@ -4,7 +4,7 @@ export const SITE_NAME = 'QuasarCyberTech';
 export const SITE_URL = 'https://quasarcybertech.com';
 export const SITE_TWITTER_HANDLE = '@QuasarCyberTech';
 export const DEFAULT_DESCRIPTION =
-  'QuasarCyberTech delivers enterprise cybersecurity consulting, offensive security, managed defense, cloud security, and risk governance services.';
+  'QuasarCyberTech — India\'s leading cybersecurity consulting company. Enterprise cybersecurity services including VAPT, penetration testing, managed SOC, cloud security, compliance, and cyber risk governance across Mumbai, Bangalore, Delhi NCR, Pune, and beyond.';
 export const DEFAULT_OG_IMAGE = ASSETS.logos.qct.over;
 // Hero-style image specifically for social sharing previews (OG/Twitter)
 export const DEFAULT_OG_IMAGE_SOCIAL = ASSETS.capabilities.worldwideConnection;

@@ -379,8 +379,8 @@ export default function About() {
       }}
     >
       <Seo
-        title="About Us — Our Mission, Values & Story"
-        description="Learn about QuasarCyberTech — an enterprise cybersecurity consulting and engineering firm committed to building a safer digital world through offensive security, advisory, and managed defense."
+        title="About QuasarCyberTech — India's Leading Cybersecurity Consulting Firm"
+        description="QuasarCyberTech is a top cybersecurity consulting firm in India. We serve enterprises across banking, FinTech, SaaS, healthcare, and manufacturing with advisory, VAPT, managed SOC, and cloud security services."
         path="/aboutus"
         image={ASSETS.capabilities.advisory}
         jsonLd={[

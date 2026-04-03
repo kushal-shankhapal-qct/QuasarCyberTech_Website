@@ -12,6 +12,33 @@ import Seo from '../components/seo/Seo';
 import NotFound from './NotFound';
 import { createBreadcrumbSchema, createServiceSchema } from '../seo/schema';
 
+const INDUSTRY_SEO: Record<string, { title: string; description: string }> = {
+  'banking': {
+    title: 'Cybersecurity for Banks & Financial Services — RBI Compliance India',
+    description: 'Specialized cybersecurity for banks, NBFCs, and financial institutions. RBI cybersecurity framework compliance, core banking security, VAPT, and fintech data protection services in India.',
+  },
+  'fintech': {
+    title: 'FinTech & Digital Payments Cybersecurity Services India',
+    description: 'Payment security, API security testing, RBI compliance, and fintech data protection for digital payment platforms and FinTech startups in India. Protect your payment infrastructure.',
+  },
+  'saas': {
+    title: 'SaaS & Technology Cybersecurity — DevSecOps & Cloud Security India',
+    description: 'Application security, DevSecOps consulting, cloud-native security, SOC 2 readiness, and API security testing for SaaS platforms and technology companies in India.',
+  },
+  'ecommerce': {
+    title: 'E-commerce Cybersecurity India — Payment Security & Fraud Prevention',
+    description: 'Cybersecurity for e-commerce platforms — payment gateway security, web application penetration testing, online fraud prevention, and PCI DSS compliance in India.',
+  },
+  'healthcare': {
+    title: 'Healthcare Cybersecurity India — Medical Data Security & DPDP Compliance',
+    description: 'Healthcare cybersecurity services — medical data protection, DPDP Act and HIPAA compliance, hospital IT security, and health application security testing in India.',
+  },
+  'enterprise': {
+    title: 'Enterprise & Manufacturing Cybersecurity — OT/ICS Security India',
+    description: 'Enterprise cybersecurity solutions for manufacturing, OT security, ICS security, industrial network security, and operational technology protection in India.',
+  },
+};
+
 const IndustryIndividual: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const industry = industriesData.find((i) => i.slug === slug);
@@ -27,8 +54,8 @@ const IndustryIndividual: React.FC = () => {
   return (
     <div className="min-h-screen w-full relative bg-canvas overflow-x-hidden selection:bg-brand-primary/20 selection:text-brand-primary">
       <Seo
-        title={`${industry.name} Cybersecurity Services`}
-        description={industry.subtitle}
+        title={INDUSTRY_SEO[industry.slug]?.title || `${industry.name} Cybersecurity Services`}
+        description={INDUSTRY_SEO[industry.slug]?.description || industry.subtitle}
         path={`/industries/${industry.slug}`}
         image={industry.image}
         jsonLd={[

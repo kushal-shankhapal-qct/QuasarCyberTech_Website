@@ -21,8 +21,8 @@ const IndustriesOverview: React.FC = () => {
   return (
     <div className="min-h-screen w-full relative overflow-x-hidden" style={{ background: SECTION_BACKGROUNDS.DARK }}>
       <Seo
-        title="Cybersecurity Solutions by Industry"
-        description="See how QuasarCyberTech tailors cybersecurity consulting, testing, and managed defense for banking, fintech, SaaS, healthcare, ecommerce, and enterprise operations."
+        title="Cybersecurity Solutions by Industry — Banking, FinTech, SaaS, Healthcare India"
+        description="Industry-specific cybersecurity for banking, FinTech, SaaS, e-commerce, healthcare, and enterprise manufacturing in India. RBI compliance, DPDP Act, HIPAA, and DevSecOps consulting from QuasarCyberTech."
         path="/industries"
         image={ASSETS.industries.overviewHero}
         jsonLd={[
