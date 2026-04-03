@@ -274,122 +274,16 @@ const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const toPx = (value: string) => Number.parseFloat(value.replace("px", "")) || 0;
-
-    const evaluateNavFit = (opts?: { afterScrollTransition?: boolean }) => {
-      const viewportWidth = window.innerWidth;
-      const desktopThreshold = viewportWidth >= NC.desktopLayout.enabledMinWidth;
-      if (!desktopThreshold) {
-        setShowDesktopNav(false);
-        return;
-      }
-
-      const headerEl = headerRef.current;
-      const headerStyle = headerEl ? window.getComputedStyle(headerEl) : null;
-      const headerPaddingX =
-        (headerStyle ? toPx(headerStyle.paddingLeft) + toPx(headerStyle.paddingRight) : 0);
-
-      const logoRect = logoLinkRef.current?.getBoundingClientRect();
-      const pillRect = pillRef.current?.getBoundingClientRect();
-      const contactRect = contactRef.current?.getBoundingClientRect();
-
-      const pillVisible = !!pillRef.current && window.getComputedStyle(pillRef.current).display !== "none";
-      const contactVisible =
-        !!contactRef.current && window.getComputedStyle(contactRef.current).display !== "none";
-
-      const logoWidth = (logoRect?.width && logoRect.width > 0)
-        ? logoRect.width
-        : NC.desktopLayout.fallbackLogoWidthPx;
-      const pillWidth = pillVisible && pillRect?.width && pillRect.width > 0
-        ? pillRect.width
-        : NC.desktopLayout.fallbackPillWidthPx;
-      const contactWidth = contactVisible && contactRect?.width && contactRect.width > 0
-        ? contactRect.width
-        : NC.desktopLayout.fallbackContactWidthPx;
-
-      const requiredWidth =
-        logoWidth + pillWidth + contactWidth + headerPaddingX + NC.desktopLayout.collapseBufferPx;
-      const widthSlack = viewportWidth - requiredWidth;
-
-      // Pixel-proximity collision uses a SMALLER buffer to avoid false-positives
-      // on hi-DPI displays (e.g. 1920px physical @ Windows 125% → ~1536 CSS px)
-      const prox = NC.desktopLayout.proximityBufferPx;
-      const hasMeasuredCollision =
-        !!logoRect &&
-        !!pillRect &&
-        !!contactRect &&
-        pillVisible &&
-        contactVisible &&
-        pillRect.width > 0 &&
-        contactRect.width > 0 &&
-        (pillRect.left <= logoRect.right + prox ||
-          contactRect.left <= pillRect.right + prox);
-
-      // During a scroll-triggered re-eval we skip the collision check because
-      // the logo is mid-animation and its rect is temporarily wrong
-      const collisionCritical = opts?.afterScrollTransition ? false : hasMeasuredCollision;
-      const reliableDesktopWidth = viewportWidth >= NC.desktopLayout.minReliableDesktopWidthPx;
-      const enterSlack = NC.desktopLayout.enterDesktopSlackPx;
-      const staySlack = NC.desktopLayout.stayDesktopSlackPx;
-
-      const nextShowDesktopNav = showDesktopNavRef.current
-        ? reliableDesktopWidth && widthSlack >= staySlack && !collisionCritical
-        : reliableDesktopWidth && widthSlack >= enterSlack && !collisionCritical;
-
-      showDesktopNavRef.current = nextShowDesktopNav;
-      setShowDesktopNav(nextShowDesktopNav);
+    const evaluateNavFit = () => {
+      const next = window.innerWidth >= NC.desktopLayout.enabledMinWidth;
+      showDesktopNavRef.current = next;
+      setShowDesktopNav(next);
     };
 
-    const onResize = () => evaluateNavFit();
-
-    window.addEventListener("resize", onResize, { passive: true });
     evaluateNavFit();
-
-    const timeout = setTimeout(evaluateNavFit, 60);
-
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener("resize", onResize);
-    };
-    // NOTE: intentionally NOT depending on `scrolled` — scroll changes are handled
-    // below with a deferred timeout so evaluation fires after the logo animation ends
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    window.addEventListener("resize", evaluateNavFit, { passive: true });
+    return () => window.removeEventListener("resize", evaluateNavFit);
   }, []);
-
-  // ── Re-evaluate nav fit AFTER logo animation completes on scroll transition ──
-  useEffect(() => {
-    // Logo animation is 420ms — wait for it to finish before re-measuring
-    const t = setTimeout(() => {
-      const viewportWidth = window.innerWidth;
-      if (viewportWidth < NC.desktopLayout.enabledMinWidth) return;
-      const headerEl = headerRef.current;
-      const headerStyle = headerEl ? window.getComputedStyle(headerEl) : null;
-      const toPx = (v: string) => Number.parseFloat(v.replace("px", "")) || 0;
-      const headerPaddingX = headerStyle ? toPx(headerStyle.paddingLeft) + toPx(headerStyle.paddingRight) : 0;
-      const logoRect = logoLinkRef.current?.getBoundingClientRect();
-      const pillRect = pillRef.current?.getBoundingClientRect();
-      const contactRect = contactRef.current?.getBoundingClientRect();
-      const pillVisible = !!pillRef.current && window.getComputedStyle(pillRef.current).display !== "none";
-      const contactVisible = !!contactRef.current && window.getComputedStyle(contactRef.current).display !== "none";
-      const logoWidth = (logoRect?.width && logoRect.width > 0) ? logoRect.width : NC.desktopLayout.fallbackLogoWidthPx;
-      const pillWidth = (pillVisible && pillRect?.width && pillRect.width > 0) ? pillRect.width : NC.desktopLayout.fallbackPillWidthPx;
-      const contactWidth = (contactVisible && contactRect?.width && contactRect.width > 0) ? contactRect.width : NC.desktopLayout.fallbackContactWidthPx;
-      const requiredWidth = logoWidth + pillWidth + contactWidth + headerPaddingX + NC.desktopLayout.collapseBufferPx;
-      const widthSlack = viewportWidth - requiredWidth;
-      const prox = NC.desktopLayout.proximityBufferPx;
-      const hasMeasuredCollision =
-        !!logoRect && !!pillRect && !!contactRect &&
-        pillVisible && contactVisible && pillRect.width > 0 && contactRect.width > 0 &&
-        (pillRect.left <= logoRect.right + prox || contactRect.left <= pillRect.right + prox);
-      const reliableDesktopWidth = viewportWidth >= NC.desktopLayout.minReliableDesktopWidthPx;
-      const nextShow = showDesktopNavRef.current
-        ? reliableDesktopWidth && widthSlack >= NC.desktopLayout.stayDesktopSlackPx && !hasMeasuredCollision
-        : reliableDesktopWidth && widthSlack >= NC.desktopLayout.enterDesktopSlackPx && !hasMeasuredCollision;
-      showDesktopNavRef.current = nextShow;
-      setShowDesktopNav(nextShow);
-    }, 450);
-    return () => clearTimeout(t);
-  }, [scrolled]);
 
   // ── Scroll state ──
   useEffect(() => {
