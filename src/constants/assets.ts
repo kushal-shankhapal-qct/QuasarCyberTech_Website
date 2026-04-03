@@ -154,6 +154,7 @@ export const ASSETS = {
     platformsHero: getAsset('Backdrops/Platforms_Hero.png'),
     redLights: getAsset('Backdrops/abstract-red-lights-background/608.jpg'),
     careersHero: getAsset('Backdrops/Careers_Hero.jpg'),
+    visionMissionBg: getAsset('Backdrops/Vision_Mission_Padding.png'),
   },
   screenshots: {
     qstellar: getAsset('Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),

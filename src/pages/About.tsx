@@ -275,14 +275,14 @@ export default function About() {
           >
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", paddingTop: "0.25rem" }}>
               <h2 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: "#1A0A0F", marginBottom: "var(--gap-who-we-are)", lineHeight: 1.1 }}>
-                Who <span style={{ color: COLORS.gold }}>We</span> Are
+                Who <span style={{ color: COLORS.burgundy }}>We</span> Are
               </h2>
               <div style={{ fontSize: "clamp(14px, 1.3vw, 15.5px)", color: "#4A3040", lineHeight: 1.9 }}>
                 <p style={{ marginBottom: "1.25rem" }}>
                   At QuasarCyberTech, we combine strategic advisory, offensive security, managed defense, cloud security, compliance assurance, and intelligent security platforms to help organizations stay ahead of evolving threats.
                 </p>
                 <p style={{ marginBottom: "1.25rem" }}>Our approach is built around proactive engagement, technical depth, and measurable business outcomes.</p>
-                <p style={{ margin: 0, opacity: 0.85 }}>
+                <p style={{ margin: 0, color: "#4A3040" }}>
                   Founded on deep industry expertise and driven by an outcome-first approach, we partner with enterprises, financial institutions, government organizations, and high-growth businesses to protect their digital ecosystems.
                 </p>
               </div>
@@ -304,7 +304,13 @@ export default function About() {
               {/* Vision */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderLeft: `4px solid ${COLORS.burgundy}`, borderRadius: "0", padding: "clamp(1.25rem, 2.5vw, 2rem)" }}
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  borderLeft: `4px solid ${COLORS.burgundy}`,
+                  borderRadius: "0 1rem 1rem 0",
+                  padding: "clamp(1.25rem, 2.5vw, 2rem)"
+                }}
               >
                 <h3 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: COLORS.burgundy, marginBottom: "0.75rem", fontFamily: TYPOGRAPHY.fontHeading }}>
                   Vision
@@ -317,7 +323,13 @@ export default function About() {
               {/* Mission */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.08 }}
-                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderRight: `4px solid ${COLORS.burgundy}`, borderRadius: "0", padding: "clamp(1.25rem, 2.5vw, 2rem)" }}
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  borderRight: `4px solid ${COLORS.burgundy}`,
+                  borderRadius: "1rem 0 0 1rem",
+                  padding: "clamp(1.25rem, 2.5vw, 2rem)"
+                }}
               >
                 <h3 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: COLORS.burgundy, marginBottom: "0.75rem", fontFamily: TYPOGRAPHY.fontHeading }}>
                   Mission
@@ -338,7 +350,7 @@ export default function About() {
                 <div className="about-values-grid-staircase">
                   {coreValues.map((val, i) => (
                     <div key={i} className="about-value-card staircase-card" style={{
-                      borderTop: `3px solid ${i % 2 === 0 ? COLORS.burgundy : COLORS.gold}`,
+                      borderTop: `3px solid ${COLORS.burgundy}`,
                       marginTop: 0 // Removed staircase displacement
                     }}>
                       {val}
@@ -646,7 +658,7 @@ export default function About() {
           --gap-ecosystem: 1.75rem;
           --gap-industries: 2rem;
           --gap-map: 1.5rem;
-        }
+        } 
         .about-page .page-hero-section { 
           padding-bottom: var(--about-hero-gap-below-button) !important; 
         }
