@@ -356,18 +356,6 @@ const Footer: React.FC = () => {
         ))}
       </div>
 
-      {/* Geo presence — keyword anchor for local SEO */}
-      <div style={{
-        padding: `0.6rem ${LAYOUT_CONTROLS.global.paddingX}`,
-        textAlign: 'center',
-        color: 'rgba(255,255,255,0.22)',
-        fontSize: '0.7rem',
-        lineHeight: '1.6',
-        letterSpacing: '0.03em',
-      }}>
-        Cybersecurity consulting company serving enterprises -  from India to the World. Access us from UAE, US, and India Offices
-      </div>
-
       {/* Divider */}
       <div
         className="ft-bottom-divider"

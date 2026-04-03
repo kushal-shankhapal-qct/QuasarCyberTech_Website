@@ -11,6 +11,12 @@ type TestimonialItem = {
     initials: string;
 };
 
+const TESTIMONIAL_CONTROLS = {
+    quoteFontSizeDesktop: '1.0625rem',
+    quoteFontSizeMobile: '1rem',
+    quoteLineHeight: 1.75,
+};
+
 function TestimonialCard({
     testimonial,
     idx,
@@ -57,14 +63,16 @@ function TestimonialCard({
             </div>
 
             <p
-                className="testimonial-quote text-[0.90625rem] leading-relaxed mb-8 flex-grow font-medium italic transition-opacity px-2"
+                className="testimonial-quote mb-8 flex-grow font-medium transition-opacity px-2"
                 style={{
                     color: '#0B1F3B',
                     opacity: isHovered ? 1 : 0.9,
-                    textAlign: 'justify'
+                    textAlign: 'justify',
+                    fontSize: TESTIMONIAL_CONTROLS.quoteFontSizeDesktop,
+                    lineHeight: TESTIMONIAL_CONTROLS.quoteLineHeight,
                 }}
             >
-                "{testimonial.quote}"
+                {testimonial.quote}
             </p>
 
             <div
@@ -96,13 +104,13 @@ function TestimonialCard({
 export default function Testimonials() {
     const testimonials = [
         {
-            quote: "Working with Quasar CyberTech has been an excellent experience. Their team demonstrated deep expertise and professionalism throughout the project, helping us identify and mitigate critical vulnerabilities while strengthening our overall security posture. The actionable insights, clear communication, and collaborative approach made the process smooth and effective. We highly recommend Quasar CyberTech to any organization looking to enhance their cyber resilience.",
-            name: 'VP',
+            quote: "Working with QuasarCyberTech has been an excellent experience. Their team demonstrated deep expertise and professionalism throughout the project, helping us identify and mitigate critical vulnerabilities while strengthening our overall security posture. The actionable insights, clear communication, and collaborative approach made the process smooth and effective. We highly recommend QuasarCyberTech to any organization looking to enhance their cyber resilience.",
+            name: 'Co-Founder',
             role: 'Health Care Sector',
             initials: 'CH'
         },
         {
-            quote: "We engaged Quasar CyberTech Pvt Ltd to conduct a comprehensive security assessment, including Vulnerability Assessment & Penetration Testing (VAPT), Application Security Testing, Configuration Audit of Network Infrastructure with Database Security Review. Their team demonstrated a deep understanding of cybersecurity principles and industry best practices. The assessments were thorough, clearly documented, and tailored to our business needs. Their findings and recommendations were not only insightful but also actionable, helping us significantly enhance our overall security posture.",
+            quote: "We engaged QuasarCyberTech Pvt Ltd to conduct a comprehensive security assessment, including Vulnerability Assessment & Penetration Testing (VAPT), Application Security Testing, Configuration Audit of Network Infrastructure with Database Security Review. Their team demonstrated a deep understanding of cybersecurity principles and industry best practices. The assessments were thorough, clearly documented, and tailored to our business needs. Their findings and recommendations were not only insightful but also actionable, helping us significantly enhance our overall security posture.",
             name: 'Senior Director - IT',
             role: 'Manufacturing Sector',
             initials: 'SM'
@@ -158,7 +166,8 @@ export default function Testimonials() {
                                         border-radius: 1.5rem 0 0 1.5rem !important;
                                     }
                   .testimonial-quote {
-                    text-align: left !important;
+                                        text-align: left !important;
+                                        font-size: ${TESTIMONIAL_CONTROLS.quoteFontSizeMobile} !important;
                   }
                 }
               `,

@@ -69,14 +69,14 @@ export default function FeaturedInsights() {
                     marginBottom: '2rem',
                 }}>
                     <span style={{
-                        color: COLORS.textMuted,
+                        color: COLORS.gold,
                         fontSize: '0.6875rem',
                         fontWeight: 600,
                         letterSpacing: '0.12em',
                         textTransform: 'uppercase',
                         whiteSpace: 'nowrap',
                     }}>
-                        Latest Insights
+                        Latest Blog Articles
                     </span>
                     <div style={{ flex: 1, height: '0.0625rem', background: 'rgba(255,255,255,0.08)' }} />
                     <div style={{ display: 'flex', gap: '0.75rem' }}>

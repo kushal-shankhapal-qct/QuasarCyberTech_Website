@@ -306,7 +306,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
                 style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderLeft: `4px solid ${COLORS.burgundy}`, borderRadius: "0", padding: "clamp(1.25rem, 2.5vw, 2rem)" }}
               >
-                <h3 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: COLORS.gold, marginBottom: "0.75rem", fontFamily: TYPOGRAPHY.fontHeading }}>
+                <h3 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: COLORS.burgundy, marginBottom: "0.75rem", fontFamily: TYPOGRAPHY.fontHeading }}>
                   Vision
                 </h3>
                 <p style={{ fontSize: "clamp(13px, 1.15vw, 15px)", color: "#4A3040", lineHeight: 1.8, margin: 0 }}>
@@ -319,7 +319,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.08 }}
                 style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)", borderRight: `4px solid ${COLORS.burgundy}`, borderRadius: "0", padding: "clamp(1.25rem, 2.5vw, 2rem)" }}
               >
-                <h3 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: COLORS.gold, marginBottom: "0.75rem", fontFamily: TYPOGRAPHY.fontHeading }}>
+                <h3 style={{ fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 800, color: COLORS.burgundy, marginBottom: "0.75rem", fontFamily: TYPOGRAPHY.fontHeading }}>
                   Mission
                 </h3>
                 <p style={{ fontSize: "clamp(13px, 1.15vw, 15px)", color: "#4A3040", lineHeight: 1.8, margin: 0 }}>
@@ -390,7 +390,7 @@ export default function About() {
               style={{ borderLeft: `4px solid ${COLORS.gold}`, paddingLeft: "1.5rem", alignSelf: "end", paddingBottom: "0.15rem" }}
             >
               <p style={{ fontSize: "clamp(15px, 1.4vw, 18px)", color: "rgba(255,255,255,0.9)", lineHeight: 1.7, fontWeight: 400, margin: 0 }}>
-                To build one of the most trusted cybersecurity consulting and engineering companies, delivering measurable resilience and long-term value.
+                To build one of the most trusted cybersecurity consulting and engineering companies, delivering measurable cyber resilience, regulatory assurance, and long-term business value.
               </p>
             </motion.div>
           </div>
@@ -633,6 +633,8 @@ export default function About() {
           --about-hero-min-height: 100vh; /* Reduces empty space below button */
           --about-hero-gap-below-button: 0rem; /* Handled by min-height behavior now to avoid peaking */
           --staircase-step: 18%; /* This will span it nicely across desktop */
+          --about-core-value-font-size: clamp(13.5px, 1.18vw, 16px);
+          --about-core-value-font-size-mobile: 15px;
           
           /* Section Gap Controls */
           --about-who-we-are-pb: 1rem;
@@ -671,7 +673,7 @@ export default function About() {
           border: 1px solid rgba(0,0,0,0.06);
           border-radius: 0 0 0.375rem 0.375rem;
           padding: clamp(0.75rem, 1.5vw, 1.25rem);
-          font-size: clamp(12px, 1.1vw, 15px);
+          font-size: var(--about-core-value-font-size);
           font-weight: 700;
           color: #2D1520;
           line-height: 1.4;
@@ -719,6 +721,9 @@ export default function About() {
           }
           .about-vm-grid {
              gap: 1.25rem !important;
+          }
+          .about-value-card {
+            font-size: var(--about-core-value-font-size-mobile);
           }
         }
       `}} />
