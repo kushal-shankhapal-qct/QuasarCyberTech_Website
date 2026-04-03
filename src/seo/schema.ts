@@ -52,6 +52,7 @@ export const createArticleSchema = ({
   path,
   image,
   publishedAt,
+  updatedAt,
   author,
 }: {
   title: string;
@@ -59,6 +60,7 @@ export const createArticleSchema = ({
   path: string;
   image?: string;
   publishedAt?: string;
+  updatedAt?: string;
   author: string;
 }) => ({
   '@context': 'https://schema.org',
@@ -68,7 +70,7 @@ export const createArticleSchema = ({
   image: [toAbsoluteAssetUrl(image)],
   mainEntityOfPage: absoluteUrl(path),
   datePublished: publishedAt,
-  dateModified: publishedAt,
+  dateModified: updatedAt || publishedAt,
   author: {
     '@type': 'Organization',
     name: author,
@@ -177,6 +179,37 @@ export const createContactPageSchema = () => ({
         availableLanguage: ['English'],
       },
     ],
+  },
+});
+
+export const createSoftwareApplicationSchema = ({
+  name,
+  description,
+  url,
+  applicationCategory,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory: string;
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name,
+  description,
+  url,
+  applicationCategory,
+  operatingSystem: 'Web',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: `Contact ${SITE_NAME} for pricing`,
+  },
+  provider: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE_URL,
   },
 });
 

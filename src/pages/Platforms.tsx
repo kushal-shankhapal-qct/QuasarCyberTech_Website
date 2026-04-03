@@ -8,7 +8,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { COLORS, GRADIENTS, LAYOUT_CONTROLS } from '../config/themeConfig';
 
 import { ASSETS } from '@/constants/assets';
-import { createBreadcrumbSchema } from '../seo/schema';
+import { createBreadcrumbSchema, createSoftwareApplicationSchema } from '../seo/schema';
 
 // Import Logos & Screenshots
 const qStellarLogo = ASSETS.logos.platforms.qstellarDark;
@@ -100,6 +100,30 @@ export default function Platforms() {
             { name: 'Home', path: '/' },
             { name: 'Platforms', path: '/platforms' },
           ]),
+          createSoftwareApplicationSchema({
+            name: 'QStellar',
+            description: 'AI-powered asset intelligence and vulnerability management platform for continuous security visibility, asset discovery, and risk prioritization.',
+            url: 'https://qstellar.co',
+            applicationCategory: 'SecurityApplication',
+          }),
+          createSoftwareApplicationSchema({
+            name: 'QPulse',
+            description: 'Cybersecurity intelligence and insights portal delivering curated threat intelligence, vulnerability research, and security updates for enterprise teams.',
+            url: 'https://qpulse.quasarcybertech.com',
+            applicationCategory: 'SecurityApplication',
+          }),
+          createSoftwareApplicationSchema({
+            name: 'QRGT',
+            description: 'Penetration Testing as a Service (PTaaS) platform for continuous, governed penetration testing programs with remediation tracking and workflow management.',
+            url: 'https://quasarcybertech.com/platforms',
+            applicationCategory: 'SecurityApplication',
+          }),
+          createSoftwareApplicationSchema({
+            name: 'QLeap',
+            description: 'Cybersecurity training and talent development platform offering immersive, real-world simulations and hands-on lab environments for security practitioners.',
+            url: 'https://qleap-ed.com',
+            applicationCategory: 'EducationalApplication',
+          }),
         ]}
       />
       <Navbar />

@@ -13,7 +13,8 @@ import Footer from '../components/Footer';
 // import AccreditationBar from '../components/AccreditationBar';
 import { LAYOUT_CONTROLS } from '../config/themeConfig';
 import Seo from '../components/seo/Seo';
-import { DEFAULT_OG_IMAGE_SOCIAL } from '../seo/site';
+import { DEFAULT_OG_IMAGE_SOCIAL, absoluteUrl } from '../seo/site';
+import { createBreadcrumbSchema, createServiceSchema } from '../seo/schema';
 
 export default function Home() {
   return (
@@ -23,7 +24,29 @@ export default function Home() {
         description="QuasarCyberTech helps enterprises strengthen cyber resilience through advisory, offensive security, managed defense, cloud security, and platform-led security engineering."
         path="/"
         image={DEFAULT_OG_IMAGE_SOCIAL}
-        jsonLd={[]}
+        jsonLd={[
+          createBreadcrumbSchema([{ name: 'Home', path: '/' }]),
+          createServiceSchema({
+            name: 'Enterprise Cybersecurity Consulting',
+            description: 'QuasarCyberTech delivers enterprise cybersecurity consulting, offensive security testing, managed detection and response, cloud security, compliance assurance, and cyber intelligence services to organizations worldwide.',
+            path: '/capabilities',
+            serviceType: 'Cybersecurity Consulting',
+          }),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'QuasarCyberTech Cybersecurity Services',
+            description: 'Enterprise cybersecurity capabilities across advisory, offensive security, managed defense, cloud security, compliance, and cyber intelligence',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Cyber Advisory & Risk Governance', url: absoluteUrl('/capabilities/cyber-advisory') },
+              { '@type': 'ListItem', position: 2, name: 'Regulatory Compliance & Assurance', url: absoluteUrl('/capabilities/compliance-assurance') },
+              { '@type': 'ListItem', position: 3, name: 'Offensive Security & Resilience Engineering', url: absoluteUrl('/capabilities/offensive-security') },
+              { '@type': 'ListItem', position: 4, name: 'Cloud, Infrastructure & Platform Security', url: absoluteUrl('/capabilities/cloud-infrastructure') },
+              { '@type': 'ListItem', position: 5, name: 'Managed Detection, Response & SOC Operations', url: absoluteUrl('/capabilities/managed-defense') },
+              { '@type': 'ListItem', position: 6, name: 'Cyber Intelligence & Security Research', url: absoluteUrl('/capabilities/cyber-intelligence') },
+            ],
+          },
+        ]}
       />
       <Navbar />
       <main>

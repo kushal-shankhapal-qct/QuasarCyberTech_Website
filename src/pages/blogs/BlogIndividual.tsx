@@ -91,6 +91,7 @@ const BlogIndividual: React.FC = () => {
                         path: `/blogs/${post.id}`,
                         image: post.image,
                         publishedAt,
+                        updatedAt: post.updatedAt,
                         author: post.author,
                     }),
                 ]}

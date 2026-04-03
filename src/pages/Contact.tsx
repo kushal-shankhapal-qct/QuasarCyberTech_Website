@@ -401,7 +401,7 @@ export default function Contact() {
   return (
     <div style={{ background: '#F8FAFC', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
       <Seo
-        title="Contact Us"
+        title="Contact Us — Get a Free Cybersecurity Consultation"
         description="Talk to QuasarCyberTech about offensive security, managed SOC, cloud security, compliance, and enterprise cyber resilience programs."
         path="/contact"
         image={ASSETS.capabilities.advisory}

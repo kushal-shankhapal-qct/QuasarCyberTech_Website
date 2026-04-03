@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
@@ -19,6 +20,7 @@ const BLOGS_DESKTOP_SIDE_MARGIN = '3rem';
 
 export default function BlogsOverview() {
   // State
+  const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState('All Posts');
   const [searchQuery, setSearchQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -37,6 +39,15 @@ export default function BlogsOverview() {
 
   // Scroll to top
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
+
+  // Initialize tag filter from URL query param (?tag=AI, ?tag=Zero+Trust, etc.)
+  useEffect(() => {
+    const tagParam = searchParams.get('tag');
+    if (tagParam) {
+      setSearchQuery(tagParam);
+      setInputValue(tagParam);
+    }
+  }, []);
 
   // Sticky filter bar detection
   useEffect(() => {
