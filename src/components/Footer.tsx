@@ -80,7 +80,8 @@ const Footer: React.FC = () => {
       }}
     >
       {/* ── STYLE BLOCK — all responsive rules in one place ── */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         /* ───────────────────────────────────────────
            OUTER GRID: branding col | nav cols block
            ─────────────────────────────────────────── */
@@ -308,42 +309,42 @@ const Footer: React.FC = () => {
             className="ft-col"
             style={{ minWidth: 'max-content', width: 'max-content', maxWidth: '100%' }}
           >
-              <span className="ft-col-heading">{col.title}</span>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: FC.linkGap }}>
-                {col.links.map((link, lIdx) => (
-                  <li key={link.label}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ft-link"
-                        onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
-                        onMouseLeave={() => setHoveredLink(null)}
-                        style={{
-                          color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '#fff' : 'rgba(255,255,255,0.65)',
-                          gap: '0.45rem',
-                        }}
-                      >
-                        <span>{link.label}</span>
-                        <span style={{ fontSize: '0.625rem', opacity: 0.5, marginLeft: '0.2rem' }}>↗</span>
-                      </a>
-                    ) : (
-                      <Link
-                        to={link.href}
-                        className="ft-link"
-                        onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
-                        onMouseLeave={() => setHoveredLink(null)}
-                        style={{ color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '#fff' : 'rgba(255,255,255,0.65)' }}
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            <span className="ft-col-heading">{col.title}</span>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: FC.linkGap }}>
+              {col.links.map((link, lIdx) => (
+                <li key={link.label}>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ft-link"
+                      onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
+                      onMouseLeave={() => setHoveredLink(null)}
+                      style={{
+                        color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '#fff' : 'rgba(255,255,255,0.65)',
+                        gap: '0.45rem',
+                      }}
+                    >
+                      <span>{link.label}</span>
+                      <span style={{ fontSize: '0.625rem', opacity: 0.5, marginLeft: '0.2rem' }}>↗</span>
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="ft-link"
+                      onMouseEnter={() => setHoveredLink({ col: cIdx, idx: lIdx })}
+                      onMouseLeave={() => setHoveredLink(null)}
+                      style={{ color: hoveredLink?.col === cIdx && hoveredLink?.idx === lIdx ? '#fff' : 'rgba(255,255,255,0.65)' }}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
       {/* Geo presence — keyword anchor for local SEO */}
@@ -361,11 +362,11 @@ const Footer: React.FC = () => {
       {/* Divider */}
       <div
         className="ft-bottom-divider"
-        style={{ 
-          height: '0.0625rem', 
-          borderTop: '0.0625rem solid rgba(255,255,255,0.1)', 
-          margin: `0 ${LAYOUT_CONTROLS.global.paddingX}` 
-        }} 
+        style={{
+          height: '0.0625rem',
+          borderTop: '0.0625rem solid rgba(255,255,255,0.1)',
+          margin: `0 ${LAYOUT_CONTROLS.global.paddingX}`
+        }}
       />
 
       <div className="ft-bottom-bar" style={{

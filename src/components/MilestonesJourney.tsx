@@ -8,120 +8,116 @@ import {
 import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from "../config/themeConfig";
 
 /* ═══════════════════════════════════════════════
+   SCROLL TUNING
+   ═══════════════════════════════════════════════ */
+const SCROLL_MULTIPLIER = 0.35;
+const SCROLL_FRICTION = 0.91;
+const SCROLL_MIN_VEL = 0.5;
+
+/* ═══════════════════════════════════════════════
+   LAYOUT TUNING — all in px, adjust freely
+   ═══════════════════════════════════════════════ */
+const NODE_W = 260;   // horizontal slot per milestone
+const TRACK_H = 520;   // total track height
+const DOT_R = 15;    // dot radius
+const CARD_W = 210;   // card width
+const DOT_Y_BIAS = 0;   // move the whole wire up/down (negative = up)
+const STEM_X_BIAS = 0;   // stem left/right nudge
+
+const EXIT_TAIL_W = 220;   // how far the wire extends past the last dot
+const EXIT_RISE_Y = -90;   // how high the wire rises at the tip (negative = up)
+
+/* ═══════════════════════════════════════════════
    DATA
    ═══════════════════════════════════════════════ */
-
 const milestones = [
   {
-    year: "2024",
-    month: "Jul",
+    year: "2024", month: "Jul",
     title: "Incorporation",
-    description:
-      "QuasarCyberTech was officially incorporated, marking the beginning of our mission to engineer cyber resilience for modern enterprises.",
+    description: "QuasarCyberTech was officially incorporated, marking the beginning of our mission to engineer cyber resilience for modern enterprises.",
     tag: "Foundation",
   },
   {
-    year: "2024",
-    month: "Oct",
+    year: "2024", month: "Oct",
     title: "Headquarters Launch",
-    description:
-      "Established our first operational headquarters in Nashik, creating the foundation for our consulting and engineering operations.",
+    description: "Established our first operational headquarters in Nashik, creating the foundation for our consulting and engineering operations.",
     tag: "Presence",
   },
   {
-    year: "2024",
-    month: "Nov",
+    year: "2024", month: "Nov",
     title: "Startup India Recognition",
-    description:
-      "Recognized under the Startup India initiative, validating our innovation-driven approach and strategic vision.",
+    description: "Recognized under the Startup India initiative, validating our innovation-driven approach and strategic vision.",
     tag: "Recognition",
   },
   {
-    year: "2024",
-    month: "Dec",
+    year: "2024", month: "Dec",
     title: "Strategic Partnerships",
-    description:
-      "Entered into strategic collaborations with ecosystem partners to strengthen delivery capabilities and market reach.",
+    description: "Entered into strategic collaborations with ecosystem partners to strengthen delivery capabilities and market reach.",
     tag: "Alliance",
   },
   {
-    year: "2025",
-    month: "Jan",
+    year: "2025", month: "Jan",
     title: "National Expansion",
-    description:
-      "Expanded our operational footprint across key business hubs including Mumbai, Pune, Bengaluru, and Nashik.",
+    description: "Expanded our operational footprint across key business hubs including Mumbai, Pune, Bengaluru, and Nashik.",
     tag: "Expansion",
   },
   {
-    year: "2025",
-    month: "Feb",
-    title: "Industry Membership & Recognition",
-    description:
-      "Joined leading industry bodies such as NASSCOM, reinforcing our commitment to technology leadership and industry alignment.",
+    year: "2025", month: "Feb",
+    title: "NASSCOM Membership",
+    description: "Joined NASSCOM, reinforcing our commitment to technology leadership and aligning with India's leading tech industry body.",
     tag: "Credibility",
   },
   {
-    year: "2025",
-    month: "Jun",
-    title: "QStellar Platform Development",
-    description:
-      "Initiated development of QStellar, our flagship AI-powered asset visibility and vulnerability intelligence platform.",
+    year: "2025", month: "Jun",
+    title: "QStellar Development",
+    description: "Initiated development of QStellar, our flagship AI-powered asset visibility and vulnerability intelligence platform.",
     tag: "Platform",
   },
   {
-    year: "2025",
-    month: "Jul",
-    title: "QPulse Platform Launch",
-    description:
-      "Launched QPulse, our cybersecurity intelligence and regulatory insights platform focused on India and global threat intelligence.",
+    year: "2025", month: "Jul",
+    title: "QPulse Launch",
+    description: "Launched QPulse, our cybersecurity intelligence and regulatory insights platform focused on India and global threat intelligence.",
     tag: "Platform",
   },
   {
-    year: "2025",
-    month: "Aug",
-    title: "Business Excellence Recognition",
-    description:
-      "Recognized at national industry platforms for business excellence and cybersecurity innovation.",
+    year: "2025", month: "Aug",
+    title: "Business Excellence Award",
+    description: "Recognized at national industry platforms for business excellence and cybersecurity innovation.",
     tag: "Recognition",
   },
   {
-    year: "2025",
-    month: "Aug",
+    year: "2025", month: "Aug",
     title: "International Expansion",
-    description:
-      "Established international presence in Dallas, USA, marking our expansion into global markets.",
+    description: "Established international presence in Dallas, USA, marking our entry into global markets.",
     tag: "Global",
   },
   {
-    year: "2025",
-    month: "Sep",
-    title: "Emerging Company Recognition",
-    description:
-      "Recognized as an emerging cybersecurity company by reputed industry and business platforms.",
+    year: "2025", month: "Sep",
+    title: "Emerging Company of the Year",
+    description: "Recognized as Emerging Company of the Year 2025 by Business Connect Magazine.",
     tag: "Recognition",
   },
   {
-    year: "2025",
-    month: "Oct",
+    year: "2025", month: "Oct",
     title: "QLeap Ecosystem Expansion",
-    description:
-      "Expanded the QLeap talent and learning ecosystem, building a strong pathway from training to internships and enterprise readiness.",
+    description: "Expanded the QLeap talent and learning ecosystem, building a strong pathway from training to internships and enterprise readiness.",
     tag: "Ecosystem",
-  },
-  {
-    year: "2026",
-    month: "Q1",
-    title: "CERT-In Milestone Progress",
-    description:
-      "Successfully cleared critical stages toward CERT-In empanelment, strengthening national credibility and regulatory positioning.",
-    tag: "Milestone",
   },
 ];
 
-/* ═══════════════════════════════════════════════
-   NODE COMPONENT
-   ═══════════════════════════════════════════════ */
+/* Last node — CERT-In — treated separately as a pinnacle */
+const certInMilestone = {
+  year: "2026", month: "Active",
+  title: "CERT-In Empanelled",
+  tag: "Pinnacle",
+};
 
+const ALL_NODES = milestones.length; // number of regular nodes
+const CERT_INDEX = ALL_NODES;        // cert-in sits at the very end
+
+/* ═══════════════════════════════════════════════
+   REGULAR NODE
+   ═══════════════════════════════════════════════ */
 function MilestoneNode({
   milestone,
   index,
@@ -132,66 +128,183 @@ function MilestoneNode({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-40px" });
   const isTop = index % 2 === 0;
-  const isYearStart =
-    index === 0 || milestone.year !== milestones[index - 1]?.year;
-  const d = Math.min(index * 0.065, 0.5);
+  const isYearStart = index === 0 || milestone.year !== milestones[index - 1]?.year;
+  const d = Math.min(index * 0.055, 0.45);
+  const wireY = TRACK_H / 2 + DOT_Y_BIAS;
 
   return (
-    <div ref={ref} className={`mj-node mj-node--${isTop ? "top" : "bot"}`}>
-      {/* ── Circle on the wire ── */}
-      <motion.div
-        className="mj-dot-wrap"
-        initial={{ scale: 0 }}
-        animate={isInView ? { scale: 1 } : {}}
-        transition={{
-          duration: 0.35,
-          delay: d,
-          type: "spring",
-          stiffness: 320,
-          damping: 18,
-        }}
-      >
-        <div className={`mj-dot ${isYearStart ? "mj-dot--year" : ""}`}>
-          <div className="mj-dot-core" />
-        </div>
-        <div className="mj-dot-ring" style={{ animationDelay: `${d}s` }} />
-        {isYearStart && <span className="mj-dot-year">{milestone.year}</span>}
-      </motion.div>
+    <div
+      ref={ref}
+      style={{
+        position: "absolute",
+        left: `${index * NODE_W}px`,
+        width: `${NODE_W}px`,
+        height: `${TRACK_H}px`,
+        pointerEvents: "none",
+      }}
+    >
+      <div style={{ position: "relative", width: "100%", height: "100%", pointerEvents: "auto" }}>
 
-      {/* ── Connector arm ── */}
-      <motion.div
-        className="mj-stem"
-        initial={{ scaleY: 0 }}
-        animate={isInView ? { scaleY: 1 } : {}}
-        transition={{
-          duration: 0.35,
-          delay: d + 0.12,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      />
+        {/* Year watermark — subtle, only on year-start nodes */}
+        {isYearStart && (
+          <div className="mj-year-label">
+            {milestone.year}
+          </div>
+        )}
 
-      {/* ── Card ── */}
-      <motion.div
-        className="mj-card"
-        initial={{ opacity: 0, y: isTop ? 24 : -24, scale: 0.94 }}
-        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{
-          duration: 0.55,
-          delay: d + 0.08,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
-        <div className="mj-card-glow" />
-        <div className="mj-card-meta">
-          {isYearStart && (
-            <span className="mj-card-date">{milestone.year}</span>
-          )}
-          <span className="mj-card-tag">{milestone.tag}</span>
-        </div>
-        <h4 className="mj-card-title">{milestone.title}</h4>
-        <p className="mj-card-desc">{milestone.description}</p>
-        <div className="mj-card-bar" />
-      </motion.div>
+
+
+        {/* Dot */}
+        <motion.div
+          style={{
+            position: "absolute",
+            top: `${wireY}px`,
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 6,
+          }}
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : {}}
+          transition={{ duration: 0.35, delay: d, type: "spring", stiffness: 320, damping: 18 }}
+        >
+          <div className={`mj-dot ${isYearStart ? "mj-dot--year" : ""}`}>
+            <div className="mj-dot-core" />
+          </div>
+          <div className="mj-dot-ring" style={{ animationDelay: `${d}s` }} />
+        </motion.div>
+
+        {/* Stem */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={isInView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.4, delay: d + 0.1, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "absolute",
+            left: `calc(50% - 1px + ${STEM_X_BIAS}px)`,
+            width: "2px",
+            top: isTop ? 12 : `${wireY}px`,
+            bottom: isTop ? `${TRACK_H - wireY}px` : 12,
+            background: isTop
+              ? `linear-gradient(to top, ${COLORS.burgundy}00, ${COLORS.burgundy})`
+              : `linear-gradient(to bottom, ${COLORS.gold}00, ${COLORS.gold})`,
+            zIndex: 2,
+            transformOrigin: isTop ? "bottom" : "top",
+          }}
+        />
+
+        {/* Card */}
+        <motion.div
+          className={`mj-card mj-card--${isTop ? "top" : "bot"}`}
+          initial={{ opacity: 0, y: isTop ? -20 : 20, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.5, delay: d + 0.12, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: `${CARD_W}px`,
+            zIndex: 5,
+            ...(isTop ? { top: 12 } : { bottom: 12 }),
+          }}
+        >
+
+          <div className="mj-card-body">
+            <h4 className="mj-card-title">{milestone.title}</h4>
+            <p className="mj-card-desc">{milestone.description}</p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   CERT-IN PINNACLE NODE
+   ═══════════════════════════════════════════════ */
+function CertInNode({ index }: { index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
+  const wireY = TRACK_H / 2 + DOT_Y_BIAS;
+  // Cert-In is always on top (even index = top)
+  const isTop = index % 2 === 0;
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        position: "absolute",
+        left: `${index * NODE_W}px`,
+        width: `${NODE_W + 60}px`, // slightly wider for the big card
+        height: `${TRACK_H}px`,
+        pointerEvents: "none",
+      }}
+    >
+      <div style={{ position: "relative", width: "100%", height: "100%", pointerEvents: "auto" }}>
+
+        {/* Year watermark */}
+        <div className="mj-year-label">2026</div>
+
+        {/* Gold dot — larger marking the endpoint */}
+        <motion.div
+          style={{
+            position: "absolute",
+            top: `${wireY}px`,
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 6,
+          }}
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.15, type: "spring", stiffness: 260, damping: 16 }}
+        >
+          <div className="mj-dot mj-dot--cert">
+            <div className="mj-dot-core mj-dot-core--cert" />
+          </div>
+          <div className="mj-dot-ring mj-dot-ring--cert" />
+        </motion.div>
+
+        {/* Stem */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={isInView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.45, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "absolute",
+            left: `calc(50% - 1px + ${STEM_X_BIAS}px)`,
+            width: "2px",
+            top: isTop ? 12 : `${wireY}px`,
+            bottom: isTop ? `${TRACK_H - wireY}px` : 12,
+            background: isTop
+              ? `linear-gradient(to top, ${COLORS.burgundy}00, ${COLORS.burgundy})`
+              : `linear-gradient(to bottom, ${COLORS.gold}00, ${COLORS.gold})`,
+            zIndex: 2,
+            transformOrigin: isTop ? "bottom" : "top",
+          }}
+        />
+
+        {/* Pinnace Card — Match regular style */}
+        <motion.div
+          className={`mj-card mj-card--${isTop ? "top" : "bot"}`}
+          initial={{ opacity: 0, y: isTop ? -24 : 24, scale: 0.93 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.55, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: `${CARD_W}px`,
+            zIndex: 5,
+            ...(isTop ? { top: 12 } : { bottom: 12 }),
+          }}
+        >
+          <div className="mj-card-body">
+            <h4 className="mj-card-title">CERT-In Empanelled</h4>
+            <p className="mj-card-desc">
+              Authorized to conduct national-level cybersecurity audits for critical government and enterprise infrastructure across India.
+            </p>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -199,180 +312,165 @@ function MilestoneNode({
 /* ═══════════════════════════════════════════════
    MAIN EXPORT
    ═══════════════════════════════════════════════ */
-
 export default function MilestonesJourney() {
-  const sectionRef = useRef<HTMLElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const progress = useMotionValue(0);
   const smoothProg = useSpring(progress, { stiffness: 90, damping: 24 });
 
+  /* Progress sync */
   useEffect(() => {
-    const scrollEl = scrollAreaRef.current;
-    if (!scrollEl) return;
-
-    const updateProgress = () => {
-      const maxScrollLeft = scrollEl.scrollWidth - scrollEl.clientWidth;
-      progress.set(maxScrollLeft > 0 ? scrollEl.scrollLeft / maxScrollLeft : 1);
+    const el = scrollAreaRef.current;
+    if (!el) return;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      progress.set(max > 0 ? el.scrollLeft / max : 1);
     };
-
-    updateProgress();
-    scrollEl.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
     return () => {
-      scrollEl.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
     };
   }, [progress]);
 
-  /* Build the horizontal wavy SVG path */
-  const NODE_W = 240; // px per node slot (scaled up from 210)
-  const totalW = milestones.length * NODE_W;
+  /* Inertia wheel scroll */
+  useEffect(() => {
+    const el = scrollAreaRef.current;
+    if (!el) return;
+    let velocity = 0;
+    let rafId = 0;
+    const animate = () => {
+      if (Math.abs(velocity) < SCROLL_MIN_VEL) { velocity = 0; return; }
+      el.scrollLeft += velocity;
+      velocity *= SCROLL_FRICTION;
+      rafId = requestAnimationFrame(animate);
+    };
+    const onWheel = (e: WheelEvent) => {
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 0) return;
+      if (el.scrollLeft <= 0 && e.deltaY < 0) return;
+      if (el.scrollLeft >= max - 1 && e.deltaY > 0) return;
+      e.preventDefault();
+      cancelAnimationFrame(rafId);
+      velocity = e.deltaY * SCROLL_MULTIPLIER;
+      rafId = requestAnimationFrame(animate);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => { el.removeEventListener("wheel", onWheel); cancelAnimationFrame(rafId); };
+  }, []);
+
+  /* SVG wire — clean sine wave, terminates with a small arrow at CERT-In dot */
+  const wireY = TRACK_H / 2 + DOT_Y_BIAS;
+  // Total nodes including CERT-In
+  const totalNodes = milestones.length + 1;
+  const totalW = totalNodes * NODE_W + EXIT_TAIL_W + 60;
+  const A = 65; // amplitude
+
   const pathD = (() => {
-    const pts: string[] = [];
-    for (let i = 0; i < milestones.length; i++) {
-      const x = i * NODE_W + NODE_W / 2;
-      const y = 60; // center line
-      if (i === 0) {
-        pts.push(`M 0,${y}`);
-        pts.push(
-          `C ${x / 2},${i % 2 === 0 ? 30 : 90} ${x / 2},${i % 2 === 0 ? 30 : 90} ${x},${y}`,
-        );
-      } else {
-        const prevX = (i - 1) * NODE_W + NODE_W / 2;
-        const cpY = i % 2 === 0 ? 25 : 95;
-        pts.push(
-          `C ${prevX + NODE_W * 0.35},${cpY} ${x - NODE_W * 0.35},${cpY} ${x},${y}`,
-        );
-      }
+    const pts: string[] = [`M 0,${wireY}`];
+    // Smooth start
+    pts.push(`C ${NODE_W / 4},${wireY} ${NODE_W / 3},${wireY} ${NODE_W / 2},${wireY}`);
+
+    for (let i = 1; i < totalNodes; i++) {
+      const prevX = (i - 1) * NODE_W + NODE_W / 2;
+      const curX = i * NODE_W + NODE_W / 2;
+      const s = i % 2 === 1 ? -1 : 1;
+      const cY = wireY + s * A;
+      pts.push(`C ${prevX + NODE_W / 3},${cY} ${curX - NODE_W / 3},${cY} ${curX},${wireY}`);
     }
-    // trailing tail
-    pts.push(`C ${totalW - NODE_W * 0.3},40 ${totalW},50 ${totalW + 40},60`);
+    
+    // Smooth upward exit tail
+    const certDotX = (totalNodes - 1) * NODE_W + NODE_W / 2;
+    pts.push(`C ${certDotX + EXIT_TAIL_W * 0.3},${wireY} 
+                 ${certDotX + EXIT_TAIL_W * 0.6},${wireY + EXIT_RISE_Y} 
+                 ${certDotX + EXIT_TAIL_W},${wireY + EXIT_RISE_Y}`);
+
     return pts.join(" ");
   })();
 
   return (
-    <section ref={sectionRef} className="mj-section about-content-section">
-      {/* BG */}
+    <section className="mj-section about-content-section">
       <div className="mj-bg-grid" />
       <div className="mj-bg-orb mj-bg-orb--a" />
       <div className="mj-bg-orb mj-bg-orb--b" />
 
-      {/* ── Header ── */}
+      {/* Header */}
       <div className="mj-header">
-        <motion.div
-          className="mj-eyebrow"
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <motion.div className="mj-eyebrow"
+          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.5 }}
         >
-          <span className="mj-ey-dash" />
-          <span>Milestones Since Inception</span>
-          <span className="mj-ey-dash" />
+          Milestones Since Inception
         </motion.div>
-        <motion.h2
-          className="mj-h2"
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.06 }}
+        <motion.h2 className="mj-h2"
+          initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.06 }}
         >
           Growth <em>Journey</em>
         </motion.h2>
-        <motion.p
-          className="mj-sub"
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.12 }}
+        <motion.p className="mj-sub"
+          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.12 }}
         >
-          A clear progression of strategic growth milestones shaping
-          QuasarCyberTech into a trusted cybersecurity consulting and
-          engineering firm.
+          A clear progression of strategic growth milestones shaping QuasarCyberTech into a trusted cybersecurity authority — culminating in CERT-In Empanelment.
         </motion.p>
       </div>
 
-      {/* ── Horizontal scrollable track ── */}
+      {/* Scroll area */}
       <div ref={scrollAreaRef} className="mj-scroll-area">
-        <div className="mj-track" style={{ width: `${totalW + 80}px` }}>
-          {/* SVG wire running through all nodes */}
-          <svg
-            className="mj-wire"
-            viewBox={`0 0 ${totalW + 80} 120`}
-            preserveAspectRatio="none"
-          >
+        <div
+          className="mj-track"
+          style={{ width: `${totalW}px`, height: `${TRACK_H}px` }}
+        >
+          {/* Wire */}
+          <svg className="mj-wire" viewBox={`0 0 ${totalW} ${TRACK_H}`} preserveAspectRatio="none">
             <defs>
               <linearGradient id="mj-wg" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor={COLORS.burgundy} />
-                <stop offset="30%" stopColor={COLORS.gold} />
-                <stop offset="60%" stopColor={COLORS.burgundy} />
+                <stop offset="45%" stopColor={COLORS.gold} />
+                <stop offset="75%" stopColor={COLORS.burgundy} />
                 <stop offset="100%" stopColor={COLORS.gold} />
               </linearGradient>
+              <marker id="mj-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M1,1 L7,4 L1,7" fill="none" stroke={COLORS.gold} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </marker>
             </defs>
-            {/* Shadow track */}
-            <path
-              d={pathD}
-              fill="none"
-              stroke="rgba(107,21,48,0.08)"
-              strokeWidth="3"
-              strokeDasharray="8 5"
-            />
-            {/* Animated main wire */}
+            {/* Ghost track */}
+            <path d={pathD} fill="none" stroke="rgba(107,21,48,0.06)" strokeWidth="3" />
+            {/* Animated fill */}
             <motion.path
-              d={pathD}
-              fill="none"
-              stroke="url(#mj-wg)"
-              strokeWidth="3"
+              d={pathD} fill="none"
+              stroke="url(#mj-wg)" strokeWidth="2.5"
               strokeLinecap="round"
+              markerEnd="url(#mj-arrow)"
               style={{ pathLength: smoothProg }}
             />
           </svg>
 
-          {/* Nodes */}
-          <div className="mj-nodes">
+          {/* Regular nodes */}
+          <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 3 }}>
             {milestones.map((m, i) => (
-              <MilestoneNode
-                key={`${m.year}-${m.month}-${m.title}`}
-                milestone={m}
-                index={i}
-              />
+              <MilestoneNode key={`${m.year}-${m.month}-${m.title}`} milestone={m} index={i} />
             ))}
+            {/* CERT-In pinnacle */}
+            <CertInNode index={CERT_INDEX} />
           </div>
         </div>
       </div>
 
       {/* Scroll hint */}
-      <motion.div
-        className="mj-hint"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.6 }}
+      <motion.div className="mj-hint"
+        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+        viewport={{ once: true }} transition={{ delay: 0.6 }}
       >
         <span className="mj-hint-arrow">←</span>
-        <span>Scroll to explore</span>
+        <span>Scroll to explore the journey</span>
         <span className="mj-hint-arrow">→</span>
       </motion.div>
 
-      {/* Terminal */}
-      <motion.div
-        className="mj-end"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <div className="mj-end-dot" />
-        <span>The journey continues →</span>
-      </motion.div>
-
-      {/* ═══════════════════════════════════════
-         STYLES
-         ═══════════════════════════════════════ */}
+      {/* ═══ STYLES ═══ */}
       <style>{`
-
-        /* ── Section ── */
         .mj-section {
           position: relative; overflow: hidden;
           padding: clamp(42px, 5vw, 72px) 0 clamp(32px, 4vw, 52px);
@@ -393,440 +491,231 @@ export default function MilestonesJourney() {
         .mj-bg-orb--a { width: 20rem; height: 20rem; top: -8rem; left: -6rem; background: rgba(107,21,48,0.12); }
         .mj-bg-orb--b { width: 18rem; height: 18rem; bottom: -6rem; right: -5rem; background: rgba(214,176,92,0.1); }
 
-        /* ── Header ── */
+        /* Header */
         .mj-header {
-          text-align: center; position: relative; z-index: 2;
+          position: relative; z-index: 2;
           margin-bottom: clamp(24px, 3vw, 36px);
           padding: 0 clamp(16px, 4vw, 48px);
         }
         .mj-eyebrow {
           display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 11px; font-weight: 700; letter-spacing: 0.24em;
+          font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.24em;
           text-transform: uppercase; color: #9a7a30;
         }
-        .mj-ey-dash { display: block; width: 26px; height: 1.5px; background: linear-gradient(90deg, transparent, ${COLORS.gold}, transparent); }
         .mj-h2 {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: clamp(30px, 4.5vw, 50px); font-weight: 800;
+          font-size: clamp(1.875rem, 4.5vw, 3.125rem); font-weight: 800;
           color: #1A0A0F; line-height: 1.08; margin: 0 0 12px;
         }
         .mj-h2 em { color: ${COLORS.burgundy}; font-style: italic; }
         .mj-sub {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: clamp(14px, 1.5vw, 17px); color: #6b5760;
-          line-height: 1.7; max-width: 480px; margin: 0 auto;
+          font-size: clamp(0.875rem, 1.5vw, 1.0625rem); color: #6b5760;
+          line-height: 1.7; max-width: 580px; margin: 0;
         }
 
-        /* ── Scroll area ── */
+        /* Scroll area */
         .mj-scroll-area {
           overflow-x: auto; overflow-y: visible;
-          padding: 0 clamp(16px, 3vw, 48px) 10px;
+          padding: 0 clamp(16px, 3vw, 48px) 16px;
           scrollbar-width: thin;
           scrollbar-color: rgba(107,21,48,0.16) transparent;
           position: relative; z-index: 2;
           overscroll-behavior-x: contain;
-          scroll-behavior: smooth;
         }
-        .mj-scroll-area::-webkit-scrollbar { height: 5px; }
-        .mj-scroll-area::-webkit-scrollbar-thumb { background: rgba(107,21,48,0.16); border-radius: 3px; }
+        .mj-scroll-area::-webkit-scrollbar { height: 4px; }
+        .mj-scroll-area::-webkit-scrollbar-thumb { background: rgba(107,21,48,0.16); border-radius: 2px; }
         .mj-scroll-area::-webkit-scrollbar-track { background: transparent; }
-
-        .mj-track {
-          position: relative;
-          min-height: clamp(380px, 54vh, 480px);
-        }
-
-        /* ── SVG wire ── */
+        .mj-track { position: relative; }
         .mj-wire {
+          position: absolute; left: 0; top: 0;
+          width: 100%; height: 100%; z-index: 1; pointer-events: none;
+          overflow: visible;
+        }
+
+        /* Year watermark */
+        .mj-year-label {
           position: absolute;
-          left: 0; top: 50%;
-          width: 100%; height: 120px;
-          transform: translateY(-50%);
-          z-index: 1;
+          top: calc(50% + ${DOT_Y_BIAS}px - 18px);
+          left: 6px;
+          font-family: ${TYPOGRAPHY.fontHeading};
+          font-size: 1.5rem; font-weight: 900;
+          color: rgba(107,21,48,0.10);
           pointer-events: none;
+          letter-spacing: -0.03em;
+          z-index: 1;
+          user-select: none;
         }
 
-        /* ── Nodes row ── */
-        .mj-nodes {
-          display: flex;
-          position: relative; z-index: 3;
-          height: 100%;
-        }
 
-        /* ── Individual node ── */
-        .mj-node {
-          flex: 0 0 240px;
-          height: clamp(380px, 54vh, 480px);
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
 
-        /* ── Dot (circle on the wire) ── */
-        .mj-dot-wrap {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 6;
-        }
+        /* Dot */
         .mj-dot {
-          width: 30px; height: 30px; border-radius: 50%;
+          width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; border-radius: 50%;
           background: linear-gradient(135deg, ${COLORS.burgundy}, #922040);
           display: flex; align-items: center; justify-content: center;
-          border: 3.5px solid #faf7f4;
+          border: 3px solid #faf7f4;
           box-shadow: 0 3px 14px rgba(107,21,48,0.28);
           position: relative; z-index: 3;
-          transition: transform 0.25s, box-shadow 0.25s;
-        }
-        .mj-node:hover .mj-dot {
-          transform: scale(1.15);
-          box-shadow: 0 4px 20px rgba(107,21,48,0.4);
         }
         .mj-dot--year {
-          width: 36px; height: 36px;
+          width: ${DOT_R * 2 + 6}px; height: ${DOT_R * 2 + 6}px;
           background: linear-gradient(135deg, ${COLORS.gold}, #c9a23e);
           box-shadow: 0 3px 16px rgba(214,176,92,0.4);
         }
-        .mj-dot-core {
-          width: 8px; height: 8px; border-radius: 50%;
-          background: ${COLORS.gold};
+        .mj-dot--cert {
+          width: 36px; height: 36px;
+          background: linear-gradient(135deg, ${COLORS.gold}, #c9a23e);
+          border: 4px solid #faf7f4;
+          box-shadow: 0 4px 20px rgba(214,176,92,0.5);
         }
-        .mj-dot--year .mj-dot-core {
-          background: #fff;
-        }
+        .mj-dot-core { width: 8px; height: 8px; border-radius: 50%; background: ${COLORS.gold}; }
+        .mj-dot--year .mj-dot-core { background: #fff; }
+        .mj-dot-core--cert { width: 10px; height: 10px; background: #fff; }
         .mj-dot-ring {
           position: absolute; top: 50%; left: 50%;
           transform: translate(-50%, -50%);
-          width: 30px; height: 30px; border-radius: 50%;
-          border: 1.5px solid rgba(107,21,48,0.35);
-          animation: mj-ring 2.8s ease-out infinite;
-          z-index: 2;
+          width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; border-radius: 50%;
+          border: 1.5px solid rgba(107,21,48,0.3);
+          animation: mj-ring 2.8s ease-out infinite; z-index: 2;
+          pointer-events: none;
+        }
+        .mj-dot-ring--cert {
+          border-color: rgba(214,176,92,0.45);
+          width: 36px; height: 36px;
         }
         @keyframes mj-ring {
-          0% { opacity: 0.5; width: 30px; height: 30px; }
-          100% { opacity: 0; width: 60px; height: 60px; }
+          0%   { opacity: 0.5; width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; }
+          100% { opacity: 0;   width: ${DOT_R * 4}px; height: ${DOT_R * 4}px; }
         }
 
-        .mj-dot-year {
-          position: absolute;
-          white-space: nowrap;
-          font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
-          color: #fff;
-          background: ${COLORS.burgundy};
-          padding: 3px 10px; border-radius: 20px;
-          box-shadow: 0 2px 8px rgba(107,21,48,0.25);
-        }
-        .mj-node--top .mj-dot-year {
-          top: calc(100% + 8px);
-        }
-        .mj-node--bot .mj-dot-year {
-          bottom: calc(100% + 8px);
-        }
 
-        /* ── Stem (connector arm) ── */
-        .mj-stem {
-          position: absolute;
-          left: 50%; width: 2px;
-          background: linear-gradient(180deg, rgba(107,21,48,0.28), rgba(214,176,92,0.5));
-          z-index: 2;
-          border-radius: 1px;
-        }
-        .mj-node--top .mj-stem {
-          bottom: 50%; top: 126px;
-          transform-origin: bottom center;
-        }
-        .mj-node--bot .mj-stem {
-          top: 50%; bottom: 126px;
-          transform-origin: top center;
-        }
 
-        /* ── Card ── */
-        .mj-card {
-          position: absolute; left: 50%;
-          transform: translateX(-50%);
-          width: 200px; z-index: 5;
-        }
-        .mj-node--top .mj-card { top: 8px; }
-        .mj-node--bot .mj-card { bottom: 8px; }
-
+        /* Regular card */
         .mj-card {
           background: #fff;
           border: 1px solid rgba(107,21,48,0.09);
-          border-radius: 10px;
-          padding: 13px 13px;
-          position: absolute;
           overflow: hidden;
           transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
           cursor: default;
+          display: flex; flex-direction: column;
+          position: relative;
         }
+        .mj-card--top {
+          border-top: 2.5px solid ${COLORS.burgundy};
+          border-radius: 0 0 8px 8px;
+        }
+        .mj-card--top:hover { border-top-color: ${COLORS.gold}; }
+        .mj-card--bot {
+          border-bottom: 2.5px solid ${COLORS.gold};
+          border-radius: 8px 8px 0 0;
+        }
+        .mj-card--bot:hover { border-bottom-color: ${COLORS.burgundy}; }
         .mj-card:hover {
           transform: translateX(-50%) translateY(-3px);
-          box-shadow: 0 14px 40px rgba(107,21,48,0.12);
-          border-color: rgba(107,21,48,0.16);
+          box-shadow: 0 14px 40px rgba(107,21,48,0.13);
+          border-color: rgba(107,21,48,0.18);
         }
         .mj-node--bot .mj-card:hover {
           transform: translateX(-50%) translateY(3px);
         }
-        .mj-card::before {
-          content: ""; position: absolute;
-          top: 0; left: 0; right: 0; height: 3px;
-          background: linear-gradient(90deg, ${COLORS.burgundy}, ${COLORS.gold});
-          opacity: 0; transition: opacity 0.25s;
-        }
-        .mj-card:hover::before { opacity: 1; }
-
-        .mj-card-glow {
-          position: absolute; width: 70px; height: 70px;
-          top: -28px; right: -28px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(214,176,92,0.14), transparent 68%);
-          pointer-events: none;
-        }
-
-        .mj-card-meta {
-          display: flex; align-items: center; justify-content: space-between;
-          gap: 6px; margin-bottom: 8px; flex-wrap: wrap;
-        }
-        .mj-card-date {
-          font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 9.5px; font-weight: 700;
-          letter-spacing: 0.14em; text-transform: uppercase;
-          color: rgba(26,10,15,0.4);
-        }
-        .mj-card-tag {
-          font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 8.5px; font-weight: 700;
-          letter-spacing: 0.1em; text-transform: uppercase;
-          color: #8f6b18;
-          background: rgba(214,176,92,0.12);
-          padding: 2px 7px; border-radius: 20px;
-        }
+        .mj-card-body { padding: 14px 13px 12px; flex: 1; }
         .mj-card-title {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 15px; font-weight: 700;
-          color: #1a0a0f; line-height: 1.22; margin: 0 0 6px;
+          font-size: 0.875rem; font-weight: 700;
+          color: #1a0a0f; line-height: 1.25; margin: 0 0 6px;
         }
         .mj-card-desc {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 12px; color: rgba(26,10,15,0.58);
-          line-height: 1.45; margin: 0;
-        }
-        .mj-card-bar {
-          margin-top: 9px; height: 2px; width: 28px; border-radius: 1px;
-          background: linear-gradient(90deg, ${COLORS.gold}, transparent);
+          font-size: 0.71875rem; color: rgba(26,10,15,0.6);
+          line-height: 1.5; margin: 0;
         }
 
-        /* ── Hint ── */
+
+
+        /* Hint */
         .mj-hint {
           display: flex; align-items: center; justify-content: center;
-          gap: 10px; margin-top: 12px;
+          gap: 10px; margin-top: 14px;
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 12px; font-weight: 500; color: rgba(107,21,48,0.35);
+          font-size: 0.75rem; font-weight: 500; color: rgba(107,21,48,0.35);
           letter-spacing: 0.08em;
         }
-        .mj-hint-arrow { font-size: 14px; animation: mj-nudge 1.6s ease-in-out infinite; }
+        .mj-hint-arrow { font-size: 0.875rem; animation: mj-nudge 1.6s ease-in-out infinite; }
         .mj-hint-arrow:last-child { animation-direction: reverse; }
         @keyframes mj-nudge {
           0%, 100% { transform: translateX(0); opacity: 0.5; }
-          50% { transform: translateX(4px); opacity: 1; }
+          50%       { transform: translateX(4px); opacity: 1; }
         }
 
-        /* ── Terminal ── */
-        .mj-end {
-          display: flex; align-items: center; justify-content: center;
-          gap: 10px; margin-top: clamp(16px, 2vw, 24px);
-          position: relative; z-index: 3;
-          font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
-          color: #9a7a30; text-transform: uppercase;
-        }
-        .mj-end-dot {
-          width: 9px; height: 9px; border-radius: 50%;
-          background: ${COLORS.gold};
-          box-shadow: 0 0 12px rgba(214,176,92,0.5);
-          animation: mj-glow 2s ease-in-out infinite alternate;
-        }
-        @keyframes mj-glow {
-          from { box-shadow: 0 0 6px rgba(214,176,92,0.35); }
-          to { box-shadow: 0 0 18px rgba(214,176,92,0.7); }
-        }
-
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE — VERTICAL TIMELINE
-           ═══════════════════════════════════════ */
-
+        /* ═══ RESPONSIVE — vertical stack ═══ */
         @media (max-width: 900px) {
-
-          .mj-section {
-            padding: clamp(44px, 7vw, 72px) clamp(16px, 4vw, 28px);
-          }
-
-          .mj-scroll-area {
-            overflow-x: visible;
-            padding: 0;
-          }
-
+          .mj-section { padding: clamp(44px, 7vw, 72px) clamp(16px, 4vw, 28px); }
+          .mj-scroll-area { overflow-x: visible; padding: 0; }
           .mj-track {
-            width: 100% !important;
-            min-height: auto;
-            padding-left: 46px;
-            position: relative;
+            width: 100% !important; height: auto !important;
+            padding-left: 46px; position: relative;
           }
-
-          /* Vertical wire replaces SVG */
           .mj-wire { display: none; }
-
           .mj-track::before {
-            content: "";
-            position: absolute;
-            left: 21px; top: 0; bottom: 0;
+            content: ""; position: absolute; left: 21px; top: 0; bottom: 0;
             width: 3px;
-            background: linear-gradient(
-              180deg,
-              rgba(107,21,48,0.92) 0%,
-              rgba(214,176,92,0.95) 42%,
-              rgba(107,21,48,0.9) 100%
+            background: linear-gradient(180deg,
+              rgba(107,21,48,0.9) 0%,
+              rgba(214,176,92,0.95) 50%,
+              rgba(214,176,92,1) 100%
             );
-            border-radius: 2px;
-            z-index: 1;
-            box-shadow: 0 0 0 6px rgba(214,176,92,0.05);
+            border-radius: 2px; z-index: 1;
           }
+          .mj-nodes { flex-direction: column; height: auto; }
 
-          .mj-nodes {
-            flex-direction: column;
-            height: auto;
-          }
-
-          .mj-node {
-            flex: none;
-            width: 100%;
-            height: auto;
-            flex-direction: row;
-            align-items: flex-start;
-            padding: 12px 0 16px;
-          }
-
-          /* Dot goes to the left rail */
-          .mj-dot-wrap {
-            position: absolute;
-            left: -46px; top: 18px;
-            transform: none;
+          /* All nodes become vertical block */
+          div[style*="position: absolute"][style*="height: ${TRACK_H}px"] {
+            position: relative !important;
+            left: auto !important; width: 100% !important;
+            height: auto !important;
+            padding: 10px 0 14px;
           }
           .mj-dot {
-            width: 24px; height: 24px;
-            border-width: 3px;
-            box-shadow: 0 8px 18px rgba(107,21,48,0.18);
+            position: absolute !important;
+            left: -46px !important; top: 18px !important;
+            width: 24px !important; height: 24px !important;
           }
-          .mj-dot--year {
-            width: 30px; height: 30px;
-            box-shadow: 0 10px 22px rgba(214,176,92,0.28);
+          .mj-dot--cert {
+            width: 30px !important; height: 30px !important;
+            left: -49px !important;
           }
-          .mj-dot-core { width: 6px; height: 6px; }
-          .mj-dot-ring { display: none; }
+          .mj-dot-ring { display: none !important; }
+          .mj-stem { display: none !important; }
+          .mj-month-pill { display: none; }
+          .mj-year-label { display: none; }
 
-          .mj-dot-year {
-            display: none;
-          }
-
-          /* Hide stem */
-          .mj-stem { display: none; }
-
-          /* Card flows naturally */
-          .mj-card {
+          /* Cards reset to full width */
+          .mj-card, .mj-cert-card {
             position: relative !important;
             left: auto !important; top: auto !important; bottom: auto !important;
             transform: none !important;
-            width: 100%; max-width: none;
-            padding: 16px 16px 15px;
-            border-radius: 16px;
-            border: 1px solid rgba(107,21,48,0.1);
-            background:
-              linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,252,248,0.98));
-            box-shadow:
-              0 18px 36px rgba(107,21,48,0.08),
-              0 3px 10px rgba(214,176,92,0.08);
+            width: 100% !important; max-width: none !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(107,21,48,0.1) !important;
+            border-top: 2.5px solid ${COLORS.burgundy} !important;
           }
-          .mj-card:hover {
+          .mj-cert-card {
+            border-top-color: ${COLORS.gold} !important;
+            background: #0F0A12 !important;
+          }
+          .mj-card:hover, .mj-cert-card:hover {
             transform: translateY(-2px) !important;
           }
-          .mj-node--bot .mj-card:hover {
-            transform: translateY(-2px) !important;
-          }
-
-          .mj-card::before {
-            opacity: 1;
-            height: 4px;
-          }
-
-          .mj-card-glow {
-            width: 110px; height: 110px;
-            top: -42px; right: -26px;
-            background: radial-gradient(circle, rgba(214,176,92,0.18), transparent 70%);
-          }
-
-          .mj-card-meta {
-            align-items: flex-start;
-            justify-content: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-          }
-          .mj-card-date {
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            color: rgba(107,21,48,0.78);
-            background: rgba(107,21,48,0.08);
-            padding: 6px 10px;
-            border-radius: 999px;
-          }
-          .mj-card-tag {
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            padding: 6px 10px;
-            background: rgba(214,176,92,0.16);
-          }
-          .mj-card-title { font-size: 14px; }
-          .mj-card-desc {
-            font-size: 12px;
-            line-height: 1.6;
-            color: rgba(26,10,15,0.66);
-          }
-          .mj-card-bar {
-            margin-top: 12px;
-            width: 36px;
-          }
-
+          .mj-tag { position: static; display: inline-block; margin-bottom: 6px; }
           .mj-hint { display: none; }
         }
 
         @media (max-width: 540px) {
           .mj-track { padding-left: 40px; }
           .mj-track::before { left: 17px; }
-          .mj-dot-wrap { left: -40px; }
-          .mj-dot { width: 22px; height: 22px; }
-          .mj-dot--year { width: 28px; height: 28px; }
-          .mj-card {
-            padding: 14px 14px 13px;
-            border-radius: 14px;
-          }
-          .mj-card-meta {
-            gap: 8px;
-            margin-bottom: 9px;
-          }
-          .mj-card-date,
-          .mj-card-tag {
-            font-size: 9px;
-            padding: 5px 9px;
-          }
-          .mj-card-title {
-            font-size: 13px;
-            line-height: 1.28;
-          }
-          .mj-card-desc { font-size: 11px; line-height: 1.55; }
         }
-
       `}</style>
     </section>
   );

@@ -15,6 +15,7 @@ interface CTASectionProps {
 }
 
 const CTASection: React.FC<CTASectionProps> = ({
+  title,
   subtitle = "Partner with QuasarCyberTech to strengthen cyber resilience, governance, and security operations.",
   showEyebrow = true,
   theme = 'light',
@@ -83,7 +84,9 @@ const CTASection: React.FC<CTASectionProps> = ({
               fontWeight: 800,
             }}
           >
-            <span style={{ color: isDark ? COLORS.gold : COLORS.burgundy }}>Secure</span> Your Digital<br />Enterprise
+            {title ?? (
+              <><span style={{ color: isDark ? COLORS.gold : COLORS.burgundy }}>Secure</span> Your Digital<br />Enterprise</>
+            )}
           </motion.h2>
 
           <motion.p
