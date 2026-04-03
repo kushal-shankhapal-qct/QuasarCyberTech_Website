@@ -76,7 +76,7 @@ export default function FeaturedInsights() {
                         textTransform: 'uppercase',
                         whiteSpace: 'nowrap',
                     }}>
-                        Latest Blog Articles
+                        Latest Insights
                     </span>
                     <div style={{ flex: 1, height: '0.0625rem', background: 'rgba(255,255,255,0.08)' }} />
                     <div style={{ display: 'flex', gap: '0.75rem' }}>

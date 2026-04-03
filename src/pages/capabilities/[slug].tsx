@@ -1,22 +1,26 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import * as LucideIcons from "lucide-react";
 import {
-  ArrowRight,
-  BarChart3,
+  type LucideIcon,
   CheckCircle,
-  ChevronLeft,
-  ChevronRight,
+  HelpCircle,
+  ChevronDown,
+  ExternalLink,
+  Target,
+  Users,
+  TrendingUp,
+  Landmark,
+  Network,
+  LayoutDashboard,
+  Fingerprint,
   Cloud,
   FileCheck,
-  Fingerprint,
-  Landmark,
-  LayoutDashboard,
-  Network,
+  BarChart3,
   ShieldCheck,
-  Target,
-  TrendingUp,
-  Users,
-  type LucideIcon,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -150,6 +154,14 @@ const renderHighlightedTabLabel = (
 };
 
 const getFocusAreaIcon = (text: string): LucideIcon => {
+  // Check for explicit metadata [IconName]: Text
+  const iconMatch = text.match(/^\[([A-Za-z0-9]+)\]:\s*(.*)/);
+  if (iconMatch) {
+    const iconName = iconMatch[1];
+    const Icon = (LucideIcons as any)[iconName];
+    if (Icon) return Icon;
+  }
+
   const value = text.toLowerCase();
   if (value.includes("board") || value.includes("executive")) return Users;
   if (value.includes("investment") || value.includes("budget"))
@@ -171,6 +183,11 @@ const getFocusAreaIcon = (text: string): LucideIcon => {
     return FileCheck;
   if (value.includes("maturity") || value.includes("kpi")) return BarChart3;
   return ShieldCheck;
+};
+
+const getFocusAreaText = (text: string): string => {
+  const iconMatch = text.match(/^\[([A-Za-z0-9]+)\]:\s*(.*)/);
+  return iconMatch ? iconMatch[2] : text;
 };
 
 const getDeliveryStepWatermarkIcon = (text: string): LucideIcon => {
@@ -883,17 +900,26 @@ const CapabilityPage: React.FC = () => {
               >
                 {(activeSub.whatWeAssess || []).map((item) => {
                   const Icon = getFocusAreaIcon(item);
+                  const cleanText = getFocusAreaText(item);
+                  const isSpecificIcon = item.startsWith("[");
+                  
                   return (
                     <div key={item} className="group px-2 py-2 h-full">
                       <div className="flex items-center gap-3 h-full">
-                        <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-5 h-5 text-[#6B1530] transition-colors group-hover:text-[#D6B05C]" />
+                        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-white/40 rounded-lg border border-black/5 shadow-sm group-hover:border-[#D6B05C]/30 transition-all duration-300">
+                          <Icon 
+                            className="w-5 h-5 transition-all duration-300 group-hover:scale-110" 
+                            style={{ 
+                              color: isSpecificIcon ? "#D6B05C" : "#6B1530",
+                              filter: isSpecificIcon ? "drop-shadow(0 0 8px rgba(214,176,92,0.3))" : "none"
+                            }} 
+                          />
                         </div>
                         <p
                           className="text-sm font-medium text-[#0B1F3B] leading-snug m-0"
                           style={{ fontFamily: TYPOGRAPHY.fontBody }}
                         >
-                          {item}
+                          {cleanText}
                         </p>
                       </div>
                     </div>
@@ -1272,7 +1298,7 @@ const CapabilityPage: React.FC = () => {
             </h3>
             <p
               className="text-[#4A5568] text-sm mb-8"
-              style={{ fontFamily: TYPOGRAPHY.fontBody }}
+              style={{ fontFamily: TYPOGRAPHY.fontBody, fontWeight: 700 }}
             >
               Answers to common questions for this capability pillar.
             </p>
@@ -1284,7 +1310,7 @@ const CapabilityPage: React.FC = () => {
                 return (
                   <article
                     key={itemId}
-                    className="border border-black/10 bg-white"
+                    className="border border-black/10 bg-white overflow-hidden"
                     style={{ borderRadius: "0 0 10px 10px" }}
                   >
                     <button
@@ -1295,22 +1321,30 @@ const CapabilityPage: React.FC = () => {
                           prev === itemId ? null : itemId,
                         )
                       }
-                      className="w-full text-left px-5 py-4 bg-transparent border-0 cursor-pointer flex items-start justify-between gap-4"
+                      className="w-full text-left px-5 py-4 bg-transparent border-0 cursor-pointer flex items-start justify-between gap-4 hover:bg-[#F5F7FA] transition-colors"
                     >
                       <span
-                        className="text-[#0B1F3B] text-base font-semibold"
-                        style={{ fontFamily: TYPOGRAPHY.fontHeading }}
+                        className="text-[#0B1F3B] text-base font-bold"
+                        style={{ fontFamily: TYPOGRAPHY.fontBody }}
                       >
                         {faq.question}
                       </span>
                       <span
-                        className="text-[#6B1530] text-lg leading-none"
+                        className="text-[#6B1530] text-lg leading-none flex-shrink-0 transition-transform duration-300"
+                        style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
                         aria-hidden
                       >
-                        {isOpen ? "−" : "+"}
+                        ▼
                       </span>
                     </button>
-                    {isOpen && (
+                    <div
+                      style={{
+                        overflow: 'hidden',
+                        transition: 'all 0.3s ease-in-out',
+                        maxHeight: isOpen ? '500px' : '0px',
+                        opacity: isOpen ? 1 : 0,
+                      }}
+                    >
                       <div className="px-5 pb-5">
                         <p
                           className="text-sm text-[#4A5568] leading-relaxed m-0"
@@ -1319,7 +1353,7 @@ const CapabilityPage: React.FC = () => {
                           {faq.answer}
                         </p>
                       </div>
-                    )}
+                    </div>
                   </article>
                 );
               })}

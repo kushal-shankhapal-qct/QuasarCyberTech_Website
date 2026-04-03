@@ -137,22 +137,22 @@ export const capabilities: Capability[] = [
       {
         question: 'What is a vCISO and do we need one?',
         answer:
-          'A vCISO provides senior security leadership on a fractional or project basis. It is ideal for organizations that need CISO-level strategy without the full-time salary. Common triggers include pre-IPO posture needs, compliance mandates, or board-level accountability expectations.',
+          'A Virtual CISO (vCISO) provides executive-level security leadership on a fractional or on-demand basis, offering board-level strategy and governance without the overhead of a full-time executive. It is an ideal solution for organizations facing sudden compliance mandates, preparing for a pre-IPO security posture audit, or needing to establish clear accountability for security programs. By leveraging a vCISO, you gain access to decades of vendor-neutral experience tailored to your specific risk appetite.',
       },
       {
         question: 'How long does a security program development engagement take?',
         answer:
-          'Initial program design usually takes 8 to 16 weeks depending on organizational size and maturity. This is typically followed by an ongoing governance cadence to track execution and improvement.',
+          'The initial design phase of a security program typically takes 8 to 16 weeks, heavily depending on your organization\'s size, complexity, and current maturity level. During this time, we assess your baseline, define a structured framework across people, process, and technology, and map out 90-day quick wins. This foundational work is then typically followed by an ongoing governance cadence to continually track execution, measure KPIs, and ensure continuous improvement.',
       },
       {
         question: 'Does your Zero Trust review cover both on-premises and cloud environments?',
         answer:
-          'Yes. Reviews span identity, network, device, application, and data layers across hybrid environments, not only cloud-native stacks.',
+          'Absolutely. Our Zero Trust Architecture Review is comprehensive and spans identity, network, device, application, and data layers across fully hybrid environments, not just cloud-native stacks. We understand that modern enterprises operate across a mix of on-premises data centers, legacy infrastructure, and the cloud, so we design trust boundaries and micro-segmentation strategies that protect your assets wherever they reside.',
       },
       {
         question: 'How do you handle third-party risk for organizations with large supplier ecosystems?',
         answer:
-          'We use a tiered model: critical vendors receive deep-dive assessments while broader vendor populations are managed through standardized questionnaires and continuous monitoring.',
+          'We deploy a scalable, tiered risk management model tailored to the complexity of your supply chain. For highly critical vendors with direct access to your sensitive data, we conduct rigorous, deep-dive technical and process assessments. Meanwhile, the broader vendor population is managed efficiently through standardized, automated questionnaire platforms coupled with continuous exposure monitoring to rapidly detect any emerging third-party vulnerabilities.',
       },
     ],
     subCapabilities: [
@@ -166,11 +166,11 @@ export const capabilities: Capability[] = [
         positioning:
           'Executive Cyber Advisory helps leadership teams convert cyber uncertainty into a clear decision agenda. We align business priorities, threat exposure, and governance accountability so strategic programs move faster with controlled risk.',
         whatWeAssess: [
-          'Board and executive cyber risk visibility across business units',
-          'Alignment of cyber investments to strategic growth and risk appetite',
-          'Governance operating model clarity across leadership and control functions',
-          'Decision readiness for high-impact cyber scenarios and regulatory pressure',
-          'Third-party and ecosystem risk exposure affecting strategic commitments',
+          '[Users2]: Board and executive cyber risk visibility across business units',
+          '[BarChartHorizontal]: Alignment of cyber investments to strategic growth and risk appetite',
+          '[GanttChart]: Governance operating model clarity across leadership and control functions',
+          '[IterationCcw]: Decision readiness for high-impact cyber scenarios and regulatory pressure',
+          '[Workflow]: Third-party and ecosystem risk exposure affecting strategic commitments',
         ],
         approach: [
           'Discovery: Stakeholder interviews and rapid current-state baseline assessment.',
@@ -209,11 +209,11 @@ export const capabilities: Capability[] = [
         positioning:
           'Modern enterprises cannot rely on perimeter-based security. We design and validate Zero Trust architectures that verify every user, device, and connection.',
         whatWeAssess: [
-          'Existing network segmentation and access control models',
-          'Identity and access management implementation',
-          'Micro-segmentation and lateral movement risk',
-          'Cloud and hybrid architecture trust boundaries',
-          'Privileged access and just-in-time access controls',
+          '[Layers3]: Existing network segmentation and access control models',
+          '[Fingerprint]: Identity and access management implementation',
+          '[Split]: Micro-segmentation and lateral movement risk',
+          '[CloudCog]: Cloud and hybrid architecture trust boundaries',
+          '[KeyRound]: Privileged access and just-in-time access controls',
         ],
         approach: [
           'Architecture Mapping: Document current-state trust boundaries and network segmentation.',
@@ -249,11 +249,11 @@ export const capabilities: Capability[] = [
         positioning:
           'Enterprise-grade cybersecurity leadership available as a service - strategy, governance, board reporting, and program ownership.',
         whatWeAssess: [
-          'Current security program maturity',
-          'Organizational security culture and awareness',
-          'Budget allocation and security investment efficiency',
-          'Compliance obligations and regulatory exposure',
-          'Incident response and crisis readiness',
+          '[BarChart3]: Current security program maturity',
+          '[Zap]: Organizational security culture and awareness',
+          '[Coins]: Budget allocation and security investment efficiency',
+          '[Scale]: Compliance obligations and regulatory exposure',
+          '[Siren]: Incident response and crisis readiness',
         ],
         approach: [
           'Onboarding: Rapid current-state risk assessment within the first two weeks.',
@@ -288,11 +288,11 @@ export const capabilities: Capability[] = [
         positioning:
           'A security program is more than tools - it is people, process, and technology working together. We design programs that scale with your business.',
         whatWeAssess: [
-          'Existing policies, procedures, and documentation',
-          'Security team structure and capability gaps',
-          'Technology stack and tooling coverage',
-          'Incident history and recurring risk patterns',
-          'Compliance obligations driving program requirements',
+          '[FileText]: Existing policies, procedures, and documentation',
+          '[Users]: Security team structure and capability gaps',
+          '[Tool]: Technology stack and tooling coverage',
+          '[History]: Incident history and recurring risk patterns',
+          '[BookCheck]: Compliance obligations driving program requirements',
         ],
         approach: [
           'Assessment: Baseline your current security program maturity against industry standards.',
@@ -372,22 +372,22 @@ export const capabilities: Capability[] = [
       {
         question: 'How long does SOC2 Type II readiness take?',
         answer:
-          'For most SaaS organizations, readiness takes 3 to 6 months from gap assessment to audit-ready state depending on current control maturity.',
+          'For most SaaS and technology organizations, achieving a state of SOC2 Type II audit readiness generally takes between 3 to 6 months. This timeline includes conducting a thorough gap assessment across the Trust Service Criteria, followed by collaborative remediation work alongside your engineering teams to close identified gaps. We prioritize quick wins to accelerate this timeline and provide full auditor liaison support to ensure a smooth fieldwork process.',
       },
       {
         question: 'Does the DPDP Act apply to B2B companies?',
         answer:
-          'Yes, if you process personal data of Indian residents, including employee data. Obligations vary based on data fiduciary classification.',
+          'Yes, the DPDP Act (2023) is highly relevant to B2B companies if your organization processes the personal data of any Indian residents, this explicitly includes the data of your own employees. Your specific obligations will vary depending on your classification as a data fiduciary, but we help you implement the necessary consent management frameworks and data principal rights workflows to ensure sustained compliance.',
       },
       {
         question: 'Can you support multi-framework compliance simultaneously?',
         answer:
-          'Yes. We use unified control mapping so one implementation can satisfy requirements across multiple frameworks where overlap exists.',
+          'Yes, we specialize in multi-framework compliance to streamline your governance efforts and reduce audit fatigue. Our team uses a unified control mapping approach, meaning that a single, robust security control implementation can satisfy overlapping requirements across multiple standards simultaneously. This approach saves significant time and engineering resources when aligning with frameworks like ISO 27001, SOC2, and RBI CSF.',
       },
       {
         question: 'What is the difference between RBI CSF and ISO 27001?',
         answer:
-          'RBI CSF is a sector-specific mandate with prescriptive controls for India, while ISO 27001 is a global ISMS standard. We align both through an integrated execution model.',
+          'The RBI Cyber Security Framework is a sector-specific, highly prescriptive regulatory mandate specifically designed for financial entities and banks operating within India. In contrast, ISO 27001 is a globally recognized, framework-agnostic standard focused on establishing and maintaining an Information Security Management System (ISMS). We seamlessly integrate both into a unified execution model, helping regulated entities meet strict RBI baselines while maintaining international best practices.',
       },
     ],
     subCapabilities: [
@@ -594,21 +594,21 @@ export const capabilities: Capability[] = [
       {
         question: 'What is the difference between a penetration test and a red team exercise?',
         answer:
-          'A penetration test is scoped to specific systems or applications. A red team engagement is objective-based and simulates a real attacker to evaluate end-to-end detection and response.',
+          'A penetration test is a tightly scoped, point-in-time assessment focused on identifying and exploiting vulnerabilities within specific systems or applications. A red team exercise, however, is a comprehensive, unannounced, and objective-based simulation of a sophisticated threat actor. It is designed to test your organization\'s entire defensive posture, evaluating how well your people, processes, and technical controls (like a SOC) detect and respond to an active, stealthy attack.',
       },
       {
         question: 'How long does a web application penetration test take?',
-        answer: 'A standard web application test typically takes 5 to 10 business days depending on complexity and user-role depth.',
+        answer: 'A standard web application penetration test usually takes between 5 to 10 business days to complete. The exact duration depends heavily on the complexity of the application, the underlying architecture, and the depth of the user roles and privilege escalation paths that need to be tested. We go beyond automated scanners with deep manual testing to uncover complex business logic flaws.',
       },
       {
         question: 'Do you test AI systems built on third-party LLM APIs?',
         answer:
-          'Yes. We assess your integration layer, guardrail controls, data leakage prevention, and unsafe output handling rather than relying only on model-level assumptions.',
+          'Yes, testing AI systems requires specialized methodologies beyond traditional application security. Even if you use third-party APIs like OpenAI or Anthropic, we rigorously assess your application\'s integration layer, guardrail effectiveness, and unsafe output handling. Our testing focuses on identifying prompt injection vulnerabilities, preventing data leakage, and ensuring that multi-agent systems operate strictly within their intended trust boundaries.',
       },
       {
         question: 'Will testing disrupt production systems?',
         answer:
-          'Default engagements are non-destructive in production. Destructive tests are only performed in staging or explicitly approved windows.',
+          'Our default engagement rules heavily prioritize non-destructive testing, ensuring that your production systems and business operations remain completely undisrupted. We coordinate closely with your teams to define safe testing windows and escalation paths. Any inherently destructive testing or high-risk exploitation is exclusively performed in staging environments unless you grant explicit approval to do otherwise.',
       },
     ],
     subCapabilities: [
@@ -903,17 +903,17 @@ export const capabilities: Capability[] = [
     faqs: [
       {
         question: 'Do you support all three major cloud providers?',
-        answer: 'Yes. We assess AWS, Microsoft Azure, and Google Cloud Platform, including unified reviews for multi-cloud estates.',
+        answer: 'Yes, we provide comprehensive security assessments across all three major public cloud providers: AWS, Microsoft Azure, and Google Cloud Platform (GCP). For organizations leveraging multi-cloud or hybrid architectures, our specialists conduct unified reviews that evaluate complex cross-account trust relationships, IAM topologies, and configuration baselines in a single, cohesive engagement.',
       },
       {
         question: 'What is the difference between a cloud security assessment and CSPM?',
         answer:
-          'Assessments are deep point-in-time engineering reviews, while CSPM delivers continuous monitoring for drift, exposure, and policy non-compliance.',
+          'A Cloud Security Assessment is an expert-led, point-in-time engineering deep-dive that manually uncovers complex architectural flaws, IAM misconfigurations, and trust boundary issues. Cloud Security Posture Management (CSPM), on the other hand, is an automated toolset deployed for continuous, real-time monitoring. CSPM constantly tracks your environment for configuration drift, exposed resources, and policy non-compliance, ensuring your baseline remains secure over time.',
       },
       {
         question: 'Do you assess managed Kubernetes services like EKS, AKS, and GKE?',
         answer:
-          'Yes. Managed control planes still require secure customer-side configuration across RBAC, networking, workloads, and identities.',
+          'Absolutely. While managed Kubernetes control planes are secured by the cloud provider, the customer is still fully responsible for the security of the workloads running on them. We assess the critical customer-managed configurations, including Role-Based Access Control (RBAC), network policies, pod security standards, secret management, and container identities across the full container lifecycle.',
       },
     ],
     subCapabilities: [
@@ -1174,22 +1174,22 @@ export const capabilities: Capability[] = [
       {
         question: 'What are your MTTD and MTTR targets?',
         answer:
-          'For high-severity alerts our target MTTD is under 15 minutes, and for critical incidents our target MTTR is under one hour to containment initiation.',
+          'Our 24/7 Managed SOC operations are built for rapid, decisive action against cyber threats. For high-severity alerts, our target Mean Time to Detect (MTTD) is strictly under 15 minutes. For critical, confirmed incidents, our target Mean Time to Respond (MTTR) is under one hour to initiate containment playbooks, effectively isolating affected systems before an attacker can move laterally.',
       },
       {
         question: 'Do you replace our existing SIEM or work with it?',
         answer:
-          'We typically work with your existing SIEM, tune detections, and reduce noise. Where no SIEM exists, we can deploy and operate one.',
+          'We are highly flexible and typically integrate directly with your existing SIEM infrastructure, applying our expertise to tune detection rules, minimize false positives, and significantly reduce alert fatigue for your team. However, if your organization does not currently have a SIEM in place, we can fully deploy, configure, and operate a robust SIEM solution as part of our comprehensive managed defense onboarding.',
       },
       {
         question: 'Can you respond to active incidents if we are not a managed SOC customer?',
         answer:
-          'Yes. We provide on-demand incident response retainers for organizations that need assured surge response without full-time SOC outsourcing.',
+          'Yes, we offer on-demand Incident Response Retainers designed specifically for organizations that require guaranteed, rapid-response capabilities without committing to a full-time managed SOC contract. This ensures that in the event of a critical breach or ransomware attack, our digital forensics and incident response experts can instantly deploy to contain the threat and recover your operations with forensic rigor.',
       },
       {
         question: 'How realistic are your phishing simulations?',
         answer:
-          'Simulations are custom-crafted using organizational and industry context rather than generic templates to mirror realistic social engineering tactics.',
+          'Our simulations go far beyond generic, easily identifiable phishing templates. We custom-craft highly targeted, role-specific spear-phishing and social engineering scenarios by leveraging contextual intelligence about your organization, industry trends, and internal communication patterns. This creates a realistic simulation of advanced threat actor tactics, ultimately building genuine resilience across your human layer.',
       },
     ],
     subCapabilities: [
@@ -1363,17 +1363,17 @@ export const capabilities: Capability[] = [
       {
         question: 'How is your CTI different from subscribing to a commercial feed?',
         answer:
-          'Commercial feeds are broad and generic. Our CTI is analyst-curated, context-mapped to your stack and industry, and prioritized for immediate actionability.',
+          'Commercial threat feeds often flood security teams with generic, raw data that leads to alert fatigue and wasted triage time. Our Cyber Threat Intelligence (CTI) service provides analyst-curated, highly contextualized intelligence that is specifically mapped to your organization\'s technology stack, geographic footprint, and industry risk profile. We filter out the noise to deliver prioritized advisories that your team can act on immediately.',
       },
       {
         question: 'How do dark web takedowns work?',
         answer:
-          'When we find impersonation domains, leaked assets, or abuse infrastructure, we initiate takedown workflows with registrars, hosts, and abuse channels.',
+          'When our continuous monitoring detects malicious activity, such as brand impersonation domains, fraudulent social media profiles, or leaked corporate assets, we handle the mitigation process end-to-end. Our analysts initiate formal takedown workflows, coordinating directly with domain registrars, hosting providers, and relevant abuse channels to swiftly remove the offending infrastructure and protect your brand reputation.',
       },
       {
         question: 'Can you monitor leaked credentials for our organization?',
         answer:
-          'Yes. We continuously monitor domains, executive identities, and key digital assets across dark web markets, paste sites, and breach sources.',
+          'Yes, we provide 24/7 continuous monitoring across dark web marketplaces, illicit forums, paste sites, and known breach databases. We configure this surveillance specifically for your organization\'s email domains, key digital assets, and executive identities. If employee credentials or sensitive session tokens are compromised and leaked, we issue near real-time alerts so you can force password resets and invalidate tokens before they are exploited.',
       },
     ],
     subCapabilities: [

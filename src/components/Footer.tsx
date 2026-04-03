@@ -365,7 +365,7 @@ const Footer: React.FC = () => {
         lineHeight: '1.6',
         letterSpacing: '0.03em',
       }}>
-        Cybersecurity consulting company serving enterprises across India — Mumbai · Bangalore · Delhi NCR · Pune · Hyderabad · Chennai · Nashik
+        Cybersecurity consulting company serving enterprises -  from India to the World. Access us from UAE, US, and India Offices
       </div>
 
       {/* Divider */}

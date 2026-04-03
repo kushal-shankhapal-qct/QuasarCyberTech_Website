@@ -480,15 +480,16 @@ export default function MilestonesJourney() {
         /* Year watermark */
         .mj-year-label {
           position: absolute;
-          top: calc(50% + ${DOT_Y_BIAS}px - 18px);
-          left: 6px;
+          top: calc(50% + ${DOT_Y_BIAS}px - 68px);
+          left: 4px;
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 1.5rem; font-weight: 900;
-          color: rgba(107,21,48,0.10);
+          font-size: 1.85rem; font-weight: 950;
+          color: rgba(107,21,48,0.3);
           pointer-events: none;
-          letter-spacing: -0.03em;
-          z-index: 1;
+          letter-spacing: -0.04em;
+          z-index: 2;
           user-select: none;
+          text-transform: uppercase;
         }
 
 

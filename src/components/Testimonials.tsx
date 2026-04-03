@@ -97,7 +97,7 @@ export default function Testimonials() {
     const testimonials = [
         {
             quote: "Working with Quasar CyberTech has been an excellent experience. Their team demonstrated deep expertise and professionalism throughout the project, helping us identify and mitigate critical vulnerabilities while strengthening our overall security posture. The actionable insights, clear communication, and collaborative approach made the process smooth and effective. We highly recommend Quasar CyberTech to any organization looking to enhance their cyber resilience.",
-            name: 'Co-founder',
+            name: 'VP',
             role: 'Health Care Sector',
             initials: 'CH'
         },
