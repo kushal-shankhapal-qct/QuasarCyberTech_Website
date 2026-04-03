@@ -91,24 +91,11 @@ export default function BlogSidebar({
       {/* ── Widget 5: QPulse Promo ─────────────────────────── */}
       <div style={{ ...widgetCard, border: '1px solid rgba(201,168,76,0.15)', background: 'rgba(214,176,92,0.03)' }}>
         <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-          <div style={{
-            width: '64px',
-            height: '64px',
-            flexShrink: 0,
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.08)'
-          }}>
-            <img
-              src={ASSETS.logos.platforms.qpulseLight}
-              alt="QuasarCyberTech | QPulse Platform"
-              style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-            />
-          </div>
+          <img
+            src={ASSETS.logos.platforms.qpulseLight}
+            alt="QuasarCyberTech | QPulse Platform"
+            style={{ width: '128px', height: 'auto', maxWidth: '128px', flexShrink: 0, objectFit: 'contain' }}
+          />
           <div>
             <div style={{ fontSize: '15px', fontWeight: 700, color: '#FFFFFF', marginBottom: '2px' }}>
               Live Threat Intelligence

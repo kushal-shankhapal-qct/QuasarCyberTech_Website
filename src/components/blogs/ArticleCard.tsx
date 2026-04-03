@@ -15,7 +15,7 @@ export default function ArticleCard({ post, index }: ArticleCardProps) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <Link to={`/blogs/${post.id}`} style={{ textDecoration: 'none' }}>
+    <Link to={`/blogs/${post.id}`} style={{ textDecoration: 'none', display: 'flex', height: '100%' }}>
       <motion.article
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -32,6 +32,7 @@ export default function ArticleCard({ post, index }: ArticleCardProps) {
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
+          width: '100%',
           boxShadow: isHovered ? '0 12px 40px rgba(0,0,0,0.4)' : '0 4px 16px rgba(0,0,0,0.2)',
           transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
           transition: 'all 0.25s ease',

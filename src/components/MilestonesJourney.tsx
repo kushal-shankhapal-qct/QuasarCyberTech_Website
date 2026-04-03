@@ -49,12 +49,6 @@ const milestones = [
     tag: "Alliance",
   },
   {
-    year: "2025", month: "Jan",
-    title: "National Expansion",
-    description: "Expanded our operational footprint across key business hubs including Mumbai, Pune, Bengaluru, and Nashik.",
-    tag: "Expansion",
-  },
-  {
     year: "2025", month: "Feb",
     title: "NASSCOM Membership",
     description: "Joined NASSCOM, reinforcing our commitment to technology leadership and aligning with India's leading tech industry body.",
@@ -106,14 +100,17 @@ const ALL_NODES = milestones.length; // number of regular nodes
 function MilestoneNode({
   milestone,
   index,
+  isLast,
 }: {
   milestone: (typeof milestones)[number];
   index: number;
+  isLast: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-40px" });
   const isTop = index % 2 === 0;
   const isYearStart = index === 0 || milestone.year !== milestones[index - 1]?.year;
+  const isGold = index === 0 || isLast;
   const d = Math.min(index * 0.055, 0.45);
   const wireY = TRACK_H / 2 + DOT_Y_BIAS;
 
@@ -152,7 +149,7 @@ function MilestoneNode({
           animate={isInView ? { scale: 1 } : {}}
           transition={{ duration: 0.35, delay: d, type: "spring", stiffness: 320, damping: 18 }}
         >
-          <div className={`mj-dot ${isYearStart ? "mj-dot--year" : ""}`}>
+          <div className={`mj-dot ${isGold ? "mj-dot--year" : ""}`}>
             <div className="mj-dot-core" />
           </div>
           <div className="mj-dot-ring" style={{ animationDelay: `${d}s` }} />
@@ -165,10 +162,10 @@ function MilestoneNode({
           transition={{ duration: 0.4, delay: d + 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "absolute",
-            left: `calc(50% - 1px + ${STEM_X_BIAS}px)`,
+            left: `calc(50% - 1px)`,
             width: "2px",
-            top: isTop ? 12 : `${wireY}px`,
-            bottom: isTop ? `${TRACK_H - wireY}px` : 12,
+            top: isTop ? "40px" : `${wireY}px`,
+            bottom: isTop ? `${TRACK_H - wireY}px` : "40px",
             background: isTop
               ? `linear-gradient(to top, ${COLORS.burgundy}00, ${COLORS.burgundy})`
               : `linear-gradient(to bottom, ${COLORS.gold}00, ${COLORS.gold})`,
@@ -180,17 +177,9 @@ function MilestoneNode({
         {/* Card */}
         <motion.div
           className={`mj-card mj-card--${isTop ? "top" : "bot"}`}
-          initial={{ opacity: 0, y: isTop ? -20 : 20, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          initial={{ opacity: 0, y: isTop ? -20 : 20, scale: 0.95, x: "-50%" }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1, x: "-50%" } : { x: "-50%" }}
           transition={{ duration: 0.5, delay: d + 0.12, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: `${CARD_W}px`,
-            zIndex: 5,
-            ...(isTop ? { top: 12 } : { bottom: 12 }),
-          }}
         >
 
           <div className="mj-card-body">
@@ -270,39 +259,21 @@ export default function MilestonesJourney() {
     };
   }, [progress]);
 
-  /* SVG wire — clean sine wave, ends naturally without a forced tail */
   const wireY = TRACK_H / 2 + DOT_Y_BIAS;
-  const totalNodes = milestones.length;
-  // Total width is number of nodes * Node Width + extra tail buffer
-  const totalW = (totalNodes - 1) * NODE_W + (NODE_W / 2) + EXIT_TAIL_W + 60;
-  const A = 65; // amplitude
 
-  const pathD = (() => {
-    // Start at the center of the first node
-    const firstX = NODE_W / 2;
-    const pts: string[] = [`M ${firstX},${wireY}`];
-
-    // standard wave segments
-    for (let i = 1; i < totalNodes; i++) {
-      const prevX = (i - 1) * NODE_W + NODE_W / 2;
-      const curX = i * NODE_W + NODE_W / 2;
-      const s = i % 2 === 1 ? -1 : 1;
-      const cY = wireY + s * A;
-      
-      // Standard smooth wave segment that always ends at (curX, wireY)
-      pts.push(`C ${prevX + NODE_W / 3},${cY} ${curX - NODE_W / 3},${cY} ${curX},${wireY}`);
-    }
-
-    const lastX = (totalNodes - 1) * NODE_W + NODE_W / 2;
-    // We want the curve to naturally continue our sine wave pattern but stop at the upward peak.
-    // Making it a half-wave segment for a natural feel.
-    const peakY = wireY - A; 
-    const peakX = lastX + NODE_W / 2;
+  const wireData = (() => {
+    // A clean, straight enterprise timeline
+    const lastX = (milestones.length - 1) * NODE_W + NODE_W / 2;
+    const endX = lastX + EXIT_TAIL_W + 60;
     
-    pts.push(`C ${lastX + NODE_W / 4},${wireY} ${peakX - NODE_W / 4},${peakY} ${peakX},${peakY}`);
-
-    return pts.join(" ");
+    return { 
+      d: `M 0,${wireY} L ${endX},${wireY}`, 
+      peak: { x: endX, y: wireY }
+    };
   })();
+
+  const { d: pathD, peak } = wireData;
+  const totalW = (milestones.length - 1) * NODE_W + (NODE_W / 2) + EXIT_TAIL_W + 120;
 
   return (
     <section className="mj-section about-content-section">
@@ -362,9 +333,43 @@ export default function MilestonesJourney() {
           {/* Regular nodes */}
            <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 3 }}>
             {milestones.map((m, i) => (
-              <MilestoneNode key={`${m.year}-${m.month}-${m.title}`} milestone={m} index={i} />
+              <MilestoneNode 
+                key={`${m.year}-${m.month}-${m.title}`} 
+                milestone={m} 
+                index={i} 
+                isLast={i === milestones.length - 1}
+              />
             ))}
           </div>
+
+          {/* Growth Continues Label */}
+          <motion.div
+            initial={{ opacity: 0, x: 10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            style={{
+              position: 'absolute',
+              left: `${peak.x + 12}px`,
+              top: `${peak.y}px`,
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+              pointerEvents: 'none',
+              fontFamily: TYPOGRAPHY.fontBody,
+              fontSize: '11px',
+              fontWeight: 800,
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: COLORS.gold,
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: COLORS.gold }} />
+            Growth Continues
+          </motion.div>
         </div>
       </div>
 
@@ -430,7 +435,7 @@ export default function MilestonesJourney() {
           overflow-y: visible;
           position: relative; 
           width: 100%;
-          cursor: grab;
+          cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25 15.5C25 14.6716 24.3284 14 23.5 14C22.6716 14 22 14.6716 22 15.5V16V8.5C22 7.67157 21.3284 7 20.5 7C19.6716 7 19 7.67157 19 8.5V16V5.5C19 4.67157 18.3284 4 17.5 4C16.6716 4 16 4.67157 16 5.5V16V6.5C16 5.67157 15.3284 5 14.5 5C13.6716 5 13 5.67157 13 6.5V16V16.5C13 16.5 10 16.5 9 17.5C8 18.5 7.5 21 9 24.5C10.5 28 13.5 29.5 17 29.5C20.5 29.5 22.5 29 24 26C25 24 25 18 25 15.5Z" fill="%236B1530" stroke="white" stroke-width="1"/></svg>') 16 16, auto;
           user-select: none;
           padding: 2.5rem clamp(24px, 4vw, 64px) 1.5rem;
           z-index: 2;
@@ -461,7 +466,9 @@ export default function MilestonesJourney() {
            background-clip: padding-box;
         }
 
-        .mj-scroll-area.mj-grabbing { cursor: grabbing; cursor: -webkit-grabbing; }
+        .mj-scroll-area.mj-grabbing { 
+          cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 13.5C11 12.6716 11.6716 12 12.5 12C13.3284 12 14 12.6716 14 13.5V14V11.5C14 10.6716 14.6716 10 15.5 10C16.3284 10 17 10.6716 17 11.5V14V11.5C17 10.6716 17.6716 10 18.5 10C19.3284 10 20 10.6716 20 11.5V14V13.5C20 12.6716 20.6716 12 21.5 12C22.3284 12 23 12.6716 23 13.5V16V16.5C23 16.5 25 17 26 18.5C27 20 27 23 26 26C25 29 22 29.5 19 29.5C16 29.5 14.5 29.5 11 28.5C7.5 27.5 7 24.5 7.5 22C8 19.5 11 14.5 11 13.5Z" fill="%236B1530" stroke="white" stroke-width="1"/></svg>') 16 16, grabbing; 
+        }
         
         .mj-track { position: relative; }
         .mj-wire {
@@ -500,15 +507,6 @@ export default function MilestonesJourney() {
           background: linear-gradient(135deg, ${COLORS.gold}, #c9a23e);
           box-shadow: 0 3px 16px rgba(214,176,92,0.4);
         }
-        .mj-dot--cert {
-          width: 36px; height: 36px;
-          background: linear-gradient(135deg, ${COLORS.gold}, #c9a23e);
-          border: 4px solid #faf7f4;
-          box-shadow: 0 4px 20px rgba(214,176,92,0.5);
-        }
-        .mj-dot-core { width: 8px; height: 8px; border-radius: 50%; background: ${COLORS.gold}; }
-        .mj-dot--year .mj-dot-core { background: #fff; }
-        .mj-dot-core--cert { width: 10px; height: 10px; background: #fff; }
         .mj-dot-ring {
           position: absolute; top: 50%; left: 50%;
           transform: translate(-50%, -50%);
@@ -516,10 +514,6 @@ export default function MilestonesJourney() {
           border: 1.5px solid rgba(107,21,48,0.3);
           animation: mj-ring 2.8s ease-out infinite; z-index: 2;
           pointer-events: none;
-        }
-        .mj-dot-ring--cert {
-          border-color: rgba(214,176,92,0.45);
-          width: 36px; height: 36px;
         }
         @keyframes mj-ring {
           0%   { opacity: 0.5; width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; }
@@ -540,16 +534,22 @@ export default function MilestonesJourney() {
           transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
           cursor: default;
           display: flex; flex-direction: column;
-          position: relative;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          width: ${CARD_W}px;
+          z-index: 5;
         }
         .mj-card--top {
           border-top: 2.5px solid ${COLORS.burgundy};
           border-radius: 0 0 8px 8px;
+          top: 12px;
         }
         .mj-card--top:hover { border-top-color: ${COLORS.gold}; }
         .mj-card--bot {
           border-bottom: 2.5px solid ${COLORS.gold};
           border-radius: 8px 8px 0 0;
+          bottom: 12px;
         }
         .mj-card--bot:hover { border-bottom-color: ${COLORS.burgundy}; }
         .mj-card:hover {
@@ -557,7 +557,7 @@ export default function MilestonesJourney() {
           box-shadow: 0 14px 40px rgba(107,21,48,0.13);
           border-color: rgba(107,21,48,0.18);
         }
-        .mj-node--bot .mj-card:hover {
+        .mj-card--bot:hover {
           transform: translateX(-50%) translateY(3px);
         }
         .mj-card-body { padding: 14px 13px 12px; flex: 1; }
@@ -622,17 +622,13 @@ export default function MilestonesJourney() {
             left: -46px !important; top: 18px !important;
             width: 24px !important; height: 24px !important;
           }
-          .mj-dot--cert {
-            width: 30px !important; height: 30px !important;
-            left: -49px !important;
-          }
           .mj-dot-ring { display: none !important; }
           .mj-stem { display: none !important; }
           .mj-month-pill { display: none; }
           .mj-year-label { display: none; }
 
           /* Cards reset to full width */
-          .mj-card, .mj-cert-card {
+          .mj-card {
             position: relative !important;
             left: auto !important; top: auto !important; bottom: auto !important;
             transform: none !important;

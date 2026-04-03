@@ -85,7 +85,7 @@ Effective cybersecurity requires outthinking adversaries, not just deploying mor
     excerpt: 'Leveraging machine learning to cut through the noise of millions of security signals and identify real threats before they escalate.',
     date: 'Mar 21, 2025',
     category: 'Technology',
-    author: 'Devin Thorne',
+    author: 'Quasar CyberTech',
     image: ASSETS.blogs.ai,
     readTime: '5 min read',
     tags: ['AI', 'SOC', 'Machine Learning', 'Threat Detection'],
