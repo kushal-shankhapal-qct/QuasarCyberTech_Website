@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen w-full relative overflow-x-hidden bg-canvas">
       <Seo
-        title="Best Cybersecurity Consulting Company in India | Enterprise Security Services"
+        title="Enterprise Cybersecurity Consulting | VAPT, SOC &amp; Risk Advisory — QuasarCyberTech"
         description="QuasarCyberTech is India's leading cybersecurity consulting company. We deliver VAPT, penetration testing, managed SOC, cloud security, compliance assurance, and cyber risk advisory for enterprises across India and globally."
         path="/"
         image={DEFAULT_OG_IMAGE_SOCIAL}

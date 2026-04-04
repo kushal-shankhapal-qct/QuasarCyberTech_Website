@@ -245,6 +245,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    include: [
+      '@noble/ciphers/chacha',
+      '@noble/ciphers/webcrypto',
+      '@noble/curves/ed25519',
+      '@noble/hashes/hkdf',
+      '@noble/hashes/sha3',
+    ],
+  },
+  ssr: {
+    noExternal: ['@noble/ciphers', '@noble/curves', '@noble/hashes'],
+  },
   plugins: [react()],
   build: {
     rollupOptions: {

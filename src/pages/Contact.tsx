@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { encryptFormPayload } from '../lib/formCrypto';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
@@ -57,8 +58,8 @@ const CONFIG = {
 };
 
 const PHONE_UTILS_URL = import.meta.env.VITE_PHONE_UTILS_URL?.trim() || 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js';
-const CONTACT_WEBHOOK_URL = import.meta.env.VITE_CONTACT_WEBHOOK_URL?.trim() || '';
-const SUBMIT_TIMEOUT_MS = 12000;
+const API_BASE_URL = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? '';
+const SUBMIT_TIMEOUT_MS = 15000;
 const CONTACT_DESKTOP_SIDE_MARGIN = '3rem';
 
 const stripUnsupportedControlChars = (value: string): string =>
@@ -335,52 +336,50 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isSubmitting) {
-      return;
-    }
+    if (isSubmitting) return;
 
-    if (formState.website.trim()) {
-      setSubmitError('Unable to process this submission. Please refresh and try again.');
-      return;
-    }
+    // Honeypot: silently reject bots that fill the hidden field
+    if (formState.website.trim()) return;
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setSubmitError('');
     setIsSubmitting(true);
 
-    if (!CONTACT_WEBHOOK_URL) {
-      setSubmitError('Contact service is not configured. Please try again later.');
+    const plainPayload = {
+      fullName:        sanitizeInput(formState.name,        FIELD_MAX_LENGTH.name),
+      companyName:     sanitizeInput(formState.company,     FIELD_MAX_LENGTH.company),
+      role:            sanitizeInput(formState.designation, FIELD_MAX_LENGTH.designation),
+      workEmail:       sanitizeInput(formState.email,       FIELD_MAX_LENGTH.email),
+      phone:           formState.phone.trim(),
+      serviceInterest: sanitizeInput(formState.service,     80),
+      message:         sanitizeInput(formState.message,     FIELD_MAX_LENGTH.message),
+    };
+
+    let envelope: ReturnType<typeof encryptFormPayload>;
+    try {
+      envelope = encryptFormPayload(plainPayload);
+    } catch {
+      setSubmitError('Security initialisation failed. Please refresh and try again.');
       setIsSubmitting(false);
       return;
     }
 
-    const payload = {
-      fullName: sanitizeInput(formState.name, FIELD_MAX_LENGTH.name),
-      companyName: sanitizeInput(formState.company, FIELD_MAX_LENGTH.company),
-      role: sanitizeInput(formState.designation, FIELD_MAX_LENGTH.designation),
-      workEmail: sanitizeInput(formState.email, FIELD_MAX_LENGTH.email),
-      phone: formState.phone.trim(),
-      serviceInterest: sanitizeInput(formState.service, 80),
-      message: sanitizeInput(formState.message, FIELD_MAX_LENGTH.message),
-    };
-
     const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+    const timeoutId  = window.setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
 
     try {
-      const response = await fetch(CONTACT_WEBHOOK_URL, {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
-        // Send as a simple request so Apps Script is not blocked by OPTIONS preflight.
-        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(envelope),
         signal: controller.signal,
       });
 
-      const responseText = (await response.text()).trim();
-      if (!response.ok || !/success/i.test(responseText)) {
-        throw new Error(responseText || 'Unexpected response from server.');
+      const json = await response.json().catch(() => ({})) as { success?: boolean; error?: string };
+
+      if (!response.ok || !json.success) {
+        throw new Error(json.error ?? `Unexpected status ${response.status}`);
       }
 
       setIsSubmitted(true);
@@ -388,6 +387,8 @@ export default function Contact() {
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
         setSubmitError('Request timed out. Please check your connection and try again.');
+      } else if (error instanceof Error) {
+        setSubmitError(error.message || 'Unable to send your message right now. Please try again in a moment.');
       } else {
         setSubmitError('Unable to send your message right now. Please try again in a moment.');
       }

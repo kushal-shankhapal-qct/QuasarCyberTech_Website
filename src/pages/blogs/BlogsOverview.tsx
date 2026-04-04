@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { encryptFormPayload } from '../../lib/formCrypto';
 import { useSearchParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 
@@ -25,9 +26,6 @@ export default function BlogsOverview() {
   const [searchQuery, setSearchQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [isFilterSticky, setIsFilterSticky] = useState(false);
-  const [subscribeName, setSubscribeName] = useState('');
-  const [subscribeEmail, setSubscribeEmail] = useState('');
-  const [subscribeSuccess, setSubscribeSuccess] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
 
   // Refs
@@ -79,15 +77,6 @@ export default function BlogsOverview() {
   });
 
   const latestPosts = [...blogsData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
-
-  // Category counts
-  const handleSubscribe = () => {
-    if (!subscribeEmail) return;
-    setSubscribeSuccess(true);
-    setTimeout(() => setSubscribeSuccess(false), 4000);
-    setSubscribeName('');
-    setSubscribeEmail('');
-  };
 
   // ═══════════════════════════════════════════════════════════════════════════
   return (
@@ -236,15 +225,7 @@ export default function BlogsOverview() {
 
             {/* RIGHT: Sidebar */}
             <aside className="blogs-sidebar-wrap" style={{ flex: '0 0 320px', position: 'sticky', top: '100px' }}>
-              <BlogSidebar
-                latestPosts={latestPosts}
-                subscribeName={subscribeName}
-                setSubscribeName={setSubscribeName}
-                subscribeEmail={subscribeEmail}
-                setSubscribeEmail={setSubscribeEmail}
-                subscribeSuccess={subscribeSuccess}
-                handleSubscribe={handleSubscribe}
-              />
+              <BlogSidebar latestPosts={latestPosts} />
             </aside>
           </div>
         </section>
@@ -297,15 +278,61 @@ export default function BlogsOverview() {
   );
 }
 
-function NewsletterCTA() {
-  const [email, setEmail] = useState('');
-  const [success, setSuccess] = useState(false);
+const API_BASE_URL = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? '';
 
-  const handleSubmit = () => {
-    if (!email) return;
-    setSuccess(true);
-    setTimeout(() => setSuccess(false), 4000);
-    setEmail('');
+function NewsletterCTA() {
+  const [email,      setEmail]      = useState('');
+  const [name,       setName]       = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [success,    setSuccess]    = useState(false);
+  const [error,      setError]      = useState('');
+
+  const handleSubmit = async () => {
+    const trimmedEmail = email.trim().toLowerCase();
+    if (!trimmedEmail) { setError('Please enter your email address.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmedEmail)) { setError('Enter a valid email address.'); return; }
+
+    setError('');
+    setSubmitting(true);
+
+    let envelope: ReturnType<typeof encryptFormPayload>;
+    try {
+      envelope = encryptFormPayload({
+        email:  trimmedEmail,
+        name:   name.trim() || undefined,
+        source: 'overview',
+      });
+    } catch {
+      setError('Security initialisation failed. Please refresh and try again.');
+      setSubmitting(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer      = window.setTimeout(() => controller.abort(), 12000);
+
+    try {
+      const res  = await fetch(`${API_BASE_URL}/api/newsletter`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(envelope),
+        signal:  controller.signal,
+      });
+      const json = await res.json().catch(() => ({})) as { success?: boolean; error?: string };
+      if (!res.ok || !json.success) throw new Error(json.error ?? `Error ${res.status}`);
+      setSuccess(true);
+      setEmail('');
+      setName('');
+    } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        setError('Request timed out. Please try again.');
+      } else {
+        setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      }
+    } finally {
+      window.clearTimeout(timer);
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -347,42 +374,74 @@ function NewsletterCTA() {
           padding: '48px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '16px'
+          gap: '14px'
         }}>
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            style={{
-              width: '100%',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '8px',
-              padding: '16px',
-              color: '#FFFFFF',
-              fontSize: '15px',
-              outline: 'none',
-            }}
-          />
-          <button
-            onClick={handleSubmit}
-            style={{
-              background: success ? '#2A5A3A' : COLORS.burgundy,
-              color: '#FFFFFF',
-              padding: '16px',
-              borderRadius: '8px',
-              fontWeight: 700,
-              fontSize: '15px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              cursor: 'pointer',
-              border: 'none',
-              transition: 'background 0.3s ease',
-            }}
-          >
-            {success ? '✓ Subscription Active' : 'Join the Network'}
-          </button>
+          {success ? (
+            <div style={{
+              background:   'rgba(42,90,58,0.35)',
+              border:       '1px solid rgba(42,90,58,0.6)',
+              borderRadius: '10px',
+              padding:      '24px',
+              textAlign:    'center',
+            }}>
+              <div style={{ fontSize: '28px', marginBottom: '10px' }}>✓</div>
+              <div style={{ fontSize: '16px', fontWeight: 700, color: '#6EE7A0', marginBottom: '6px' }}>You're subscribed!</div>
+              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)' }}>Check your inbox for a welcome email.</div>
+            </div>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Your Name (optional)"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                disabled={submitting}
+                style={{
+                  width: '100%', background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px',
+                  padding: '14px 16px', color: '#FFFFFF', fontSize: '15px', outline: 'none',
+                  opacity: submitting ? 0.6 : 1,
+                }}
+              />
+              <input
+                type="email"
+                placeholder="Email Address *"
+                value={email}
+                onChange={e => { setEmail(e.target.value); if (error) setError(''); }}
+                onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                disabled={submitting}
+                style={{
+                  width: '100%', background: 'rgba(255,255,255,0.05)',
+                  border: `1px solid ${error ? 'rgba(239,68,68,0.6)' : 'rgba(255,255,255,0.1)'}`,
+                  borderRadius: '8px', padding: '14px 16px', color: '#FFFFFF',
+                  fontSize: '15px', outline: 'none', opacity: submitting ? 0.6 : 1,
+                }}
+              />
+              {error && (
+                <p style={{ fontSize: '13px', color: 'rgba(239,68,68,0.85)', marginTop: '-4px' }}>{error}</p>
+              )}
+              <button
+                onClick={handleSubmit}
+                disabled={submitting}
+                style={{
+                  background:    COLORS.burgundy,
+                  color:         '#FFFFFF',
+                  padding:       '16px',
+                  borderRadius:  '8px',
+                  fontWeight:    700,
+                  fontSize:      '15px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  cursor:        submitting ? 'not-allowed' : 'pointer',
+                  border:        'none',
+                  transition:    'background 0.3s ease',
+                  opacity:       submitting ? 0.7 : 1,
+                }}
+              >
+                {submitting ? 'Subscribing…' : 'Join the Network'}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </section>

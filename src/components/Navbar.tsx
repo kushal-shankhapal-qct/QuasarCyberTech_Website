@@ -174,12 +174,12 @@ const NC = {
     contactNudgeX: "0px",
     contactNudgeY: "0px",
     dropdownOffsetY: "1.25em",
-    bridgePaddingLeft: "1rem",
-    pillPaddingLeft: "1rem",
+    bridgePaddingLeft: "0.5rem",
+    pillPaddingLeft: "0.75rem",
     pillPaddingRight: "0.375rem",
-    // Tighter link spacing so the pill fits comfortably at 1280-1400px widths
-    pillLinkGap: "1.4em",
-    pillLinkPaddingX: "0.85rem",
+    // Tighter link spacing so the pill fits comfortably at 1120-1440px widths
+    pillLinkGap: "0.9em",
+    pillLinkPaddingX: "0.65rem",
   },
   dropdown: {
     verticalOffset: "1.25rem",
@@ -236,9 +236,9 @@ const NC = {
   },
 };
 
-const NAVBAR_COLLAPSE_WIDTH = 960;
-const NAVBAR_COMPACT_REFERENCE_WIDTH = 1280;
-const NAVBAR_MIN_COMPACT_SCALE = 0.74;
+const NAVBAR_COLLAPSE_WIDTH = 1120;
+const NAVBAR_COMPACT_REFERENCE_WIDTH = 1440;
+const NAVBAR_MIN_COMPACT_SCALE = 0.82;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
