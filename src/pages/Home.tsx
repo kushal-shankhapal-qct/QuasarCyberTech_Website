@@ -38,7 +38,7 @@ export default function Home() {
             name: 'QuasarCyberTech Cybersecurity Services',
             description: 'Enterprise cybersecurity capabilities across advisory, offensive security, managed defense, cloud security, compliance, and cyber intelligence',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Cyber Advisory & Risk Governance', url: absoluteUrl('/capabilities/cyber-advisory') },
+              { '@type': 'ListItem', position: 1, name: 'Cyber Security Advisory & Risk Governance', url: absoluteUrl('/capabilities/cyber-advisory') },
               { '@type': 'ListItem', position: 2, name: 'Regulatory Compliance & Assurance', url: absoluteUrl('/capabilities/compliance-assurance') },
               { '@type': 'ListItem', position: 3, name: 'Offensive Security & Resilience Engineering', url: absoluteUrl('/capabilities/offensive-security') },
               { '@type': 'ListItem', position: 4, name: 'Cloud, Infrastructure & Platform Security', url: absoluteUrl('/capabilities/cloud-infrastructure') },

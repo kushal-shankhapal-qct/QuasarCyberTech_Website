@@ -4,7 +4,7 @@ import { COLORS } from '../config/themeConfig';
 
 interface HeroBreadcrumbProps {
   paths?: string[]; // e.g., ["HOME", "CAPABILITIES"]
-  current: string; // e.g., "CYBER ADVISORY"
+  current: string; // e.g., "CYBER SECURITY ADVISORY"
 }
 
 const HeroBreadcrumb: React.FC<HeroBreadcrumbProps> = ({ paths = ["HOME"], current }) => {

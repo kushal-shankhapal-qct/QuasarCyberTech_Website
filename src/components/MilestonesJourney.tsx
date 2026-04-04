@@ -435,7 +435,7 @@ export default function MilestonesJourney() {
           overflow-y: visible;
           position: relative; 
           width: 100%;
-          cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25 15.5C25 14.6716 24.3284 14 23.5 14C22.6716 14 22 14.6716 22 15.5V16V8.5C22 7.67157 21.3284 7 20.5 7C19.6716 7 19 7.67157 19 8.5V16V5.5C19 4.67157 18.3284 4 17.5 4C16.6716 4 16 4.67157 16 5.5V16V6.5C16 5.67157 15.3284 5 14.5 5C13.6716 5 13 5.67157 13 6.5V16V16.5C13 16.5 10 16.5 9 17.5C8 18.5 7.5 21 9 24.5C10.5 28 13.5 29.5 17 29.5C20.5 29.5 22.5 29 24 26C25 24 25 18 25 15.5Z" fill="%236B1530" stroke="white" stroke-width="1"/></svg>') 16 16, auto;
+          cursor: grab;
           user-select: none;
           padding: 2.5rem clamp(24px, 4vw, 64px) 1.5rem;
           z-index: 2;
@@ -467,7 +467,7 @@ export default function MilestonesJourney() {
         }
 
         .mj-scroll-area.mj-grabbing { 
-          cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 13.5C11 12.6716 11.6716 12 12.5 12C13.3284 12 14 12.6716 14 13.5V14V11.5C14 10.6716 14.6716 10 15.5 10C16.3284 10 17 10.6716 17 11.5V14V11.5C17 10.6716 17.6716 10 18.5 10C19.3284 10 20 10.6716 20 11.5V14V13.5C20 12.6716 20.6716 12 21.5 12C22.3284 12 23 12.6716 23 13.5V16V16.5C23 16.5 25 17 26 18.5C27 20 27 23 26 26C25 29 22 29.5 19 29.5C16 29.5 14.5 29.5 11 28.5C7.5 27.5 7 24.5 7.5 22C8 19.5 11 14.5 11 13.5Z" fill="%236B1530" stroke="white" stroke-width="1"/></svg>') 16 16, grabbing; 
+          cursor: grabbing;
         }
         
         .mj-track { position: relative; }

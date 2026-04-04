@@ -123,9 +123,9 @@ export const platformConfigs: Record<string, PlatformConfig> = {
 export const capabilities: Capability[] = [
   {
     id: 'cyber-advisory',
-    name: 'Cyber Advisory & Risk Governance',
+    name: 'Cyber Security Advisory & Risk Governance',
     slug: 'cyber-advisory',
-    navLabel: 'Cyber Advisory',
+    navLabel: 'Cyber Security Advisory',
     navColumn: 'advisory-governance',
     icon: 'compass',
     image: ASSETS.qctWebsite.advisory,
@@ -158,13 +158,13 @@ export const capabilities: Capability[] = [
     subCapabilities: [
       {
         id: 'executive-cyber-advisory',
-        name: 'Executive Cyber Advisory',
+        name: 'Executive Cyber Security Advisory',
         slug: 'executive-cyber-advisory',
         anchor: 'executive-cyber-advisory',
         shortDescription: 'Leadership advisory that aligns cyber risk with strategic business decisions.',
         image: ASSETS.capabilities.subCapabilities.advisory.strategy,
         positioning:
-          'Executive Cyber Advisory helps leadership teams convert cyber uncertainty into a clear decision agenda. We align business priorities, threat exposure, and governance accountability so strategic programs move faster with controlled risk.',
+          'Executive Cyber Security Advisory helps leadership teams convert cyber uncertainty into a clear decision agenda. We align business priorities, threat exposure, and governance accountability so strategic programs move faster with controlled risk.',
         whatWeAssess: [
           '[Users2]: Board and executive cyber risk visibility across business units',
           '[BarChartHorizontal]: Alignment of cyber investments to strategic growth and risk appetite',
