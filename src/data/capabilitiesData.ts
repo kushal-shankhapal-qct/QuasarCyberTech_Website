@@ -135,59 +135,39 @@ export const capabilities: Capability[] = [
     relatedCapabilities: ['compliance-assurance', 'managed-defense'],
     faqs: [
       {
-        question: 'What is a vCISO and do we need one?',
+        question: 'How often should we review and update our cybersecurity strategy?',
         answer:
-          'A Virtual CISO (vCISO) provides executive-level security leadership on a fractional or on-demand basis, offering board-level strategy and governance without the overhead of a full-time executive. It is an ideal solution for organizations facing sudden compliance mandates, preparing for a pre-IPO security posture audit, or needing to establish clear accountability for security programs. By leveraging a vCISO, you gain access to decades of vendor-neutral experience tailored to your specific risk appetite.',
+          'At minimum, annually  but significant business changes such as mergers, new product launches, cloud migrations, or regulatory updates should each trigger a targeted review. For enterprises in India operating in regulated sectors like banking or FinTech, the threat landscape evolves continuously, and a cybersecurity strategy built two years ago may no longer reflect the risks your organisation actually faces today. Our cyber risk consulting engagements typically include a structured cadence of reviews to ensure your posture keeps pace with change.',
       },
       {
-        question: 'How long does a security program development engagement take?',
+        question: 'How do you build a cyber risk management roadmap for our organisation?',
         answer:
-          'The initial design phase of a security program typically takes 8 to 16 weeks, heavily depending on your organization\'s size, complexity, and current maturity level. During this time, we assess your baseline, define a structured framework across people, process, and technology, and map out 90-day quick wins. This foundational work is then typically followed by an ongoing governance cadence to continually track execution, measure KPIs, and ensure continuous improvement.',
-      },
-      {
-        question: 'Does your Zero Trust review cover both on-premises and cloud environments?',
-        answer:
-          'Absolutely. Our Zero Trust Architecture Review is comprehensive and spans identity, network, device, application, and data layers across fully hybrid environments, not just cloud-native stacks. We understand that modern enterprises operate across a mix of on-premises data centers, legacy infrastructure, and the cloud, so we design trust boundaries and micro-segmentation strategies that protect your assets wherever they reside.',
-      },
-      {
-        question: 'How do you handle third-party risk for organizations with large supplier ecosystems?',
-        answer:
-          'We deploy a scalable, tiered risk management model tailored to the complexity of your supply chain. For highly critical vendors with direct access to your sensitive data, we conduct rigorous, deep-dive technical and process assessments. Meanwhile, the broader vendor population is managed efficiently through standardized, automated questionnaire platforms coupled with continuous exposure monitoring to rapidly detect any emerging third-party vulnerabilities.',
-      },
-      {
-        question: 'How often should we review and update our security strategy?',
-        answer:
-          'At minimum, annually - but significant business changes (mergers, new products, cloud migrations, regulatory changes) should each trigger a targeted review. The threat landscape evolves continuously, and a strategy built two years ago may no longer reflect the risks you actually face today.',
-      },
-      {
-        question: 'How do you build a security roadmap for our organisation?',
-        answer:
-          'We begin with a structured assessment that benchmarks your current controls against your business risk profile and any applicable regulatory requirements. From there, we build a sequenced, time-bound roadmap that prioritises investment by impact - so your budget goes to the controls that reduce the most risk first, with a clear narrative your leadership team can stand behind.',
+          'We begin with a structured cyber risk assessment that benchmarks your current controls against your business risk profile and any applicable regulatory requirements  whether that is RBI guidelines, SEBI frameworks, or global standards like ISO 27001 or NIST. From there, we build a sequenced, time-bound roadmap that prioritises investment by impact, so your budget goes to the controls that reduce the most risk first. The result is a clear cyber risk management framework your leadership team can stand behind and act on.',
       },
       {
         question: 'What is the difference between a vulnerability and a risk?',
         answer:
-          'A vulnerability is a technical weakness - an unpatched system or misconfiguration. Risk is the business-level expression of that weakness: the likelihood it gets exploited multiplied by the impact to your organisation. A vulnerability only becomes a priority risk when it is exploitable and the consequences are significant.',
+          'A vulnerability is a technical weakness — an unpatched system, a misconfiguration, or an exposed credential. Risk is the business-level expression of that weakness: the likelihood it gets exploited, multiplied by the impact to your organisation. Effective IT risk management consulting makes this distinction central  a vulnerability only becomes a priority risk when it is exploitable and the consequences are material. Conflating the two leads to wasted budget and misaligned security investment.',
       },
       {
-        question: 'What is the role of security awareness training and does it actually work?',
+        question: 'What is the role of security awareness training, and does it actually work?',
         answer:
-          'Security awareness training builds a human layer of defence by ensuring staff can recognise threats like phishing, social engineering, and data handling errors. It works best as an ongoing programme - combining regular simulations and reinforcement - rather than a one-off annual session.',
+          'Security awareness training builds a human layer of defence by ensuring your staff can recognise threats like phishing, social engineering, and data handling errors consistently one of the leading causes of breaches in Indian enterprises. It works best as an ongoing programme combining regular simulations and reinforcement, not a one-off annual session. As part of our cybersecurity advisory services, we design awareness programmes that are measurable, role-specific, and aligned to the actual threat profile your organisation faces.',
       },
       {
-        question: 'What is zero trust and should we adopt it?',
+        question: 'What is zero trust architecture, and should we adopt it?',
         answer:
-          'Zero trust is a security model built on the principle of "never trust, always verify" - it assumes no user, device, or network segment is inherently trusted, even inside the corporate perimeter. Rather than a single product, it is an architectural philosophy. Most mature organisations adopt it incrementally, starting with identity and access management controls.',
+          'Zero trust is a security model built on the principle of "never trust, always verify"  it assumes no user, device, or network segment is inherently trusted, even inside the corporate perimeter. Rather than a single product, it is an architectural philosophy. Demand for zero trust architecture in India has grown significantly as organisations move to cloud and hybrid environments. Most mature organisations adopt it incrementally, starting with identity and access management, and our cybersecurity strategy consulting practice helps you build a practical, phased adoption plan suited to your existing infrastructure and risk appetite.',
       },
       {
-        question: 'Do you offer ongoing advisory support or only point-in-time engagements?',
+        question: 'Do you offer ongoing vCISO support or only point-in-time engagements?',
         answer:
-          'We offer both. For organisations that need continuous strategic guidance, we provide flexible retainer arrangements that give you on-demand access to senior advisors, quarterly posture reviews, and support for specific initiatives as they arise - ensuring security stays aligned to your business as it evolves.',
+          'Both. For organisations that need continuous strategic leadership without the cost of a full-time hire, our virtual CISO (vCISO) services in India provide flexible retainer arrangements giving you on-demand access to senior advisors, quarterly posture reviews, and dedicated support for specific initiatives as they arise. Whether you are a scaling SaaS company, a FinTech navigating regulatory scrutiny, or an enterprise building out a security governance consulting function, our vCISO model ensures security stays aligned to your business as it evolves.',
       },
       {
-        question: 'How do you help us build a security-aware culture?',
+        question: 'How do you help organisations build a security-aware culture?',
         answer:
-          'We design and deliver security awareness programmes that go well beyond annual compliance training - combining targeted phishing simulations, role-based learning, and regular reinforcement campaigns to build lasting behaviour change. We measure effectiveness over time and adjust the programme based on what the data tells us about where human risk is concentrated.',
+          'Culture change requires more than compliance checkboxes. We design and deliver security awareness programmes that go well beyond annual training combining targeted phishing simulations, role-based learning modules, and reinforcement campaigns to drive lasting behavioural change. For enterprises undergoing digital transformation, or those managing third party risk management in cybersecurity, embedding a security-aware culture is a critical and often underestimated control. We measure programme effectiveness over time and adjust based on where human risk is most concentrated in your organisation.',
       },
     ],
     subCapabilities: [
@@ -420,34 +400,29 @@ export const capabilities: Capability[] = [
           'Yes, we specialize in multi-framework compliance to streamline your governance efforts and reduce audit fatigue. Our team uses a unified control mapping approach, meaning that a single, robust security control implementation can satisfy overlapping requirements across multiple standards simultaneously. This approach saves significant time and engineering resources when aligning with frameworks like ISO 27001, SOC2, and RBI CSF.',
       },
       {
-        question: 'What is the difference between RBI CSF and ISO 27001?',
+        question: 'What is PCI DSS and when does it apply to our organisation?',
         answer:
-          'The RBI Cyber Security Framework is a sector-specific, highly prescriptive regulatory mandate specifically designed for financial entities and banks operating within India. In contrast, ISO 27001 is a globally recognized, framework-agnostic standard focused on establishing and maintaining an Information Security Management System (ISMS). We seamlessly integrate both into a unified execution model, helping regulated entities meet strict RBI baselines while maintaining international best practices.',
+          'PCI DSS applies to any organisation that stores, processes, or transmits cardholder data including banks, payment aggregators, FinTechs, and SaaS platforms handling card transactions. It is a contractual requirement set by the major card networks, and non-compliance can result in fines, increased transaction fees, or loss of the ability to process card payments altogether. For organisations operating under RBI cybersecurity compliance requirements, PCI DSS obligations often run in parallel and should be managed within a unified compliance programme rather than treated as a separate workstream.',
       },
       {
-        question: 'What is PCI DSS and when does it apply to us?',
+        question: 'What is a compliance gap analysis and what does it produce?',
         answer:
-          'PCI DSS applies to any organisation that stores, processes, or transmits cardholder data. It is a contractual requirement set by the major card brands - non-compliance can result in fines, increased transaction fees, or loss of the ability to process card payments altogether.',
+          'A compliance gap analysis compares your current security controls against the requirements of a target framework such as ISO 27001, SOC 2, NIST CSF, or the RBI cybersecurity framework alongside any applicable regulatory obligations under the DPDP Act or SEBI IT guidelines. The output is a prioritised gap register: what is missing, partially implemented, or lacking sufficient evidence, paired with a remediation plan that maps a clear path to compliance or certification readiness. For organisations pursuing ISO 27001 implementation consulting in India, this is typically the critical first engagement before any formal audit process begins.',
       },
       {
-        question: 'What is a gap analysis and what output does it produce?',
+        question: 'How do you manage third-party risk for organisations with large supplier ecosystems?',
         answer:
-          'A gap analysis compares your current security controls against the requirements of a target framework such as ISO 27001 or NIST CSF. The output is a prioritised register of gaps - what is missing, partially implemented, or not evidenced - alongside a remediation plan to achieve compliance or certification readiness.',
-      },
-      {
-        question: 'How do you handle third-party risk for organisations with large supplier ecosystems?',
-        answer:
-          'We use a tiered model: critical vendors receive deep-dive assessments while broader vendor populations are managed through standardised questionnaires and continuous monitoring. The tier a vendor occupies is determined by the data they access and the operational dependency your organisation has on them.',
+          'Third party risk management in cybersecurity requires a structured, tiered approach not a uniform questionnaire sent to every vendor. Third-party Risk Management (TPRM). Critical suppliers receive deep-dive assessments covering data access, security controls, and contractual obligations, while broader vendor populations are managed through standardised questionnaires and continuous monitoring tools. A vendor\'s tier is determined by the sensitivity of data they handle and your organisation\'s operational dependency on them. This model is increasingly relevant for enterprises subject to RBI cybersecurity compliance and SEBI IT guidelines, both of which place explicit obligations on organisations to govern their supply chain risk.',
       },
       {
         question: 'What is the difference between a first-, second-, and third-party audit?',
         answer:
-          'A first-party audit is an internal self-assessment. A second-party audit is conducted by a customer or business partner evaluating your controls. A third-party audit is performed by an independent accredited organisation - this is the only type that produces a certifiable outcome recognised externally.',
+          'A first-party audit is an internal self-assessment conducted by your own team. A second-party audit is performed by a customer or business partner evaluating your controls as part of their own due diligence. A third-party audit is carried out by an independent, accredited organisation and is the only type that produces a certifiable outcome recognised externally. For ISO 27001 consulting in India or SOC 2 readiness services, organisations must ultimately undergo a third-party audit to achieve certification or an attestation report that satisfies customer, regulator, or investor requirements.',
       },
       {
-        question: 'How do you help us sustain compliance between audits?',
+        question: 'How do you help us sustain compliance between audit cycles?',
         answer:
-          'We build continuous compliance into your operating model - through scheduled internal reviews, control monitoring dashboards, change management processes that trigger control reassessment, and ongoing access to our advisory team for emerging regulatory developments. Compliance should be a steady state, not a sprint before every audit cycle.',
+          'Cybersecurity compliance services should not begin and end with audit preparation. We embed continuous compliance into your operating model through scheduled internal reviews, control monitoring dashboards, change management processes that trigger reassessment when systems or structures shift, and ongoing access to our advisory team for emerging regulatory developments including evolving DPDP Act compliance requirements and updates to RBI or SEBI frameworks. For compliance audit cybersecurity programmes to be effective, compliance must be a steady operational state, not a sprint triggered by an upcoming audit window.',
       },
     ],
     subCapabilities: [
@@ -671,34 +646,34 @@ export const capabilities: Capability[] = [
           'Our default engagement rules heavily prioritize non-destructive testing, ensuring that your production systems and business operations remain completely undisrupted. We coordinate closely with your teams to define safe testing windows and escalation paths. Any inherently destructive testing or high-risk exploitation is exclusively performed in staging environments unless you grant explicit approval to do otherwise.',
       },
       {
-        question: 'What is the difference between black box, grey box, and white box testing?',
+        question: 'What is the difference between black box, grey box, and white box penetration testing?',
         answer:
-          'These terms describe how much information a tester is given before an engagement. Black box simulates an external attacker with no prior knowledge. White box gives the tester full access to source code, architecture, and credentials - maximising coverage. Grey box sits in between, typically providing user-level credentials to mimic an insider threat or compromised account.',
+          'These terms describe how much information a tester is given before an engagement begins and the right choice depends on what threat scenario you are trying to simulate. Black box testing replicates an external attacker with no prior knowledge of your environment, making it the closest approximation to a real-world attack. White box testing gives the tester full access to source code, architecture diagrams, and credentials, maximising coverage and depth commonly used in web application penetration testing and API security testing engagements where thoroughness matters as much as realism. Grey box sits between the two, typically providing user-level credentials to simulate an insider threat or compromised account scenario. Most mature VAPT services in India recommend grey box as the default for application testing, with black box reserved for perimeter and red team exercises.',
       },
       {
-        question: 'What is social engineering and how is it tested?',
+        question: 'What is social engineering and how is it tested as part of a security assessment?',
         answer:
-          'Social engineering is the manipulation of people rather than systems - tricking employees into revealing credentials, clicking malicious links, or granting physical access. We test it through controlled phishing simulations, pretexting calls, and physical intrusion attempts to measure human-layer resilience and identify gaps in awareness training.',
+          'Social engineering is the manipulation of people rather than systems tricking employees into revealing credentials, clicking malicious links, or granting physical access to restricted areas. It is consistently one of the most effective attack vectors used against enterprises, including banks and FinTechs in India. We test human-layer resilience through controlled phishing simulations, pretexting calls, and physical intrusion attempts designed to identify gaps in both awareness training and procedural controls. The findings feed directly into recommendations for security awareness programmes and are a valuable complement to technical ethical hacking services.',
       },
       {
-        question: 'What is a purple team exercise?',
+        question: 'What is a purple team exercise and how does it differ from a red team engagement?',
         answer:
-          'A purple team exercise is a collaborative engagement where the offensive (red) and defensive (blue) teams work together in real time - the red team explains how they attacked, the blue team tunes its detections live. It accelerates detection capability improvement far faster than separate engagements conducted in isolation.',
+          'A red team engagement tests your defences covertly the offensive team operates independently, and success is measured by what they achieve undetected. A purple team exercise is a collaborative variant where the offensive (red) and defensive (blue) teams work together in real time: the red team explains how they attacked, and the blue team tunes its detections live in response. This accelerates detection capability improvement far faster than running separate engagements in isolation. For organisations with a functioning SOC or in-house security operations capability, purple teaming is one of the most efficient ways to get measurable return from adversary simulation services. The key difference from standalone red team services is the knowledge transfer built directly into the engagement.',
       },
       {
         question: 'How are penetration testing findings reported and communicated?',
         answer:
-          'Reports include an executive summary for non-technical leadership covering overall risk posture, and a detailed technical section listing each finding with evidence, severity rating, and a specific remediation recommendation. We also offer debrief sessions to walk through findings in person.',
+          'Every penetration testing engagement produces a structured report designed for two distinct audiences. The executive summary is written in plain language for non-technical leadership covering overall risk posture, the most critical findings, and strategic recommendations that inform investment decisions. The technical section is written for your security and engineering teams, providing full reproduction steps, supporting evidence, CVSS-mapped severity ratings, and specific, actionable remediation guidance for every finding identified. We also conduct debrief sessions to walk through findings in detail and align on the most effective remediation approach ensuring the report does not sit unread in a shared drive. This dual-audience structure is standard across all our VAPT services in India.',
       },
       {
         question: 'What does a penetration test report look like and who is it written for?',
         answer:
-          'Every report contains two distinct sections. The executive summary is written for non-technical leadership - covering overall risk posture, key findings, and strategic recommendations in plain language. The technical detail section is written for your security and engineering teams, providing full reproduction steps, evidence, severity ratings mapped to CVSS, and specific, actionable remediation guidance for every finding.',
+          'The value of a penetration test is only realised if the findings are understood and acted on which is why report quality matters as much as testing quality. Our reports contain two distinct sections. The executive summary addresses non-technical leadership, framing overall risk posture, key findings, and recommendations in business language. The technical detail section is written for security engineers and developers, providing complete reproduction steps, evidence artefacts, severity ratings mapped to CVSS scores, and precise remediation guidance for every vulnerability identified. For web application security testing and API security testing engagements, this often includes annotated request-response pairs and proof-of-concept code to support faster remediation. All findings are contextualised against your specific environment  not generated from an automated scanner output.',
       },
       {
-        question: 'How do your testers stay current with real-world attacker techniques?',
+        question: 'How does your offensive security team stay current with real-world attacker techniques?',
         answer:
-          'Our offensive team continuously researches emerging attack techniques, contributes to the security research community, and maintains active threat intelligence relationships. We map all our engagements to the MITRE ATT&CK framework to ensure we are testing against the tactics and techniques that real adversaries are actively using - not just the vulnerabilities that appeared on last year\'s CVE list.',
+          'Attack techniques evolve continuously and a penetration testing company that relies on last year\'s CVE list is not testing against the threats your organisation actually faces today. Our offensive security team maintains active threat intelligence relationships, contributes to the broader security research community, and maps every engagement to the MITRE ATT&CK framework to ensure our testing reflects the tactics, techniques, and procedures that real adversaries are currently using. This is particularly relevant for red team services and adversary simulation engagements, where the goal is not just finding vulnerabilities but validating whether your defences would hold against a capable, motivated threat actor. For FinTech and banking clients in India, we additionally track sector-specific threat actor activity and RBI-relevant attack patterns to ensure engagements reflect the realistic threat landscape for your industry.',
       },
     ],
     subCapabilities: [
@@ -1006,34 +981,34 @@ export const capabilities: Capability[] = [
           'Absolutely. While managed Kubernetes control planes are secured by the cloud provider, the customer is still fully responsible for the security of the workloads running on them. We assess the critical customer-managed configurations, including Role-Based Access Control (RBAC), network policies, pod security standards, secret management, and container identities across the full container lifecycle.',
       },
       {
-        question: 'What is the cloud shared responsibility model?',
+        question: 'What is the cloud shared responsibility model and why does it matter?',
         answer:
-          'The shared responsibility model defines the split of security obligations between the cloud provider and the customer. The provider is responsible for the security of the cloud - physical infrastructure and core services. The customer is responsible for security in the cloud - their data, identities, application configurations, and network controls. Misunderstanding this boundary is one of the most common causes of cloud security incidents.',
+          'The shared responsibility model defines the split of security obligations between a cloud provider and their customer and misunderstanding this boundary is one of the most common causes of cloud security incidents. The provider is responsible for security of the cloud: physical infrastructure, core platform services, and the underlying hardware. The customer is responsible for security in the cloud: their data, identities, application configurations, and network controls. This distinction applies across AWS, Azure, and GCP, though the specifics shift depending on whether you are running IaaS, PaaS, or SaaS workloads. A foundational step in any cloud security assessment is establishing precisely where your responsibilities begin and verifying that your controls actually cover them.',
       },
       {
-        question: 'What is lateral movement and how do we prevent it in a cloud environment?',
+        question: 'What is lateral movement in cloud environments and how do you prevent it?',
         answer:
-          'Lateral movement is the technique attackers use to navigate through an environment after an initial compromise - pivoting from one system or account to reach higher-value targets. Prevention relies on least-privilege IAM policies, network microsegmentation, workload isolation, and monitoring for anomalous API calls or cross-account activity.',
+          'Lateral movement is the technique attackers use to navigate through an environment after an initial compromise pivoting from one system, account, or identity to reach higher-value targets such as data stores, administrative consoles, or production workloads. In cloud environments, this often exploits overly permissive IAM roles, trust relationships between accounts, or misconfigured service principals. Prevention relies on enforcing least-privilege IAM policies, network microsegmentation, workload isolation, and continuous monitoring for anomalous API calls or unexpected cross-account activity. This is a core focus of our AWS security consulting and GCP security assessment engagements, where IAM misconfiguration is consistently one of the highest-risk findings across enterprise environments in India.',
       },
       {
-        question: 'What is a Cloud Access Security Broker (CASB)?',
+        question: 'What is a Cloud Access Security Broker (CASB) and do we need one?',
         answer:
-          'A CASB is a security policy enforcement point between users and cloud services - it provides visibility into cloud application usage including unsanctioned shadow IT, enforces data loss prevention policies, and monitors for anomalous behaviour across SaaS platforms such as Microsoft 365 and Salesforce.',
+          'A CASB is a security policy enforcement point that sits between your users and the cloud services they access. It provides visibility into cloud application usage including unsanctioned shadow IT that your IT team may be unaware of  enforces data loss prevention policies, and monitors for anomalous behaviour across SaaS platforms such as Microsoft 365, Google Workspace, and Salesforce. Whether your organisation needs a CASB depends on the volume and sensitivity of data flowing through cloud applications and the maturity of your existing cloud compliance services. For enterprises managing distributed workforces or handling regulated data under the DPDP Act or RBI guidelines, a CASB can be a significant control gap if absent.',
       },
       {
-        question: 'How should we approach security in a hybrid cloud environment?',
+        question: 'How should security be approached in a hybrid cloud environment?',
         answer:
-          'Hybrid environments spanning on-premises infrastructure and cloud providers require a consistent identity and access management framework, centralised logging and monitoring, and security policies defined abstractly and enforced consistently regardless of where workloads run - so that visibility gaps don\'t form at the boundary between environments.',
+          'Hybrid environments spanning on-premises infrastructure and one or more cloud providers  require a deliberately unified approach to security, not separate policies stitched together at the boundary. The critical foundations are a consistent identity and access management framework that operates across both environments, centralised logging and monitoring with no blind spots at the on-premises to cloud transition point, and security policies defined abstractly and enforced consistently regardless of where workloads run. Visibility gaps that form at environment boundaries are precisely where attackers exploit inconsistency — and they are frequently missed by teams managing on-premises and cloud security in separate silos. Our cloud security consulting practice in India is specifically structured to address this architecture holistically rather than treating each environment in isolation.',
       },
       {
         question: 'How do you assess our current cloud security posture?',
         answer:
-          'We conduct a comprehensive Cloud Security Posture Management review that evaluates your environment against CIS benchmarks, cloud provider best practice baselines, and applicable compliance frameworks. We surface misconfigurations, excessive permissions, exposed resources, and logging gaps - and deliver a prioritised remediation plan that your engineering teams can act on immediately.',
+          'We conduct a comprehensive Cloud Security Posture Management (CSPM) review that evaluates your environment against CIS benchmarks, cloud provider best-practice baselines across AWS, Azure, and GCP — and any applicable compliance frameworks such as ISO 27001, SOC 2, or RBI cybersecurity guidelines. The assessment surfaces misconfigurations, excessive permissions, exposed resources, and logging gaps across your cloud infrastructure. The output is a prioritised remediation plan, mapped by risk severity and effort, that your engineering teams can act on immediately. For organisations with containerised workloads, the review extends to Kubernetes security controls and container security configurations as part of a complete cloud-native security assessment.',
       },
       {
-        question: 'How do you approach security in hybrid and multi-cloud environments?',
+        question: 'How do you secure hybrid and multi-cloud environments where workloads span multiple platforms?',
         answer:
-          'We design a unified security architecture that spans your on-premises and cloud environments - establishing consistent identity policies, centralised logging and SIEM integration, and common security controls regardless of where workloads run. Our goal is to eliminate the visibility gaps that form at environment boundaries, which are precisely where attackers exploit inconsistency.',
+          'Multi-cloud environments introduce complexity that single-platform security tooling cannot fully address  each provider has its own IAM model, logging format, and native security controls, and gaps form wherever those models do not align. Our approach designs a unified security architecture across your on-premises and cloud environments, establishing consistent identity policies, centralised SIEM integration, and common control standards regardless of where workloads run. This is particularly relevant for enterprises in India running workloads across AWS and Azure simultaneously, or those adopting cloud-native security solutions that need to function coherently across provider boundaries. The goal is full-stack visibility with no environment treated as a blind spot.',
       },
     ],
     subCapabilities: [
@@ -1292,26 +1267,6 @@ export const capabilities: Capability[] = [
     relatedCapabilities: ['cyber-intelligence', 'offensive-security'],
     faqs: [
       {
-        question: 'What are your MTTD and MTTR targets?',
-        answer:
-          'Our 24/7 Managed SOC operations are built for rapid, decisive action against cyber threats. For high-severity alerts, our target Mean Time to Detect (MTTD) is strictly under 15 minutes. For critical, confirmed incidents, our target Mean Time to Respond (MTTR) is under one hour to initiate containment playbooks, effectively isolating affected systems before an attacker can move laterally.',
-      },
-      {
-        question: 'Do you replace our existing SIEM or work with it?',
-        answer:
-          'We are highly flexible and typically integrate directly with your existing SIEM infrastructure, applying our expertise to tune detection rules, minimize false positives, and significantly reduce alert fatigue for your team. However, if your organization does not currently have a SIEM in place, we can fully deploy, configure, and operate a robust SIEM solution as part of our comprehensive managed defense onboarding.',
-      },
-      {
-        question: 'Can you respond to active incidents if we are not a managed SOC customer?',
-        answer:
-          'Yes, we offer on-demand Incident Response Retainers designed specifically for organizations that require guaranteed, rapid-response capabilities without committing to a full-time managed SOC contract. This ensures that in the event of a critical breach or ransomware attack, our digital forensics and incident response experts can instantly deploy to contain the threat and recover your operations with forensic rigor.',
-      },
-      {
-        question: 'How realistic are your phishing simulations?',
-        answer:
-          'Our simulations go far beyond generic, easily identifiable phishing templates. We custom-craft highly targeted, role-specific spear-phishing and social engineering scenarios by leveraging contextual intelligence about your organization, industry trends, and internal communication patterns. This creates a realistic simulation of advanced threat actor tactics, ultimately building genuine resilience across your human layer.',
-      },
-      {
         question: 'What is SOAR and how does it improve incident response?',
         answer:
           'Security Orchestration, Automation, and Response platforms automate repeatable SOC tasks - enriching alerts with threat intelligence, isolating compromised endpoints, blocking malicious IPs - reducing manual workload on analysts and compressing response times. SOAR allows human analysts to focus on complex investigations rather than routine triage.',
@@ -1510,21 +1465,6 @@ export const capabilities: Capability[] = [
     platform: 'qpulse',
     relatedCapabilities: ['managed-defense', 'cyber-advisory'],
     faqs: [
-      {
-        question: 'How is your CTI different from subscribing to a commercial feed?',
-        answer:
-          'Commercial threat feeds often flood security teams with generic, raw data that leads to alert fatigue and wasted triage time. Our Cyber Threat Intelligence (CTI) service provides analyst-curated, highly contextualized intelligence that is specifically mapped to your organization\'s technology stack, geographic footprint, and industry risk profile. We filter out the noise to deliver prioritized advisories that your team can act on immediately.',
-      },
-      {
-        question: 'How do dark web takedowns work?',
-        answer:
-          'When our continuous monitoring detects malicious activity, such as brand impersonation domains, fraudulent social media profiles, or leaked corporate assets, we handle the mitigation process end-to-end. Our analysts initiate formal takedown workflows, coordinating directly with domain registrars, hosting providers, and relevant abuse channels to swiftly remove the offending infrastructure and protect your brand reputation.',
-      },
-      {
-        question: 'Can you monitor leaked credentials for our organization?',
-        answer:
-          'Yes, we provide 24/7 continuous monitoring across dark web marketplaces, illicit forums, paste sites, and known breach databases. We configure this surveillance specifically for your organization\'s email domains, key digital assets, and executive identities. If employee credentials or sensitive session tokens are compromised and leaked, we issue near real-time alerts so you can force password resets and invalidate tokens before they are exploited.',
-      },
       {
         question: 'What are TTPs and why are they more valuable than IOCs?',
         answer:
