@@ -154,6 +154,41 @@ export const capabilities: Capability[] = [
         answer:
           'We deploy a scalable, tiered risk management model tailored to the complexity of your supply chain. For highly critical vendors with direct access to your sensitive data, we conduct rigorous, deep-dive technical and process assessments. Meanwhile, the broader vendor population is managed efficiently through standardized, automated questionnaire platforms coupled with continuous exposure monitoring to rapidly detect any emerging third-party vulnerabilities.',
       },
+      {
+        question: 'How often should we review and update our security strategy?',
+        answer:
+          'At minimum, annually - but significant business changes (mergers, new products, cloud migrations, regulatory changes) should each trigger a targeted review. The threat landscape evolves continuously, and a strategy built two years ago may no longer reflect the risks you actually face today.',
+      },
+      {
+        question: 'How do you build a security roadmap for our organisation?',
+        answer:
+          'We begin with a structured assessment that benchmarks your current controls against your business risk profile and any applicable regulatory requirements. From there, we build a sequenced, time-bound roadmap that prioritises investment by impact - so your budget goes to the controls that reduce the most risk first, with a clear narrative your leadership team can stand behind.',
+      },
+      {
+        question: 'What is the difference between a vulnerability and a risk?',
+        answer:
+          'A vulnerability is a technical weakness - an unpatched system or misconfiguration. Risk is the business-level expression of that weakness: the likelihood it gets exploited multiplied by the impact to your organisation. A vulnerability only becomes a priority risk when it is exploitable and the consequences are significant.',
+      },
+      {
+        question: 'What is the role of security awareness training and does it actually work?',
+        answer:
+          'Security awareness training builds a human layer of defence by ensuring staff can recognise threats like phishing, social engineering, and data handling errors. It works best as an ongoing programme - combining regular simulations and reinforcement - rather than a one-off annual session.',
+      },
+      {
+        question: 'What is zero trust and should we adopt it?',
+        answer:
+          'Zero trust is a security model built on the principle of "never trust, always verify" - it assumes no user, device, or network segment is inherently trusted, even inside the corporate perimeter. Rather than a single product, it is an architectural philosophy. Most mature organisations adopt it incrementally, starting with identity and access management controls.',
+      },
+      {
+        question: 'Do you offer ongoing advisory support or only point-in-time engagements?',
+        answer:
+          'We offer both. For organisations that need continuous strategic guidance, we provide flexible retainer arrangements that give you on-demand access to senior advisors, quarterly posture reviews, and support for specific initiatives as they arise - ensuring security stays aligned to your business as it evolves.',
+      },
+      {
+        question: 'How do you help us build a security-aware culture?',
+        answer:
+          'We design and deliver security awareness programmes that go well beyond annual compliance training - combining targeted phishing simulations, role-based learning, and regular reinforcement campaigns to build lasting behaviour change. We measure effectiveness over time and adjust the programme based on what the data tells us about where human risk is concentrated.',
+      },
     ],
     subCapabilities: [
       {
@@ -389,6 +424,31 @@ export const capabilities: Capability[] = [
         answer:
           'The RBI Cyber Security Framework is a sector-specific, highly prescriptive regulatory mandate specifically designed for financial entities and banks operating within India. In contrast, ISO 27001 is a globally recognized, framework-agnostic standard focused on establishing and maintaining an Information Security Management System (ISMS). We seamlessly integrate both into a unified execution model, helping regulated entities meet strict RBI baselines while maintaining international best practices.',
       },
+      {
+        question: 'What is PCI DSS and when does it apply to us?',
+        answer:
+          'PCI DSS applies to any organisation that stores, processes, or transmits cardholder data. It is a contractual requirement set by the major card brands - non-compliance can result in fines, increased transaction fees, or loss of the ability to process card payments altogether.',
+      },
+      {
+        question: 'What is a gap analysis and what output does it produce?',
+        answer:
+          'A gap analysis compares your current security controls against the requirements of a target framework such as ISO 27001 or NIST CSF. The output is a prioritised register of gaps - what is missing, partially implemented, or not evidenced - alongside a remediation plan to achieve compliance or certification readiness.',
+      },
+      {
+        question: 'How do you handle third-party risk for organisations with large supplier ecosystems?',
+        answer:
+          'We use a tiered model: critical vendors receive deep-dive assessments while broader vendor populations are managed through standardised questionnaires and continuous monitoring. The tier a vendor occupies is determined by the data they access and the operational dependency your organisation has on them.',
+      },
+      {
+        question: 'What is the difference between a first-, second-, and third-party audit?',
+        answer:
+          'A first-party audit is an internal self-assessment. A second-party audit is conducted by a customer or business partner evaluating your controls. A third-party audit is performed by an independent accredited organisation - this is the only type that produces a certifiable outcome recognised externally.',
+      },
+      {
+        question: 'How do you help us sustain compliance between audits?',
+        answer:
+          'We build continuous compliance into your operating model - through scheduled internal reviews, control monitoring dashboards, change management processes that trigger control reassessment, and ongoing access to our advisory team for emerging regulatory developments. Compliance should be a steady state, not a sprint before every audit cycle.',
+      },
     ],
     subCapabilities: [
       {
@@ -609,6 +669,36 @@ export const capabilities: Capability[] = [
         question: 'Will testing disrupt production systems?',
         answer:
           'Our default engagement rules heavily prioritize non-destructive testing, ensuring that your production systems and business operations remain completely undisrupted. We coordinate closely with your teams to define safe testing windows and escalation paths. Any inherently destructive testing or high-risk exploitation is exclusively performed in staging environments unless you grant explicit approval to do otherwise.',
+      },
+      {
+        question: 'What is the difference between black box, grey box, and white box testing?',
+        answer:
+          'These terms describe how much information a tester is given before an engagement. Black box simulates an external attacker with no prior knowledge. White box gives the tester full access to source code, architecture, and credentials - maximising coverage. Grey box sits in between, typically providing user-level credentials to mimic an insider threat or compromised account.',
+      },
+      {
+        question: 'What is social engineering and how is it tested?',
+        answer:
+          'Social engineering is the manipulation of people rather than systems - tricking employees into revealing credentials, clicking malicious links, or granting physical access. We test it through controlled phishing simulations, pretexting calls, and physical intrusion attempts to measure human-layer resilience and identify gaps in awareness training.',
+      },
+      {
+        question: 'What is a purple team exercise?',
+        answer:
+          'A purple team exercise is a collaborative engagement where the offensive (red) and defensive (blue) teams work together in real time - the red team explains how they attacked, the blue team tunes its detections live. It accelerates detection capability improvement far faster than separate engagements conducted in isolation.',
+      },
+      {
+        question: 'How are penetration testing findings reported and communicated?',
+        answer:
+          'Reports include an executive summary for non-technical leadership covering overall risk posture, and a detailed technical section listing each finding with evidence, severity rating, and a specific remediation recommendation. We also offer debrief sessions to walk through findings in person.',
+      },
+      {
+        question: 'What does a penetration test report look like and who is it written for?',
+        answer:
+          'Every report contains two distinct sections. The executive summary is written for non-technical leadership - covering overall risk posture, key findings, and strategic recommendations in plain language. The technical detail section is written for your security and engineering teams, providing full reproduction steps, evidence, severity ratings mapped to CVSS, and specific, actionable remediation guidance for every finding.',
+      },
+      {
+        question: 'How do your testers stay current with real-world attacker techniques?',
+        answer:
+          'Our offensive team continuously researches emerging attack techniques, contributes to the security research community, and maintains active threat intelligence relationships. We map all our engagements to the MITRE ATT&CK framework to ensure we are testing against the tactics and techniques that real adversaries are actively using - not just the vulnerabilities that appeared on last year\'s CVE list.',
       },
     ],
     subCapabilities: [
@@ -915,6 +1005,36 @@ export const capabilities: Capability[] = [
         answer:
           'Absolutely. While managed Kubernetes control planes are secured by the cloud provider, the customer is still fully responsible for the security of the workloads running on them. We assess the critical customer-managed configurations, including Role-Based Access Control (RBAC), network policies, pod security standards, secret management, and container identities across the full container lifecycle.',
       },
+      {
+        question: 'What is the cloud shared responsibility model?',
+        answer:
+          'The shared responsibility model defines the split of security obligations between the cloud provider and the customer. The provider is responsible for the security of the cloud - physical infrastructure and core services. The customer is responsible for security in the cloud - their data, identities, application configurations, and network controls. Misunderstanding this boundary is one of the most common causes of cloud security incidents.',
+      },
+      {
+        question: 'What is lateral movement and how do we prevent it in a cloud environment?',
+        answer:
+          'Lateral movement is the technique attackers use to navigate through an environment after an initial compromise - pivoting from one system or account to reach higher-value targets. Prevention relies on least-privilege IAM policies, network microsegmentation, workload isolation, and monitoring for anomalous API calls or cross-account activity.',
+      },
+      {
+        question: 'What is a Cloud Access Security Broker (CASB)?',
+        answer:
+          'A CASB is a security policy enforcement point between users and cloud services - it provides visibility into cloud application usage including unsanctioned shadow IT, enforces data loss prevention policies, and monitors for anomalous behaviour across SaaS platforms such as Microsoft 365 and Salesforce.',
+      },
+      {
+        question: 'How should we approach security in a hybrid cloud environment?',
+        answer:
+          'Hybrid environments spanning on-premises infrastructure and cloud providers require a consistent identity and access management framework, centralised logging and monitoring, and security policies defined abstractly and enforced consistently regardless of where workloads run - so that visibility gaps don\'t form at the boundary between environments.',
+      },
+      {
+        question: 'How do you assess our current cloud security posture?',
+        answer:
+          'We conduct a comprehensive Cloud Security Posture Management review that evaluates your environment against CIS benchmarks, cloud provider best practice baselines, and applicable compliance frameworks. We surface misconfigurations, excessive permissions, exposed resources, and logging gaps - and deliver a prioritised remediation plan that your engineering teams can act on immediately.',
+      },
+      {
+        question: 'How do you approach security in hybrid and multi-cloud environments?',
+        answer:
+          'We design a unified security architecture that spans your on-premises and cloud environments - establishing consistent identity policies, centralised logging and SIEM integration, and common security controls regardless of where workloads run. Our goal is to eliminate the visibility gaps that form at environment boundaries, which are precisely where attackers exploit inconsistency.',
+      },
     ],
     subCapabilities: [
       {
@@ -1191,6 +1311,36 @@ export const capabilities: Capability[] = [
         answer:
           'Our simulations go far beyond generic, easily identifiable phishing templates. We custom-craft highly targeted, role-specific spear-phishing and social engineering scenarios by leveraging contextual intelligence about your organization, industry trends, and internal communication patterns. This creates a realistic simulation of advanced threat actor tactics, ultimately building genuine resilience across your human layer.',
       },
+      {
+        question: 'What is SOAR and how does it improve incident response?',
+        answer:
+          'Security Orchestration, Automation, and Response platforms automate repeatable SOC tasks - enriching alerts with threat intelligence, isolating compromised endpoints, blocking malicious IPs - reducing manual workload on analysts and compressing response times. SOAR allows human analysts to focus on complex investigations rather than routine triage.',
+      },
+      {
+        question: 'What is an incident response retainer and why should we have one?',
+        answer:
+          'An incident response retainer is a pre-negotiated agreement with a specialist firm to provide rapid, on-demand support during a security incident. Without one, organisations waste critical hours sourcing help during the most time-pressured moment of a breach. A retainer ensures specialist responders can be mobilised within hours of a declared incident.',
+      },
+      {
+        question: 'What happens during a major security incident and what should we expect?',
+        answer:
+          'A well-run incident response follows a defined lifecycle: Detection, Containment, Eradication, Recovery, and Post-Incident Review. During a major incident, your managed defense provider should provide a dedicated incident commander, regular stakeholder updates, technical containment actions, and a comprehensive post-incident report covering root cause, timeline, and prevention recommendations.',
+      },
+      {
+        question: 'How do you distinguish a real threat from a false positive?',
+        answer:
+          'Our analysts combine automated detection with human judgment - every alert is reviewed and contextualised against your environment\'s baseline behaviour, current threat intelligence, and the broader pattern of activity across your estate. We invest heavily in reducing alert noise through tuned detection logic and behavioural baselines so that when our analysts escalate something to you, it has been verified and is worth your attention.',
+      },
+      {
+        question: 'How quickly do you respond to a confirmed security incident?',
+        answer:
+          'Our analysts acknowledge alerts within 15 minutes and initiate active containment procedures within one hour of a confirmed incident. For critical incidents, a dedicated incident commander is assigned immediately, and we operate on pre-agreed escalation and communication protocols so your leadership team is informed at every decision point without delay.',
+      },
+      {
+        question: 'How do you keep our detection capability current as the threat landscape changes?',
+        answer:
+          'We continuously update our detection content based on new threat intelligence, emerging CVEs, adversary campaign reporting, and findings from across our client base. When a new attack technique enters the wild, we develop and deploy detection logic for it across all Managed Defense clients - you do not need to request it or wait for a scheduled review cycle.',
+      },
     ],
     subCapabilities: [
       {
@@ -1374,6 +1524,31 @@ export const capabilities: Capability[] = [
         question: 'Can you monitor leaked credentials for our organization?',
         answer:
           'Yes, we provide 24/7 continuous monitoring across dark web marketplaces, illicit forums, paste sites, and known breach databases. We configure this surveillance specifically for your organization\'s email domains, key digital assets, and executive identities. If employee credentials or sensitive session tokens are compromised and leaked, we issue near real-time alerts so you can force password resets and invalidate tokens before they are exploited.',
+      },
+      {
+        question: 'What are TTPs and why are they more valuable than IOCs?',
+        answer:
+          'TTPs - Tactics, Techniques, and Procedures - describe how an adversary operates. Unlike IOCs such as IP addresses and file hashes which attackers change trivially between campaigns, TTPs are expensive to change and remain consistent over time, making TTP-based detection far more durable and effective.',
+      },
+      {
+        question: 'What is a threat intelligence programme and when does an organisation need one?',
+        answer:
+          'A threat intelligence programme is the structured capability to collect, analyse, and operationalise intelligence about threats relevant to your organisation. Any organisation facing targeted threats, operating in regulated sectors, or with significant digital presence benefits from a formalised programme - beginning with external feeds and maturing toward tailored analyst-produced intelligence specific to your industry and adversary profile.',
+      },
+      {
+        question: 'How do you gather threat intelligence that is actually relevant to our organisation?',
+        answer:
+          'We profile your organisation - industry, geography, technology stack, key personnel, public footprint, and known adversaries - and use that profile to focus collection across open-source, closed, and technical sources. Rather than delivering a generic global feed, we produce intelligence that is contextualised to the threats you specifically face, with noise filtered out before it ever reaches your team.',
+      },
+      {
+        question: 'How do you help us act on threat intelligence rather than just receive it?',
+        answer:
+          'Intelligence without action is just reading. We work with your security team to operationalise every piece of intelligence - mapping new adversary TTPs to your detection coverage in MITRE ATT&CK, translating indicators into SIEM and firewall rules, recommending configuration hardening based on observed attacker preferences, and triggering targeted threat hunts when actor activity warrants it.',
+      },
+      {
+        question: 'What is digital footprint monitoring and what does it find?',
+        answer:
+          'We continuously map and survey your external attack surface - including domains, IP ranges, exposed cloud assets, employee email addresses, and third-party data exposures - looking for assets and information that an attacker could use to target you. Common findings include forgotten internet-exposed systems, leaked employee credentials on breach databases, and impersonation domains registered to mimic your brand.',
       },
     ],
     subCapabilities: [
