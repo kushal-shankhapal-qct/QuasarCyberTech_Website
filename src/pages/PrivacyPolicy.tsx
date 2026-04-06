@@ -46,7 +46,7 @@ const PrivacyPolicy: React.FC = () => {
       }}>
         <div style={{ maxWidth: '1280px', color: '#334155', fontFamily: TYPOGRAPHY.fontBody, lineHeight: 1.8, textAlign: 'left' }}>
           <p style={{ marginBottom: '24px' }}>
-            At Quasar CyberTech, your privacy is a priority. This Privacy Policy outlines how we collect, use, share, and protect any information you provide when using our website, www.quasarcybertech.com, domain and subdomain. We value your trust and strive to ensure you feel confident in our services and security practices as they relate to your personal information.
+            At QuasarCyberTech, your privacy is a priority. This Privacy Policy outlines how we collect, use, share, and protect any information you provide when using our website, www.quasarcybertech.com, domain and subdomain. We value your trust and strive to ensure you feel confident in our services and security practices as they relate to your personal information.
           </p>
           <p style={{ marginBottom: '40px' }}>
             We may update this policy from time to time, so please review it periodically. This policy is effective from October 24, 2024.
@@ -78,10 +78,10 @@ const PrivacyPolicy: React.FC = () => {
           </p>
 
           <h3 style={{ color: '#0B1F3B', fontSize: '1.5rem', fontWeight: 700, fontFamily: TYPOGRAPHY.fontHeading, marginBottom: '16px' }}>Disclosure to Third Parties</h3>
-          <p style={{ marginBottom: '16px' }}>Quasar CyberTech will not disclose personal information except in the following situations:</p>
+          <p style={{ marginBottom: '16px' }}>QuasarCyberTech will not disclose personal information except in the following situations:</p>
           <ul style={{ paddingLeft: '24px', marginBottom: '40px' }}>
             <li>When required by law</li>
-            <li>To protect and defend the rights or property of Quasar CyberTech</li>
+            <li>To protect and defend the rights or property of QuasarCyberTech</li>
           </ul>
 
           <h3 style={{ color: '#0B1F3B', fontSize: '1.5rem', fontWeight: 700, fontFamily: TYPOGRAPHY.fontHeading, marginBottom: '16px' }}>Security</h3>
