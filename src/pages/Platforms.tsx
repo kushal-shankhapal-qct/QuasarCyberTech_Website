@@ -136,10 +136,14 @@ export default function Platforms() {
           image={ASSETS.backdrops.platformsHero}
           imageScale={1}
           imageFit="cover"
-          imageOpacity={0.8}
+          imageOpacity={0.9}
           visualWidth="58%"
           maskStart="0%"
           maskEnd="80%"
+          imagePositionX="83%"
+          imagePositionY="50%"
+          imageBlendSoftness="70%"
+          imageBlendStartPercent="0%"
           breadcrumbPaths={['Home']}
           currentName="Platforms"
           scrollTargetId="platform-highlights"

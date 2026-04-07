@@ -122,6 +122,10 @@ const BlogIndividual: React.FC = () => {
                     visualWidth="55%"
                     maskStart="0%"
                     maskEnd="85%"
+                    imagePositionX="center"
+                    imagePositionY="center"
+                    imageBlendSoftness="70%"
+                    imageBlendStartPercent="0%"
                     backgroundOverride={GRADIENTS.BLOG_INDIVIDUAL_HERO_BG}
                     breadcrumbPaths={["Home", "Blogs"]}
                     currentName="Article"

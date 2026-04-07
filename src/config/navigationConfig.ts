@@ -19,7 +19,7 @@ import {
 import { ASSETS } from '@/constants/assets';
 
 export const navigationConfig = [
-  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/aboutus' },
   {
     label: 'Capabilities',
     href: '/capabilities',
@@ -87,8 +87,6 @@ export const navigationConfig = [
   },
   // Blogs: plain link, no dropdown
   { label: 'Blogs', href: '/blogs' },
-  // About Us: plain link, no dropdown
-  { label: 'About Us', href: '/aboutus' },
   // Careers: plain link, no dropdown
   { label: 'Careers', href: '/careers' },
 ];

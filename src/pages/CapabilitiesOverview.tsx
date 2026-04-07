@@ -42,6 +42,10 @@ const CapabilitiesOverview: React.FC = () => {
                 imageRotate="-90deg"
                 imageRotateMobile="0deg"
                 imageScale={1.3}
+                imagePositionX="center"
+                imagePositionY="center"
+                imageBlendSoftness="70%"
+                imageBlendStartPercent="0%"
                 scrollTargetId="pillars"
                 scrollButtonText="Explore Capabilities"
                 scrollMethod="motion"

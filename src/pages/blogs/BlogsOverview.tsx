@@ -115,10 +115,14 @@ export default function BlogsOverview() {
           image={ASSETS.capabilities.intelligence}
           imageScale={1}
           imageRotate="0deg"
-          imageOpacity={0.7}
-          visualWidth="58%"
+          imageOpacity={0.6}
+          visualWidth="50%"
           maskStart="0%"
-          maskEnd="80%"
+          imagePositionX="center"
+          imagePositionY="center"
+          imageBlendSoftness="100%"
+          imageBlendStartPercent="0%"
+          maskEnd="100%"
           scrollTargetId="blog-content"
           scrollButtonText="Browse Articles"
         />

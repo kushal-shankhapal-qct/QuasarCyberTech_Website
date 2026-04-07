@@ -118,6 +118,10 @@ const CapabilityIndividual: React.FC = () => {
                 imageScale={1}
                 maskStart="20%"
                 imageOpacity={0.85}
+                imagePositionX="center"
+                imagePositionY="center"
+                imageBlendSoftness="70%"
+                imageBlendStartPercent="0%"
             />
 
             {/* ─── SECTION 2: STRATEGIC SCOPE (ALIGNED PANEL) ─── */}

@@ -105,6 +105,12 @@ const Careers: React.FC = () => {
         image={ASSETS.backdrops.careersHero}
         imageOpacity={1}
         imageScale={1}
+        imagePositionX="center"
+        imagePositionY="center"
+        imageBlendStart = "0%"
+        imageBlendEnd = "100%"
+        imageBlendSoftness="100%"
+        imageBlendStartPercent="0%"
       />
 
       {/* ── 2: GROWTH STORY SECTION (Light Mode) ── */}

@@ -43,11 +43,15 @@ const IndustriesOverview: React.FC = () => {
         currentName="Industries"
         image={ASSETS.industries.overviewHero}
         imageScale={1.2}
-        imageOpacity={0.8}
+        imageOpacity={0.9}
         visualFullWidth={false}
-        visualWidth="60%"
+        visualWidth="65%"
         maskStart="0%"
         maskEnd="75%"
+        imagePositionX="center"
+        imagePositionY="center"
+        imageBlendSoftness="100%"
+        imageBlendStartPercent="0%"
         gradientCenter="20% 60%"
         gradientRadius="55%"
         scrollTargetId="grid"

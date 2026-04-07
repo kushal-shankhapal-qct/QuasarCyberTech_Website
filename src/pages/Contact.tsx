@@ -490,6 +490,10 @@ export default function Contact() {
           imageRotate="0deg"
           maskStart="0%"
           maskEnd="90%"
+          imagePositionX="center"
+          imagePositionY="center"
+          imageBlendSoftness="70%"
+          imageBlendStartPercent="0%"
           breadcrumbPaths={["Home"]}
           currentName="Contact"
           paddingTopOverride={CONFIG.layout.heroPaddingTop}

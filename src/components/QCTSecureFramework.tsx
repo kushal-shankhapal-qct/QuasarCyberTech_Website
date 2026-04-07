@@ -2,10 +2,22 @@ import React, { useState } from 'react';
 import { Compass, ClipboardCheck, Crosshair, ShieldCheck, Radio, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS, COLORS } from '../config/themeConfig';
+import { ASSETS } from '../constants/assets';
 
 type GhostIconProps = {
   size: number;
   opacity: number;
+};
+
+// ─── FRAMEWORK BACKDROP CONTROLS ────────────────────────────────────────
+const FRAMEWORK_BACKDROP_CONTROLS = {
+  imageUrl: 'https://res.cloudinary.com/dmdpzphcz/image/upload/QCT_Framework_Backdrop_Circuit_liimgh.png',
+  opacity: 0.42,              // Backdrop image opacity (0-1)
+  blendMaskStart: '0%',       // Mask gradient start position
+  blendMaskEnd: '50%',        // Mask gradient end position (width %)
+  widthPercent: '100%',        // Width of backdrop relative to section
+  objectPosition: 'right 90%', // x/y positioning
+  scale: '1',               // Image scale multiplier
 };
 
 // ─── Ghost Icon components (SVG, 1.5px stroke, atmospheric) ─────────────────
@@ -150,6 +162,37 @@ export default function QCTSecureFramework() {
         zIndex: 1,
       }}
     >
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: FRAMEWORK_BACKDROP_CONTROLS.widthPercent,
+          pointerEvents: 'none',
+          zIndex: 0,
+          opacity: FRAMEWORK_BACKDROP_CONTROLS.opacity,
+          maskImage: `linear-gradient(to right, transparent ${FRAMEWORK_BACKDROP_CONTROLS.blendMaskStart}, black ${FRAMEWORK_BACKDROP_CONTROLS.blendMaskEnd})`,
+          WebkitMaskImage: `linear-gradient(to right, transparent ${FRAMEWORK_BACKDROP_CONTROLS.blendMaskStart}, black ${FRAMEWORK_BACKDROP_CONTROLS.blendMaskEnd})`,
+        }}
+      >
+        <img
+          src={FRAMEWORK_BACKDROP_CONTROLS.imageUrl}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: FRAMEWORK_BACKDROP_CONTROLS.objectPosition,
+            opacity: 1,
+            scale: FRAMEWORK_BACKDROP_CONTROLS.scale,
+          }}
+        />
+      </div>
+
       <div className="home-framework-header" style={{ marginBottom: '3rem', maxWidth: '45rem' }}>
         <h2
           style={{
@@ -182,7 +225,7 @@ export default function QCTSecureFramework() {
       {/* ACCORDION CHASSIS */}
       <div
         className="framework-chassis flex flex-col lg:flex-row w-full max-w-[87.5rem] ml-0 mr-auto h-auto lg:h-[20.625rem] overflow-hidden rounded-xl border border-white/10 bg-transparent relative"
-        style={{ marginTop: LAYOUT_CONTROLS.section.frameworkHeaderToChassisGapDesktop }}
+        style={{ marginTop: LAYOUT_CONTROLS.section.frameworkHeaderToChassisGapDesktop, zIndex: 1 }}
       >
         {stages.map((stage, i) => {
           const restOfWord = stage.name.slice(1).toUpperCase();

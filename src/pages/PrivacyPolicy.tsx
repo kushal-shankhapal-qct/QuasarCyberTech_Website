@@ -32,6 +32,10 @@ const PrivacyPolicy: React.FC = () => {
         highlight="Policy"
         subtitle="Last Updated: October 24, 2024"
         visualVariant="none"
+        imagePositionX="center"
+        imagePositionY="center"
+        imageBlendSoftness="70%"
+        imageBlendStartPercent="0%"
         breadcrumbPaths={['Home']}
         currentName="Privacy Policy"
       />

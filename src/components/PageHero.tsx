@@ -31,6 +31,12 @@ export interface PageHeroProps {
   imageScale?: number;
   imageOpacity?: number;
   imagePosition?: string;
+  imagePositionX?: string;  // Horizontal position: "0%" (left) to "100%" (right), or "left"/"center"/"right"
+  imagePositionY?: string;  // Vertical position: "0%" (top) to "100%" (bottom), or "top"/"center"/"bottom"
+  imageBlendStart?: string;  // Mask gradient start position (0% to 100%)
+  imageBlendEnd?: string;    // Mask gradient end position (width % - controls blend end point)
+  imageBlendSoftness?: string; // Blend transition softness (0% = hard edge to 100% = very soft)
+  imageBlendStartPercent?: string; // Where blend starts (0% = full width visible, 100% = almost full gradient)
   maskStart?: string;
   maskEnd?: string;
   rightContent?: React.ReactNode;
@@ -65,6 +71,12 @@ const PageHero: React.FC<PageHeroProps> = ({
   imageScale = 1.0,
   imageOpacity = 0.8,
   imagePosition = "center center",
+  imagePositionX = "center",     // Horizontal image position
+  imagePositionY = "center",     // Vertical image position
+  imageBlendStart = "5%",        // Blend gradient start position
+  imageBlendEnd = "75%",
+  imageBlendSoftness = "70%",    // Blend transition softness
+  imageBlendStartPercent = "0%", // Where blend starts (0% = full width, 100% = almost full gradient)
   maskStart = "5%",
   maskEnd = "75%",
   rightContent,
@@ -86,6 +98,23 @@ const PageHero: React.FC<PageHeroProps> = ({
   compact = false,
   children,
 }) => {
+  // Compute blend gradient stops based on softness and start percent
+  // blendStartPercent: 0% = starts at 0% (full width), 100% = starts at 100% (almost full gradient)
+  // blendSoftness: 0% = hard transition, 100% = soft transition
+  const softnessValue = parseFloat(imageBlendSoftness || "70");
+  const startPercentValue = parseFloat(imageBlendStartPercent || "0");
+  
+  // Compute actual gradient start and end
+  const gradStart = `${startPercentValue}%`;
+  const gradEnd = `${Math.min(startPercentValue + (100 - softnessValue), 100)}%`;
+  
+  // Use imageBlend controls if provided, otherwise fall back to computed values
+  const blendStart = imageBlendStart !== undefined ? imageBlendStart : gradStart;
+  const blendEnd = imageBlendEnd !== undefined ? imageBlendEnd : gradEnd;
+  
+  // Combine imagePositionX and imagePositionY for objectPosition
+  const computedImagePosition = `${imagePositionX || "center"} ${imagePositionY || "center"}`;
+  
   const dynamicBg =
     backgroundOverride ||
     GRADIENTS.HERO_BG ||
@@ -214,8 +243,8 @@ const PageHero: React.FC<PageHeroProps> = ({
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
-              maskImage: `linear-gradient(to right, transparent ${maskStart}, black ${maskEnd})`,
-              WebkitMaskImage: `linear-gradient(to right, transparent ${maskStart}, black ${maskEnd})`,
+              maskImage: `linear-gradient(to right, transparent ${blendStart}, black ${blendEnd})`,
+              WebkitMaskImage: `linear-gradient(to right, transparent ${blendStart}, black ${blendEnd})`,
             }}
           >
             {visualVariant === "fingerprint" && (
@@ -315,7 +344,7 @@ const PageHero: React.FC<PageHeroProps> = ({
                       width: "100%",
                       height: "100%",
                       objectFit: imageFit,
-                      objectPosition: imagePosition,
+                      objectPosition: computedImagePosition,
                       transform: "scale(var(--hero-image-scale)) rotate(var(--hero-image-rotate))",
                       transition: "transform 0.5s ease",
                       opacity: imageOpacity,

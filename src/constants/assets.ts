@@ -47,6 +47,9 @@ const toCloudinaryPath = (path: string): string => {
  * @param path The raw relative path within src/assets/
  */
 const getAsset = (path: string): string => {
+  if (/^https?:\/\//i.test(path)) {
+    return path;
+  }
   return cld(toCloudinaryPath(path));
 };
 
@@ -70,7 +73,7 @@ export const ASSETS = {
       qstellarDark: getAsset('Logos/Platforms/QStelllar_fulllogo_transparent_No_Buffer.png'), // New transparent full logo
       qstellarLight: getAsset('Logos/Platforms/QStelllar_Light_fulllogo_transparent_No_Buffer.png'), // Original
       qpulse: getAsset('Logos/Platforms/QPulse_Logo_New.png'),
-      qpulseLight: getAsset('Logos/Platforms/QPulse_Logo_Light_Text.png'),
+      qpulseLight: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/QPulse_Logo_Light_Text_ao9z8b.png'),
       qleap: getAsset('Logos/Platforms/QLeap_Logo.png'),
       qrgt: getAsset('Logos/Platforms/QRGT.png'),
       qrgtLight: getAsset('Logos/Platforms/QRGT_Light.png'),
@@ -79,16 +82,16 @@ export const ASSETS = {
   },
   industries: {
     banking: getAsset('Industries_Images/Banking_and_Financial_Services.jpg'),
-    ecommerce: getAsset('QCT-WEBSITE/E-commerce.jpg'),
-    enterprise: getAsset('QCT-WEBSITE/Enterprise-Manufacturing.jpg'),
-    fintech: getAsset('QCT-WEBSITE/Digital-Payments.jpg'),
+    ecommerce: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/E-commerce_Digital_Platforms_New_syhzol.png'),
+    enterprise: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Industries_Images/Enterprise_and_Manufacturing.jpg'),
+    fintech: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/FinTech_and_Digital_Payments_New_x2zod2.png'),
     healthcare: getAsset('Industries_Images/Healthcare_and_HealthTech.png'),
-    saas: getAsset('QCT-WEBSITE/SAAS.jpg'),
-    overviewHero: getAsset('QCT-WEBSITE/Advisory and risk Governance.webp'),
+    saas: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/SaaS_Technology_Platforms_New_mzykud.png'),
+    overviewHero: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Industries_Images/Industries_Overview_Hero.png'),
   },
   capabilities: {
-    advisory: getAsset('Capabilities_Images/Cyber_Advisory_and_Risk_Governance/Cyber_Advisory_and_Risk_Governance.jpg'),
-    compliance: getAsset('Capabilities_Images/Regulatory_Compliance_and_Assurance/Compliance_and_Regulatory_Assurance.jpg'),
+    advisory: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Cyber_Advisory_and_Risk_Governance_New_hqwyit.png'),
+    compliance: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Compliance_and_Assurance_New_hmv7ne.png'),
     offensive: getAsset('Capabilities_Images/Offensive_Security_and_Resilience_Engineering/Offensive_Security_Engineering.jpg'),
     cloud: getAsset('Capabilities_Images/Cloud_Infrastructure_and_Platform_Security/Cloud_and_Infrastructure_Security.jpg'),
     defense: getAsset('Capabilities_Images/Managed_Detection_Response_and_SOC_Operations/Managed_Defense_Operations_2.jpeg'),
@@ -154,7 +157,9 @@ export const ASSETS = {
     platformsHero: getAsset('Backdrops/Platforms_Hero.png'),
     redLights: getAsset('Backdrops/abstract-red-lights-background/608.jpg'),
     careersHero: getAsset('Backdrops/Careers_Hero.jpg'),
+    aboutUsHero: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/About_Us_Hero_Backdrop_ce5vrw.png'),
     visionMissionBg: getAsset('Backdrops/Vision_Mission_Padding.png'),
+    qctSecureFramework: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/QCT_Secure_Framework_Backdrop_vemig8.png'),
   },
   screenshots: {
     qstellar: getAsset('Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),
@@ -163,16 +168,16 @@ export const ASSETS = {
     qrgt: getAsset('Platforms_Screenshots/QRGT/QRGT_Screenshot.png'),
   },
   qctWebsite: {
-    advisory: getAsset('QCT-WEBSITE/Advisory and risk Governance.webp'),
+    advisory: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Cyber_Advisory_and_Risk_Governance_New_hqwyit.png'),
     banking: getAsset('QCT-WEBSITE/banking.png'),
     cloud: getAsset('QCT-WEBSITE/Cloud_and_Infrastructure_Security-burgundy.jpg'),
     contact: getAsset('QCT-WEBSITE/contactus.png'),
-    digitalPayments: getAsset('QCT-WEBSITE/Digital-Payments.jpg'),
-    ecommerce: getAsset('QCT-WEBSITE/E-commerce.jpg'),
-    enterprise: getAsset('QCT-WEBSITE/Enterprise-Manufacturing.jpg'),
+    digitalPayments: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/FinTech_and_Digital_Payments_New_x2zod2.png'),
+    ecommerce: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/E-commerce_Digital_Platforms_New_syhzol.png'),
+    enterprise: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Industries_Images/Enterprise_and_Manufacturing.jpg'),
     healthcare: getAsset('QCT-WEBSITE/Health-Care.png'),
-    regulatoryCompliance: getAsset('QCT-WEBSITE/Regulatory Compliance.jpg'),
-    saas: getAsset('QCT-WEBSITE/SAAS.jpg'),
+    regulatoryCompliance: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Compliance_and_Assurance_New_hmv7ne.png'),
+    saas: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/SaaS_Technology_Platforms_New_mzykud.png'),
     soc: getAsset('QCT-WEBSITE/SOC and Managed Defence.jpeg'),
   },
   platforms: {
@@ -210,5 +215,3 @@ export const ASSETS = {
     certin: getAsset('Logos/Certifications/CERT-In_Logo.png'),
   }
 };
-
-

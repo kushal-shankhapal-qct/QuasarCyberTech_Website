@@ -4,9 +4,6 @@ import * as LucideIcons from "lucide-react";
 import {
   type LucideIcon,
   CheckCircle,
-  HelpCircle,
-  ChevronDown,
-  ExternalLink,
   Target,
   Users,
   TrendingUp,
@@ -35,6 +32,7 @@ import {
   type SubCapability,
 } from "../../data/capabilitiesData";
 import { ASSETS } from "@/constants/assets";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   COLORS,
   GRADIENTS,
@@ -251,13 +249,13 @@ const subCapabilityImages: Record<string, string> = {
 };
 
 const industryImageMap: Record<string, string> = {
-  "Banking & Financial Services": ASSETS.qctWebsite.banking,
-  "FinTech & Digital Payments": ASSETS.qctWebsite.digitalPayments,
-  "SaaS & Technology": ASSETS.qctWebsite.saas,
-  "E-commerce & Digital": ASSETS.qctWebsite.ecommerce,
-  "E-commerce & Digital Platforms": ASSETS.qctWebsite.ecommerce,
-  "Healthcare & HealthTech": ASSETS.qctWebsite.healthcare,
-  "Enterprise & Manufacturing": ASSETS.qctWebsite.enterprise,
+  "Banking & Financial Services": ASSETS.industries.banking,
+  "FinTech & Digital Payments": ASSETS.industries.fintech,
+  "SaaS & Technology": ASSETS.industries.saas,
+  "E-commerce & Digital": ASSETS.industries.ecommerce,
+  "E-commerce & Digital Platforms": ASSETS.industries.ecommerce,
+  "Healthcare & HealthTech": ASSETS.industries.healthcare,
+  "Enterprise & Manufacturing": ASSETS.industries.enterprise,
 };
 
 const HS_CAP = {
@@ -349,6 +347,16 @@ const PLATFORM_VISUAL_CONTROLS = {
 const TABBAR_NAV_GAP_PX = 0;
 const TABBAR_NAV_TRANSITION = "top 300ms cubic-bezier(0.23, 1, 0.32, 1)";
 
+const OFFENSIVE_SUBCAPABILITY_ORDER = [
+  "red-team",
+  "ai-agentic-system-security-testing",
+  "web-application-security-testing",
+  "mobile-application-security-testing",
+  "api-security-testing",
+  "adversary-simulation",
+  "secure-code-review",
+];
+
 const subCapabilitySlugAliases: Record<string, Record<string, string>> = {
   "cyber-advisory": {
     "strategy-governance": "executive-cyber-advisory",
@@ -422,18 +430,39 @@ const CapabilityPage: React.FC = () => {
   const capabilityContentRef = useRef<HTMLDivElement | null>(null);
   const tabBarRef = useRef<HTMLDivElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const stopStickyRef = useRef<HTMLElement | null>(null);
+  const stopStickyRef = useRef<HTMLDivElement | null>(null);
   const subCapabilityStartRef = useRef<HTMLElement | null>(null);
   const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
+
+  useEffect(() => {
+    setExpandedFaq(null);
+  }, [activeSubSlug]);
+
+  const orderedSubCapabilities = useMemo(() => {
+    if (!capability) return [];
+    if (capability.slug !== "offensive-security") {
+      return capability.subCapabilities;
+    }
+
+    const orderLookup = new Map(
+      OFFENSIVE_SUBCAPABILITY_ORDER.map((item, index) => [item, index]),
+    );
+
+    return [...capability.subCapabilities].sort((a, b) => {
+      const aOrder = orderLookup.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = orderLookup.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
+      return aOrder - bOrder;
+    });
+  }, [capability]);
 
   const activeSub: SubCapability | null = useMemo(() => {
     if (!capability) return null;
     return (
-      capability.subCapabilities.find((s) => s.slug === activeSubSlug) ||
-      capability.subCapabilities[0] ||
+      orderedSubCapabilities.find((s) => s.slug === activeSubSlug) ||
+      orderedSubCapabilities[0] ||
       null
     );
-  }, [capability, activeSubSlug]);
+  }, [capability, activeSubSlug, orderedSubCapabilities]);
 
   useEffect(() => {
     const handleTabScroll = () => {
@@ -474,7 +503,7 @@ const CapabilityPage: React.FC = () => {
   }, [slug]);
 
   useEffect(() => {
-    if (!capability?.subCapabilities?.length) return;
+    if (!orderedSubCapabilities.length || !capability) return;
     const requestedHash = location.hash.replace("#", "");
     const resolvedRequestedTab =
       requestedHash && requestedHash !== "capability-content"
@@ -483,22 +512,22 @@ const CapabilityPage: React.FC = () => {
         : null;
     const matchedSub =
       resolvedRequestedTab &&
-      capability.subCapabilities.find((s) => s.slug === resolvedRequestedTab);
-    const fallbackSub = capability.subCapabilities[0];
+      orderedSubCapabilities.find((s) => s.slug === resolvedRequestedTab);
+    const fallbackSub = orderedSubCapabilities[0];
     const nextSub = matchedSub || fallbackSub;
     setActiveSubSlug(nextSub.slug);
-  }, [capability, location.hash]);
+  }, [capability, location.hash, orderedSubCapabilities]);
 
   useEffect(() => {
-    if (!capability?.subCapabilities?.length) return;
-    const sources = capability.subCapabilities
+    if (!orderedSubCapabilities.length) return;
+    const sources = orderedSubCapabilities
       .map((s) => s.image || subCapabilityImages[s.slug])
       .filter((src): src is string => Boolean(src));
     sources.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
-  }, [capability]);
+  }, [orderedSubCapabilities]);
 
   useEffect(() => {
     if (!location.hash) return;
@@ -611,8 +640,9 @@ const CapabilityPage: React.FC = () => {
   const subCapabilityTitleHighlights = highlightConfig?.subCapabilities || {};
   const activeVisual =
     activeSub.image || subCapabilityImages[activeSub.slug] || "";
-  const platform = capability.platform
-    ? platformConfigs[capability.platform]
+  const activePlatformId = activeSub.platform || capability.platform;
+  const platform = activePlatformId
+    ? platformConfigs[activePlatformId]
     : null;
   const activePlatformKey = platform?.id || "default";
   const platformLogoHeight =
@@ -644,8 +674,8 @@ const CapabilityPage: React.FC = () => {
             image: capability.image,
             serviceType: capability.navLabel,
           }),
-          ...((capability.faqs || []).length
-            ? [createFaqSchema(capability.faqs || [])]
+          ...((activeSub.faqs || []).length
+            ? [createFaqSchema(activeSub.faqs || [])]
             : []),
         ]}
       />
@@ -665,6 +695,10 @@ const CapabilityPage: React.FC = () => {
         image={capability.image}
         imageRotate="0deg"
         imageOpacity={0.64}
+        imagePositionX="center"
+        imagePositionY="center"
+        imageBlendSoftness="70%"
+        imageBlendStartPercent="0%"
         visualWidth="58%"
         maskStart="0%"
         maskEnd="80%"
@@ -747,7 +781,7 @@ const CapabilityPage: React.FC = () => {
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
             }}
           >
-            {capability.subCapabilities.map((subCapability) => {
+            {orderedSubCapabilities.map((subCapability) => {
               const isActive = activeSubSlug === subCapability.slug;
               return (
                 <a
@@ -1129,6 +1163,177 @@ const CapabilityPage: React.FC = () => {
               })}
             </div>
 
+            {platform && (
+              <div
+                className="w-full border-t border-white/10"
+                style={{
+                  marginTop: HS_CAP.relatedMarginTop,
+                  padding: "3rem",
+                  background: GRADIENTS.HERO_BG,
+                  borderRadius: "0.75rem",
+                }}
+              >
+                <h3
+                  className="text-3xl md:text-4xl font-bold text-white mb-2"
+                  style={{
+                    fontFamily: TYPOGRAPHY.fontHeading,
+                    overflowWrap: "anywhere",
+                    wordBreak: "break-word"
+                  }}
+                >
+                  Powered by the{" "}
+                  <span style={{ color: "#D6B05C" }}>QuasarCyberTech</span>{" "}
+                  ecosystem
+                </h3>
+                <p
+                  className="text-white/70 text-base mb-10"
+                  style={{ fontFamily: TYPOGRAPHY.fontBody }}
+                >
+                  Platform intelligence that accelerates delivery, strengthens
+                  execution, and improves measurable outcomes.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                  <div>
+                    <img
+                      src={getPlatformLogo(platform.logoKey)}
+                      alt={`QuasarCyberTech | ${platform.name} Platform Logo`}
+                      className="mb-4 w-auto object-contain"
+                      style={{ height: `${platformLogoHeight}px` }}
+                    />
+                    <h3
+                      className="text-white text-xl font-semibold mb-2"
+                      style={{ fontFamily: TYPOGRAPHY.fontHeading }}
+                    >
+                      {platform.description}
+                    </h3>
+                    <p
+                      className="text-sm text-white/60 mb-6"
+                      style={{ fontFamily: TYPOGRAPHY.fontBody }}
+                    >
+                      Our {activeSub.name} engagements are accelerated by{" "}
+                      {platform.name}, combining platform intelligence with advisory
+                      and execution delivery.
+                    </p>
+                    <ul className="space-y-2 mb-6 list-none p-0 m-0">
+                      {platform.highlights.slice(0, 3).map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-center gap-2 text-sm text-white/80"
+                          style={{ fontFamily: TYPOGRAPHY.fontBody }}
+                        >
+                          <CheckCircle className="w-4 h-4 text-[#D6B05C] flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <a
+                      href={platform.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-[#6B1530] text-white text-sm font-medium px-5 py-2.5 rounded-md no-underline transition-colors hover:bg-[#7d1a38]"
+                      style={{ fontFamily: TYPOGRAPHY.fontBody }}
+                    >
+                      Explore {platform.name} <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                  <div
+                    className="rounded-lg overflow-hidden border border-white/10"
+                    style={{ minHeight: `${platformScreenshotHeight}px` }}
+                  >
+                    <img
+                      src={getPlatformScreenshot(platform.screenshotKey)}
+                      alt={`QuasarCyberTech | ${platform.name} Platform Screenshot`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {(activeSub.faqs || []).length > 0 && (
+              <div className="w-full bg-[#FFFFFF] py-16 border-t border-gray-200" style={{ marginTop: "2.5rem" }}>
+                <h3
+                  className="text-left"
+                  style={{
+                    fontFamily: TYPOGRAPHY.fontHeading,
+                    fontSize: "clamp(30px, 3vw, 40px)",
+                    fontWeight: 800,
+                    color: COLORS.deepCyberBlue,
+                    marginBottom: "10px",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  Frequently Asked{" "}
+                  <span style={{ color: COLORS.burgundy }}>Questions</span>
+                </h3>
+                <p
+                  className="text-[#4A5568] text-sm mb-8"
+                  style={{ fontFamily: TYPOGRAPHY.fontBody, fontWeight: 700 }}
+                >
+                  Answers to common questions for {activeSub.name}.
+                </p>
+
+                <div className="flex flex-col gap-3">
+                  {(activeSub.faqs || []).slice(0, 5).map((faq, index) => {
+                    const itemId = `${activeSub.slug}-faq-${index}`;
+                    const isOpen = expandedFaq === itemId;
+                    return (
+                      <article
+                        key={itemId}
+                        className="border border-black/10 bg-white overflow-hidden"
+                        style={{ borderRadius: "0 0 10px 10px" }}
+                      >
+                        <button
+                          type="button"
+                          aria-expanded={isOpen}
+                          onClick={() =>
+                            setExpandedFaq((prev) =>
+                              prev === itemId ? null : itemId,
+                            )
+                          }
+                          className="w-full text-left px-5 py-4 bg-transparent border-0 cursor-pointer flex items-start justify-between gap-4 hover:bg-[#F5F7FA] transition-colors"
+                        >
+                          <span
+                            className="text-[#0B1F3B] text-base font-bold"
+                            style={{ fontFamily: TYPOGRAPHY.fontBody }}
+                          >
+                            {faq.question}
+                          </span>
+                          <span
+                            className="text-[#6B1530] text-lg leading-none flex-shrink-0 transition-transform duration-300"
+                            style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            aria-hidden
+                          >
+                            ▼
+                          </span>
+                        </button>
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: isOpen ? 1 : 0, height: isOpen ? "auto" : 0 }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          style={{
+                            overflow: 'hidden',
+                          }}
+                        >
+                          <div className="px-5 pb-5">
+                            <p
+                              className="text-sm text-[#4A5568] leading-relaxed m-0"
+                              style={{ fontFamily: TYPOGRAPHY.fontBody }}
+                            >
+                              {faq.answer}
+                            </p>
+                          </div>
+                        </motion.div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {relatedCapabilities.length > 0 && (
               <div
                 style={{
@@ -1174,193 +1379,11 @@ const CapabilityPage: React.FC = () => {
                 </div>
               </div>
             )}
+
+            <div ref={stopStickyRef} style={{ height: 1, width: "100%" }} />
           </div>
         </section>
       </div>
-
-      {platform && (
-        <section
-          ref={stopStickyRef}
-          className="w-full py-14 border-t border-white/10"
-          style={{ background: GRADIENTS.HERO_BG }}
-        >
-          <div
-            className="w-full"
-            style={{
-              paddingLeft: LAYOUT_CONTROLS.section.paddingX,
-              paddingRight: LAYOUT_CONTROLS.section.paddingX,
-              boxSizing: "border-box",
-            }}
-          >
-            <h3
-              className="text-3xl md:text-4xl font-bold text-white mb-2"
-              style={{ 
-                fontFamily: TYPOGRAPHY.fontHeading,
-                overflowWrap: "anywhere",
-                wordBreak: "break-word"
-              }}
-            >
-              Powered by the{" "}
-              <span style={{ color: "#D6B05C" }}>QuasarCyberTech</span>{" "}
-              ecosystem
-            </h3>
-            <p
-              className="text-white/70 text-base mb-10"
-              style={{ fontFamily: TYPOGRAPHY.fontBody }}
-            >
-              Platform intelligence that accelerates delivery, strengthens
-              execution, and improves measurable outcomes.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-              <div>
-                <img
-                  src={getPlatformLogo(platform.logoKey)}
-                  alt={`QuasarCyberTech | ${platform.name} Platform Logo`}
-                  className="mb-4 w-auto object-contain"
-                  style={{ height: `${platformLogoHeight}px` }}
-                />
-                <h3
-                  className="text-white text-xl font-semibold mb-2"
-                  style={{ fontFamily: TYPOGRAPHY.fontHeading }}
-                >
-                  {platform.description}
-                </h3>
-                <p
-                  className="text-sm text-white/60 mb-6"
-                  style={{ fontFamily: TYPOGRAPHY.fontBody }}
-                >
-                  Our {capability.navLabel} engagements are accelerated by{" "}
-                  {platform.name}, combining platform intelligence with advisory
-                  and execution delivery.
-                </p>
-                <ul className="space-y-2 mb-6 list-none p-0 m-0">
-                  {platform.highlights.slice(0, 3).map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2 text-sm text-white/80"
-                      style={{ fontFamily: TYPOGRAPHY.fontBody }}
-                    >
-                      <CheckCircle className="w-4 h-4 text-[#D6B05C] flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={platform.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#6B1530] text-white text-sm font-medium px-5 py-2.5 rounded-md no-underline transition-colors hover:bg-[#7d1a38]"
-                  style={{ fontFamily: TYPOGRAPHY.fontBody }}
-                >
-                  Explore {platform.name} <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-              <div
-                className="rounded-lg overflow-hidden border border-white/10"
-                style={{ minHeight: `${platformScreenshotHeight}px` }}
-              >
-                <img
-                  src={getPlatformScreenshot(platform.screenshotKey)}
-                  alt={`QuasarCyberTech | ${platform.name} Platform Screenshot`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {(capability.faqs || []).length > 0 && (
-        <section className="w-full bg-[#FFFFFF] py-16 border-t border-gray-200">
-          <div
-            className="w-full"
-            style={{
-              paddingLeft: LAYOUT_CONTROLS.section.paddingX,
-              paddingRight: LAYOUT_CONTROLS.section.paddingX,
-              boxSizing: "border-box",
-            }}
-          >
-            <h3
-              className="text-left"
-              style={{
-                fontFamily: TYPOGRAPHY.fontHeading,
-                fontSize: "clamp(30px, 3vw, 40px)",
-                fontWeight: 800,
-                color: COLORS.deepCyberBlue,
-                marginBottom: "10px",
-                lineHeight: 1.1,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Frequently Asked{" "}
-              <span style={{ color: COLORS.burgundy }}>Questions</span>
-            </h3>
-            <p
-              className="text-[#4A5568] text-sm mb-8"
-              style={{ fontFamily: TYPOGRAPHY.fontBody, fontWeight: 700 }}
-            >
-              Answers to common questions for this capability pillar.
-            </p>
-
-            <div className="flex flex-col gap-3">
-              {(capability.faqs || []).slice(0, 5).map((faq, index) => {
-                const itemId = `${capability.slug}-faq-${index}`;
-                const isOpen = expandedFaq === itemId;
-                return (
-                  <article
-                    key={itemId}
-                    className="border border-black/10 bg-white overflow-hidden"
-                    style={{ borderRadius: "0 0 10px 10px" }}
-                  >
-                    <button
-                      type="button"
-                      aria-expanded={isOpen}
-                      onClick={() =>
-                        setExpandedFaq((prev) =>
-                          prev === itemId ? null : itemId,
-                        )
-                      }
-                      className="w-full text-left px-5 py-4 bg-transparent border-0 cursor-pointer flex items-start justify-between gap-4 hover:bg-[#F5F7FA] transition-colors"
-                    >
-                      <span
-                        className="text-[#0B1F3B] text-base font-bold"
-                        style={{ fontFamily: TYPOGRAPHY.fontBody }}
-                      >
-                        {faq.question}
-                      </span>
-                      <span
-                        className="text-[#6B1530] text-lg leading-none flex-shrink-0 transition-transform duration-300"
-                        style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                        aria-hidden
-                      >
-                        ▼
-                      </span>
-                    </button>
-                    <div
-                      style={{
-                        overflow: 'hidden',
-                        transition: 'all 0.3s ease-in-out',
-                        maxHeight: isOpen ? '500px' : '0px',
-                        opacity: isOpen ? 1 : 0,
-                      }}
-                    >
-                      <div className="px-5 pb-5">
-                        <p
-                          className="text-sm text-[#4A5568] leading-relaxed m-0"
-                          style={{ fontFamily: TYPOGRAPHY.fontBody }}
-                        >
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
 
       <CTASection theme="dark" />
       <Footer />

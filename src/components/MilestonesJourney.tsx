@@ -15,6 +15,8 @@ const TRACK_H = 520;   // total track height
 const DOT_R = 15;    // dot radius
 const CARD_W = 210;   // card width
 const DOT_Y_BIAS = 0;   // move the whole wire up/down (negative = up)
+const DOT_X_BIAS = 0;   // move dots left/right (negative = left, positive = right)
+const LINE_X_BIAS = 0;   // move wire line up/down (negative = up, positive = down)
 const STEM_X_BIAS = 0;   // stem left/right nudge
 
 const EXIT_RISE_Y = -120; // how high the wire naturally rises at the end (negative = up)
@@ -141,7 +143,7 @@ function MilestoneNode({
           style={{
             position: "absolute",
             top: `${wireY}px`,
-            left: "50%",
+            left: `calc(50% + ${DOT_X_BIAS}px)`,
             transform: "translate(-50%, -50%)",
             zIndex: 6,
           }}
@@ -262,13 +264,14 @@ export default function MilestonesJourney() {
   const wireY = TRACK_H / 2 + DOT_Y_BIAS;
 
   const wireData = (() => {
-    // A clean, straight enterprise timeline
+    // A clean, straight enterprise timeline with LINE_X_BIAS support
     const lastX = (milestones.length - 1) * NODE_W + NODE_W / 2;
     const endX = lastX + EXIT_TAIL_W + 60;
+    const adjustedWireY = wireY + LINE_X_BIAS;  // LINE_X_BIAS controls vertical wire position
     
     return { 
-      d: `M 0,${wireY} L ${endX},${wireY}`, 
-      peak: { x: endX, y: wireY }
+      d: `M 0,${adjustedWireY} L ${endX},${adjustedWireY}`, 
+      peak: { x: endX, y: adjustedWireY }
     };
   })();
 
@@ -467,6 +470,17 @@ export default function MilestonesJourney() {
         }
 
         .mj-scroll-area.mj-grabbing { 
+          background: rgba(0,0,0,0.02);
+        }
+        
+        /* Darker grab cursor for better contrast on light background */
+        .mj-scroll-area {
+          cursor: grab;
+          color: #4a5568;
+        }
+        .mj-scroll-area.mj-grabbing {
+          cursor: grabbing;
+          color: #1a202c;
           cursor: grabbing;
         }
         
