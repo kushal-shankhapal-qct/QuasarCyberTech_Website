@@ -533,10 +533,10 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               letterSpacing: "-0.01em",
             }}
           >
-            Admin <span style={{ color: T.gold }}>Portal</span>
+            Blog <span style={{ color: T.gold }}>Portal</span>
           </div>
           <div style={{ ...eyebrow, marginTop: "4px", opacity: 0.7 }}>
-            QuasarCyberTech Blog Management
+            QuasarCyberTech
           </div>
         </div>
 
@@ -1359,10 +1359,7 @@ export default function BlogAdmin() {
           <img src={LOGO_ICON} alt="QCT" style={{ height: "32px" }} />
           <div>
             <span style={{ fontFamily: T.fontH, fontWeight: 700, fontSize: "15px", color: T.text }}>
-              QCT <span style={{ color: T.gold }}>Admin</span>
-            </span>
-            <span style={{ color: T.textMuted, fontSize: "12px", marginLeft: "10px", fontFamily: T.fontB }}>
-              / Blog Manager
+              QCT <span style={{ color: T.gold }}>Blog Portal</span>
             </span>
           </div>
         </div>
@@ -1373,10 +1370,7 @@ export default function BlogAdmin() {
               ← All Posts
             </button>
           ) : (
-            <button
-              onClick={() => setView("new")}
-              style={primaryBtn()}
-            >
+            <button onClick={() => setView("new")} style={primaryBtn()}>
               + New Post
             </button>
           )}
