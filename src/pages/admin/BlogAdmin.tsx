@@ -522,7 +522,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <img
             src={LOGO_ICON}
             alt="QCT"
-            style={{ height: "52px", marginBottom: "16px" }}
+            style={{ height: "52px", display: "block", margin: "0 auto 16px" }}
           />
           <div
             style={{
