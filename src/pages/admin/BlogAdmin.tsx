@@ -212,6 +212,32 @@ const divider: CSSProperties = {
   margin:    "20px 0",
 };
 
+// ─── Inactivity auto-logout (15 min) ─────────────────────────────────────────
+
+const INACTIVITY_MS = 15 * 60 * 1000;
+
+function useInactivityLogout(active: boolean, onLogout: () => void) {
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const reset = () => {
+      clearTimeout(timer.current);
+      timer.current = setTimeout(onLogout, INACTIVITY_MS);
+    };
+
+    const events = ["mousemove", "mousedown", "keydown", "touchstart", "scroll"];
+    events.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    reset(); // start the timer immediately
+
+    return () => {
+      clearTimeout(timer.current);
+      events.forEach((e) => window.removeEventListener(e, reset));
+    };
+  }, [active, onLogout]);
+}
+
 // ─── Font loader ──────────────────────────────────────────────────────────────
 
 function useFonts() {
@@ -1274,11 +1300,13 @@ export default function BlogAdmin() {
 
   useEffect(() => { loadPosts(); }, [loadPosts]);
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await api("/api/admin/logout", { method: "POST" });
     setAuthed(false);
     setPosts([]);
-  };
+  }, []);
+
+  useInactivityLogout(authed === true, handleLogout);
 
   const handleSave = async () => {
     await loadPosts();
