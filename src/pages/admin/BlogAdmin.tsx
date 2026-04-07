@@ -212,6 +212,32 @@ const divider: CSSProperties = {
   margin:    "20px 0",
 };
 
+// ─── Inactivity auto-logout (15 min) ─────────────────────────────────────────
+
+const INACTIVITY_MS = 15 * 60 * 1000;
+
+function useInactivityLogout(active: boolean, onLogout: () => void) {
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const reset = () => {
+      clearTimeout(timer.current);
+      timer.current = setTimeout(onLogout, INACTIVITY_MS);
+    };
+
+    const events = ["mousemove", "mousedown", "keydown", "touchstart", "scroll"];
+    events.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    reset(); // start the timer immediately
+
+    return () => {
+      clearTimeout(timer.current);
+      events.forEach((e) => window.removeEventListener(e, reset));
+    };
+  }, [active, onLogout]);
+}
+
 // ─── Font loader ──────────────────────────────────────────────────────────────
 
 function useFonts() {
@@ -496,7 +522,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <img
             src={LOGO_ICON}
             alt="QCT"
-            style={{ height: "52px", marginBottom: "16px" }}
+            style={{ height: "52px", display: "block", margin: "0 auto 16px" }}
           />
           <div
             style={{
@@ -507,10 +533,10 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               letterSpacing: "-0.01em",
             }}
           >
-            Admin <span style={{ color: T.gold }}>Portal</span>
+            Blog <span style={{ color: T.gold }}>Portal</span>
           </div>
           <div style={{ ...eyebrow, marginTop: "4px", opacity: 0.7 }}>
-            QuasarCyberTech Blog Management
+            QuasarCyberTech
           </div>
         </div>
 
@@ -1274,11 +1300,13 @@ export default function BlogAdmin() {
 
   useEffect(() => { loadPosts(); }, [loadPosts]);
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await api("/api/admin/logout", { method: "POST" });
     setAuthed(false);
     setPosts([]);
-  };
+  }, []);
+
+  useInactivityLogout(authed === true, handleLogout);
 
   const handleSave = async () => {
     await loadPosts();
@@ -1331,10 +1359,7 @@ export default function BlogAdmin() {
           <img src={LOGO_ICON} alt="QCT" style={{ height: "32px" }} />
           <div>
             <span style={{ fontFamily: T.fontH, fontWeight: 700, fontSize: "15px", color: T.text }}>
-              QCT <span style={{ color: T.gold }}>Admin</span>
-            </span>
-            <span style={{ color: T.textMuted, fontSize: "12px", marginLeft: "10px", fontFamily: T.fontB }}>
-              / Blog Manager
+              QCT <span style={{ color: T.gold }}>Blog Portal</span>
             </span>
           </div>
         </div>
@@ -1345,10 +1370,7 @@ export default function BlogAdmin() {
               ← All Posts
             </button>
           ) : (
-            <button
-              onClick={() => setView("new")}
-              style={primaryBtn()}
-            >
+            <button onClick={() => setView("new")} style={primaryBtn()}>
               + New Post
             </button>
           )}
