@@ -8,6 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = 'https://quasarcybertech.com';
 const SITEMAP_EXCLUDES = new Set([
   '/404',
+  '/403',
+  '/blogs/admin',    // admin portal — never index
   '/case-studies',
   '/advisories',
   '/infosec-dictionary',
@@ -187,6 +189,7 @@ const writeSeoArtifacts = async (distDir: string) => {
     'User-agent: *',
     'Allow: /',
     'Disallow: /careers/apply',
+    'Disallow: /blogs/admin',
     '',
     `Sitemap: ${SITE_URL}/sitemap.xml`,
     '',

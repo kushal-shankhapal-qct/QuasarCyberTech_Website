@@ -9,7 +9,8 @@ import ArticleCard from '../../components/blogs/ArticleCard';
 import BlogSidebar from '../../components/blogs/SidebarWidget';
 import PageHero from '../../components/PageHero';
 import Seo from '../../components/seo/Seo';
-import { blogsData, BLOG_CATEGORIES } from '../../data/blogsData';
+import { blogsData, BLOG_CATEGORIES, type BlogPost } from '../../data/blogsData';
+import { fetchBlogs } from '../../api/blogs';
 import { COLORS, GRADIENTS } from '../../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { createBreadcrumbSchema } from '../../seo/schema';
@@ -22,6 +23,7 @@ const BLOGS_DESKTOP_SIDE_MARGIN = '3rem';
 export default function BlogsOverview() {
   // State
   const [searchParams] = useSearchParams();
+  const [posts, setPosts] = useState<BlogPost[]>(blogsData); // static seed → replaced on mount
   const [activeCategory, setActiveCategory] = useState('All Posts');
   const [searchQuery, setSearchQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -33,10 +35,15 @@ export default function BlogsOverview() {
   const filterBarRef = useRef<HTMLDivElement>(null);
 
   // Data
-  const featuredPost = blogsData.find(p => p.featured) ?? blogsData[0];
+  const featuredPost = posts.find(p => p.featured) ?? posts[0];
 
   // Scroll to top
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
+
+  // Live fetch — replaces static seed with API data on mount
+  useEffect(() => {
+    fetchBlogs().then(setPosts).catch(() => { /* static seed stays */ });
+  }, []);
 
   // Initialize tag filter from URL query param (?tag=AI, ?tag=Zero+Trust, etc.)
   useEffect(() => {
@@ -69,14 +76,14 @@ export default function BlogsOverview() {
   }, []);
 
   // Filter logic
-  const filtered = blogsData.filter(p => {
+  const filtered = posts.filter(p => {
     const matchCat = activeCategory === 'All Posts' || p.category === activeCategory;
     const q = searchQuery.toLowerCase();
     const matchSearch = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q));
     return matchCat && matchSearch;
   });
 
-  const latestPosts = [...blogsData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
+  const latestPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
 
   // ═══════════════════════════════════════════════════════════════════════════
   return (

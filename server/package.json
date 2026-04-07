@@ -9,6 +9,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "keygen": "tsx src/crypto/keygen.ts",
+    "admin:keygen": "tsx src/crypto/adminKeygen.ts",
+    "seed:blogs": "tsx src/scripts/seed-blogs.ts",
     "export": "tsx src/scripts/export-data.ts"
   },
   "dependencies": {

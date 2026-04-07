@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { User, Clock, Tag, ArrowLeft, Share2 } from 'lucide-react';
 
@@ -6,17 +6,29 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import PageHero from '../../components/PageHero';
 import Seo from '../../components/seo/Seo';
-import { blogsData } from '../../data/blogsData';
+import { blogsData, type BlogPost } from '../../data/blogsData';
+import { fetchBlogBySlug } from '../../api/blogs';
 import { COLORS, TYPOGRAPHY, GRADIENTS } from '../../config/themeConfig';
 import NotFound from '../NotFound';
 import { createArticleSchema, createBreadcrumbSchema } from '../../seo/schema';
 
 const BlogIndividual: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
-    const post = blogsData.find(p => p.id === slug);
+    // Static seed for SSR/prerender — replaced by API data on mount
+    const [post, setPost] = useState<BlogPost | undefined>(
+        blogsData.find(p => p.id === slug)
+    );
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'instant' });
+    }, [slug]);
+
+    // Live fetch — picks up full content and view count from DB
+    useEffect(() => {
+        if (!slug) return;
+        fetchBlogBySlug(slug).then((data) => {
+            if (data) setPost(data);
+        }).catch(() => { /* static seed stays */ });
     }, [slug]);
 
     if (!post) {

@@ -65,6 +65,11 @@ export const routes: RouteRecord[] = [
         getStaticPaths: () => industriesData.map((industry) => `industries/${industry.slug}`),
       },
       {
+        // Admin portal — client-only, no SSG, no sitemap
+        path: 'blogs/admin',
+        lazy: lazyPage(() => import('./src/pages/admin/BlogAdmin')),
+      },
+      {
         path: 'careers',
         lazy: lazyPage(() => import('./src/pages/Careers')),
       },

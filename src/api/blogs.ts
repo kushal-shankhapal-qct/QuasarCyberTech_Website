@@ -1,84 +1,84 @@
 import type { BlogPost } from '../data/blogsData';
 import { blogsData } from '../data/blogsData';
 
-const RAW_API_URL = import.meta.env.VITE_STRAPI_API_URL?.trim() ?? '';
-const RAW_IMAGE_BASE = import.meta.env.VITE_STRAPI_BASE_URL?.trim() ?? '';
-const API_URL = RAW_API_URL.replace(/\/$/, '');
-const IMAGE_BASE = RAW_IMAGE_BASE.replace(/\/$/, '');
+const API_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? '';
 
-const assertJsonResponse = (res: Response) => {
-  const contentType = res.headers.get('content-type') || '';
-  if (!contentType.toLowerCase().includes('application/json')) {
-    throw new Error(`Expected JSON but received ${contentType || 'unknown content type'}`);
-  }
-};
-
-const safeReadJson = async (res: Response) => {
-  const body = await res.text();
-  try {
-    return JSON.parse(body);
-  } catch {
-    const snippet = body.slice(0, 120).replace(/\s+/g, ' ').trim();
-    throw new Error(`Invalid JSON response body${snippet ? `: ${snippet}` : ''}`);
-  }
-};
+// ─── Shape normaliser ─────────────────────────────────────────────────────────
 
 /**
- * Normalizes Strapi API response format to match the internal BlogPost interface.
+ * The server returns the DB row shape. Convert it to BlogPost so the
+ * rest of the frontend never needs to know about the DB column names.
+ * Falls back field-by-field to the static blogsData entry if the server
+ * omits a field (e.g. image_url not yet set for a post).
  */
-const normalizeBlog = (strapiData: any): BlogPost => {
-  const attrs = strapiData.attributes;
+const normalise = (raw: Record<string, unknown>, fallback?: BlogPost): BlogPost => {
+  const slug = (raw.slug ?? raw.id) as string;
+  const staticEntry = fallback ?? blogsData.find((b) => b.id === slug);
+
   return {
-    id: attrs.slug,
-    title: attrs.title,
-    excerpt: attrs.excerpt,
-    category: attrs.category,
-    date: attrs.date,
-    readTime: attrs.readTime,
-    author: attrs.author,
-    tags: attrs.tags || [],
-    image: attrs.image?.data?.attributes?.url 
-      ? `${IMAGE_BASE}${attrs.image.data.attributes.url}` 
-      : (blogsData.find(b => b.id === attrs.slug)?.image || ''),
-    views: attrs.views || 0,
-    featured: attrs.featured || false,
-    content: attrs.content || '',
+    id:        slug,
+    title:     (raw.title     as string) || staticEntry?.title     || '',
+    excerpt:   (raw.excerpt   as string) || staticEntry?.excerpt   || '',
+    content:   (raw.content   as string) || staticEntry?.content   || '',
+    category:  (raw.category  as string) || staticEntry?.category  || '',
+    author:    (raw.author    as string) || staticEntry?.author    || 'QuasarCyberTech',
+    image:     (raw.image     as string) || staticEntry?.image     || '',
+    readTime:  (raw.readTime  as string) || staticEntry?.readTime  || '5 min read',
+    tags:      Array.isArray(raw.tags) ? (raw.tags as string[]) : staticEntry?.tags ?? [],
+    views:     typeof raw.views === 'number' ? raw.views : staticEntry?.views ?? 0,
+    featured:  typeof raw.featured === 'boolean' ? raw.featured : staticEntry?.featured ?? false,
+    date:      (raw.date      as string) || staticEntry?.date      || '',
+    updatedAt: (raw.updatedAt as string | undefined) ?? staticEntry?.updatedAt,
   };
 };
 
+// ─── Public API ───────────────────────────────────────────────────────────────
+
 /**
- * Fetches all blogs from Strapi with a fallback to static blogsData.
+ * Fetches all published blog posts from the backend.
+ * Falls back to static blogsData if the API is unreachable.
  */
 export async function fetchBlogs(): Promise<BlogPost[]> {
   try {
-    if (!API_URL) throw new Error('Missing Strapi API URL');
-    const res = await fetch(`${API_URL}/blogs?populate=*`);
-    if (!res.ok) throw new Error('CMS unreachable');
-    assertJsonResponse(res);
-    const json = await safeReadJson(res);
-    return json.data.map(normalizeBlog);
-  } catch (error) {
-    console.warn('Using static fallback for blogs list:', error);
+    if (!API_BASE) throw new Error('VITE_API_URL not set');
+
+    const res = await fetch(`${API_BASE}/api/blogs`, {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!res.ok) throw new Error(`API returned ${res.status}`);
+
+    const json = (await res.json()) as { success: boolean; data?: unknown[] };
+    if (!json.success || !Array.isArray(json.data)) throw new Error('Unexpected response shape');
+
+    return json.data.map((raw) => normalise(raw as Record<string, unknown>));
+  } catch (err) {
+    console.warn('[blogs] Using static fallback for list:', err);
     return blogsData;
   }
 }
 
 /**
- * Fetches a single blog by its slug with a fallback to static blogsData.
+ * Fetches a single published post by slug.
+ * Falls back to the matching static blogsData entry if the API is unreachable.
  */
 export async function fetchBlogBySlug(slug: string): Promise<BlogPost | undefined> {
   try {
-    if (!API_URL) throw new Error('Missing Strapi API URL');
-    const res = await fetch(`${API_URL}/blogs?filters[slug][$eq]=${slug}&populate=*`);
-    if (!res.ok) throw new Error('CMS unreachable');
-    assertJsonResponse(res);
-    const json = await safeReadJson(res);
-    if (json.data && json.data.length > 0) {
-      return normalizeBlog(json.data[0]);
-    }
-    throw new Error('Blog not found in CMS');
-  } catch (error) {
-    console.warn(`Using static fallback for blog slug "${slug}":`, error);
-    return blogsData.find(b => b.id === slug);
+    if (!API_BASE) throw new Error('VITE_API_URL not set');
+
+    const res = await fetch(`${API_BASE}/api/blogs/${encodeURIComponent(slug)}`, {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (res.status === 404) return undefined;
+    if (!res.ok) throw new Error(`API returned ${res.status}`);
+
+    const json = (await res.json()) as { success: boolean; data?: unknown };
+    if (!json.success || !json.data) throw new Error('Unexpected response shape');
+
+    return normalise(json.data as Record<string, unknown>);
+  } catch (err) {
+    console.warn(`[blogs] Using static fallback for slug "${slug}":`, err);
+    return blogsData.find((b) => b.id === slug);
   }
 }
