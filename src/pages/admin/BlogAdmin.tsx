@@ -58,10 +58,14 @@ async function api<T>(
   path: string,
   opts?: RequestInit,
 ): Promise<Res<T>> {
+  const hasBody = opts?.body != null;
   const res = await fetch(`${API}${path}`, {
     credentials: "include",
-    headers: { "Content-Type": "application/json" },
     ...opts,
+    headers: {
+      ...(hasBody ? { "Content-Type": "application/json" } : {}),
+      ...((opts?.headers as Record<string, string>) ?? {}),
+    },
   });
   const json = await res.json();
   return { ok: res.ok, status: res.status, ...json };
