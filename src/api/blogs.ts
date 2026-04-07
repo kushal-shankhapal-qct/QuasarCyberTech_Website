@@ -40,8 +40,6 @@ const normalise = (raw: Record<string, unknown>, fallback?: BlogPost): BlogPost 
  */
 export async function fetchBlogs(): Promise<BlogPost[]> {
   try {
-    if (!API_BASE) throw new Error('VITE_API_URL not set');
-
     const res = await fetch(`${API_BASE}/api/blogs`, {
       headers: { Accept: 'application/json' },
     });
@@ -64,8 +62,6 @@ export async function fetchBlogs(): Promise<BlogPost[]> {
  */
 export async function fetchBlogBySlug(slug: string): Promise<BlogPost | undefined> {
   try {
-    if (!API_BASE) throw new Error('VITE_API_URL not set');
-
     const res = await fetch(`${API_BASE}/api/blogs/${encodeURIComponent(slug)}`, {
       headers: { Accept: 'application/json' },
     });
