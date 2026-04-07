@@ -37,6 +37,6 @@ uploadAssets.*
 .vercel/
 deh6glmlw/
 *.log
-scripts/
+/scripts/
 CLAUDE.md
 milestone-review.html
