@@ -105,6 +105,10 @@ export default function CapabilitiesGrid() {
           }
 
           @media (max-width: 640px) {
+            .home-capabilities-section {
+              padding-left: 1rem !important;
+              padding-right: 1rem !important;
+            }
             .home-capabilities-header {
               margin-bottom: 2rem !important;
             }
@@ -113,7 +117,7 @@ export default function CapabilitiesGrid() {
             }
             .home-capabilities-grid {
               grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-              gap: 1.125rem !important;
+              gap: 0.875rem !important;
             }
           }
         `,

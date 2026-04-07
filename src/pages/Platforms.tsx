@@ -191,7 +191,7 @@ export default function Platforms() {
 
         {/* ─── PLATFORM 02: QPulse (DARK) ─── */}
         <section className="platform-section" style={{
-          background: GRADIENTS.HERO_BG,
+          background: GRADIENTS.PLATFORMS_QPULSE_SECTION_BG,
           display: 'flex',
           flexWrap: 'wrap-reverse',
           alignItems: 'center'
@@ -248,7 +248,7 @@ export default function Platforms() {
 
         {/* ─── PLATFORM 04: QLeap (DARK - SYNCED RHYTHM) ─── */}
         <section className="platform-section" style={{
-          background: GRADIENTS.HERO_BG,
+          background: GRADIENTS.PLATFORMS_QLEAP_SECTION_BG,
           display: 'flex',
           flexWrap: 'wrap-reverse',
           borderTop: '1px solid rgba(255,255,255,0.05)',

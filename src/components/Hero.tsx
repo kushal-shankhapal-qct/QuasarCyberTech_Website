@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ASSETS } from "@/constants/assets";
@@ -17,9 +17,10 @@ const HC = {
   vortex: {
     size: "100vh",
     opacity: 0.88,
-    rotateSpeed: 160,
+    rotateSpeed: 180,
     // Mobile Overrides
     mobile: {
+      rotateSpeed: 1800,
       size: "100vw",
       top: "100%", // Peek from below
       opacity: 0.42,
@@ -29,6 +30,21 @@ const HC = {
 };
 
 const Hero: React.FC = () => {
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(max-width: 37.5rem)");
+    const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
+
+  const vortexRotateDuration = isMobileViewport
+    ? HC.vortex.mobile.rotateSpeed
+    : HC.vortex.rotateSpeed;
+
   return (
     <section
       className="home-hero-section"
@@ -67,7 +83,7 @@ const Hero: React.FC = () => {
           src={logoSymbol}
           alt=""
           animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 160, ease: "linear" }}
+          transition={{ repeat: Infinity, duration: vortexRotateDuration, ease: "linear" }}
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
       </div>

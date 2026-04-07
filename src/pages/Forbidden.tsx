@@ -10,7 +10,7 @@ export default function Forbidden() {
     <div
       style={{
         minHeight: '100vh',
-        background: GRADIENTS.HERO_BG,
+        background: GRADIENTS.FORBIDDEN_BG,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

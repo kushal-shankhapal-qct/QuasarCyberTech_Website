@@ -10,7 +10,7 @@ export default function NotFound() {
     <div 
       style={{ 
         minHeight: '100vh', 
-        background: GRADIENTS.HERO_BG, 
+        background: GRADIENTS.NOT_FOUND_BG, 
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center', 

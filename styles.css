@@ -30,33 +30,7 @@
     --spacing: 0.25rem;
     --page-padding-x: 3rem;
 
-    /* Gradient engine: desktop defaults */
-    --gradient-hero-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-dark-section-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-home-framework-bg: radial-gradient(ellipse at 25% 47%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
-    --gradient-home-platforms-bg: radial-gradient(ellipse at 20% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%);
-    --gradient-home-insights-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-home-leadership-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-home-testimonials-bg: radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%);
-    --gradient-careers-hero-bg: radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
-    --gradient-careers-why-join-bg: radial-gradient(circle at 70% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%);
-    --gradient-careers-qleap-bg: radial-gradient(ellipse at 50% 10%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 80%);
-    --gradient-capabilities-overview-hero-bg: radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
-    --gradient-capability-individual-hero-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-industries-overview-hero-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-industry-individual-hero-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-industry-challenges-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 55%);
-    --gradient-about-hero-bg: radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
-    --gradient-about-achievement-bg: radial-gradient(circle at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%);
-    --gradient-about-mission-section-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-about-founders-vision-bg: radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%);
-    --gradient-about-why-us-bg: radial-gradient(ellipse at 70% 30%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%);
-    --gradient-about-industries-bg: radial-gradient(ellipse at 80% 80%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 80%);
-    --gradient-blogs-overview-hero-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-blogs-overview-newsletter-bg: radial-gradient(circle at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-blog-individual-hero-bg: radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%);
-    --gradient-contact-right-card-bg: radial-gradient(circle at 50% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%);
-    --gradient-platforms-page-bg: #040B1D;
+    /* Gradient vars are injected from src/config/themeConfig.ts (GRADIENT_PRESETS). */
   }
 
   .dark {
@@ -106,34 +80,6 @@
 @media (max-width: 768px) {
   :root {
     --page-padding-x: 2rem;
-
-    /* Gradient engine: mobile presets */
-    --gradient-hero-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-dark-section-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-home-framework-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%);
-    --gradient-home-platforms-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 58%);
-    --gradient-home-insights-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-home-leadership-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-home-testimonials-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 58%);
-    --gradient-careers-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%);
-    --gradient-careers-why-join-bg: radial-gradient(circle at 50% 112%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 68%);
-    --gradient-careers-qleap-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 84%);
-    --gradient-capabilities-overview-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%);
-    --gradient-capability-individual-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-industries-overview-hero-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-industry-individual-hero-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-industry-challenges-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 62%);
-    --gradient-about-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%);
-    --gradient-about-achievement-bg: radial-gradient(circle at 50% 110%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%);
-    --gradient-about-mission-section-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-about-founders-vision-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
-    --gradient-about-why-us-bg: radial-gradient(ellipse at 50% 108%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%);
-    --gradient-about-industries-bg: radial-gradient(ellipse at 50% 108%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 82%);
-    --gradient-blogs-overview-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-blogs-overview-newsletter-bg: radial-gradient(circle at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-blog-individual-hero-bg: radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%);
-    --gradient-contact-right-card-bg: radial-gradient(circle at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 66%);
-    --gradient-platforms-page-bg: #040B1D;
   }
 }
 

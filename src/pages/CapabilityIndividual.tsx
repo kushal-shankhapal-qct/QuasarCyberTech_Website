@@ -183,7 +183,7 @@ const CapabilityIndividual: React.FC = () => {
 
             {/* ─── SECTION 3: SERVICE AREAS ─── */}
             <section style={{
-                background: GRADIENTS.HERO_BG,
+                background: GRADIENTS.CAPABILITY_INDIVIDUAL_SERVICE_AREAS_BG,
                 paddingTop: '64px',
                 paddingBottom: '64px',
                 paddingLeft: LAYOUT_CONTROLS.section.paddingX,
@@ -394,7 +394,7 @@ const CapabilityIndividual: React.FC = () => {
 
             {/* ─── SECTION 6: INDUSTRY APPLICATION (ALIGNED DARK) ─── */}
             <section style={{
-                background: GRADIENTS.HERO_BG,
+                background: GRADIENTS.CAPABILITY_INDIVIDUAL_INDUSTRY_APPLICATION_BG,
                 paddingTop: '48px',
                 paddingBottom: '48px',
                 paddingLeft: LAYOUT_CONTROLS.section.paddingX,

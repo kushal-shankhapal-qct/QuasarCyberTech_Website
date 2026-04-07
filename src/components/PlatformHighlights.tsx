@@ -70,8 +70,9 @@ export default function PlatformHighlights() {
     <section 
       className="home-platforms-section"
       style={{
-        background: GRADIENTS.HOME_PLATFORMS_BG,
+        background: GRADIENTS.HOME_FRAMEWORK_BG,
         padding: `clamp(2rem, 5vh, 4rem) ${LAYOUT_CONTROLS.global.paddingX} clamp(2rem, 5vh, 4rem)`,
+        paddingTop: "4rem",
         fontFamily: TYPOGRAPHY.fontBody
       }}>
       <SectionHeader

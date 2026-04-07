@@ -7,7 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import '@radix-ui/themes/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { themeConfig } from '../config/themeConfig';
+import { themeConfig, GRADIENT_VARIABLES_CSS } from '../config/themeConfig';
 
 const RootLayout: React.FC = () => {
   useEffect(() => {
@@ -23,6 +23,10 @@ const RootLayout: React.FC = () => {
 
   return (
     <HelmetProvider>
+      <style
+        id="qct-gradient-variables"
+        dangerouslySetInnerHTML={{ __html: GRADIENT_VARIABLES_CSS }}
+      />
       <Theme appearance="inherit" radius="large" scaling="100%">
         {/* Individual pages define their own <main> — no wrapper <main> here */}
         <Suspense fallback={null}>

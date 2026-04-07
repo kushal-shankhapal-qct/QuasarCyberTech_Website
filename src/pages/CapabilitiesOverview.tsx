@@ -116,9 +116,14 @@ const CapabilitiesOverview: React.FC = () => {
                                                         }
 
                                                         @media (max-width: 40rem) {
+                                                            .capabilities-overview-section {
+                                                                padding-left: 1rem !important;
+                                                                padding-right: 1rem !important;
+                                                            }
+
                                                             .capabilities-overview-grid {
                                                                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-                                                                gap: 1.125rem !important;
+                                                                gap: 0.875rem !important;
                                                             }
                                                         }
                                                     `,

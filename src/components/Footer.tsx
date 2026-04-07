@@ -142,17 +142,33 @@ const Footer: React.FC = () => {
           }
           .ft-brand {
             flex-direction: column !important;
-            align-items: center !important;
-            text-align: center;
+            align-items: flex-start !important;
+            text-align: left;
             gap: 1.25rem;
           }
-          .ft-brand-right { align-items: center; min-width: 0; }
-          .ft-socials { justify-content: center !important; }
-          .ft-contacts { align-items: center !important; }
+          .ft-brand-right {
+            align-items: flex-start !important;
+            min-width: 0;
+            width: 100%;
+          }
+          .ft-brand-logo {
+            width: 100%;
+            display: flex !important;
+            justify-content: center;
+            margin-bottom: 1rem !important;
+          }
+          .ft-brand-logo img {
+            margin: 0 auto;
+          }
+          .ft-socials {
+            justify-content: center !important;
+            width: 100%;
+          }
+          .ft-contacts { align-items: flex-start !important; width: 100%; }
           .ft-contact-row {
             justify-content: flex-start;
             width: 100%;
-            max-width: 280px;
+            max-width: none;
           }
           .ft-nav-group {
             grid-template-columns: repeat(2, 1fr);
@@ -233,7 +249,15 @@ const Footer: React.FC = () => {
           background: rgba(214,176,92,0.14);
           transform: translateY(-3px);
         }
-        .ft-contact-row span { word-break: break-word; min-width: 0; }
+        .ft-contact-row span {
+          word-break: normal;
+          overflow-wrap: anywhere;
+          min-width: 0;
+        }
+        .ft-contact-text--email {
+          white-space: nowrap;
+          overflow-wrap: normal;
+        }
       `}} />
 
       {/* ── MAIN GRID ── */}
@@ -265,7 +289,7 @@ const Footer: React.FC = () => {
             <div className="ft-contacts" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               <a href="mailto:contactus@quasarcybertech.com" className="ft-contact-row">
                 <div className="ft-icon-btn"><Mail size={15} /></div>
-                <span>contactus@quasarcybertech.com</span>
+                <span className="ft-contact-text--email">contactus@quasarcybertech.com</span>
               </a>
               <a href="tel:+919730691190" className="ft-contact-row">
                 <div className="ft-icon-btn"><Phone size={15} /></div>

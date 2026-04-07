@@ -391,12 +391,42 @@ export default function About() {
     },
   ];
 
+  const visionMissionCards = [
+    {
+      title: "Vision",
+      icon: ASSETS.about.visionIcon,
+      description:
+        "To be a global leader in IT innovation, driving transformative solutions that empower businesses, enhance efficiency, and shape a secure, sustainable digital future.",
+    },
+    {
+      title: "Mission",
+      icon: ASSETS.about.missionIcon,
+      description:
+        "To deliver cutting-edge IT solutions and services that empower businesses to innovate, adapt, and excel in a dynamic digital landscape, fostering growth through technology, expertise, and collaboration.",
+    },
+  ];
+
   const coreValues = [
-    "Integrity in every engagement",
-    "Innovation as a way of life",
-    "Customer-Centricity in all solutions",
-    "Excellence through expertise",
-    "Collaboration for greater impact",
+    {
+      title: "Integrity in every engagement",
+      icon: ASSETS.about.coreValueIcons.integrity,
+    },
+    {
+      title: "Innovation as a way of life",
+      icon: ASSETS.about.coreValueIcons.innovation,
+    },
+    {
+      title: "Customer-Centricity in all solutions",
+      icon: ASSETS.about.coreValueIcons.customerCentricity,
+    },
+    {
+      title: "Excellence through expertise",
+      icon: ASSETS.about.coreValueIcons.excellence,
+    },
+    {
+      title: "Collaboration for greater impact",
+      icon: ASSETS.about.coreValueIcons.collaboration,
+    },
   ];
 
   return (
@@ -573,98 +603,67 @@ export default function About() {
             </div>
           </div>
 
-          {/* Vision & Mission – 2 col */}
-          <div style={{ marginTop: "2.5rem" }}>
+          {/* Vision / Mission / Core Values */}
+          <div
+            style={{
+              marginTop: "2.5rem",
+              padding: "clamp(1.25rem, 2.8vw, 2.4rem)",
+            }}
+          >
             <div
               className="about-vm-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gap: "2rem",
+                gap: "1.5rem",
                 marginBottom: "var(--gap-vm)",
               }}
             >
-              {/* Vision */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                  borderLeft: `4px solid ${COLORS.burgundy}`,
-                  borderRadius: "0 1rem 1rem 0",
-                  padding: "clamp(1.25rem, 2.5vw, 2rem)",
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: "clamp(26px, 4vw, 42px)",
-                    fontWeight: 800,
-                    color: COLORS.burgundy,
-                    marginBottom: "0.75rem",
-                    fontFamily: TYPOGRAPHY.fontHeading,
-                  }}
+              {visionMissionCards.map((card, index) => (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="about-vm-card"
                 >
-                  Vision
-                </h3>
-                <p
-                  style={{
-                    fontSize: "clamp(13px, 1.15vw, 15px)",
-                    color: "#4A3040",
-                    lineHeight: 1.8,
-                    margin: 0,
-                  }}
-                >
-                  To be a global leader in IT innovation, driving transformative
-                  solutions that empower businesses, enhance efficiency, and
-                  shape a secure, sustainable digital future.
-                </p>
-              </motion.div>
-
-              {/* Mission */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.08 }}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                  borderRight: `4px solid ${COLORS.burgundy}`,
-                  borderRadius: "1rem 0 0 1rem",
-                  padding: "clamp(1.25rem, 2.5vw, 2rem)",
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: "clamp(26px, 4vw, 42px)",
-                    fontWeight: 800,
-                    color: COLORS.burgundy,
-                    marginBottom: "0.75rem",
-                    fontFamily: TYPOGRAPHY.fontHeading,
-                  }}
-                >
-                  Mission
-                </h3>
-                <p
-                  style={{
-                    fontSize: "clamp(13px, 1.15vw, 15px)",
-                    color: "#4A3040",
-                    lineHeight: 1.8,
-                    margin: 0,
-                  }}
-                >
-                  To deliver cutting-edge IT solutions and services that empower
-                  businesses to innovate, adapt, and excel in a dynamic digital
-                  landscape, fostering growth through technology, expertise, and
-                  collaboration.
-                </p>
-              </motion.div>
+                  <div className="about-vm-icon-box">
+                    <img
+                      src={card.icon}
+                      alt={`${card.title} icon`}
+                      className="about-vm-icon"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="about-vm-copy">
+                    <h3
+                      style={{
+                        fontSize: "clamp(26px, 4vw, 42px)",
+                        fontWeight: 800,
+                        color: COLORS.burgundy,
+                        marginBottom: "0.55rem",
+                        lineHeight: 1,
+                        fontFamily: TYPOGRAPHY.fontHeading,
+                      }}
+                    >
+                      {card.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "clamp(13px, 1.15vw, 15px)",
+                        color: "#3E2732",
+                        lineHeight: 1.72,
+                        margin: 0,
+                      }}
+                    >
+                      {card.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
-            {/* Core Values – 3 columns */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -677,35 +676,57 @@ export default function About() {
                   fontWeight: 800,
                   color: "#1A0A0F",
                   marginBottom: "var(--gap-core-values)",
+                  textAlign: "center",
                   fontFamily: TYPOGRAPHY.fontHeading,
                 }}
               >
                 Our <span style={{ color: COLORS.burgundy }}>Core</span> Values
               </h3>
-              {/* Staircase layout spanning full width */}
-              <div
-                className="about-values-outer staircase-container"
-                style={{
-                  width: "100%",
-                  overflowX: "hidden",
-                  paddingTop: "1rem",
-                }}
-              >
-                <div className="about-values-grid-staircase">
-                  {coreValues.map((val, i) => (
-                    <div
-                      key={i}
-                      className="about-value-card staircase-card"
-                      style={{
-                        borderTop: `3px solid ${COLORS.burgundy}`,
-                        marginTop: 0, // Removed staircase displacement
-                      }}
-                    >
-                      {val}
+
+              <div className="about-core-values-grid">
+                {coreValues.slice(0, 4).map((value, index) => (
+                  <motion.div
+                    key={value.title}
+                    className="about-core-value-card"
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.16 + index * 0.04 }}
+                  >
+                    <div className="about-core-value-icon-box">
+                      <img
+                        src={value.icon}
+                        alt={`${value.title} icon`}
+                        className="about-core-value-icon"
+                        loading="lazy"
+                      />
                     </div>
-                  ))}
-                </div>
+                    <p className="about-core-value-text">{value.title}</p>
+                  </motion.div>
+                ))}
               </div>
+
+              {coreValues[4] && (
+                <div className="about-core-values-last-row">
+                  <motion.div
+                    className="about-core-value-card about-core-value-card--last"
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.36 }}
+                  >
+                    <div className="about-core-value-icon-box">
+                      <img
+                        src={coreValues[4].icon}
+                        alt={`${coreValues[4].title} icon`}
+                        className="about-core-value-icon"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p className="about-core-value-text">{coreValues[4].title}</p>
+                  </motion.div>
+                </div>
+              )}
             </motion.div>
           </div>
         </section>
@@ -1324,7 +1345,7 @@ export default function About() {
         <section
           className="about-content-section"
           style={{
-            background: GRADIENTS.HERO_BG,
+            background: GRADIENTS.ABOUT_GLOBAL_PRESENCE_BG,
             paddingTop: "clamp(48px, 6vw, 80px)",
             paddingBottom: "clamp(48px, 6vw, 90px)",
             ...sectionPad,
@@ -1652,7 +1673,6 @@ export default function About() {
           --about-hero-pad-top: clamp(10rem, 18vh, 12rem); 
           --about-hero-min-height: 100vh; /* Reduces empty space below button */
           --about-hero-gap-below-button: 0rem; /* Handled by min-height behavior now to avoid peaking */
-          --staircase-step: 18%; /* This will span it nicely across desktop */
           --about-core-value-font-size: clamp(13.5px, 1.18vw, 16px);
           --about-core-value-font-size-mobile: 15px;
           
@@ -1672,37 +1692,90 @@ export default function About() {
         }
         .about-page .page-hero-subtitle { text-align: justify !important; }
 
-        /* Core values: Wide-span vertical staircase */
-        .about-values-grid-staircase {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-          gap: 1.5rem;
-          padding: 1rem 0 3rem; /* Reduced bottom padding from 5rem to minimize gap */
-        }
-        .staircase-card {
-          width: calc(20% - 1.2rem);
-          white-space: normal; /* Allow wrap for long values if needed */
-        }
-        @media (max-width: 1100px) {
-           .about-values-grid-staircase { flex-direction: column; gap: 1rem; padding-bottom: 2rem; }
-           .staircase-card { width: 100% !important; margin-top: 0 !important; }
-        }
-        .about-value-card {
+        .about-vm-card {
           background: #FFFFFF;
-          border: 1px solid rgba(0,0,0,0.06);
-          border-radius: 0 0 0.375rem 0.375rem;
-          padding: clamp(0.75rem, 1.5vw, 1.25rem);
-          font-size: var(--about-core-value-font-size);
-          font-weight: 700;
-          color: #2D1520;
-          line-height: 1.4;
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 1rem;
+          padding: clamp(0.95rem, 2vw, 1.45rem);
+          display: grid;
+          grid-template-columns: auto 1fr;
+          align-items: stretch;
+          gap: clamp(0.75rem, 1.6vw, 1.2rem);
+          box-shadow: 0 10px 26px rgba(8,8,15,0.14);
+        }
+        .about-vm-icon-box {
+          width: clamp(80px, 9vw, 122px);
+          min-width: clamp(80px, 9vw, 122px);
+          height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
-          text-align: center;
-          min-height: 6rem; /* Standardizes card heights */
+        }
+        .about-vm-icon {
+          width: auto;
+          height: 100%;
+          max-height: clamp(86px, 10vw, 132px);
+          object-fit: contain;
+          display: block;
+        }
+        .about-vm-copy {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .about-core-values-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(18rem, 27rem));
+          justify-content: center;
+          gap: 1rem 1.2rem;
+        }
+        .about-core-values-last-row {
+          display: flex;
+          justify-content: center;
+          margin-top: 1rem;
+        }
+        .about-core-value-card {
+          background: #FFFFFF;
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 0.95rem;
+          padding: clamp(0.85rem, 1.8vw, 1.2rem);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(0.75rem, 1.6vw, 1rem);
+          min-height: clamp(92px, 11vw, 126px);
+          width: min(100%, 27rem);
+          justify-self: center;
+          box-shadow: 0 10px 24px rgba(8,8,15,0.16);
+        }
+        .about-core-value-card--last {
+          width: min(100%, 27rem);
+        }
+        .about-core-value-icon-box {
+          flex: 0 0 20%;
+          width: 20%;
+          max-width: 72px;
+          min-width: 52px;
+          aspect-ratio: 1 / 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .about-core-value-icon {
           width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+        }
+        .about-core-value-text {
+          margin: 0;
+          font-size: var(--about-core-value-font-size);
+          font-weight: 700;
+          color: #2D1520;
+          line-height: 1.32;
         }
         .about-page .page-hero-title-highlight {
            display: block !important;
@@ -1742,7 +1815,21 @@ export default function About() {
           .about-vm-grid {
              gap: 1.25rem !important;
           }
-          .about-value-card {
+          .about-vm-icon-box {
+            width: 72px;
+            min-width: 72px;
+          }
+          .about-vm-icon {
+            max-height: 92px;
+          }
+          .about-core-values-grid {
+            grid-template-columns: 1fr !important;
+            justify-content: stretch;
+          }
+          .about-core-value-card--last {
+            width: 100%;
+          }
+          .about-core-value-text {
             font-size: var(--about-core-value-font-size-mobile);
           }
         }

@@ -6,6 +6,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from "../config/themeConfig";
+import { ASSETS } from "../constants/assets";
 
 /* ═══════════════════════════════════════════════
    LAYOUT TUNING — all in px, adjust freely
@@ -13,14 +14,31 @@ import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from "../config/themeConfig";
 const NODE_W = 260;   // horizontal slot per milestone
 const TRACK_H = 520;   // total track height
 const DOT_R = 15;    // dot radius
-const CARD_W = 210;   // card width
+const CARD_W = 258;   // card width
+const YEAR_LABEL_Y_OFFSET = -56; // move year watermark up/down (higher = more down)
+const CARD_BODY_PAD_TOP = 14;
+const CARD_BODY_PAD_X = 14;
+const CARD_BODY_PAD_BOTTOM = 12;
 const DOT_Y_BIAS = 0;   // move the whole wire up/down (negative = up)
-const DOT_X_BIAS = 0;   // move dots left/right (negative = left, positive = right)
-const LINE_X_BIAS = 0;   // move wire line up/down (negative = up, positive = down)
+const DOT_X_BIAS = -15;   // move dots left/right (negative = left, positive = right)
+const LINE_X_BIAS = 15;   // move wire line up/down (negative = up, positive = down)
 const STEM_X_BIAS = 0;   // stem left/right nudge
 
 const EXIT_RISE_Y = -120; // how high the wire naturally rises at the end (negative = up)
 const EXIT_TAIL_W = 180;  // extra length to extend past the last milestone dot
+
+const CURSOR_OPEN_SIZE = 20; // palm icon size
+const CURSOR_HOLD_SIZE = 15; // hold icon size
+const CURSOR_HOTSPOT_X = 7;
+const CURSOR_HOTSPOT_Y = 7;
+
+const withCursorSize = (url: string, size: number): string => {
+  if (!url.includes("/upload/")) return url;
+  return url.replace("/upload/", `/upload/c_fit,w_${size},h_${size}/`);
+};
+
+const MINIMAL_GRAB_CURSOR = `url("${withCursorSize(ASSETS.cursorIcons.palm, CURSOR_OPEN_SIZE)}") ${CURSOR_HOTSPOT_X} ${CURSOR_HOTSPOT_Y}, grab`;
+const MINIMAL_GRABBING_CURSOR = `url("${withCursorSize(ASSETS.cursorIcons.hold, CURSOR_HOLD_SIZE)}") ${CURSOR_HOTSPOT_X} ${CURSOR_HOTSPOT_Y}, grabbing`;
 
 /* ═══════════════════════════════════════════════
    DATA
@@ -212,8 +230,6 @@ export default function MilestonesJourney() {
     let scrollLeft: number;
 
     const onMouseDown = (e: MouseEvent) => {
-      // Don't trigger if clicking on something interactive like a card
-      if ((e.target as HTMLElement).closest('.mj-card')) return;
       isDown = true;
       el.classList.add("mj-grabbing");
       startX = e.pageX - el.offsetLeft;
@@ -438,7 +454,7 @@ export default function MilestonesJourney() {
           overflow-y: visible;
           position: relative; 
           width: 100%;
-          cursor: grab;
+          cursor: ${MINIMAL_GRAB_CURSOR};
           user-select: none;
           padding: 2.5rem clamp(24px, 4vw, 64px) 1.5rem;
           z-index: 2;
@@ -446,6 +462,11 @@ export default function MilestonesJourney() {
           /* Elegant Big Scrollbar */
           scrollbar-width: thin;
           scrollbar-color: rgba(107,21,48,0.2) transparent;
+        }
+
+        .mj-scroll-area,
+        .mj-scroll-area * {
+          cursor: ${MINIMAL_GRAB_CURSOR};
         }
         
         .mj-scroll-area::-webkit-scrollbar {
@@ -469,19 +490,9 @@ export default function MilestonesJourney() {
            background-clip: padding-box;
         }
 
-        .mj-scroll-area.mj-grabbing { 
-          background: rgba(0,0,0,0.02);
-        }
-        
-        /* Darker grab cursor for better contrast on light background */
-        .mj-scroll-area {
-          cursor: grab;
-          color: #4a5568;
-        }
-        .mj-scroll-area.mj-grabbing {
-          cursor: grabbing;
-          color: #1a202c;
-          cursor: grabbing;
+        .mj-scroll-area.mj-grabbing,
+        .mj-scroll-area.mj-grabbing * {
+          cursor: ${MINIMAL_GRABBING_CURSOR} !important;
         }
         
         .mj-track { position: relative; }
@@ -494,7 +505,7 @@ export default function MilestonesJourney() {
         /* Year watermark */
         .mj-year-label {
           position: absolute;
-          top: calc(50% + ${DOT_Y_BIAS}px - 68px);
+          top: calc(50% + ${DOT_Y_BIAS}px + ${YEAR_LABEL_Y_OFFSET}px);
           left: 4px;
           font-family: ${TYPOGRAPHY.fontHeading};
           font-size: 1.85rem; font-weight: 950;
@@ -575,15 +586,18 @@ export default function MilestonesJourney() {
         .mj-card--bot:hover {
           transform: translateX(-50%) translateY(3px);
         }
-        .mj-card-body { padding: 14px 13px 12px; flex: 1; }
+        .mj-card-body {
+          padding: ${CARD_BODY_PAD_TOP}px ${CARD_BODY_PAD_X}px ${CARD_BODY_PAD_BOTTOM}px;
+          flex: 1;
+        }
         .mj-card-title {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 0.875rem; font-weight: 700;
-          color: #1a0a0f; line-height: 1.25; margin: 0 0 6px;
+          font-size: 0.96rem; font-weight: 700;
+          color: #1a0a0f; line-height: 1.26; margin: 0 0 6px;
         }
         .mj-card-desc {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 0.71875rem; color: rgba(26,10,15,0.6);
+          font-size: 0.8rem; color: rgba(26,10,15,0.78);
           line-height: 1.5; margin: 0;
         }
 

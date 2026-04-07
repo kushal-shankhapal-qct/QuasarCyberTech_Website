@@ -12,7 +12,7 @@ type GhostIconProps = {
 // ─── FRAMEWORK BACKDROP CONTROLS ────────────────────────────────────────
 const FRAMEWORK_BACKDROP_CONTROLS = {
   imageUrl: 'https://res.cloudinary.com/dmdpzphcz/image/upload/QCT_Framework_Backdrop_Circuit_liimgh.png',
-  opacity: 0.42,              // Backdrop image opacity (0-1)
+  opacity: 0.3,              // Backdrop image opacity (0-1)
   blendMaskStart: '0%',       // Mask gradient start position
   blendMaskEnd: '50%',        // Mask gradient end position (width %)
   widthPercent: '100%',        // Width of backdrop relative to section

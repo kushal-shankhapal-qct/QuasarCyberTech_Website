@@ -8,7 +8,7 @@ export default function LeadershipVision({ isDark = false }: { isDark?: boolean 
     return (
         <section
             style={{
-                background: isDark ? GRADIENTS.HERO_BG : SECTION_BACKGROUNDS.LIGHT,
+                background: isDark ? GRADIENTS.LEADERSHIP_VISION_DARK_BG : SECTION_BACKGROUNDS.LIGHT,
                 padding: `${LAYOUT_CONTROLS.section.paddingTop} ${LAYOUT_CONTROLS.section.paddingX}`,
                 overflow: 'hidden',
                 fontFamily: TYPOGRAPHY.fontBody

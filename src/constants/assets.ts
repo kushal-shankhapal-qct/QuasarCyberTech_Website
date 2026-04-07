@@ -159,7 +159,23 @@ export const ASSETS = {
     careersHero: getAsset('Backdrops/Careers_Hero.jpg'),
     aboutUsHero: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/About_Us_Hero_Backdrop_ce5vrw.png'),
     visionMissionBg: getAsset('Backdrops/Vision_Mission_Padding.png'),
+    visionMissionCoreValues: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Vision_Mission_Core_Values_Backdrop_iiqlku.png'),
     qctSecureFramework: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/QCT_Secure_Framework_Backdrop_vemig8.png'),
+  },
+  about: {
+    visionIcon: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560856/Vision_ojsr8o.png'),
+    missionIcon: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560850/Mission_xrpfcn.png'),
+    coreValueIcons: {
+      integrity: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560723/Integrity_cf3v06.png'),
+      innovation: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560716/Innovation_sud1ui.png'),
+      customerCentricity: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560720/Customer_Centricity_za1jsw.png'),
+      excellence: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560711/Excellence_flyg0y.png'),
+      collaboration: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775560710/Collaboration_dljiqq.png'),
+    },
+  },
+  cursorIcons: {
+    palm: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/palm_f7cewm.png'),
+    hold: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/hold_inj9za.png'),
   },
   screenshots: {
     qstellar: getAsset('Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),

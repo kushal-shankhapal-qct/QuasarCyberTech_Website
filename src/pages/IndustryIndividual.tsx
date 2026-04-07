@@ -194,7 +194,7 @@ const IndustryIndividual: React.FC = () => {
         </div>
       </section>
 
-      <section className="w-full py-20 bg-[#F5F7FA] border-t border-gray-200" style={{
+      <section className="industry-related-services-section w-full py-20 bg-[#F5F7FA] border-t border-gray-200" style={{
         paddingLeft: LAYOUT_CONTROLS.section.paddingX,
         paddingRight: LAYOUT_CONTROLS.section.paddingX,
       }}>
@@ -203,13 +203,14 @@ const IndustryIndividual: React.FC = () => {
             Related <span style={{ color: '#D6B05C' }}>Services</span> We Provide
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="industry-related-services-grid grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industry.overview.capabilities.map((capability) => {
               const capabilityData = getCapabilityBySlug(capability.slug);
               return (
                 <CapabilityCardSimple
                   key={capability.slug}
                   title={capabilityData?.name || capability.name}
+                  mobileTitle={capabilityData?.navLabel || capability.name}
                   desc={capabilityData?.cardDescription || `${capability.name} services tailored for ${industry.name}.`}
                   href={`/capabilities/${capability.slug}`}
                   img={capabilityData?.image || industry.image}
@@ -218,6 +219,23 @@ const IndustryIndividual: React.FC = () => {
             })}
           </div>
         </div>
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              @media (max-width: 40rem) {
+                .industry-related-services-section {
+                  padding-left: 1rem !important;
+                  padding-right: 1rem !important;
+                }
+
+                .industry-related-services-grid {
+                  gap: 0.875rem !important;
+                }
+              }
+            `,
+          }}
+        />
       </section>
 
       <CTASection theme="dark" showEyebrow={true} />

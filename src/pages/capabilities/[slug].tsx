@@ -997,7 +997,7 @@ const CapabilityPage: React.FC = () => {
 
         <section
           className="w-full py-20 border-t border-white/10"
-          style={{ background: GRADIENTS.HERO_BG }}
+          style={{ background: GRADIENTS.CAPABILITIES_DETAIL_DELIVERY_BG }}
         >
           <div
             className="w-full text-left"
@@ -1169,7 +1169,7 @@ const CapabilityPage: React.FC = () => {
                 style={{
                   marginTop: HS_CAP.relatedMarginTop,
                   padding: "3rem",
-                  background: GRADIENTS.HERO_BG,
+                  background: GRADIENTS.CAPABILITIES_DETAIL_PLATFORM_BG,
                   borderRadius: "0.75rem",
                 }}
               >

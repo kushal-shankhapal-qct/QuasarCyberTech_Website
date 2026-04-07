@@ -149,7 +149,7 @@ const NC = {
     heightScrolled: "5.625rem", // 90px gives ~1px extra top/bottom breathing room
     topNudgeY: "0rem",
     backgroundTop: "transparent",
-    backgroundScrolled: GRADIENTS.HERO_BG,
+    backgroundScrolled: GRADIENTS.NAVBAR_STRIP_BG,
     borderScrolled: "0.0625rem solid rgba(214,176,92,0.08)",
     boxShadowScrolled: "none",
     transition: "background 0.4s ease, height 0.4s ease, border-color 0.4s ease",

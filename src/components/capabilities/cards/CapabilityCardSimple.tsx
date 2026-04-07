@@ -78,7 +78,7 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
         background: '#ffffff',
         borderRadius: `0 0 ${CARD_ROUNDNESS} 0`
       }}>
-        <h3 style={{
+        <h3 className="capability-card-heading" style={{
           color: '#0B1F3B',
           fontWeight: 700,
           fontSize: '1.0625rem', // 17px
@@ -96,6 +96,7 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
           <ArrowRight 
             size={14} 
             color={accentColor}
+            className="capability-card-arrow"
             style={{ 
               transform: isHovered ? 'translateX(0.3125rem)' : 'translateX(0)', 
               transition: 'color 0.2s ease, transform 0.2s ease',
@@ -125,16 +126,17 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
 
             @media (max-width: 640px) {
               .capability-card-simple {
-                height: 16rem !important;
+                height: auto !important;
               }
 
               .capability-card-media {
-                height: 50% !important;
+                height: 9.375rem !important;
               }
 
               .capability-card-content {
-                height: 50% !important;
-                justify-content: center !important;
+                height: auto !important;
+                justify-content: flex-start !important;
+                padding: 0.625rem 0.75rem 0.625rem !important;
               }
 
               .capability-card-title-desktop {
@@ -142,7 +144,31 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
               }
 
               .capability-card-title-mobile {
-                display: inline !important;
+                display: block !important;
+                flex: 1 !important;
+                min-width: 0 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                font-size: 0.86rem !important;
+                line-height: 1.15 !important;
+                letter-spacing: -0.01em !important;
+              }
+
+              .capability-card-heading {
+                margin: 0 !important;
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 0.375rem !important;
+              }
+
+              .capability-card-arrow {
+                margin-left: 0.25rem !important;
+                width: 0.875rem !important;
+                height: 0.875rem !important;
+                transform: none !important;
               }
 
               .capability-card-desc {
