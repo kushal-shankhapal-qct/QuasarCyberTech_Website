@@ -16,7 +16,7 @@ const FRAMEWORK_BACKDROP_CONTROLS = {
   blendMaskStart: '0%',       // Mask gradient start position
   blendMaskEnd: '50%',        // Mask gradient end position (width %)
   widthPercent: '100%',        // Width of backdrop relative to section
-  objectPosition: 'right 90%', // x/y positioning
+  objectPosition: '-50% 90%', // x/y positioning
   scale: '1',               // Image scale multiplier
 };
 

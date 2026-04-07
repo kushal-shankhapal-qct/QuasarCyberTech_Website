@@ -29,16 +29,22 @@ export interface PageHeroProps {
   imageRotate?: string;
   imageRotateMobile?: string;
   imageScale?: number;
+  imageScaleMobile?: number;
   imageOpacity?: number;
+  imageOpacityMobile?: number;
   imagePosition?: string;
   imagePositionX?: string;  // Horizontal position: "0%" (left) to "100%" (right), or "left"/"center"/"right"
   imagePositionY?: string;  // Vertical position: "0%" (top) to "100%" (bottom), or "top"/"center"/"bottom"
+  imagePositionXMobile?: string;
+  imagePositionYMobile?: string;
   imageBlendStart?: string;  // Mask gradient start position (0% to 100%)
   imageBlendEnd?: string;    // Mask gradient end position (width % - controls blend end point)
   imageBlendSoftness?: string; // Blend transition softness (0% = hard edge to 100% = very soft)
   imageBlendStartPercent?: string; // Where blend starts (0% = full width visible, 100% = almost full gradient)
   maskStart?: string;
   maskEnd?: string;
+  maskStartMobile?: string;
+  maskEndMobile?: string;
   rightContent?: React.ReactNode;
   metrics?: { value: string; label: string }[];
   scrollTargetId?: string;
@@ -49,6 +55,8 @@ export interface PageHeroProps {
   backgroundOverride?: string;
   visualFullWidth?: boolean;
   visualWidth?: string;
+  visualWidthMobile?: string;
+  visualHeightMobile?: string;
   gradientCenter?: string;
   gradientRadius?: string;
   imageFit?: "cover" | "contain";
@@ -69,16 +77,22 @@ const PageHero: React.FC<PageHeroProps> = ({
   imageRotate = "0deg",
   imageRotateMobile,
   imageScale = 1.0,
+  imageScaleMobile,
   imageOpacity = 0.8,
+  imageOpacityMobile,
   imagePosition = "center center",
   imagePositionX = "center",     // Horizontal image position
   imagePositionY = "center",     // Vertical image position
+  imagePositionXMobile,
+  imagePositionYMobile,
   imageBlendStart = "5%",        // Blend gradient start position
   imageBlendEnd = "75%",
   imageBlendSoftness = "70%",    // Blend transition softness
   imageBlendStartPercent = "0%", // Where blend starts (0% = full width, 100% = almost full gradient)
   maskStart = "5%",
   maskEnd = "75%",
+  maskStartMobile,
+  maskEndMobile,
   rightContent,
   metrics,
   scrollTargetId,
@@ -89,6 +103,8 @@ const PageHero: React.FC<PageHeroProps> = ({
   backgroundOverride,
   visualFullWidth = false,
   visualWidth,
+  visualWidthMobile,
+  visualHeightMobile,
   gradientCenter = "20% 60%",
   gradientRadius = "55%",
   imageFit = "cover",
@@ -114,6 +130,14 @@ const PageHero: React.FC<PageHeroProps> = ({
   
   // Combine imagePositionX and imagePositionY for objectPosition
   const computedImagePosition = `${imagePositionX || "center"} ${imagePositionY || "center"}`;
+  const mobileImagePositionX = imagePositionXMobile || imagePositionX || "center";
+  const mobileImagePositionY = imagePositionYMobile || imagePositionY || "bottom";
+  const mobileImageScale = imageScaleMobile ?? imageScale;
+  const mobileImageOpacity = imageOpacityMobile ?? 0.45;
+  const mobileMaskStart = maskStartMobile || "18%";
+  const mobileMaskEnd = maskEndMobile || "86%";
+  const mobileVisualWidth = visualWidthMobile || "100%";
+  const mobileVisualHeight = visualHeightMobile || "54%";
   
   const dynamicBg =
     backgroundOverride ||
@@ -140,6 +164,14 @@ const PageHero: React.FC<PageHeroProps> = ({
         overflow: "hidden",
         fontFamily: TYPOGRAPHY.fontBody,
         boxSizing: "border-box",
+        ["--hero-mobile-mask-start" as string]: mobileMaskStart,
+        ["--hero-mobile-mask-end" as string]: mobileMaskEnd,
+        ["--hero-mobile-image-position-x" as string]: mobileImagePositionX,
+        ["--hero-mobile-image-position-y" as string]: mobileImagePositionY,
+        ["--hero-mobile-image-scale" as string]: String(mobileImageScale),
+        ["--hero-mobile-image-opacity" as string]: String(mobileImageOpacity),
+        ["--hero-mobile-visual-width" as string]: mobileVisualWidth,
+        ["--hero-mobile-visual-height" as string]: mobileVisualHeight,
       }}
     >
       <div
@@ -437,22 +469,23 @@ const PageHero: React.FC<PageHeroProps> = ({
             }
             .page-hero-visual--image-only {
               display: block !important;
-              width: 100% !important;
-              left: 0 !important;
+              width: var(--hero-mobile-visual-width, 100%) !important;
+              left: auto !important;
               right: 0 !important;
               top: auto !important;
               bottom: 0 !important;
-              height: 54% !important;
-              opacity: 0.45 !important;
+              height: var(--hero-mobile-visual-height, 54%) !important;
+              opacity: 1 !important;
             }
             .page-hero-visual--image-only .page-hero-visual-mask {
-              mask-image: linear-gradient(to top, black 18%, transparent 86%) !important;
-              -webkit-mask-image: linear-gradient(to top, black 18%, transparent 86%) !important;
+              mask-image: linear-gradient(to top, black var(--hero-mobile-mask-start, 18%), transparent var(--hero-mobile-mask-end, 86%)) !important;
+              -webkit-mask-image: linear-gradient(to top, black var(--hero-mobile-mask-start, 18%), transparent var(--hero-mobile-mask-end, 86%)) !important;
               align-items: flex-end !important;
             }
             .page-hero-visual--image-only img {
-              object-position: center bottom !important;
-              transform: scale(var(--hero-image-scale)) rotate(var(--hero-image-rotate-mobile)) !important;
+              object-position: var(--hero-mobile-image-position-x, center) var(--hero-mobile-image-position-y, bottom) !important;
+              transform: scale(var(--hero-mobile-image-scale, var(--hero-image-scale))) rotate(var(--hero-image-rotate-mobile)) !important;
+              opacity: var(--hero-mobile-image-opacity, 0.45) !important;
             }
             .page-hero-title {
               font-size: 2rem !important;

@@ -212,7 +212,7 @@ const buildEllipseGradient = ({
 export const GRADIENT_PRESETS = {
   desktop: {
     // 1: Hero & Global Presets
-    HERO_BG: 'radial-gradient(ellipse at 25% 55%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 85%)',
+    HERO_BG: 'radial-gradient(ellipse at 25% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 85%)',
     DARK_SECTION_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
     NAVBAR_STRIP_BG: buildEllipseGradient({
       center: '50% 100%',
@@ -223,7 +223,7 @@ export const GRADIENT_PRESETS = {
 
     // 2: Home Page Sections
     HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 10% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 100%)',
-    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 20% 40%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
+    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 19% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
     HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
     HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
     HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
@@ -246,8 +246,8 @@ export const GRADIENT_PRESETS = {
     ABOUT_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
     ABOUT_ACHIEVEMENT_BG: 'radial-gradient(ellipse at 50% 50%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
     ABOUT_MISSION_SECTION_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
-    ABOUT_FOUNDERS_VISION_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%)',
-    ABOUT_WHY_US_BG: 'radial-gradient(ellipse at 70% 30%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%)',
+    ABOUT_FOUNDERS_VISION_BG: 'radial-gradient(ellipse at 30% 40%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
+    ABOUT_WHY_US_BG: 'radial-gradient(ellipse at 23% 24%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%)',
     ABOUT_INDUSTRIES_BG: 'radial-gradient(ellipse at 80% 80%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 80%)',
 
     // 7: Insights & Individual Blog
@@ -274,7 +274,7 @@ export const GRADIENT_PRESETS = {
   mobile: {
     // 1: Hero & Global Presets
     HERO_BG: buildEllipseGradient({
-      center: '35% 40%',
+      center: '35% 42%',
       radiusX: '150%',
       radiusY: '62%',
       startColor: 'rgba(56,8,26,1)',
@@ -296,22 +296,28 @@ export const GRADIENT_PRESETS = {
 
     // 2: Home Page Sections
     HOME_FRAMEWORK_BG: buildEllipseGradient({
-      center: '50% 20%',
+      center: '40% 13%',
+      radiusX: '160%',
+      radiusY: '80%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '100%',
+      endStop: '70%',
     }),
     HOME_PLATFORMS_BG: buildEllipseGradient({
-      center: '100% 100%',
+      center: '40% 10%',
+      radiusX: '160%',
+      radiusY: '50%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '100%',
+      endStop: '70%',
     }),
     HOME_INSIGHTS_BG: buildEllipseGradient({
-      center: '50% 112%',
+      center: '40% 12%',
+      radiusX: '160%',
+      radiusY: '60%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '62%',
+      endStop: '70%',
     }),
     HOME_LEADERSHIP_BG: buildEllipseGradient({
       center: '50% 112%',
@@ -348,16 +354,20 @@ export const GRADIENT_PRESETS = {
 
     // 4: Capabilities Pages
     CAPABILITIES_OVERVIEW_HERO_BG: buildEllipseGradient({
-      center: '50% 112%',
+      center: '45% 50%',
+      radiusX: '150%',
+      radiusY: '65%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '92%',
+      endStop: '70%',
     }),
     CAPABILITY_INDIVIDUAL_HERO_BG: buildEllipseGradient({
-      center: '50% 112%',
+      center: '45% 55%',
+      radiusX: '150%',
+      radiusY: '65%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '62%',
+      endStop: '70%',
     }),
 
     // 5: Industry Pages
@@ -382,10 +392,12 @@ export const GRADIENT_PRESETS = {
 
     // 6: About & Vision
     ABOUT_HERO_BG: buildEllipseGradient({
-      center: '50% 112%',
+      center: '35% 45%',
+      radiusX: '150%',
+      radiusY: '62%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '92%',
+      endStop: '70%',
     }),
     ABOUT_ACHIEVEMENT_BG: buildEllipseGradient({
       center: '50% 110%',
@@ -400,10 +412,11 @@ export const GRADIENT_PRESETS = {
       endStop: '62%',
     }),
     ABOUT_FOUNDERS_VISION_BG: buildEllipseGradient({
-      center: '50% 112%',
+      center: '50% 25%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '90%',
+      endStop: '100%',
+      rotationDeg: '90deg',
     }),
     ABOUT_WHY_US_BG: buildEllipseGradient({
       center: '50% 108%',

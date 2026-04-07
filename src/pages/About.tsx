@@ -942,7 +942,7 @@ export default function About() {
         <section
           className="about-platforms-section"
           style={{
-            background: GRADIENTS.ABOUT_ACHIEVEMENT_BG,
+            background: GRADIENTS.HOME_PLATFORMS_BG,
             padding: `clamp(2rem, 5vh, 4rem) ${ABOUT_DESKTOP_SIDE_MARGIN} clamp(2rem, 5vh, 4rem)`,
             fontFamily: TYPOGRAPHY.fontBody,
           }}

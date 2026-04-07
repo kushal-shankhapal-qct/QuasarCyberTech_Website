@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTASection from '../components/CTASection';
@@ -142,6 +142,13 @@ export default function Platforms() {
           maskEnd="80%"
           imagePositionX="83%"
           imagePositionY="50%"
+          imagePositionXMobile="76%"
+          imagePositionYMobile="100%"
+          imageScaleMobile={1.12}
+          imageOpacityMobile={0.62}
+          maskStartMobile="22%"
+          maskEndMobile="88%"
+          visualHeightMobile="58%"
           imageBlendSoftness="70%"
           imageBlendStartPercent="0%"
           breadcrumbPaths={['Home']}
