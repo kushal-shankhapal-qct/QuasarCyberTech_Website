@@ -1193,8 +1193,8 @@ const CapabilityPage: React.FC = () => {
                   execution, and improves measurable outcomes.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                  <div>
+                <div className="cap-platform-ecosystem-grid grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                  <div className="cap-platform-ecosystem-content order-2 md:order-1">
                     <img
                       src={getPlatformLogo(platform.logoKey)}
                       alt={`QuasarCyberTech | ${platform.name} Platform Logo`}
@@ -1238,13 +1238,13 @@ const CapabilityPage: React.FC = () => {
                     </a>
                   </div>
                   <div
-                    className="rounded-lg overflow-hidden border border-white/10"
+                    className="cap-platform-ecosystem-shot order-1 md:order-2 rounded-lg overflow-hidden border border-white/10"
                     style={{ minHeight: `${platformScreenshotHeight}px` }}
                   >
                     <img
                       src={getPlatformScreenshot(platform.screenshotKey)}
                       alt={`QuasarCyberTech | ${platform.name} Platform Screenshot`}
-                      className="w-full h-full object-cover"
+                      className="cap-platform-ecosystem-shot-img w-full h-full object-cover"
                     />
                   </div>
                 </div>
@@ -1398,6 +1398,22 @@ const CapabilityPage: React.FC = () => {
             }
 
             @media (max-width: 40rem) {
+              .cap-platform-ecosystem-grid {
+                gap: 1.25rem !important;
+              }
+
+              .cap-platform-ecosystem-shot {
+                min-height: 0 !important;
+                height: auto !important;
+              }
+
+              .cap-platform-ecosystem-shot-img {
+                width: 100% !important;
+                height: auto !important;
+                display: block;
+                object-fit: cover !important;
+              }
+
               .industry-application-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
                 gap: 0.875rem !important;

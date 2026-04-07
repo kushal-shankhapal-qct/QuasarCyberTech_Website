@@ -212,7 +212,7 @@ const buildEllipseGradient = ({
 export const GRADIENT_PRESETS = {
   desktop: {
     // 1: Hero & Global Presets
-    HERO_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
+    HERO_BG: 'radial-gradient(ellipse at 25% 55%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 85%)',
     DARK_SECTION_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
     NAVBAR_STRIP_BG: buildEllipseGradient({
       center: '50% 100%',
@@ -223,7 +223,7 @@ export const GRADIENT_PRESETS = {
 
     // 2: Home Page Sections
     HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 10% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 100%)',
-    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 20% 25 %, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 70%)',
+    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 20% 40%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
     HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
     HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 20% 10%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 55%)',
     HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 20% 0%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 50%)',
@@ -274,12 +274,12 @@ export const GRADIENT_PRESETS = {
   mobile: {
     // 1: Hero & Global Presets
     HERO_BG: buildEllipseGradient({
-      center: '30% 40%',
+      center: '35% 40%',
       radiusX: '150%',
       radiusY: '62%',
       startColor: 'rgba(56,8,26,1)',
       endColor: 'rgba(0,1,18,1)',
-      endStop: '56%',
+      endStop: '70%',
     }),
     DARK_SECTION_BG: 'radial-gradient(ellipse at 50% 50%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 60%)',
     NAVBAR_STRIP_BG: buildEllipseGradient({
@@ -295,42 +295,162 @@ export const GRADIENT_PRESETS = {
     }),
 
     // 2: Home Page Sections
-    HOME_FRAMEWORK_BG: 'radial-gradient(ellipse at 50% 20%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 100%)',
-    HOME_PLATFORMS_BG: 'radial-gradient(ellipse at 100% 100%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 100%)',
-    HOME_INSIGHTS_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    HOME_LEADERSHIP_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    HOME_TESTIMONIALS_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 58%)',
+    HOME_FRAMEWORK_BG: buildEllipseGradient({
+      center: '50% 20%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '100%',
+    }),
+    HOME_PLATFORMS_BG: buildEllipseGradient({
+      center: '100% 100%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '100%',
+    }),
+    HOME_INSIGHTS_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    HOME_LEADERSHIP_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    HOME_TESTIMONIALS_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '58%',
+    }),
 
     // 3: Careers Page
-    CAREERS_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
-    CAREERS_WHY_JOIN_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 68%)',
-    CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 84%)',
+    CAREERS_HERO_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '92%',
+    }),
+    CAREERS_WHY_JOIN_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,0.8)',
+      endColor: 'rgba(10,10,15,1)',
+      endStop: '68%',
+    }),
+    CAREERS_QLEAP_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,0.6)',
+      endColor: 'rgba(10,10,15,1)',
+      endStop: '84%',
+    }),
 
     // 4: Capabilities Pages
-    CAPABILITIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
-    CAPABILITY_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    CAPABILITIES_OVERVIEW_HERO_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '92%',
+    }),
+    CAPABILITY_INDIVIDUAL_HERO_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
 
     // 5: Industry Pages
-    INDUSTRIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    INDUSTRY_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    INDUSTRY_CHALLENGES_BG: 'radial-gradient(ellipse at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,0,0,1) 62%)',
+    INDUSTRIES_OVERVIEW_HERO_BG: buildEllipseGradient({
+      center: '50% 110%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    INDUSTRY_INDIVIDUAL_HERO_BG: buildEllipseGradient({
+      center: '50% 110%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    INDUSTRY_CHALLENGES_BG: buildEllipseGradient({
+      center: '50% 110%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,0,0,1)',
+      endStop: '62%',
+    }),
 
     // 6: About & Vision
-    ABOUT_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 92%)',
-    ABOUT_ACHIEVEMENT_BG: 'radial-gradient(ellipse at 50% 110%, rgba(20,8,26,1) 0%, rgba(0,0,0,1) 100%)',
-    ABOUT_MISSION_SECTION_BG: 'radial-gradient(ellipse at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    ABOUT_FOUNDERS_VISION_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-    ABOUT_WHY_US_BG: 'radial-gradient(ellipse at 50% 108%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-    ABOUT_INDUSTRIES_BG: 'radial-gradient(ellipse at 50% 108%, rgba(56,8,26,0.9) 0%, rgba(0,1,18,1) 82%)',
+    ABOUT_HERO_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '92%',
+    }),
+    ABOUT_ACHIEVEMENT_BG: buildEllipseGradient({
+      center: '50% 110%',
+      startColor: 'rgba(20,8,26,1)',
+      endColor: 'rgba(0,0,0,1)',
+      endStop: '100%',
+    }),
+    ABOUT_MISSION_SECTION_BG: buildEllipseGradient({
+      center: '50% 110%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    ABOUT_FOUNDERS_VISION_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '90%',
+    }),
+    ABOUT_WHY_US_BG: buildEllipseGradient({
+      center: '50% 108%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '90%',
+    }),
+    ABOUT_INDUSTRIES_BG: buildEllipseGradient({
+      center: '50% 108%',
+      startColor: 'rgba(56,8,26,0.9)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '82%',
+    }),
 
     // 7: Insights & Individual Blog
-    BLOGS_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    BLOGS_OVERVIEW_NEWSLETTER_BG: 'radial-gradient(ellipse at 50% 110%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
-    BLOG_INDIVIDUAL_HERO_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 62%)',
+    BLOGS_OVERVIEW_HERO_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    BLOGS_OVERVIEW_NEWSLETTER_BG: buildEllipseGradient({
+      center: '50% 110%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
+    BLOG_INDIVIDUAL_HERO_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '62%',
+    }),
 
     // 8: Contact & Platforms
-    CONTACT_RIGHT_CARD_BG: 'radial-gradient(ellipse at 50% 112%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 66%)',
-    PLATFORMS_PAGE_BG: '#040B1D',
+    CONTACT_RIGHT_CARD_BG: buildEllipseGradient({
+      center: '50% 112%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '66%',
+    }),
+    PLATFORMS_PAGE_BG: buildEllipseGradient({
+      center: '50% 50%',
+      startColor: '#040B1D',
+      endColor: '#040B1D',
+      endStop: '100%',
+    }),
 
     // 9: Section-Specific Dark Surfaces
     ABOUT_GLOBAL_PRESENCE_BG: buildEllipseGradient({
@@ -459,12 +579,13 @@ export const GRADIENTS = {
 } as const;
 
 type GradientPresetKey = keyof typeof GRADIENT_PRESETS.desktop;
+type GradientPresetMap = Readonly<Record<GradientPresetKey, string>>;
 
 const gradientPresetKeyToCssVar = (key: GradientPresetKey) =>
   `--gradient-${String(key).toLowerCase().replace(/_/g, '-')}`;
 
 const buildGradientPresetCssBlock = (
-  preset: typeof GRADIENT_PRESETS.desktop,
+  preset: GradientPresetMap,
 ) =>
   (Object.entries(preset) as Array<[GradientPresetKey, string]>)
     .map(([key, value]) => `  ${gradientPresetKeyToCssVar(key)}: ${value};`)
@@ -478,7 +599,7 @@ ${buildGradientPresetCssBlock(GRADIENT_PRESETS.desktop)}
 
 @media (max-width: 768px) {
   :root {
-${buildGradientPresetCssBlock(GRADIENT_PRESETS.mobile as typeof GRADIENT_PRESETS.desktop)}
+${buildGradientPresetCssBlock(GRADIENT_PRESETS.mobile)}
   }
 }
 `.trim();
