@@ -77,6 +77,7 @@ const IndustriesOverview: React.FC = () => {
           <div className="industries-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', marginTop: '64px' }}>
             {industriesData.map((ind) => (
               <Link
+                className="industries-card"
                 key={ind.slug}
                 to={`/industries/${ind.slug}`}
                 style={{
@@ -102,7 +103,7 @@ const IndustriesOverview: React.FC = () => {
                 }}
               >
                 {/* Photo area */}
-                <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
+                <div className="industries-card-image-wrap" style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
                   <img
                     src={ind.image}
                     alt={`QuasarCyberTech | ${ind.name} Industry`}
@@ -123,13 +124,13 @@ const IndustriesOverview: React.FC = () => {
                 </div>
 
                 {/* Body */}
-                <div style={{
+                <div className="industries-card-body" style={{
                   padding: '24px 24px 20px',
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'column'
                 }}>
-                  <h3 style={{
+                  <h3 className="industries-card-title" style={{
                     color: '#0B1F3B',
                     fontWeight: 700,
                     fontSize: '17px',
@@ -139,10 +140,10 @@ const IndustriesOverview: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                   }}>
-                    {ind.name}
+                    <span className="industries-card-title-text">{ind.name}</span>
                     <ArrowRight size={14} color={COLORS.burgundy} />
                   </h3>
-                  <p style={{ color: '#4a5568', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                  <p className="industries-card-desc" style={{ color: '#4a5568', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
                     {ind.description}
                   </p>
                 </div>
@@ -161,6 +162,34 @@ const IndustriesOverview: React.FC = () => {
           .industries-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             gap: 1rem !important;
+          }
+          .industries-card-image-wrap {
+            height: 160px !important;
+          }
+          .industries-card-body {
+            padding: 14px 12px 12px !important;
+          }
+          .industries-card-title {
+            font-size: 1.05rem !important;
+            margin-bottom: 6px !important;
+            gap: 6px !important;
+            align-items: flex-start !important;
+          }
+          .industries-card-title svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+          }
+          .industries-card-title-text {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            line-height: 1.25;
+            min-height: calc(1.25em * 2);
+          }
+          .industries-card-desc {
+            font-size: 0.8rem !important;
+            line-height: 1.45 !important;
           }
         }
       `}} />

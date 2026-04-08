@@ -564,7 +564,7 @@ export default function About() {
                   style={{
                     position: "relative",
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "flex-start",
                   }}
                 >
                   {i % 2 === 0 && (
@@ -605,6 +605,7 @@ export default function About() {
 
           {/* Vision / Mission / Core Values */}
           <div
+            className="about-vm-section"
             style={{
               marginTop: "2.5rem",
               padding: "clamp(1.25rem, 2.8vw, 2.4rem)",
@@ -638,6 +639,7 @@ export default function About() {
                   </div>
                   <div className="about-vm-copy">
                     <h3
+                      className="about-vm-title"
                       style={{
                         fontSize: "clamp(26px, 4vw, 42px)",
                         fontWeight: 800,
@@ -650,6 +652,7 @@ export default function About() {
                       {card.title}
                     </h3>
                     <p
+                      className="about-vm-body"
                       style={{
                         fontSize: "clamp(13px, 1.15vw, 15px)",
                         color: "#3E2732",
@@ -877,10 +880,11 @@ export default function About() {
               {whyChooseUs.map((item, i) => (
                 <motion.div
                   key={item.title}
+                  className="about-why-card"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  transition={{ duration: 1.9, delay: i * 0.08 }}
                   style={{
                     background: "rgba(255,255,255,0.03)",
                     border: `1px solid ${ALPHAS.white08}`,
@@ -888,11 +892,6 @@ export default function About() {
                     padding: "clamp(1.25rem, 2.5vw, 2rem)",
                     position: "relative",
                     overflow: "hidden",
-                    transition: "border-color 0.3s, box-shadow 0.3s",
-                  }}
-                  whileHover={{
-                    borderColor: "rgba(214,176,92,0.3)",
-                    boxShadow: "0 12px 40px rgba(0,0,0,0.3)",
                   }}
                 >
                   <item.icon
@@ -1009,6 +1008,7 @@ export default function About() {
               >
                 {/* Screenshot – wrapped in a "Mac ribbon" browser frame */}
                 <div
+                  className="about-platform-shot-shell"
                   style={{
                     padding: "0",
                     background: "rgba(31, 54, 114, 0.98)",
@@ -1019,6 +1019,7 @@ export default function About() {
                 >
                   {/* Mac-style ribbon */}
                   <div
+                    className="about-platform-shot-ribbon"
                     style={{
                       height: "24px",
                       background: "#6B1530",
@@ -1055,9 +1056,10 @@ export default function About() {
                     />
                   </div>
                   <div
+                    className="about-platform-shot-viewport"
                     style={{
-                      padding: "0 8px",
-                      background: "rgba(226, 219, 202, 0.95)",
+                      padding: "0",
+                      background: "transparent",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1066,16 +1068,19 @@ export default function About() {
                   >
                     {platform.screenshot && (
                       <img
+                        className="about-platform-shot-image"
                         src={platform.screenshot}
                         alt={platform.name}
                         style={{
                           height: "100%",
-                          width: "auto",
-                          maxWidth: "100%",
-                          objectFit: "contain",
+                          width: "100%",
+                          maxWidth: "none",
+                          objectFit: "cover",
+                          objectPosition:
+                            platform.styles?.screenshotPosition || "left center",
                           display: "block",
                           borderRadius: "0",
-                          border: "1px solid rgba(255,255,255,0.12)",
+                          border: "none",
                         }}
                       />
                     )}
@@ -1248,6 +1253,7 @@ export default function About() {
             >
               {industriesData.map((ind) => (
                 <Link
+                  className="about-industry-card"
                   key={ind.slug}
                   to={`/industries/${ind.slug}`}
                   style={{
@@ -1274,6 +1280,7 @@ export default function About() {
                   }}
                 >
                   <div
+                    className="about-industry-card-image-wrap"
                     style={{
                       height: "210px",
                       overflow: "hidden",
@@ -1302,6 +1309,7 @@ export default function About() {
                     />
                   </div>
                   <div
+                    className="about-industry-card-body"
                     style={{
                       padding: "24px 24px 20px",
                       flex: 1,
@@ -1310,6 +1318,7 @@ export default function About() {
                     }}
                   >
                     <h3
+                      className="about-industry-card-title"
                       style={{
                         color: "#0B1F3B",
                         fontWeight: 700,
@@ -1321,10 +1330,13 @@ export default function About() {
                         justifyContent: "space-between",
                       }}
                     >
-                      {ind.name}{" "}
+                      <span className="about-industry-card-title-text">
+                        {ind.name}
+                      </span>
                       <ArrowRight size={14} color={COLORS.burgundy} />
                     </h3>
                     <p
+                      className="about-industry-card-desc"
                       style={{
                         color: "#4a5568",
                         fontSize: "0.875rem",
@@ -1412,9 +1424,7 @@ export default function About() {
                     fontSize: "clamp(12px, 1.1vw, 15px)",
                   }}
                 >
-                  #1, State Bank Colony, Indira Nagar,
-                  <br />
-                  Maharashtra - 422009
+                  #1, State Bank Colony, Indira Nagar, Maharashtra, 422009
                 </div>
               </div>
               <div style={{ display: "grid", gap: "10px" }}>
@@ -1675,6 +1685,13 @@ export default function About() {
           --about-hero-gap-below-button: 0rem; /* Handled by min-height behavior now to avoid peaking */
           --about-core-value-font-size: clamp(13.5px, 1.18vw, 16px);
           --about-core-value-font-size-mobile: 15px;
+
+          /* Why-Us hover controls */
+          --about-why-hover-duration: 140ms;
+          --about-why-hover-ease: cubic-bezier(0.22, 1, 0.36, 1);
+          --about-why-hover-lift: -4px;
+          --about-why-hover-border: rgba(214,176,92,0.3);
+          --about-why-hover-shadow: 0 12px 40px rgba(0,0,0,0.3);
           
           /* Section Gap Controls */
           --about-who-we-are-pb: 1rem;
@@ -1691,6 +1708,19 @@ export default function About() {
           padding-bottom: var(--about-hero-gap-below-button) !important; 
         }
         .about-page .page-hero-subtitle { text-align: justify !important; }
+
+        .about-why-card {
+          transition:
+            transform var(--about-why-hover-duration) var(--about-why-hover-ease),
+            border-color var(--about-why-hover-duration) var(--about-why-hover-ease),
+            box-shadow var(--about-why-hover-duration) var(--about-why-hover-ease);
+          will-change: transform;
+        }
+        .about-why-card:hover {
+          transform: translateY(var(--about-why-hover-lift));
+          border-color: var(--about-why-hover-border) !important;
+          box-shadow: var(--about-why-hover-shadow);
+        }
 
         .about-vm-card {
           background: #FFFFFF;
@@ -1744,7 +1774,7 @@ export default function About() {
           padding: clamp(0.85rem, 1.8vw, 1.2rem);
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           gap: clamp(0.75rem, 1.6vw, 1rem);
           min-height: clamp(92px, 11vw, 126px);
           width: min(100%, 27rem);
@@ -1762,7 +1792,7 @@ export default function About() {
           aspect-ratio: 1 / 1;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
         }
         .about-core-value-icon {
           width: 100%;
@@ -1776,6 +1806,7 @@ export default function About() {
           font-weight: 700;
           color: #2D1520;
           line-height: 1.32;
+          text-align: left;
         }
         .about-page .page-hero-title-highlight {
            display: block !important;
@@ -1797,6 +1828,11 @@ export default function About() {
         }
 
         @media (max-width: 640px) {
+          .about-content-section#who-we-are {
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
+          }
+
           .about-why-grid {
             grid-template-columns: 1fr !important;
           }
@@ -1815,12 +1851,100 @@ export default function About() {
           .about-vm-grid {
              gap: 1.25rem !important;
           }
+          .about-vm-section {
+            margin-top: 2rem !important;
+            padding: 0 !important;
+          }
+          .about-vm-card {
+            grid-template-columns: 72px 1fr !important;
+            grid-template-areas:
+              "icon title"
+              "body body";
+            align-items: start !important;
+            gap: 0.65rem 0.9rem !important;
+            padding: 1rem !important;
+          }
           .about-vm-icon-box {
+            grid-area: icon;
             width: 72px;
             min-width: 72px;
+            height: 72px;
+            align-items: center !important;
+            justify-content: center !important;
           }
           .about-vm-icon {
-            max-height: 92px;
+            width: 72px;
+            height: 72px;
+            max-height: 72px;
+            object-position: center center !important;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+          }
+          .about-vm-copy {
+            display: contents;
+          }
+          .about-vm-title {
+            grid-area: title;
+            margin: 0 !important;
+            align-self: center;
+            justify-self: start;
+            width: auto;
+            text-align: left;
+          }
+          .about-vm-body {
+            grid-area: body;
+            margin: 0 !important;
+            text-align: left;
+          }
+          .about-platform-shot-shell {
+            background: transparent !important;
+          }
+          .about-platform-shot-viewport {
+            padding: 0 !important;
+            background: transparent !important;
+            height: 15rem !important;
+          }
+          .about-platform-shot-image {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
+            object-fit: contain !important;
+            object-position: left center !important;
+            transform: scale(0.95) !important;
+            border: none !important;
+          }
+          .about-industries-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 1rem !important;
+          }
+          .about-industry-card-image-wrap {
+            height: 160px !important;
+          }
+          .about-industry-card-body {
+            padding: 14px 12px 12px !important;
+          }
+          .about-industry-card-title {
+            font-size: 1.05rem !important;
+            margin-bottom: 6px !important;
+            gap: 6px !important;
+            align-items: flex-start !important;
+          }
+          .about-industry-card-title svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+          }
+          .about-industry-card-title-text {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            line-height: 1.25;
+            min-height: calc(1.25em * 2);
+          }
+          .about-industry-card-desc {
+            font-size: 0.8rem !important;
+            line-height: 1.45 !important;
           }
           .about-core-values-grid {
             grid-template-columns: 1fr !important;

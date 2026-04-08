@@ -26,6 +26,8 @@ const STEM_X_BIAS = 0;   // stem left/right nudge
 
 const EXIT_RISE_Y = -120; // how high the wire naturally rises at the end (negative = up)
 const EXIT_TAIL_W = 180;  // extra length to extend past the last milestone dot
+const GROWTH_CONTINUES_X_OFFSET = 12; // move label left/right (negative = left)
+const GROWTH_CONTINUES_Y_OFFSET = -8.5; // move label up/down (negative = up)
 
 const CURSOR_OPEN_SIZE = 20; // palm icon size
 const CURSOR_HOLD_SIZE = 15; // hold icon size
@@ -137,6 +139,7 @@ function MilestoneNode({
   return (
     <div
       ref={ref}
+      className="mj-node"
       style={{
         position: "absolute",
         left: `${index * NODE_W}px`,
@@ -369,8 +372,8 @@ export default function MilestonesJourney() {
             transition={{ duration: 0.8, delay: 0.6 }}
             style={{
               position: 'absolute',
-              left: `${peak.x + 12}px`,
-              top: `${peak.y}px`,
+              left: `${peak.x + GROWTH_CONTINUES_X_OFFSET}px`,
+              top: `${peak.y + GROWTH_CONTINUES_Y_OFFSET}px`,
               transform: 'translateY(-50%)',
               zIndex: 10,
               pointerEvents: 'none',
@@ -640,7 +643,7 @@ export default function MilestonesJourney() {
           .mj-nodes { flex-direction: column; height: auto; }
 
           /* All nodes become vertical block */
-          div[style*="position: absolute"][style*="height: ${TRACK_H}px"] {
+          .mj-node {
             position: relative !important;
             left: auto !important; width: 100% !important;
             height: auto !important;
@@ -662,9 +665,23 @@ export default function MilestonesJourney() {
             left: auto !important; top: auto !important; bottom: auto !important;
             transform: none !important;
             width: 100% !important; max-width: none !important;
-            border-radius: 8px !important;
+            border-radius: 0 0 8px 8px !important;
             border: 1px solid rgba(107,21,48,0.1) !important;
-            border-top: 2.5px solid ${COLORS.burgundy} !important;
+            border-top: none !important;
+          }
+          .mj-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, ${COLORS.burgundy} 0%, ${COLORS.gold} 100%);
+            z-index: 1;
+          }
+          .mj-card--bot {
+            border-bottom: 1px solid rgba(107,21,48,0.1) !important;
+            border-radius: 0 0 8px 8px !important;
           }
           .mj-cert-card {
             border-top-color: ${COLORS.gold} !important;
