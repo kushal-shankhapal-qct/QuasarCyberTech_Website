@@ -298,7 +298,7 @@ const Footer: React.FC = () => {
               <a href="https://maps.app.goo.gl/GZa9schp9LXZgKpx8" target="_blank" rel="noopener noreferrer"
                 className="ft-contact-row">
                 <div className="ft-icon-btn"><MapPin size={15} /></div>
-                <span>#1, State Bank Colony, Indira Nagar,<br />Maharashtra – 422009</span>
+                <span>#1, State Bank Colony, Indira Nagar,<br />Maharashtra, 422009</span>
               </a>
             </div>
           </div>

@@ -19,6 +19,7 @@ import {
   GRADIENTS,
   LAYOUT_CONTROLS,
   SHADOWS,
+  buildEllipseGradient,
 } from "../config/themeConfig";
 import { ASSETS } from "@/constants/assets";
 import intlTelInput from "intl-tel-input";
@@ -31,6 +32,50 @@ const CONFIG = {
     heroPaddingTop: "clamp(5rem, 8vh, 6rem)",
     heroMinHeight: "100vh",
     cardsLiftUpFromHero: "13rem", // Smaller value => cards move lower
+  },
+  hero: {
+    // Contact-only hero visual controls
+    backgroundDesktop:
+      "radial-gradient(ellipse at 24% 58%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 88%)",
+    backgroundMobile: buildEllipseGradient({
+      center: "35% 50%",
+      radiusX: "150%",
+      radiusY: "62%",
+      startColor: "rgba(56,8,26,1)",
+      endColor: "rgba(0,1,18,1)",
+      endStop: "70%",
+    }),
+
+    visualWidthDesktop: "56%",
+    visualWidthMobile: "100%",
+    visualHeightMobile: "56%",
+
+    blendStartDesktop: "0%",
+    blendEndDesktop: "100%",
+    blendSoftnessDesktop: "100%",
+    blendStartPercentDesktop: "0%",
+
+    maskStartDesktop: "0%",
+    maskEndDesktop: "100%",
+    maskStartMobile: "16%",
+    maskEndMobile: "90%",
+
+    imagePositionXDesktop: "center",
+    imagePositionYDesktop: "center",
+    imagePositionXMobile: "center",
+    imagePositionYMobile: "bottom",
+
+    imageScaleDesktop: 1,
+    imageScaleMobile: 1,
+    imageOpacityDesktop: 0.8,
+    imageOpacityMobile: 0.52,
+    imageRotateDesktop: "0deg",
+    imageRotateMobile: "0deg",
+
+    imageTranslateXDesktop: "0px",
+    imageTranslateYDesktop: "-2.5rem",
+    imageTranslateXMobile: "0px",
+    imageTranslateYMobile: "-2.5rem",
   },
   card: {
     paddingX: "3rem",
@@ -47,7 +92,7 @@ const CONFIG = {
       sectionGap: "2rem",
 
       // Logo block
-      logoHeight: "8.25em",
+      logoHeight: "9em",
       logoMarginBottom: "1rem",
 
       // Email/Phone/Follow blocks
@@ -66,6 +111,70 @@ const CONFIG = {
       mapMarginBottom: "1.6rem",
       mapHeight: "220px",
       mapBorderRadius: "12px",
+    },
+    spacing: {
+      form: {
+        cardPadXDesktop: "3rem",
+        cardPadTopDesktop: "3rem",
+        cardPadBottomDesktop: "1.5rem",
+        headingMarginBottomDesktop: "2rem",
+        gridColumnGapDesktop: "16px",
+        gridRowGapDesktop: "1rem",
+        fieldGapDesktop: "8px",
+        inputPadXDesktop: "16px",
+        inputPadYDesktop: "12px",
+
+        cardPadXMobile: "1.5rem",
+        cardPadTopMobile: "1.25rem",
+        cardPadBottomMobile: "1rem",
+        headingMarginBottomMobile: "1.25rem",
+        gridColumnGapMobile: "0px",
+        gridRowGapMobile: "0.75rem",
+        fieldGapMobile: "6px",
+        inputPadXMobile: "12px",
+        inputPadYMobile: "10px",
+      },
+      info: {
+        cardPadXDesktop: "3rem",
+        cardPadTopDesktop: "3rem",
+        cardPadBottomDesktop: "1.5rem",
+        innerGapDesktop: "1.25rem",
+        logoMarginBottomDesktop: "0.45rem",
+        followGroupGapDesktop: "0.6rem",
+        followAlignDesktop: "center",
+        followTitleMarginBottomDesktop: "0rem",
+        followTitleAlignDesktop: "center",
+        socialRowGapDesktop: "0.6rem",
+        socialRowJustifyDesktop: "center",
+        infoGroupsGapDesktop: "0.95rem",
+        infoRowGapDesktop: "10px",
+        infoLabelMarginBottomDesktop: "0.05rem",
+        mapMarginTopDesktop: "0rem",
+        mapMarginXDesktop: "3rem",
+        mapMarginBottomDesktop: "1.6rem",
+        mapHeightDesktop: "220px",
+        mapRadiusDesktop: "12px",
+
+        cardPadXMobile: "1.5rem",
+        cardPadTopMobile: "1.25rem",
+        cardPadBottomMobile: "1rem",
+        innerGapMobile: "1rem",
+        logoMarginBottomMobile: "0.45rem",
+        followGroupGapMobile: "0.5rem",
+        followAlignMobile: "center",
+        followTitleMarginBottomMobile: "0rem",
+        followTitleAlignMobile: "center",
+        socialRowGapMobile: "0.6rem",
+        socialRowJustifyMobile: "center",
+        infoGroupsGapMobile: "0.85rem",
+        infoRowGapMobile: "8px",
+        infoLabelMarginBottomMobile: "0.1rem",
+        mapMarginTopMobile: "0.75rem",
+        mapMarginXMobile: "1.5rem",
+        mapMarginBottomMobile: "1.5rem",
+        mapHeightMobile: "190px",
+        mapRadiusMobile: "10px",
+      },
     },
   },
 };
@@ -140,6 +249,8 @@ const sanitizeInput = (value: string, maxLength?: number): string => {
 
 export default function Contact() {
   const right = CONFIG.card.rightPanel;
+  const spacing = CONFIG.card.spacing;
+  const hero = CONFIG.hero;
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -298,24 +409,21 @@ export default function Contact() {
 
     phonePluginRef.current = iti;
 
-    const applyNumericPatternPlaceholder = () => {
-      // Convert plugin example placeholders into neutral 123... patterns while preserving separators.
-      const raw = (inputEl.getAttribute("placeholder") || "")
-        .replace(/e\.g\.?\s*/gi, "")
-        .trim();
-      if (!raw) {
-        inputEl.setAttribute("placeholder", "123-456-789");
+    const applyPhonePlaceholder = () => {
+      const selected = iti.getSelectedCountryData();
+      const iso2 = selected?.iso2?.toLowerCase() || "";
+
+      if (iso2 === "in") {
+        inputEl.setAttribute("placeholder", "12345 67890");
         return;
       }
 
-      let nextDigit = 1;
-      const transformed = raw.replace(/\d/g, () => {
-        const d = String(nextDigit);
-        nextDigit = nextDigit === 9 ? 1 : nextDigit + 1;
-        return d;
-      });
-
-      inputEl.setAttribute("placeholder", transformed);
+      const raw = (inputEl.getAttribute("placeholder") || "")
+        .replace(/e\.g\.?\s*/gi, "")
+        .trim();
+      if (raw) {
+        inputEl.setAttribute("placeholder", raw);
+      }
     };
 
     const syncPhone = () => {
@@ -339,18 +447,17 @@ export default function Contact() {
 
     inputEl.addEventListener("input", syncPhone);
     inputEl.addEventListener("countrychange", syncPhone);
-    inputEl.addEventListener("countrychange", applyNumericPatternPlaceholder);
+    inputEl.addEventListener("countrychange", applyPhonePlaceholder);
+    inputEl.addEventListener("focus", applyPhonePlaceholder);
     syncPhone();
     // Delay one tick so intl-tel-input writes its placeholder first.
-    window.setTimeout(applyNumericPatternPlaceholder, 0);
+    window.setTimeout(applyPhonePlaceholder, 0);
 
     return () => {
       inputEl.removeEventListener("input", syncPhone);
       inputEl.removeEventListener("countrychange", syncPhone);
-      inputEl.removeEventListener(
-        "countrychange",
-        applyNumericPatternPlaceholder,
-      );
+      inputEl.removeEventListener("countrychange", applyPhonePlaceholder);
+      inputEl.removeEventListener("focus", applyPhonePlaceholder);
       iti.destroy();
       phonePluginRef.current = null;
     };
@@ -456,6 +563,7 @@ export default function Contact() {
 
   return (
     <div
+      className="contact-page-root"
       style={{
         background: "#F8FAFC",
         minHeight: "100vh",
@@ -486,14 +594,33 @@ export default function Contact() {
           subtitle="Tell us about your security challenge. We respond within 24 hours to help you solve your most complex security engineering problems."
           visualVariant="standard"
           image={ASSETS.qctWebsite.contact}
-          imageScale={1.3}
-          imageRotate="0deg"
-          maskStart="0%"
-          maskEnd="90%"
-          imagePositionX="center"
-          imagePositionY="center"
-          imageBlendSoftness="70%"
-          imageBlendStartPercent="0%"
+          backgroundOverride={hero.backgroundDesktop}
+          backgroundOverrideMobile={hero.backgroundMobile}
+          visualWidth={hero.visualWidthDesktop}
+          visualWidthMobile={hero.visualWidthMobile}
+          visualHeightMobile={hero.visualHeightMobile}
+          imageScale={hero.imageScaleDesktop}
+          imageScaleMobile={hero.imageScaleMobile}
+          imageOpacity={hero.imageOpacityDesktop}
+          imageOpacityMobile={hero.imageOpacityMobile}
+          imageRotate={hero.imageRotateDesktop}
+          imageRotateMobile={hero.imageRotateMobile}
+          imagePositionX={hero.imagePositionXDesktop}
+          imagePositionY={hero.imagePositionYDesktop}
+          imagePositionXMobile={hero.imagePositionXMobile}
+          imagePositionYMobile={hero.imagePositionYMobile}
+          imageTranslateX={hero.imageTranslateXDesktop}
+          imageTranslateY={hero.imageTranslateYDesktop}
+          imageTranslateXMobile={hero.imageTranslateXMobile}
+          imageTranslateYMobile={hero.imageTranslateYMobile}
+          imageBlendStart={hero.blendStartDesktop}
+          imageBlendEnd={hero.blendEndDesktop}
+          imageBlendSoftness={hero.blendSoftnessDesktop}
+          imageBlendStartPercent={hero.blendStartPercentDesktop}
+          maskStart={hero.maskStartDesktop}
+          maskEnd={hero.maskEndDesktop}
+          maskStartMobile={hero.maskStartMobile}
+          maskEndMobile={hero.maskEndMobile}
           breadcrumbPaths={["Home"]}
           currentName="Contact"
           paddingTopOverride={CONFIG.layout.heroPaddingTop}
@@ -525,6 +652,7 @@ export default function Contact() {
           >
             {/* LEFT CARD: THE FORM */}
             <motion.div
+              className="contact-form-card"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -535,7 +663,8 @@ export default function Contact() {
                 borderRadius: "8px",
                 borderTopLeftRadius: "0px",
                 borderTopRightRadius: "0px",
-                padding: `3rem 3rem ${CONFIG.card.contentBottomGap}`,
+                padding:
+                  "var(--contact-form-card-pad-top) var(--contact-form-card-pad-x) var(--contact-form-card-pad-bottom)",
                 boxShadow: SHADOWS.lightCard,
                 border: "1px solid #E2E8F0",
                 borderTop: `${CONFIG.card.topAccentHeight} solid ${COLORS.burgundy}`,
@@ -547,11 +676,12 @@ export default function Contact() {
               {!isSubmitted ? (
                 <>
                   <h2
+                    className="contact-form-heading"
                     style={{
                       fontSize: "1.5rem",
                       fontWeight: 800,
                       color: "#0F172A",
-                      marginBottom: "2rem",
+                      marginBottom: "var(--contact-form-heading-mb)",
                       fontFamily: TYPOGRAPHY.fontHeading,
                     }}
                   >
@@ -566,8 +696,8 @@ export default function Contact() {
                     style={{
                       display: "grid",
                       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                      columnGap: "16px",
-                      rowGap: "1rem",
+                      columnGap: "var(--contact-form-grid-col-gap)",
+                      rowGap: "var(--contact-form-grid-row-gap)",
                       flex: 1,
                     }}
                   >
@@ -595,7 +725,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                       }}
                     >
                       <label
@@ -606,18 +736,19 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Full Name
+                        Full Name <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <input
                         type="text"
                         id="name"
                         required
                         maxLength={FIELD_MAX_LENGTH.name}
-                        placeholder="John Doe"
+                        placeholder="Enter your full name"
                         value={formState.name}
                         onChange={(e) => setField("name", e.target.value)}
                         style={{
-                          padding: "12px 16px",
+                          padding:
+                            "var(--contact-form-input-pad-y) var(--contact-form-input-pad-x)",
                           borderRadius: "8px",
                           border: errors.name
                             ? "1px solid #DC2626"
@@ -625,6 +756,8 @@ export default function Contact() {
                           outline: "none",
                           transition: "all 0.3s ease",
                           fontSize: "0.95rem",
+                          boxSizing: "border-box",
+                          width: "100%",
                         }}
                         onBlur={() => {
                           markField("name");
@@ -649,7 +782,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                       }}
                     >
                       <label
@@ -660,18 +793,19 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Company Name
+                        Company Name <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <input
                         type="text"
                         id="company"
                         required
                         maxLength={FIELD_MAX_LENGTH.company}
-                        placeholder="Acme Corporation"
+                        placeholder="Enter your organization name"
                         value={formState.company}
                         onChange={(e) => setField("company", e.target.value)}
                         style={{
-                          padding: "12px 16px",
+                          padding:
+                            "var(--contact-form-input-pad-y) var(--contact-form-input-pad-x)",
                           borderRadius: "8px",
                           border: errors.company
                             ? "1px solid #DC2626"
@@ -679,6 +813,8 @@ export default function Contact() {
                           outline: "none",
                           transition: "all 0.3s ease",
                           fontSize: "0.95rem",
+                          boxSizing: "border-box",
+                          width: "100%",
                         }}
                         onBlur={() => {
                           markField("company");
@@ -703,7 +839,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                       }}
                     >
                       <label
@@ -714,8 +850,7 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Designation
-                        / Role
+                        Designation / Role <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <input
                         type="text"
@@ -728,7 +863,8 @@ export default function Contact() {
                           setField("designation", e.target.value)
                         }
                         style={{
-                          padding: "12px 16px",
+                          padding:
+                            "var(--contact-form-input-pad-y) var(--contact-form-input-pad-x)",
                           borderRadius: "8px",
                           border: errors.designation
                             ? "1px solid #DC2626"
@@ -736,6 +872,8 @@ export default function Contact() {
                           outline: "none",
                           transition: "all 0.3s ease",
                           fontSize: "0.95rem",
+                          boxSizing: "border-box",
+                          width: "100%",
                         }}
                         onBlur={() => {
                           markField("designation");
@@ -760,7 +898,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                       }}
                     >
                       <label
@@ -771,18 +909,19 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Work Email
+                        Work Email <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <input
                         type="email"
                         id="email"
                         required
                         maxLength={FIELD_MAX_LENGTH.email}
-                        placeholder="john@enterprise.com"
+                        placeholder="Enter your work email address"
                         value={formState.email}
                         onChange={(e) => setField("email", e.target.value)}
                         style={{
-                          padding: "12px 16px",
+                          padding:
+                            "var(--contact-form-input-pad-y) var(--contact-form-input-pad-x)",
                           borderRadius: "8px",
                           border: errors.email
                             ? "1px solid #DC2626"
@@ -790,6 +929,8 @@ export default function Contact() {
                           outline: "none",
                           transition: "all 0.3s ease",
                           fontSize: "0.95rem",
+                          boxSizing: "border-box",
+                          width: "100%",
                         }}
                         onBlur={() => {
                           markField("email");
@@ -814,7 +955,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                       }}
                     >
                       <label
@@ -825,7 +966,7 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Phone Number
+                        Phone Number <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <div className="phone-input-container">
                         <input
@@ -859,7 +1000,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                       }}
                     >
                       <label
@@ -870,8 +1011,7 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Service of
-                        Interest
+                        Service of Interest <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <select
                         id="service"
@@ -879,7 +1019,8 @@ export default function Contact() {
                         value={formState.service}
                         onChange={(e) => setField("service", e.target.value)}
                         style={{
-                          padding: "12px 16px",
+                          padding:
+                            "var(--contact-form-input-pad-y) var(--contact-form-input-pad-x)",
                           borderRadius: "8px",
                           border: errors.service
                             ? "1px solid #DC2626"
@@ -889,6 +1030,8 @@ export default function Contact() {
                           fontSize: "0.95rem",
                           backgroundColor: "#FFFFFF",
                           cursor: "pointer",
+                          boxSizing: "border-box",
+                          width: "100%",
                         }}
                         onBlur={() => {
                           markField("service");
@@ -934,7 +1077,7 @@ export default function Contact() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "var(--contact-form-field-gap)",
                         gridColumn: "1 / -1",
                       }}
                     >
@@ -946,8 +1089,7 @@ export default function Contact() {
                           color: "#64748B",
                         }}
                       >
-                        <span style={{ color: "#DC2626" }}>*</span> Tell us
-                        about your requirement
+                        Tell us about your requirement <span style={{ color: "#DC2626" }}>*</span>
                       </label>
                       <textarea
                         id="message"
@@ -958,7 +1100,8 @@ export default function Contact() {
                         value={formState.message}
                         onChange={(e) => setField("message", e.target.value)}
                         style={{
-                          padding: "12px 16px",
+                          padding:
+                            "var(--contact-form-input-pad-y) var(--contact-form-input-pad-x)",
                           borderRadius: "8px",
                           border: errors.message
                             ? "1px solid #DC2626"
@@ -967,6 +1110,8 @@ export default function Contact() {
                           transition: "all 0.3s ease",
                           fontSize: "0.95rem",
                           resize: "none",
+                          boxSizing: "border-box",
+                          width: "100%",
                         }}
                         onBlur={() => {
                           markField("message");
@@ -1061,6 +1206,7 @@ export default function Contact() {
 
             {/* RIGHT CARD: THE CONTACT MODULE */}
             <motion.div
+              className="contact-info-card"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1079,22 +1225,24 @@ export default function Contact() {
               }}
             >
               <div
+                className="contact-info-inner"
                 style={{
-                  paddingLeft: right.paddingX,
-                  paddingRight: right.paddingX,
-                  paddingTop: right.paddingTop,
-                  paddingBottom: right.paddingBottom,
+                  paddingLeft: "var(--contact-info-card-pad-x)",
+                  paddingRight: "var(--contact-info-card-pad-x)",
+                  paddingTop: "var(--contact-info-card-pad-top)",
+                  paddingBottom: "var(--contact-info-card-pad-bottom)",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "1.25rem",
+                  gap: "var(--contact-info-inner-gap)",
                 }}
               >
                 {/* 1. LOGO */}
                 <div
+                  className="contact-info-logo-wrap"
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    marginBottom: right.logoMarginBottom,
+                    marginBottom: "var(--contact-info-logo-mb)",
                   }}
                 >
                   <img
@@ -1110,29 +1258,35 @@ export default function Contact() {
 
                 {/* 2. FOLLOW US */}
                 <div
+                  className="contact-follow-group"
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.6rem",
+                    gap: "var(--contact-follow-group-gap)",
+                    alignItems: "var(--contact-follow-align)",
                   }}
                 >
                   <div
+                    className="contact-follow-title"
                     style={{
                       fontSize: "0.7rem",
                       fontWeight: 800,
                       color: COLORS.gold,
                       textTransform: "uppercase",
                       letterSpacing: "0.12em",
+                      marginBottom: "var(--contact-follow-title-mb)",
                     }}
                   >
                     Follow Us
                   </div>
                   <div
+                    className="contact-social-row"
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.6rem",
+                      gap: "var(--contact-social-row-gap)",
                       flexWrap: "wrap",
+                      justifyContent: "var(--contact-social-row-justify)",
                     }}
                   >
                     {[
@@ -1209,16 +1363,18 @@ export default function Contact() {
 
                 {/* 3. CONTACT INFO */}
                 <div
+                  className="contact-info-groups"
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.95rem",
+                    gap: "var(--contact-info-groups-gap)",
                   }}
                 >
                   <div
+                    className="contact-info-row"
                     style={{
                       display: "flex",
-                      gap: "10px",
+                      gap: "var(--contact-info-row-gap)",
                       alignItems: "flex-start",
                     }}
                   >
@@ -1241,13 +1397,14 @@ export default function Contact() {
                     </span>
                     <div>
                       <div
+                        className="contact-info-label"
                         style={{
                           fontSize: "0.7rem",
                           fontWeight: 800,
                           color: COLORS.gold,
                           textTransform: "uppercase",
                           letterSpacing: "0.12em",
-                          marginBottom: "0.28rem",
+                          marginBottom: "var(--contact-info-label-mb)",
                         }}
                       >
                         Email
@@ -1266,9 +1423,10 @@ export default function Contact() {
                     </div>
                   </div>
                   <div
+                    className="contact-info-row"
                     style={{
                       display: "flex",
-                      gap: "10px",
+                      gap: "var(--contact-info-row-gap)",
                       alignItems: "flex-start",
                     }}
                   >
@@ -1291,13 +1449,14 @@ export default function Contact() {
                     </span>
                     <div>
                       <div
+                        className="contact-info-label"
                         style={{
                           fontSize: "0.7rem",
                           fontWeight: 800,
                           color: COLORS.gold,
                           textTransform: "uppercase",
                           letterSpacing: "0.12em",
-                          marginBottom: "0.28rem",
+                          marginBottom: "var(--contact-info-label-mb)",
                         }}
                       >
                         Phone
@@ -1320,14 +1479,15 @@ export default function Contact() {
 
               {/* 3. THE MAP (Refined with Margin & Border Radius) */}
               <div
+                className="contact-map-wrap"
                 style={{
-                  margin: `${right.mapTopGap} ${right.mapMarginX} ${right.mapMarginBottom}`,
-                  height: right.mapHeight,
-                  borderRadius: right.mapBorderRadius,
+                  margin:
+                    "var(--contact-info-map-mt) var(--contact-info-map-mx) var(--contact-info-map-mb)",
+                  height: "var(--contact-info-map-height)",
+                  borderRadius: "var(--contact-info-map-radius)",
                   overflow: "hidden",
                   border: "1px solid rgba(255,255,255,0.1)",
                   position: "relative",
-                  marginTop: 0,
                 }}
               >
                 <iframe
@@ -1348,10 +1508,94 @@ export default function Contact() {
         <style
           dangerouslySetInnerHTML={{
             __html: `
+          .contact-page-root {
+            --contact-form-card-pad-x: ${spacing.form.cardPadXDesktop};
+            --contact-form-card-pad-top: ${spacing.form.cardPadTopDesktop};
+            --contact-form-card-pad-bottom: ${spacing.form.cardPadBottomDesktop};
+            --contact-form-heading-mb: ${spacing.form.headingMarginBottomDesktop};
+            --contact-form-grid-col-gap: ${spacing.form.gridColumnGapDesktop};
+            --contact-form-grid-row-gap: ${spacing.form.gridRowGapDesktop};
+            --contact-form-field-gap: ${spacing.form.fieldGapDesktop};
+            --contact-form-input-pad-x: ${spacing.form.inputPadXDesktop};
+            --contact-form-input-pad-y: ${spacing.form.inputPadYDesktop};
+
+            --contact-info-card-pad-x: ${spacing.info.cardPadXDesktop};
+            --contact-info-card-pad-top: ${spacing.info.cardPadTopDesktop};
+            --contact-info-card-pad-bottom: ${spacing.info.cardPadBottomDesktop};
+            --contact-info-inner-gap: ${spacing.info.innerGapDesktop};
+            --contact-info-logo-mb: ${spacing.info.logoMarginBottomDesktop};
+            --contact-follow-group-gap: ${spacing.info.followGroupGapDesktop};
+            --contact-follow-align: ${spacing.info.followAlignDesktop};
+            --contact-follow-title-mb: ${spacing.info.followTitleMarginBottomDesktop};
+            --contact-follow-title-align: ${spacing.info.followTitleAlignDesktop};
+            --contact-social-row-gap: ${spacing.info.socialRowGapDesktop};
+            --contact-social-row-justify: ${spacing.info.socialRowJustifyDesktop};
+            --contact-info-groups-gap: ${spacing.info.infoGroupsGapDesktop};
+            --contact-info-row-gap: ${spacing.info.infoRowGapDesktop};
+            --contact-info-label-mb: ${spacing.info.infoLabelMarginBottomDesktop};
+            --contact-info-map-mt: ${spacing.info.mapMarginTopDesktop};
+            --contact-info-map-mx: ${spacing.info.mapMarginXDesktop};
+            --contact-info-map-mb: ${spacing.info.mapMarginBottomDesktop};
+            --contact-info-map-height: ${spacing.info.mapHeightDesktop};
+            --contact-info-map-radius: ${spacing.info.mapRadiusDesktop};
+          }
+
+          .contact-form-grid,
+          .contact-field,
+          .contact-field-full,
+          .contact-map-wrap,
+          .contact-info-inner {
+            min-width: 0;
+          }
+
+          .contact-field input,
+          .contact-field select,
+          .contact-field textarea {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+          }
+
+          .contact-follow-title {
+            text-align: var(--contact-follow-title-align);
+          }
+
           @media (max-width: 64rem) {
             #contact-form {
               padding-left: var(--page-padding-x) !important;
               padding-right: var(--page-padding-x) !important;
+            }
+
+            .contact-page-root {
+              --contact-form-card-pad-x: ${spacing.form.cardPadXMobile};
+              --contact-form-card-pad-top: ${spacing.form.cardPadTopMobile};
+              --contact-form-card-pad-bottom: ${spacing.form.cardPadBottomMobile};
+              --contact-form-heading-mb: ${spacing.form.headingMarginBottomMobile};
+              --contact-form-grid-col-gap: ${spacing.form.gridColumnGapMobile};
+              --contact-form-grid-row-gap: ${spacing.form.gridRowGapMobile};
+              --contact-form-field-gap: ${spacing.form.fieldGapMobile};
+              --contact-form-input-pad-x: ${spacing.form.inputPadXMobile};
+              --contact-form-input-pad-y: ${spacing.form.inputPadYMobile};
+
+              --contact-info-card-pad-x: ${spacing.info.cardPadXMobile};
+              --contact-info-card-pad-top: ${spacing.info.cardPadTopMobile};
+              --contact-info-card-pad-bottom: ${spacing.info.cardPadBottomMobile};
+              --contact-info-inner-gap: ${spacing.info.innerGapMobile};
+              --contact-info-logo-mb: ${spacing.info.logoMarginBottomMobile};
+              --contact-follow-group-gap: ${spacing.info.followGroupGapMobile};
+              --contact-follow-align: ${spacing.info.followAlignMobile};
+              --contact-follow-title-mb: ${spacing.info.followTitleMarginBottomMobile};
+              --contact-follow-title-align: ${spacing.info.followTitleAlignMobile};
+              --contact-social-row-gap: ${spacing.info.socialRowGapMobile};
+              --contact-social-row-justify: ${spacing.info.socialRowJustifyMobile};
+              --contact-info-groups-gap: ${spacing.info.infoGroupsGapMobile};
+              --contact-info-row-gap: ${spacing.info.infoRowGapMobile};
+              --contact-info-label-mb: ${spacing.info.infoLabelMarginBottomMobile};
+              --contact-info-map-mt: ${spacing.info.mapMarginTopMobile};
+              --contact-info-map-mx: ${spacing.info.mapMarginXMobile};
+              --contact-info-map-mb: ${spacing.info.mapMarginBottomMobile};
+              --contact-info-map-height: ${spacing.info.mapHeightMobile};
+              --contact-info-map-radius: ${spacing.info.mapRadiusMobile};
             }
 
             .contact-form-grid {
@@ -1361,6 +1605,12 @@ export default function Contact() {
             .contact-field,
             .contact-field-full {
               grid-column: 1 / -1 !important;
+            }
+
+            .contact-follow-group,
+            .contact-follow-title,
+            .contact-social-row {
+              width: 100%;
             }
           }
         `,
@@ -1374,12 +1624,15 @@ export default function Contact() {
           .phone-input-container {
             border: 1px solid #E2E8F0;
             border-radius: 8px;
-            padding: 8px 12px;
+            padding: var(--contact-form-input-pad-y) var(--contact-form-input-pad-x);
             background: #fff;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            min-height: 50px;
+            min-height: 48px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
           }
           .phone-input-container:focus-within {
             border-color: #CBD5E1;
@@ -1387,22 +1640,25 @@ export default function Contact() {
           }
           .custom-phone-input {
             width: 100%;
+            max-width: 100%;
             border: none !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
             padding-right: 8px !important;
+            box-sizing: border-box !important;
             outline: none !important;
             font-size: 0.95rem !important;
-            height: 36px !important;
+            min-height: 1.5rem !important;
             background: transparent !important;
             color: #0F172A !important;
             text-decoration: none !important;
-            line-height: 36px !important;
+            line-height: 1.5 !important;
           }
           .iti {
             width: 100%;
             display: flex;
             align-items: center;
+            max-width: 100%;
           }
           .iti__selected-flag {
             background: #fff7e5;

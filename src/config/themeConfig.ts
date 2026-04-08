@@ -184,7 +184,7 @@ type EllipseGradientControls = {
   rotationEndStop?: string;
 };
 
-const buildEllipseGradient = ({
+export const buildEllipseGradient = ({
   center,
   radiusX,
   radiusY,

@@ -53,10 +53,15 @@ export interface PageHeroProps {
   scrollOffsetPx?: number;
   visualVariant?: "standard" | "fingerprint" | "none";
   backgroundOverride?: string;
+  backgroundOverrideMobile?: string;
   visualFullWidth?: boolean;
   visualWidth?: string;
   visualWidthMobile?: string;
   visualHeightMobile?: string;
+  imageTranslateX?: string;
+  imageTranslateY?: string;
+  imageTranslateXMobile?: string;
+  imageTranslateYMobile?: string;
   gradientCenter?: string;
   gradientRadius?: string;
   imageFit?: "cover" | "contain";
@@ -85,8 +90,8 @@ const PageHero: React.FC<PageHeroProps> = ({
   imagePositionY = "center",     // Vertical image position
   imagePositionXMobile,
   imagePositionYMobile,
-  imageBlendStart = "5%",        // Blend gradient start position
-  imageBlendEnd = "75%",
+  imageBlendStart,
+  imageBlendEnd,
   imageBlendSoftness = "70%",    // Blend transition softness
   imageBlendStartPercent = "0%", // Where blend starts (0% = full width, 100% = almost full gradient)
   maskStart = "5%",
@@ -101,10 +106,15 @@ const PageHero: React.FC<PageHeroProps> = ({
   scrollOffsetPx = 20,
   visualVariant = "standard",
   backgroundOverride,
+  backgroundOverrideMobile,
   visualFullWidth = false,
   visualWidth,
   visualWidthMobile,
   visualHeightMobile,
+  imageTranslateX = "0px",
+  imageTranslateY = "0px",
+  imageTranslateXMobile,
+  imageTranslateYMobile,
   gradientCenter = "20% 60%",
   gradientRadius = "55%",
   imageFit = "cover",
@@ -125,11 +135,12 @@ const PageHero: React.FC<PageHeroProps> = ({
   const gradEnd = `${Math.min(startPercentValue + (100 - softnessValue), 100)}%`;
   
   // Use imageBlend controls if provided, otherwise fall back to computed values
-  const blendStart = imageBlendStart !== undefined ? imageBlendStart : gradStart;
-  const blendEnd = imageBlendEnd !== undefined ? imageBlendEnd : gradEnd;
+  const blendStart = imageBlendStart ?? maskStart ?? gradStart;
+  const blendEnd = imageBlendEnd ?? maskEnd ?? gradEnd;
   
   // Combine imagePositionX and imagePositionY for objectPosition
-  const computedImagePosition = `${imagePositionX || "center"} ${imagePositionY || "center"}`;
+  const computedImagePosition =
+    imagePosition || `${imagePositionX || "center"} ${imagePositionY || "center"}`;
   const mobileImagePositionX = imagePositionXMobile || imagePositionX || "center";
   const mobileImagePositionY = imagePositionYMobile || imagePositionY || "bottom";
   const mobileImageScale = imageScaleMobile ?? imageScale;
@@ -138,6 +149,8 @@ const PageHero: React.FC<PageHeroProps> = ({
   const mobileMaskEnd = maskEndMobile || "86%";
   const mobileVisualWidth = visualWidthMobile || "100%";
   const mobileVisualHeight = visualHeightMobile || "54%";
+  const mobileImageTranslateX = imageTranslateXMobile ?? imageTranslateX;
+  const mobileImageTranslateY = imageTranslateYMobile ?? imageTranslateY;
   
   const dynamicBg =
     backgroundOverride ||
@@ -164,12 +177,17 @@ const PageHero: React.FC<PageHeroProps> = ({
         overflow: "hidden",
         fontFamily: TYPOGRAPHY.fontBody,
         boxSizing: "border-box",
+        ["--hero-mobile-bg" as string]: backgroundOverrideMobile || dynamicBg,
         ["--hero-mobile-mask-start" as string]: mobileMaskStart,
         ["--hero-mobile-mask-end" as string]: mobileMaskEnd,
         ["--hero-mobile-image-position-x" as string]: mobileImagePositionX,
         ["--hero-mobile-image-position-y" as string]: mobileImagePositionY,
         ["--hero-mobile-image-scale" as string]: String(mobileImageScale),
         ["--hero-mobile-image-opacity" as string]: String(mobileImageOpacity),
+        ["--hero-image-translate-x" as string]: imageTranslateX,
+        ["--hero-image-translate-y" as string]: imageTranslateY,
+        ["--hero-mobile-image-translate-x" as string]: mobileImageTranslateX,
+        ["--hero-mobile-image-translate-y" as string]: mobileImageTranslateY,
         ["--hero-mobile-visual-width" as string]: mobileVisualWidth,
         ["--hero-mobile-visual-height" as string]: mobileVisualHeight,
       }}
@@ -377,7 +395,8 @@ const PageHero: React.FC<PageHeroProps> = ({
                       height: "100%",
                       objectFit: imageFit,
                       objectPosition: computedImagePosition,
-                      transform: "scale(var(--hero-image-scale)) rotate(var(--hero-image-rotate))",
+                      transform:
+                        "translate(var(--hero-image-translate-x), var(--hero-image-translate-y)) scale(var(--hero-image-scale)) rotate(var(--hero-image-rotate))",
                       transition: "transform 0.5s ease",
                       opacity: imageOpacity,
                       ["--hero-image-scale" as string]: String(imageScale),
@@ -452,6 +471,7 @@ const PageHero: React.FC<PageHeroProps> = ({
           /* ── Mobile ── */
           @media (max-width: 768px) {
             .page-hero-section {
+              background: var(--hero-mobile-bg) !important;
               padding-left: 2rem !important;
               padding-right: 2rem !important;
               padding-top: clamp(7rem, 14vh, 9rem) !important;
@@ -484,7 +504,7 @@ const PageHero: React.FC<PageHeroProps> = ({
             }
             .page-hero-visual--image-only img {
               object-position: var(--hero-mobile-image-position-x, center) var(--hero-mobile-image-position-y, bottom) !important;
-              transform: scale(var(--hero-mobile-image-scale, var(--hero-image-scale))) rotate(var(--hero-image-rotate-mobile)) !important;
+              transform: translate(var(--hero-mobile-image-translate-x, 0px), var(--hero-mobile-image-translate-y, 0px)) scale(var(--hero-mobile-image-scale, var(--hero-image-scale))) rotate(var(--hero-image-rotate-mobile)) !important;
               opacity: var(--hero-mobile-image-opacity, 0.45) !important;
             }
             .page-hero-title {

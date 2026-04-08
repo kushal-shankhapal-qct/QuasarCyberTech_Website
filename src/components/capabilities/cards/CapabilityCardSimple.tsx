@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { COLORS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../../../config/themeConfig';
 
 const CARD_ROUNDNESS = LAYOUT_CONTROLS.card.capabilityCardRadius;
+const CAPABILITY_TITLE_PAD_TOP_DESKTOP = '0.25rem';
+const CAPABILITY_TITLE_PAD_BOTTOM_DESKTOP = '0.25rem';
+const CAPABILITY_TITLE_PAD_TOP_MOBILE = '0.4rem';
+const CAPABILITY_TITLE_PAD_BOTTOM_MOBILE = '0.4rem';
 
 export interface CapabilityCardSimpleProps {
   title: string;
@@ -85,6 +89,8 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
           lineHeight: 1.3,
           fontFamily: TYPOGRAPHY.fontHeading,
           margin: '0 0 0.625rem 0',
+          paddingTop: CAPABILITY_TITLE_PAD_TOP_DESKTOP,
+          paddingBottom: CAPABILITY_TITLE_PAD_BOTTOM_DESKTOP,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -157,6 +163,8 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
 
               .capability-card-heading {
                 margin: 0 !important;
+                padding-top: ${CAPABILITY_TITLE_PAD_TOP_MOBILE} !important;
+                padding-bottom: ${CAPABILITY_TITLE_PAD_BOTTOM_MOBILE} !important;
                 display: flex !important;
                 flex-direction: row !important;
                 align-items: center !important;

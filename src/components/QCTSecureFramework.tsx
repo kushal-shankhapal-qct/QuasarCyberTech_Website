@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Compass, ClipboardCheck, Crosshair, ShieldCheck, Radio, TrendingUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS, COLORS } from '../config/themeConfig';
 import { ASSETS } from '../constants/assets';
 
@@ -129,6 +129,17 @@ const stages = [
 
 export default function QCTSecureFramework() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(max-width: 48rem)');
+    const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
+    syncViewport();
+    mediaQuery.addEventListener('change', syncViewport);
+    return () => mediaQuery.removeEventListener('change', syncViewport);
+  }, []);
+
   const FRAMEWORK_LAYOUT = {
     activePanelFlex: '4.4 0 0%',
     inactivePanelFlex: '1.32 0 0%',
@@ -143,6 +154,8 @@ export default function QCTSecureFramework() {
     activeWatermarkShadow: '0 0 0.75rem rgba(255,255,255,0.18)',
     inactiveWatermarkShadow: '0 0 0.25rem rgba(255,255,255,0.1)',
     panelTransitionDurationSec: 0.55,
+    mobileAccordionDurationSec: 0.8,
+    mobileWordRevealDelaySec: 0.1,
     panelTransitionEase: [0.22, 1, 0.36, 1] as const,
     mobileInactiveHeaderTop: '1rem',
     mobileInactiveHeaderPadX: '1rem',
@@ -234,7 +247,7 @@ export default function QCTSecureFramework() {
 
           return (
             <motion.div
-              layout
+              layout={!isMobileViewport}
               transition={{
                 layout: {
                   duration: FRAMEWORK_LAYOUT.panelTransitionDurationSec,
@@ -242,21 +255,23 @@ export default function QCTSecureFramework() {
                 },
               }}
               key={i}
-              onMouseEnter={() => setActiveIdx(i)}
+              onMouseEnter={() => {
+                if (!isMobileViewport) setActiveIdx(i);
+              }}
               onClick={() => setActiveIdx(i)}
-              className={`framework-panel group/panel relative flex flex-col h-auto lg:h-[26.25rem] border-b lg:border-b-0 lg:border-r last:lg:border-r-0 border-white/10 transition-all duration-700 ease-in-out cursor-pointer overflow-hidden w-full 
+              className={`framework-panel group/panel relative flex flex-col h-auto lg:h-[26.25rem] border-b lg:border-b-0 lg:border-r last:lg:border-r-0 border-white/10 cursor-pointer overflow-hidden w-full 
+                ${isMobileViewport ? 'transition-colors duration-300 ease-in-out' : 'transition-all duration-700 ease-in-out'}
                 ${isActive ? 'bg-gradient-to-br from-[#6B1530]/90 to-black/90 backdrop-blur-lg shadow-[-0.25rem_0_0.9375rem_-0.125rem_rgba(214,176,92,0.4)]' : 'bg-black/40 backdrop-blur-md hover:bg-black/60'}`}
               style={{
-                flex: isActive ? FRAMEWORK_LAYOUT.activePanelFlex : FRAMEWORK_LAYOUT.inactivePanelFlex,
+                flex: isMobileViewport ? '0 0 auto' : (isActive ? FRAMEWORK_LAYOUT.activePanelFlex : FRAMEWORK_LAYOUT.inactivePanelFlex),
               }}
             >
               {/* Watermark — balanced letter (left) and icon (right) */}
               <div
                 className="absolute inset-0 flex items-center overflow-hidden pointer-events-none transition-all duration-700 z-0"
                 style={{
-                  justifyContent: isActive ? 'space-between' : 'center',
+                  justifyContent: isActive ? 'flex-start' : 'center',
                   paddingLeft: isActive ? FRAMEWORK_LAYOUT.watermarkEdgeInset : '0rem',
-                  paddingRight: isActive ? FRAMEWORK_LAYOUT.watermarkEdgeInset : '0rem',
                 }}
               >
                 <span
@@ -273,18 +288,30 @@ export default function QCTSecureFramework() {
                   {stage.letter}
                 </span>
 
-                {isActive && (
-                  <div
-                    className="transition-all duration-700 watermark-icon"
-                    style={{
-                      opacity: FRAMEWORK_LAYOUT.activeWatermarkOpacity,
-                      transform: `translateY(${FRAMEWORK_LAYOUT.activeWatermarkIconOffsetYRem}rem)`,
-                      color: '#FFFFFF',
-                    }}
-                  >
-                    <GhostIcon size={FRAMEWORK_LAYOUT.activeWatermarkGlyphSizeRem * 16} opacity={1} />
-                  </div>
-                )}
+                <motion.div
+                  className="watermark-icon"
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? FRAMEWORK_LAYOUT.activeWatermarkOpacity : 0,
+                    y: isActive ? `${FRAMEWORK_LAYOUT.activeWatermarkIconOffsetYRem}rem` : '0rem',
+                    scale: isActive ? 1 : 0.96,
+                  }}
+                  transition={{
+                    duration: isMobileViewport
+                      ? FRAMEWORK_LAYOUT.mobileAccordionDurationSec
+                      : FRAMEWORK_LAYOUT.panelTransitionDurationSec,
+                    ease: 'easeInOut',
+                  }}
+                  style={{
+                    color: '#FFFFFF',
+                    position: 'absolute',
+                    right: FRAMEWORK_LAYOUT.watermarkEdgeInset,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                  }}
+                >
+                  <GhostIcon size={FRAMEWORK_LAYOUT.activeWatermarkGlyphSizeRem * 16} opacity={1} />
+                </motion.div>
               </div>
 
               {/* Header — Absolute Anchor (Stationary Relative to Panel) */}
@@ -293,44 +320,65 @@ export default function QCTSecureFramework() {
                            ${isActive ? 'px-[1.5rem] lg:px-[2.5rem] justify-start' : 'px-0 justify-center'}`}
               >
                 <h3 className="text-2xl lg:text-3xl font-bold uppercase tracking-[0.15em] flex items-center pointer-events-auto whitespace-nowrap">
-                  <span className={`transition-colors duration-300 ${isActive ? 'text-[#D6B05C]' : 'text-white/60'}`}>{stage.letter}</span><span className={`text-[#D6B05C] transition-all duration-500 delay-300 ease-in-out overflow-hidden ${isActive ? 'max-w-xs opacity-100 ml-[0.0625rem]' : 'max-w-0 opacity-0 ml-0'}`}>{restOfWord}</span>
+                  <span className={`transition-colors duration-300 ${isActive ? 'text-[#D6B05C]' : 'text-white/60'}`}>{stage.letter}</span>
+                  <span
+                    className="text-[#D6B05C] overflow-hidden"
+                    style={{
+                      transitionProperty: 'max-width, opacity, margin-left',
+                      transitionDuration: `${isMobileViewport ? FRAMEWORK_LAYOUT.mobileAccordionDurationSec : 0.5}s`,
+                      transitionDelay: `${isMobileViewport ? FRAMEWORK_LAYOUT.mobileWordRevealDelaySec : 0.3}s`,
+                      transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                      maxWidth: isActive ? '16rem' : '0rem',
+                      opacity: isActive ? 1 : 0,
+                      marginLeft: isActive ? '0.0625rem' : '0rem',
+                    }}
+                  >
+                    {restOfWord}
+                  </span>
                 </h3>
               </div>
 
-              {/* CONTENT — Clear spacing avoids the absolute header */}
-              <AnimatePresence mode="wait">
-                {isActive && (
-                  <motion.div
-                    key={`content-${i}`}
-                    initial={{ opacity: 0, y: 10, height: 0 }}
-                    animate={{ opacity: 1, y: 0, height: "auto" }}
-                    exit={{ opacity: 0, y: -8, height: 0, transition: { duration: 0.28, delay: 0 } }}
-                    transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ overflow: 'hidden' }}
-                    className="framework-panel-content w-full h-full pt-[7rem] lg:pt-[7rem] px-[1.5rem] lg:px-[2.5rem] pb-8 flex flex-col relative z-10"
-                  >
-                    {/* Left-aligned restricted text width */}
-                    <div className="relative z-20 w-full lg:w-[85%] text-left">
-                      <div className="text-[#D6B05C] text-[0.8125rem] uppercase tracking-[0.2em] mb-4 font-bold opacity-90">
-                        {stage.descriptor}
-                      </div>
-
-                      <div className="w-12 h-[0.0625rem] bg-white/20 mb-6" />
-
-                      <div className="grid gap-4">
-                        {stage.services.map((service, si) => (
-                          <div key={si} className="relative flex items-center group/point">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#D6B05C] mr-3 flex-shrink-0" />
-                            <span className="text-white text-[0.875rem] lg:text-[0.9375rem] font-medium leading-tight tracking-wide opacity-90 group-hover/point:opacity-100 transition-opacity">
-                              {service}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
+              {/* CONTENT — always mounted so close/open animate concurrently */}
+              <motion.div
+                initial={false}
+                animate={
+                  isActive
+                    ? { height: 'auto', opacity: 1 }
+                    : { height: 0, opacity: 0 }
+                }
+                transition={{
+                  duration: isMobileViewport ? FRAMEWORK_LAYOUT.mobileAccordionDurationSec : 0.46,
+                  ease: isMobileViewport ? 'easeInOut' : [0.22, 1, 0.36, 1],
+                }}
+                style={{ overflow: 'hidden', willChange: 'height, opacity' }}
+                className="framework-panel-content-wrapper w-full relative z-10"
+                aria-hidden={!isActive}
+              >
+                <div
+                  className="framework-panel-content w-full h-full pt-[7rem] lg:pt-[7rem] px-[1.5rem] lg:px-[2.5rem] pb-8 flex flex-col"
+                  style={{ pointerEvents: isActive ? 'auto' : 'none' }}
+                >
+                  {/* Left-aligned restricted text width */}
+                  <div className="relative z-20 w-full lg:w-[85%] text-left">
+                    <div className="text-[#D6B05C] text-[0.8125rem] uppercase tracking-[0.2em] mb-4 font-bold opacity-90">
+                      {stage.descriptor}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
+                    <div className="w-12 h-[0.0625rem] bg-white/20 mb-6" />
+
+                    <div className="grid gap-4">
+                      {stage.services.map((service, si) => (
+                        <div key={si} className="relative flex items-center group/point">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D6B05C] mr-3 flex-shrink-0" />
+                          <span className="text-white text-[0.875rem] lg:text-[0.9375rem] font-medium leading-tight tracking-wide opacity-90 group-hover/point:opacity-100 transition-opacity">
+                            {service}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           );
         })}
@@ -361,7 +409,8 @@ export default function QCTSecureFramework() {
             }
             .framework-panel {
               min-height: 9rem;
-              transition-duration: ${FRAMEWORK_LAYOUT.panelTransitionDurationSec}s !important;
+              flex: 0 0 auto !important;
+              transition-duration: ${FRAMEWORK_LAYOUT.mobileAccordionDurationSec}s !important;
             }
             .framework-panel-content {
               padding-top: 5.125rem !important;
