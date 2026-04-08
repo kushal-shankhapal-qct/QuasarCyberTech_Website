@@ -132,15 +132,18 @@ export default function CapabilityCardSimple({ title, mobileTitle, desc, img, hr
 
             @media (max-width: 640px) {
               .capability-card-simple {
-                height: auto !important;
+                height: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
               }
 
               .capability-card-media {
                 height: 9.375rem !important;
+                flex-shrink: 0 !important;
               }
 
               .capability-card-content {
-                height: auto !important;
+                flex: 1 !important;
                 justify-content: flex-start !important;
                 padding: 0.625rem 0.75rem 0.625rem !important;
               }

@@ -33,15 +33,16 @@ const BrowserFrame: React.FC<{
   bgColor?: string,
   isDark?: boolean,
   width?: string,
-  maxWidth?: string
-}> = ({ children, bgColor = '#eef2f6', isDark = false, width = '100%', maxWidth = '720px' }) => {
+  maxWidth?: string,
+  mobileNoRadius?: boolean
+}> = ({ children, bgColor = '#eef2f6', isDark = false, width = '100%', maxWidth = '720px', mobileNoRadius = false }) => {
   // --- Styling Variables ---
   const ribbonHeight = '42px';
-  const darkRibbonBg = 'rgba(107, 21, 48, 0.25)'; // Translucent brand burgundy
-  const lightRibbonBg = 'rgba(0,0,0,0.04)';
+  const darkRibbonBg = 'rgba(107, 21, 48, 0.28)'; // Translucent brand burgundy
+  const lightRibbonBg = 'rgba(255,255,255,0.9)';
 
   return (
-    <div style={{
+    <div className={mobileNoRadius ? 'browser-frame-mobile-no-radius' : ''} style={{
       width: width,
       maxWidth: maxWidth,
       borderRadius: '12px',
@@ -142,13 +143,13 @@ export default function Platforms() {
           maskEnd="80%"
           imagePositionX="83%"
           imagePositionY="50%"
-          imagePositionXMobile="76%"
+          imagePositionXMobile="85%"
           imagePositionYMobile="100%"
-          imageScaleMobile={1.12}
+          imageScaleMobile={1}
           imageOpacityMobile={0.62}
           maskStartMobile="22%"
           maskEndMobile="88%"
-          visualHeightMobile="58%"
+          visualHeightMobile="50%"
           imageBlendSoftness="70%"
           imageBlendStartPercent="0%"
           breadcrumbPaths={['Home']}
@@ -176,7 +177,7 @@ export default function Platforms() {
             <img src={qStellarLogo} alt="QuasarCyberTech | QStellar Platform Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain', objectPosition: 'left', marginBottom: '24px' }} />
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px', color: '#0B1F3B', lineHeight: 1.3 }}>AI-Powered Asset Intelligence & Vulnerability Management</h2>
             <p style={{ fontSize: '1rem', color: '#64748B', lineHeight: 1.8, marginBottom: '32px', maxWidth: '540px' }}>
-              QStellar gives security teams continuous visibility into their asset landscape — automatically discovering, prioritizing, and tracking vulnerabilities with AI-assisted intelligence.
+              QStellar gives security teams continuous visibility into their asset landscape, automatically discovering, prioritizing, and tracking vulnerabilities with AI-assisted intelligence.
             </p>
             <a href="https://qstellar.co" target="_blank" rel="noopener noreferrer" style={{
               background: COLORS.burgundy, color: 'white', padding: '14px 32px', borderRadius: '4px', fontWeight: 700, fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', width: 'fit-content', textDecoration: 'none', transition: 'all 0.3s ease'
@@ -185,7 +186,7 @@ export default function Platforms() {
             </a>
           </div>
           <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
-            <BrowserFrame bgColor="#eef2f6" width="100%" maxWidth="720px">
+            <BrowserFrame bgColor="#6B1530" width="100%" maxWidth="720px" mobileNoRadius={true}>
               <img
                 src={qStellarScreenshot}
                 alt="QuasarCyberTech | QStellar Asset Intelligence Dashboard"
@@ -204,7 +205,7 @@ export default function Platforms() {
           alignItems: 'center'
         }}>
           <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
-            <BrowserFrame bgColor="#081026" isDark={true} width="100%" maxWidth="720px">
+            <BrowserFrame bgColor="#ffffff" isDark={true} width="100%" maxWidth="720px" mobileNoRadius={true}>
               <img src={qPulseScreenshot} alt="QuasarCyberTech | QPulse Threat Intelligence Portal" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
@@ -247,7 +248,7 @@ export default function Platforms() {
             </a>
           </div>
           <div className="platform-media-col" style={{ flex: '1 1 500px', background: '#FCFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
-            <BrowserFrame bgColor="#f8fafc" width="100%" maxWidth="720px">
+            <BrowserFrame bgColor="#6B1530" width="100%" maxWidth="720px" mobileNoRadius={true}>
               <img src={qrgtScreenshot} alt="QuasarCyberTech | QRGT Penetration Testing Platform" className="platform-shot" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </BrowserFrame>
           </div>
@@ -262,7 +263,7 @@ export default function Platforms() {
           alignItems: 'center'
         }}>
           <div className="platform-media-col" style={{ flex: '1 1 min(100%, 480px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px' }}>
-            <BrowserFrame bgColor="#040b1d" isDark={true} width="100%" maxWidth="720px">
+            <BrowserFrame bgColor="#ffffff" isDark={true} width="100%" maxWidth="720px" mobileNoRadius={true}>
               <img
                 src={qLeapScreenshot}
                 alt="QuasarCyberTech | QLeap Cybersecurity Training Simulations"
@@ -298,15 +299,31 @@ export default function Platforms() {
         @media (max-width: 768px) {
           .platform-section {
             gap: 1rem !important;
+            flex-direction: column !important;
+          }
+
+          .platform-section .platform-text-col {
+            order: 1 !important;
+          }
+
+          .platform-section .platform-media-col {
+            order: 2 !important;
           }
 
           .platform-text-col,
           .platform-media-col {
+            flex: none !important;
+            width: 100% !important;
+            min-width: 100% !important;
             padding: ${PF.mobileSectionPadY} ${LAYOUT_CONTROLS.global.paddingX} !important;
           }
 
           .platform-media-col {
-            padding-top: 0 !important;
+            padding-top: ${PF.mobileSectionPadY} !important;
+          }
+
+          .browser-frame-mobile-no-radius {
+            border-radius: 0 !important;
           }
 
           .platform-shot {

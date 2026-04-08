@@ -151,36 +151,56 @@ const renderHighlightedTabLabel = (
   });
 };
 
-const getFocusAreaIcon = (text: string): LucideIcon => {
-  // Check for explicit metadata [IconName]: Text
+// Semantic icon mapping for What We Assess items
+const getSemanticIcon = (text: string): LucideIcon => {
+  const value = text.toLowerCase();
+  
+  // Check for explicit metadata [IconName]: Text first
   const iconMatch = text.match(/^\[([A-Za-z0-9]+)\]:\s*(.*)/);
   if (iconMatch) {
     const iconName = iconMatch[1];
     const Icon = (LucideIcons as any)[iconName];
     if (Icon) return Icon;
   }
-
-  const value = text.toLowerCase();
-  if (value.includes("board") || value.includes("executive")) return Users;
-  if (value.includes("investment") || value.includes("budget"))
-    return TrendingUp;
-  if (value.includes("governance")) return Landmark;
-  if (value.includes("decision") || value.includes("readiness")) return Target;
-  if (
-    value.includes("third-party") ||
-    value.includes("ecosystem") ||
-    value.includes("vendor")
-  )
-    return Network;
-  if (value.includes("architecture") || value.includes("segmentation"))
-    return LayoutDashboard;
-  if (value.includes("identity") || value.includes("authentication"))
-    return Fingerprint;
-  if (value.includes("cloud")) return Cloud;
-  if (value.includes("policy") || value.includes("compliance"))
-    return FileCheck;
-  if (value.includes("maturity") || value.includes("kpi")) return BarChart3;
+  
+  // Semantic matching based on content keywords
+  if (value.includes("board") || value.includes("executive") || value.includes("governance")) return Users;
+  if (value.includes("investment") || value.includes("budget") || value.includes("spending")) return TrendingUp;
+  if (value.includes("decision") || value.includes("readiness") || value.includes("priority")) return Target;
+  if (value.includes("third-party") || value.includes("vendor") || value.includes("ecosystem") || value.includes("supply")) return Network;
+  if (value.includes("architecture") || value.includes("design") || value.includes("framework") || value.includes("segmentation")) return LayoutDashboard;
+  if (value.includes("identity") || value.includes("authentication") || value.includes("access") || value.includes("credential")) return Fingerprint;
+  if (value.includes("cloud") || value.includes("aws") || value.includes("azure") || value.includes("gcp")) return Cloud;
+  if (value.includes("policy") || value.includes("compliance") || value.includes("regulation") || value.includes("requirement")) return FileCheck;
+  if (value.includes("metric") || value.includes("maturity") || value.includes("kpi") || value.includes("assessment") || value.includes("score")) return BarChart3;
+  if (value.includes("risk") || value.includes("threat") || value.includes("vulnerability") || value.includes("incident")) return Landmark;
+  
   return ShieldCheck;
+};
+
+// Track used icons per subcap to ensure uniqueness
+const getUniqueIconForIndex = (text: string, index: number, allTexts: string[]): LucideIcon => {
+  // Get semantic icon based on current text
+  const semanticIcon = getSemanticIcon(text);
+  
+  // Check if this icon is already used for a different text in the same subcap
+  const usedForOtherText = allTexts
+    .slice(0, index)
+    .some((otherText, otherIndex) => 
+      otherText !== text && getSemanticIcon(otherText) === semanticIcon
+    );
+  
+  // If already used for different text, cycle to next unique icon
+  if (usedForOtherText) {
+    const fallbackIcons = [Target, Landmark, Network, LayoutDashboard, Fingerprint];
+    return fallbackIcons[index % fallbackIcons.length];
+  }
+  
+  return semanticIcon;
+};
+
+const getFocusAreaIcon = (text: string, index: number = 0, allTexts: string[] = []): LucideIcon => {
+  return getUniqueIconForIndex(text, index, allTexts.length > 0 ? allTexts : [text]);
 };
 
 const getFocusAreaText = (text: string): string => {
@@ -779,6 +799,7 @@ const CapabilityPage: React.FC = () => {
               minWidth: "100%",
               paddingLeft: LAYOUT_CONTROLS.section.paddingX,
               paddingRight: LAYOUT_CONTROLS.section.paddingX,
+              justifyContent: orderedSubCapabilities.length <= 4 ? "center" : "flex-start",
             }}
           >
             {orderedSubCapabilities.map((subCapability) => {
@@ -932,21 +953,19 @@ const CapabilityPage: React.FC = () => {
                 className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4"
                 style={{ gridAutoRows: "1fr" }}
               >
-                {(activeSub.whatWeAssess || []).map((item) => {
-                  const Icon = getFocusAreaIcon(item);
+                {(activeSub.whatWeAssess || []).map((item, index) => {
+                  const Icon = getFocusAreaIcon(item, index, activeSub.whatWeAssess || []);
                   const cleanText = getFocusAreaText(item);
-                  const isSpecificIcon = item.startsWith("[");
                   
                   return (
                     <div key={item} className="group px-2 py-2 h-full">
                       <div className="flex items-center gap-3 h-full">
-                        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-white/40 rounded-lg border border-black/5 shadow-sm group-hover:border-[#D6B05C]/30 transition-all duration-300">
+                        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-white/40 rounded-lg border border-black/5 shadow-sm group-hover:border-[#6B1530]/30 transition-all duration-300">
                           <Icon 
-                            className="w-5 h-5 transition-all duration-300 group-hover:scale-110" 
-                            style={{ 
-                              color: isSpecificIcon ? "#D6B05C" : "#6B1530",
-                              filter: isSpecificIcon ? "drop-shadow(0 0 8px rgba(214,176,92,0.3))" : "none"
-                            }} 
+                            className="w-5 h-5 text-[#D6B05C] transition-all duration-300 group-hover:scale-110 group-hover:text-[#6B1530]" 
+                            style={{
+                              filter: "drop-shadow(0 0 8px rgba(214,176,92,0.3))",
+                            }}
                           />
                         </div>
                         <p
@@ -1446,13 +1465,18 @@ const CapabilityPage: React.FC = () => {
                 gap: 0.875rem !important;
               }
 
+              .related-capability-grid .capability-card-simple {
+                min-height: 22.5rem !important;
+              }
+
               .related-capability-grid .capability-card-media {
-                height: 60% !important;
+                height: 9.375rem !important;
+                flex-shrink: 0 !important;
               }
 
               .related-capability-grid .capability-card-content {
-                height: 40% !important;
-                justify-content: center !important;
+                flex: 1 !important;
+                justify-content: flex-start !important;
               }
             }
           `,

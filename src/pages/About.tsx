@@ -608,7 +608,7 @@ export default function About() {
             className="about-vm-section"
             style={{
               marginTop: "2.5rem",
-              padding: "clamp(1.25rem, 2.8vw, 2.4rem)",
+              padding: "0",
             }}
           >
             <div
@@ -736,7 +736,7 @@ export default function About() {
 
         {/* ── 3: FOUNDER'S VISION – 50/50 layout ── */}
         <section
-          className="about-content-section"
+          className="about-content-section about-founder-section"
           style={{
             background: GRADIENTS.ABOUT_FOUNDERS_VISION_BG,
             paddingTop: "clamp(2rem, 5vw, 4rem)",
@@ -1326,14 +1326,15 @@ export default function About() {
                         marginBottom: "8px",
                         fontFamily: TYPOGRAPHY.fontHeading,
                         display: "flex",
-                        alignItems: "center",
+                        alignItems: "flex-start",
                         justifyContent: "space-between",
+                        gap: "8px",
                       }}
                     >
                       <span className="about-industry-card-title-text">
                         {ind.name}
                       </span>
-                      <ArrowRight size={14} color={COLORS.burgundy} />
+                      <ArrowRight size={14} color={COLORS.burgundy} style={{ flexShrink: 0, marginTop: "2px" }} />
                     </h3>
                     <p
                       className="about-industry-card-desc"
@@ -1685,6 +1686,12 @@ export default function About() {
           --about-hero-gap-below-button: 0rem; /* Handled by min-height behavior now to avoid peaking */
           --about-core-value-font-size: clamp(13.5px, 1.18vw, 16px);
           --about-core-value-font-size-mobile: 15px;
+          --about-core-values-mobile-gap-below-last: 1.4rem;
+          --about-founder-mobile-gap-below: 1.6rem;
+          --about-vm-mobile-icon-title-gap: 0.55rem;
+          --about-vm-mobile-card-pad-left: 1rem;
+          --about-vm-mobile-title-pad-left: 0rem;
+          --about-vm-mobile-title-nudge-x: -3.5rem;
 
           /* Why-Us hover controls */
           --about-why-hover-duration: 140ms;
@@ -1856,13 +1863,15 @@ export default function About() {
             padding: 0 !important;
           }
           .about-vm-card {
-            grid-template-columns: 72px 1fr !important;
+            grid-template-columns: auto auto !important;
             grid-template-areas:
               "icon title"
               "body body";
             align-items: start !important;
-            gap: 0.65rem 0.9rem !important;
-            padding: 1rem !important;
+            justify-content: center !important;
+            justify-items: center !important;
+            gap: 0.65rem var(--about-vm-mobile-icon-title-gap) !important;
+            padding: 1rem 1rem 1rem var(--about-vm-mobile-card-pad-left) !important;
           }
           .about-vm-icon-box {
             grid-area: icon;
@@ -1888,14 +1897,22 @@ export default function About() {
             grid-area: title;
             margin: 0 !important;
             align-self: center;
-            justify-self: start;
+            justify-self: center;
             width: auto;
-            text-align: left;
+            padding-left: var(--about-vm-mobile-title-pad-left);
+            transform: translateX(var(--about-vm-mobile-title-nudge-x));
+            text-align: center;
           }
           .about-vm-body {
             grid-area: body;
             margin: 0 !important;
             text-align: left;
+          }
+          .about-core-values-last-row {
+            margin-bottom: var(--about-core-values-mobile-gap-below-last);
+          }
+          .about-founder-section {
+            margin-bottom: var(--about-founder-mobile-gap-below);
           }
           .about-platform-shot-shell {
             background: transparent !important;
@@ -1935,16 +1952,11 @@ export default function About() {
             margin-top: 2px;
           }
           .about-industry-card-title-text {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
+            display: block;
             line-height: 1.25;
-            min-height: calc(1.25em * 2);
           }
           .about-industry-card-desc {
-            font-size: 0.8rem !important;
-            line-height: 1.45 !important;
+            display: none !important;
           }
           .about-core-values-grid {
             grid-template-columns: 1fr !important;

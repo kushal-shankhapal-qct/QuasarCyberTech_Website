@@ -137,11 +137,12 @@ const IndustriesOverview: React.FC = () => {
                     marginBottom: '8px',
                     fontFamily: TYPOGRAPHY.fontHeading,
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between'
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: '8px'
                   }}>
                     <span className="industries-card-title-text">{ind.name}</span>
-                    <ArrowRight size={14} color={COLORS.burgundy} />
+                    <ArrowRight size={14} color={COLORS.burgundy} style={{ flexShrink: 0, marginTop: '2px' }} />
                   </h3>
                   <p className="industries-card-desc" style={{ color: '#4a5568', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
                     {ind.description}
@@ -180,12 +181,8 @@ const IndustriesOverview: React.FC = () => {
             margin-top: 2px;
           }
           .industries-card-title-text {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
+            display: block;
             line-height: 1.25;
-            min-height: calc(1.25em * 2);
           }
           .industries-card-desc {
             font-size: 0.8rem !important;

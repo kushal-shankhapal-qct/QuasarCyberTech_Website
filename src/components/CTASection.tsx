@@ -116,6 +116,7 @@ const CTASection: React.FC<CTASectionProps> = ({
               flexWrap: 'wrap',
               justifyContent: 'flex-start'
             }}
+            className="cta-actions-container"
           >
             {primaryAction.isExternal ? (
               <a
@@ -279,6 +280,17 @@ const CTASection: React.FC<CTASectionProps> = ({
         </div>
       </div>
 
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (max-width: 640px) {
+              .cta-actions-container a {
+                justify-content: flex-start !important;
+              }
+            }
+          `,
+        }}
+      />
     </section>
   );
 };
