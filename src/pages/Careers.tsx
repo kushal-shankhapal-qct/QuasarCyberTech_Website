@@ -115,8 +115,8 @@ const Careers: React.FC = () => {
       <section
         style={{
           background: '#F5F7FA',
-          paddingTop: 'clamp(80px, 8vw, 120px)',
-          paddingBottom: 'clamp(80px, 8vw, 120px)',
+          paddingTop: 'var(--careers-section-pt)',
+          paddingBottom: 'var(--careers-section-pb)',
           ...sectionPad,
         }}
       >
@@ -141,8 +141,8 @@ const Careers: React.FC = () => {
         style={{
           background: '#0A0A0F',
           backgroundImage: GRADIENTS.CAREERS_WHY_JOIN_BG,
-          paddingTop: 'clamp(80px, 8vw, 120px)',
-          paddingBottom: 'clamp(80px, 8vw, 120px)',
+          paddingTop: 'var(--careers-section-pt)',
+          paddingBottom: 'var(--careers-section-pb)',
           borderTop: '1px solid rgba(255,255,255,0.05)',
           ...sectionPad,
         }}
@@ -163,14 +163,17 @@ const Careers: React.FC = () => {
             {values.map((v, i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -4, borderColor: 'rgba(214,176,92,0.2)' }}
+                whileHover={{ y: -4 }}
                 style={{
                   position: 'relative',
                   overflow: 'hidden',
                   background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderTop: `3px solid ${COLORS.gold}`,
+                  borderLeft: '1px solid rgba(255,255,255,0.08)',
+                  borderRight: '1px solid rgba(255,255,255,0.08)',
+                  borderBottom: '1px solid rgba(255,255,255,0.08)',
                   padding: '28px',
-                  borderRadius: '12px',
+                  borderRadius: '0 0 12px 12px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '12px',
@@ -189,7 +192,7 @@ const Careers: React.FC = () => {
                 }}>
                   <v.icon size={64} strokeWidth={1} />
                 </div>
-                <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', fontWeight: 600, position: 'relative', zIndex: 2, paddingRight: '60px' }}>{v.title}</h4>
+                <h4 style={{ color: COLORS.gold, fontSize: '1.1rem', fontWeight: 600, position: 'relative', zIndex: 2, paddingRight: '60px' }}>{v.title}</h4>
                 <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', lineHeight: 1.5, position: 'relative', zIndex: 2, paddingRight: '60px' }}>{v.desc}</p>
               </motion.div>
             ))}
@@ -202,8 +205,8 @@ const Careers: React.FC = () => {
         id="open-roles"
         style={{
           background: '#FFFFFF',
-          paddingTop: 'clamp(80px, 8vw, 120px)',
-          paddingBottom: 'clamp(80px, 8vw, 120px)',
+          paddingTop: 'var(--careers-section-pt)',
+          paddingBottom: 'var(--careers-section-pb)',
           ...sectionPad,
         }}
       >
@@ -320,8 +323,8 @@ const Careers: React.FC = () => {
         style={{
           background: '#0A0A0F',
           backgroundImage: GRADIENTS.CAREERS_QLEAP_BG,
-          paddingTop: 'clamp(80px, 8vw, 120px)',
-          paddingBottom: 'clamp(80px, 8vw, 120px)',
+          paddingTop: 'clamp(32px, 3vw, 48px)',
+          paddingBottom: 'clamp(32px, 3vw, 48px)',
           borderTop: '1px solid rgba(255,255,255,0.05)',
           ...sectionPad,
         }}
@@ -405,6 +408,10 @@ const Careers: React.FC = () => {
 
       <style dangerouslySetInnerHTML={{
         __html: `
+        :root {
+          --careers-section-pt: clamp(40px, 5vw, 80px);
+          --careers-section-pb: clamp(40px, 5vw, 80px);
+        }
         @media (max-width: 1024px) {
           .careers-values-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;

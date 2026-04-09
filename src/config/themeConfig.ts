@@ -278,8 +278,8 @@ export const GRADIENT_PRESETS = {
 
     // 3: Careers Page
     CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-    CAREERS_WHY_JOIN_BG: 'radial-gradient(ellipse at 40% 20%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%)',
-    CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 10%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 80%)',
+    CAREERS_WHY_JOIN_BG: 'radial-gradient(ellipse at 20% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 80%)',
+    CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 20% 40%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 80%)',
 
     // 4: Capabilities Pages
     CAPABILITIES_OVERVIEW_HERO_BG: 'radial-gradient(ellipse at 27% 57%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',

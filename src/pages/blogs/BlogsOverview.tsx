@@ -52,7 +52,7 @@ export default function BlogsOverview() {
       setSearchQuery(tagParam);
       setInputValue(tagParam);
     }
-  }, []);
+  }, [searchParams]);
 
   // Sticky filter bar detection
   useEffect(() => {
@@ -158,11 +158,10 @@ export default function BlogsOverview() {
                   type="text"
                   placeholder="Search insights..."
                   value={inputValue}
-                  onChange={e => handleSearch(e.target.value)}
+                  onChange={(e) => handleSearch(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   onBlur={() => setSearchFocused(false)}
                   style={{
-                    width: '100%',
                     background: 'rgba(255,255,255,0.06)',
                     border: searchFocused ? `1px solid ${GOLD}` : '1px solid rgba(255,255,255,0.12)',
                     borderRadius: '8px',
@@ -347,11 +346,11 @@ function NewsletterCTA() {
   };
 
   return (
-    <section style={{
+    <section className="newsletter-section" style={{
       background: GRADIENTS.BLOGS_OVERVIEW_NEWSLETTER_BG,
       padding: '100px 3rem',
     }}>
-      <div style={{
+      <div className="newsletter-grid" style={{
         width: '100%',
         margin: '0 auto',
         display: 'grid',
@@ -378,7 +377,7 @@ function NewsletterCTA() {
         </div>
 
         {/* Right: Form */}
-        <div style={{
+        <div className="newsletter-form-card" style={{
           background: 'rgba(255,255,255,0.03)',
           border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: '16px',
@@ -455,6 +454,35 @@ function NewsletterCTA() {
           )}
         </div>
       </div>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @media (max-width: 48rem) {
+            .newsletter-section {
+              padding: 48px var(--page-padding-x) 56px !important;
+            }
+
+            .newsletter-grid {
+              grid-template-columns: 1fr !important;
+              gap: 24px !important;
+              justify-items: center !important;
+            }
+
+            .newsletter-grid > div:first-child {
+              width: 100% !important;
+              max-width: 520px !important;
+              margin: 0 auto !important;
+            }
+
+            .newsletter-form-card {
+              width: 100% !important;
+              max-width: 520px !important;
+              margin: 0 auto !important;
+              justify-self: center !important;
+              padding: 28px 20px !important;
+            }
+          }
+        `
+      }} />
     </section>
   );
 }

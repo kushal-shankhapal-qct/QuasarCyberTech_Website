@@ -863,7 +863,8 @@ export default function About() {
         <section
           className="about-content-section"
           style={{
-            background: GRADIENTS.ABOUT_WHY_US_BG,
+            background:
+              "radial-gradient(110% 90% at 12% 8%, rgba(107,21,48,0.3) 0%, rgba(107,21,48,0) 58%), radial-gradient(95% 85% at 86% 22%, rgba(107,21,48,0.34) 0%, rgba(107,21,48,0) 62%), #040B1D",
             paddingTop: LAYOUT_CONTROLS.section.paddingTop,
             paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
             ...sectionPad,
@@ -954,18 +955,18 @@ export default function About() {
               ))}
             </div>
           </div>
-        </section>
+          
 
         {/* ── 6: SECURITY PLATFORMS & ECOSYSTEM (Mac-Frame High Fidelity) ── */}
-        <section
+        <div
           className="about-platforms-section"
           style={{
-            background: GRADIENTS.HOME_PLATFORMS_BG,
-            marginTop: "var(--about-ecosystem-overlap-y)",
+            background: "transparent",
+            marginTop: 0,
             paddingTop: "var(--about-ecosystem-section-pt)",
-            paddingRight: ABOUT_DESKTOP_SIDE_MARGIN,
+            paddingRight: 0,
             paddingBottom: "var(--about-ecosystem-section-pb)",
-            paddingLeft: ABOUT_DESKTOP_SIDE_MARGIN,
+            paddingLeft: 0,
             fontFamily: TYPOGRAPHY.fontBody,
           }}
         >
@@ -1161,6 +1162,7 @@ export default function About() {
               </article>
             ))}
           </div>
+        </div>
         </section>
 
         {/* ── 7: INDUSTRIES WE SERVE (light, matching IndustriesOverview) ── */}
