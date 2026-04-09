@@ -178,10 +178,10 @@ export const ASSETS = {
     hold: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/hold_inj9za.png'),
   },
   screenshots: {
-    qstellar: getAsset('Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),
-    qpulse: getAsset('Platforms_Screenshots/QPulse/QPulse_Hero_Screenshot.png'),
-    qleap: getAsset('Platforms_Screenshots/QLeap/QLeap_Website_Screenshot.png'),
-    qrgt: getAsset('Platforms_Screenshots/QRGT/QRGT_Screenshot.png'),
+    qstellar: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),
+    qpulse: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Platforms_Screenshots/QPulse/QPulse_Website_Screenshot.png'),
+    qleap: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Platforms_Screenshots/QLeap/QLeap_Website_Screenshot.png'),
+    qrgt: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Platforms_Screenshots/QRGT/QRGT_Screenshot.png'),
   },
   qctWebsite: {
     advisory: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Cyber_Advisory_and_Risk_Governance_New_hqwyit.png'),
@@ -198,8 +198,8 @@ export const ASSETS = {
   },
   platforms: {
     screenshots: {
-      qstellar: getAsset('Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),
-      qpulse: getAsset('Platforms_Screenshots/QPulse/QPulse_Hero_Screenshot.png'),
+      qstellar: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/Platforms_Screenshots/QStellar/QStellar_Hero_Screenshot.png'),
+      qpulse: getAsset('https://res.cloudinary.com/dmdpzphcz/image/upload/v1775135965/Platforms_Screenshots/QPulse/QPulse_Hero_Screenshot.png'),
       qleap: getAsset('Platforms_Screenshots/QLeap/QLeap_Website_Screenshot.png'),
       qrgt: getAsset('Platforms_Screenshots/QRGT/QRGT_Screenshot.png'),
     }

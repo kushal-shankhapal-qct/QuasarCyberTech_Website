@@ -155,6 +155,46 @@ const CTASection: React.FC<CTASectionProps> = ({
                 {primaryAction.label}
                 <ArrowRight size={18} />
               </a>
+            ) : primaryAction.link.startsWith('#') ? (
+              <a
+                href={primaryAction.link}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(primaryAction.link)?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                style={{
+                  ...TYPOGRAPHY.buttonLarge,
+                  background: COLORS.burgundy,
+                  color: '#FFFFFF',
+                  padding: '1rem 2.25rem', // 16px 36px
+                  width: CTA_ACTION_WIDTH,
+                  minWidth: CTA_ACTION_WIDTH,
+                  maxWidth: '100%',
+                  justifyContent: 'center',
+                  borderRadius: '0.25rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 0.5rem 1rem rgba(107, 21, 48, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontWeight: 800,
+                  fontSize: '0.875rem', // 14px
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = COLORS.burgundyHover;
+                  e.currentTarget.style.transform = 'translateY(-0.125rem)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = COLORS.burgundy;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                {primaryAction.label}
+                <ArrowRight size={18} />
+              </a>
             ) : (
               <Link
                 to={primaryAction.link}
@@ -284,8 +324,20 @@ const CTASection: React.FC<CTASectionProps> = ({
         dangerouslySetInnerHTML={{
           __html: `
             @media (max-width: 640px) {
+              .cta-actions-container {
+                width: 100% !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 0.875rem !important;
+              }
+
               .cta-actions-container a {
-                justify-content: flex-start !important;
+                width: min(22rem, 100%) !important;
+                min-width: min(22rem, 100%) !important;
+                justify-content: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
               }
             }
           `,

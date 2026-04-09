@@ -85,7 +85,7 @@ const PageHero: React.FC<PageHeroProps> = ({
   imageScaleMobile,
   imageOpacity = 0.8,
   imageOpacityMobile,
-  imagePosition = "center center",
+  imagePosition,
   imagePositionX = "center",     // Horizontal image position
   imagePositionY = "center",     // Vertical image position
   imagePositionXMobile,
@@ -137,10 +137,15 @@ const PageHero: React.FC<PageHeroProps> = ({
   // Use imageBlend controls if provided, otherwise fall back to computed values
   const blendStart = imageBlendStart ?? maskStart ?? gradStart;
   const blendEnd = imageBlendEnd ?? maskEnd ?? gradEnd;
+
+  const explicitImagePosition =
+    typeof imagePosition === "string" && imagePosition.trim().length > 0
+      ? imagePosition
+      : undefined;
   
   // Combine imagePositionX and imagePositionY for objectPosition
   const computedImagePosition =
-    imagePosition || `${imagePositionX || "center"} ${imagePositionY || "center"}`;
+    explicitImagePosition || `${imagePositionX || "center"} ${imagePositionY || "center"}`;
   const mobileImagePositionX = imagePositionXMobile || imagePositionX || "center";
   const mobileImagePositionY = imagePositionYMobile || imagePositionY || "bottom";
   const mobileImageScale = imageScaleMobile ?? imageScale;

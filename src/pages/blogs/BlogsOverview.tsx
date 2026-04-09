@@ -403,7 +403,7 @@ function NewsletterCTA() {
             <>
               <input
                 type="text"
-                placeholder="Your Name (optional)"
+                placeholder="Your Name"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 disabled={submitting}

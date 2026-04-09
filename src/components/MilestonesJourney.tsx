@@ -1,140 +1,214 @@
-import { useEffect, useRef } from "react";
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { motion, useInView } from "framer-motion";
 import { COLORS, SECTION_BACKGROUNDS, TYPOGRAPHY } from "../config/themeConfig";
-import { ASSETS } from "../constants/assets";
 
-/* ═══════════════════════════════════════════════
-   LAYOUT TUNING — all in px, adjust freely
-   ═══════════════════════════════════════════════ */
-const NODE_W = 260;   // horizontal slot per milestone
-const TRACK_H = 520;   // total track height
-const DOT_R = 15;    // dot radius
-const CARD_W = 258;   // card width
-const YEAR_LABEL_Y_OFFSET = -56; // move year watermark up/down (higher = more down)
+const NODE_W = 260;
+const TRACK_H = 520;
+const DOT_R = 15;
+const CARD_W = 258;
+const YEAR_LABEL_SHARED_Y_OFFSET = -75;
+const YEAR_LABEL_Y_BY_YEAR = {
+  "2024": -10,
+  "2025": -24,
+} as const;
 const CARD_BODY_PAD_TOP = 14;
 const CARD_BODY_PAD_X = 14;
 const CARD_BODY_PAD_BOTTOM = 12;
-const DOT_Y_BIAS = 0;   // move the whole wire up/down (negative = up)
-const DOT_X_BIAS = -15;   // move dots left/right (negative = left, positive = right)
-const LINE_X_BIAS = 15;   // move wire line up/down (negative = up, positive = down)
-const STEM_X_BIAS = 0;   // stem left/right nudge
-
-const EXIT_RISE_Y = -120; // how high the wire naturally rises at the end (negative = up)
-const EXIT_TAIL_W = 180;  // extra length to extend past the last milestone dot
-const GROWTH_CONTINUES_X_OFFSET = 12; // move label left/right (negative = left)
-const GROWTH_CONTINUES_Y_OFFSET = -8.5; // move label up/down (negative = up)
-
-const CURSOR_OPEN_SIZE = 20; // palm icon size
-const CURSOR_HOLD_SIZE = 15; // hold icon size
-const CURSOR_HOTSPOT_X = 7;
-const CURSOR_HOTSPOT_Y = 7;
-
-const withCursorSize = (url: string, size: number): string => {
-  if (!url.includes("/upload/")) return url;
-  return url.replace("/upload/", `/upload/c_fit,w_${size},h_${size}/`);
+const CARD_TITLE_CONTROLS = {
+  desktopSize: 1.2,
+  mobileSize: 1.02,
+  weight: 850,
+};
+const GAP = {
+  nodeX: 0,
+  stemFromDot: 0,
+  wireTail: 180,
+};
+const NUDGE = {
+  lane: {
+    evenIndex: { x: 0, y: 0 },
+    oddIndex: { x: -10, y: 0 },
+  },
+  dot: { x: -15, y: 0 },
+  stem: { x: 15, y: 0 },
+  wire: { x: 5, y: 10 },
+  growthContinues: { x: 12, y: -8.5 },
+};
+const WIRE_START_CONTROLS = { extendX: 0, snipX: 0 };
+const WIRE_END_CONTROLS = { extendX: 90, snipX: 0 };
+const WIRE_SHAPE = {
+  amplitude: 50,
+  waveLength: 2 * (NODE_W + GAP.nodeX),
+  samples: 300,
+};
+const WIRE_DRAW = {
+  durationSec: 1.65,
+  delaySec: 0.12,
+};
+const AUTO_SCROLL = {
+  enabled: true,
+  delaySec: 0.25,
+  speedPxPerSec: 50,
+  pauseOnInteraction: true,
+  pauseOnWheel: true,
+  resumeDelaySec: 1.6,
+  ensureStartSec: 1.4,
+  ensureStartTickMs: 120,
+  loop: false,
+  startFromLeft: true,
+};
+const START_LAYOUT = {
+  centerFirstMilestone: true,
+  sideInsetPx: 400,
 };
 
-const MINIMAL_GRAB_CURSOR = `url("${withCursorSize(ASSETS.cursorIcons.palm, CURSOR_OPEN_SIZE)}") ${CURSOR_HOTSPOT_X} ${CURSOR_HOTSPOT_Y}, grab`;
-const MINIMAL_GRABBING_CURSOR = `url("${withCursorSize(ASSETS.cursorIcons.hold, CURSOR_HOLD_SIZE)}") ${CURSOR_HOTSPOT_X} ${CURSOR_HOTSPOT_Y}, grabbing`;
-
-/* ═══════════════════════════════════════════════
-   DATA
-   ═══════════════════════════════════════════════ */
 const milestones = [
   {
-    year: "2024", month: "Jul",
+    year: "2024",
+    month: "Jul",
     title: "Incorporation",
-    description: "QuasarCyberTech was officially incorporated, marking the beginning of our mission to engineer cyber resilience for modern enterprises.",
+    description:
+      "QuasarCyberTech was officially incorporated, marking the beginning of our mission to engineer cyber resilience for modern enterprises.",
     tag: "Foundation",
   },
   {
-    year: "2024", month: "Oct",
+    year: "2024",
+    month: "Oct",
     title: "Headquarters Launch",
-    description: "Established our first operational headquarters in Nashik, creating the foundation for our consulting and engineering operations.",
+    description:
+      "Established our first operational headquarters in Nashik, creating the foundation for our consulting and engineering operations.",
     tag: "Presence",
   },
   {
-    year: "2024", month: "Nov",
+    year: "2024",
+    month: "Nov",
     title: "Startup India Recognition",
-    description: "Recognized under the Startup India initiative, validating our innovation-driven approach and strategic vision.",
+    description:
+      "Recognized under the Startup India initiative, validating our innovation-driven approach and strategic vision.",
     tag: "Recognition",
   },
   {
-    year: "2024", month: "Dec",
+    year: "2024",
+    month: "Dec",
     title: "Strategic Partnerships",
-    description: "Entered into strategic collaborations with ecosystem partners to strengthen delivery capabilities and market reach.",
+    description:
+      "Entered into strategic collaborations with ecosystem partners to strengthen delivery capabilities and market reach.",
     tag: "Alliance",
   },
   {
-    year: "2025", month: "Feb",
+    year: "2025",
+    month: "Feb",
     title: "NASSCOM Membership",
-    description: "Joined NASSCOM, reinforcing our commitment to technology leadership and aligning with India's leading tech industry body.",
+    description:
+      "Joined NASSCOM, reinforcing our commitment to technology leadership and aligning with India's leading tech industry body.",
     tag: "Credibility",
   },
   {
-    year: "2025", month: "Jun",
+    year: "2025",
+    month: "Jun",
     title: "QStellar Development",
-    description: "Initiated development of QStellar, our flagship AI-powered asset visibility and vulnerability intelligence platform.",
+    description:
+      "Initiated development of QStellar, our flagship AI-powered asset visibility and vulnerability intelligence platform.",
     tag: "Platform",
   },
   {
-    year: "2025", month: "Jul",
+    year: "2025",
+    month: "Jul",
     title: "QPulse Launch",
-    description: "Launched QPulse, our cybersecurity intelligence and regulatory insights platform focused on India and global threat intelligence.",
+    description:
+      "Launched QPulse, our cybersecurity intelligence and regulatory insights platform focused on India and global threat intelligence.",
     tag: "Platform",
   },
   {
-    year: "2025", month: "Aug",
+    year: "2025",
+    month: "Aug",
     title: "Business Excellence Award",
-    description: "Recognized at national industry platforms for business excellence and cybersecurity innovation.",
+    description:
+      "Recognized at national industry platforms for business excellence and cybersecurity innovation.",
     tag: "Recognition",
   },
   {
-    year: "2025", month: "Aug",
+    year: "2025",
+    month: "Aug",
     title: "International Expansion",
-    description: "Established international presence in Dallas, USA, marking our entry into global markets.",
+    description:
+      "Established international presence in Dallas, USA, marking our entry into global markets.",
     tag: "Global",
   },
   {
-    year: "2025", month: "Sep",
+    year: "2025",
+    month: "Sep",
     title: "Emerging Company of the Year",
-    description: "Recognized as Emerging Company of the Year 2025 by Business Connect Magazine.",
+    description:
+      "Recognized as Emerging Company of the Year 2025 by Business Connect Magazine.",
     tag: "Recognition",
   },
   {
-    year: "2025", month: "Oct",
+    year: "2025",
+    month: "Oct",
     title: "QLeap Ecosystem Expansion",
-    description: "Expanded the QLeap talent and learning ecosystem, building a strong pathway from training to internships and enterprise readiness.",
+    description:
+      "Expanded the QLeap talent and learning ecosystem, building a strong pathway from training to internships and enterprise readiness.",
     tag: "Ecosystem",
   },
-];
+] as const;
 
-const ALL_NODES = milestones.length; // number of regular nodes
+type Milestone = (typeof milestones)[number];
 
-/* ═══════════════════════════════════════════════
-   REGULAR NODE
-   ═══════════════════════════════════════════════ */
+function buildWireData(nodeStep: number, dotXOffset: number) {
+  const wireY = TRACK_H / 2;
+  const firstDotCenterX = NODE_W / 2 + dotXOffset;
+  const lastDotCenterX = (milestones.length - 1) * nodeStep + NODE_W / 2 + dotXOffset;
+  const wireStartX = firstDotCenterX - WIRE_START_CONTROLS.extendX + WIRE_START_CONTROLS.snipX;
+  const wireEndX = Math.max(
+    lastDotCenterX,
+    lastDotCenterX + GAP.wireTail + WIRE_END_CONTROLS.extendX - WIRE_END_CONTROLS.snipX,
+  );
+  const waveSpan = Math.max(0, wireEndX - wireStartX);
+  const baseY = wireY + NUDGE.wire.y;
+  const points: string[] = [];
+
+  for (let index = 0; index <= WIRE_SHAPE.samples; index += 1) {
+    const t = index / WIRE_SHAPE.samples;
+    const x = wireStartX + NUDGE.wire.x + t * waveSpan;
+    const y =
+      baseY +
+      Math.sin(((x - wireStartX) / WIRE_SHAPE.waveLength) * Math.PI * 2) * WIRE_SHAPE.amplitude;
+    points.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+  }
+
+  const pathD = [`M ${points[0]}`, ...points.slice(1).map((point) => `L ${point}`)].join(" ");
+  const lastPoint = points[points.length - 1].split(",");
+  const peakY = Number.parseFloat(lastPoint[1]);
+
+  return {
+    d: pathD,
+    peak: { x: wireEndX, y: peakY },
+    totalW: Math.max((milestones.length - 1) * nodeStep + NODE_W / 2 + GAP.wireTail + 120, wireEndX + 120),
+  };
+}
+
 function MilestoneNode({
   milestone,
   index,
   isLast,
+  nodeStep,
 }: {
-  milestone: (typeof milestones)[number];
+  milestone: Milestone;
   index: number;
   isLast: boolean;
+  nodeStep: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-40px" });
   const isTop = index % 2 === 0;
   const isYearStart = index === 0 || milestone.year !== milestones[index - 1]?.year;
   const isGold = index === 0 || isLast;
-  const d = Math.min(index * 0.055, 0.45);
-  const wireY = TRACK_H / 2 + DOT_Y_BIAS;
+  const delay = Math.min(index * 0.055, 0.45);
+  const laneNudge = isTop ? NUDGE.lane.evenIndex : NUDGE.lane.oddIndex;
+  const dotXOffset = NUDGE.dot.x + laneNudge.x;
+  const dotY = TRACK_H / 2 + NUDGE.dot.y + laneNudge.y;
+  const yearLabelOffset = YEAR_LABEL_Y_BY_YEAR[milestone.year as keyof typeof YEAR_LABEL_Y_BY_YEAR] ?? 0;
 
   return (
     <div
@@ -142,69 +216,63 @@ function MilestoneNode({
       className="mj-node"
       style={{
         position: "absolute",
-        left: `${index * NODE_W}px`,
+        left: `${index * nodeStep}px`,
         width: `${NODE_W}px`,
         height: `${TRACK_H}px`,
         pointerEvents: "none",
       }}
     >
-      <div style={{ position: "relative", width: "100%", height: "100%", pointerEvents: "auto" }}>
-
-        {/* Year watermark — subtle, only on year-start nodes */}
+      <div className="mj-node-inner" style={{ position: "relative", width: "100%", height: "100%", pointerEvents: "auto" }}>
         {isYearStart && (
-          <div className="mj-year-label">
+          <div className="mj-year-label" style={{ transform: `translateY(${yearLabelOffset}px)` }}>
             {milestone.year}
           </div>
         )}
 
-
-
-        {/* Dot */}
         <motion.div
           style={{
             position: "absolute",
-            top: `${wireY}px`,
-            left: `calc(50% + ${DOT_X_BIAS}px)`,
+            top: `${dotY}px`,
+            left: `calc(50% + ${dotXOffset}px)`,
             transform: "translate(-50%, -50%)",
             zIndex: 6,
           }}
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.35, delay: d, type: "spring", stiffness: 320, damping: 18 }}
+          transition={{ duration: 0.35, delay, type: "spring", stiffness: 320, damping: 18 }}
         >
           <div className={`mj-dot ${isGold ? "mj-dot--year" : ""}`}>
             <div className="mj-dot-core" />
           </div>
-          <div className="mj-dot-ring" style={{ animationDelay: `${d}s` }} />
         </motion.div>
 
-        {/* Stem */}
         <motion.div
           initial={{ scaleY: 0 }}
           animate={isInView ? { scaleY: 1 } : {}}
-          transition={{ duration: 0.4, delay: d + 0.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.4, delay: delay + 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "absolute",
-            left: `calc(50% - 1px)`,
+            left: `calc(50% + ${dotXOffset + NUDGE.stem.x - 1}px)`,
             width: "2px",
-            top: isTop ? "40px" : `${wireY}px`,
-            bottom: isTop ? `${TRACK_H - wireY}px` : "40px",
-            background: isTop
-              ? `linear-gradient(to top, ${COLORS.burgundy}00, ${COLORS.burgundy})`
-              : `linear-gradient(to bottom, ${COLORS.gold}00, ${COLORS.gold})`,
+            top: isTop ? `${40 + NUDGE.stem.y + laneNudge.y}px` : `${dotY + GAP.stemFromDot + NUDGE.stem.y}px`,
+            bottom: isTop ? `${TRACK_H - dotY + GAP.stemFromDot - NUDGE.stem.y}px` : `${40 - NUDGE.stem.y - laneNudge.y}px`,
+            background: COLORS.gold,
             zIndex: 2,
             transformOrigin: isTop ? "bottom" : "top",
           }}
         />
 
-        {/* Card */}
         <motion.div
           className={`mj-card mj-card--${isTop ? "top" : "bot"}`}
           initial={{ opacity: 0, y: isTop ? -20 : 20, scale: 0.95, x: "-50%" }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1, x: "-50%" } : { x: "-50%" }}
-          transition={{ duration: 0.5, delay: d + 0.12, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5, delay: delay + 0.12, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            left: `calc(50% + ${laneNudge.x}px)`,
+            top: isTop ? `${12 + laneNudge.y}px` : undefined,
+            bottom: isTop ? undefined : `${12 - laneNudge.y}px`,
+          }}
         >
-
           <div className="mj-card-body">
             <h4 className="mj-card-title">{milestone.title}</h4>
             <p className="mj-card-desc">{milestone.description}</p>
@@ -215,304 +283,405 @@ function MilestoneNode({
   );
 }
 
-// Main Export
 export default function MilestonesJourney() {
+  const sectionRef = useRef<HTMLElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const progress = useMotionValue(0);
-  const smoothProg = useSpring(progress, { stiffness: 90, damping: 24 });
+  const autoSlideFrameRef = useRef<number | null>(null);
+  const dragStateRef = useRef({ startX: 0, startOffset: 0 });
+  const isDraggingRef = useRef(false);
+  const translateXRef = useRef(0);
+  const [viewportWidth, setViewportWidth] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const isSectionInView = useInView(sectionRef, { once: true, margin: "-12% 0px" });
 
-  /* Progress sync */
-  /* ═══════════════════════════════════════════════
-     DRAG SCROLL LOGIC
-     ═══════════════════════════════════════════════ */
-  useEffect(() => {
-    const el = scrollAreaRef.current;
-    if (!el) return;
-    let isDown = false;
-    let startX: number;
-    let scrollLeft: number;
-
-    const onMouseDown = (e: MouseEvent) => {
-      isDown = true;
-      el.classList.add("mj-grabbing");
-      startX = e.pageX - el.offsetLeft;
-      scrollLeft = el.scrollLeft;
-    };
-    const onMouseLeave = () => {
-      isDown = false;
-      el.classList.remove("mj-grabbing");
-    };
-    const onMouseUp = () => {
-      isDown = false;
-      el.classList.remove("mj-grabbing");
-    };
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - el.offsetLeft;
-      const walk = (x - startX) * 1.5; 
-      el.scrollLeft = scrollLeft - walk;
-    };
-
-    el.onmousedown = onMouseDown;
-    el.onmouseleave = onMouseLeave;
-    el.onmouseup = onMouseUp;
-    el.onmousemove = onMouseMove;
-
-    return () => {
-      el.onmousedown = null; el.onmouseleave = null; el.onmouseup = null; el.onmousemove = null;
-    };
-  }, []);
+  const nodeStep = NODE_W + GAP.nodeX;
+  const dotXOffset = NUDGE.dot.x;
+  const { d: pathD, peak, totalW } = useMemo(() => buildWireData(nodeStep, dotXOffset), [nodeStep, dotXOffset]);
+  const startLeadPx = START_LAYOUT.centerFirstMilestone
+    ? Math.max(0, viewportWidth * 0.5 - NODE_W * 0.5 - START_LAYOUT.sideInsetPx)
+    : 0;
+  const totalTrackW = totalW + startLeadPx;
+  const scrollBufferPx = 300;
+  const maxTranslateX = Math.min(0, viewportWidth - totalTrackW - scrollBufferPx);
 
   useEffect(() => {
-    const el = scrollAreaRef.current;
-    if (!el) return;
-    const update = () => {
-      const max = el.scrollWidth - el.clientWidth;
-      progress.set(max > 0 ? el.scrollLeft / max : 1);
+    translateXRef.current = translateX;
+  }, [translateX]);
+
+  useEffect(() => {
+    const viewport = scrollAreaRef.current;
+    if (!viewport) return;
+
+    const syncSize = () => {
+      setViewportWidth(viewport.clientWidth);
     };
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+
+    syncSize();
+
+    const resizeObserver = new ResizeObserver(syncSize);
+    resizeObserver.observe(viewport);
+
+    return () => resizeObserver.disconnect();
+  }, [totalW]);
+
+  // Motion loop for auto-scroll
+  useEffect(() => {
+    if (!isSectionInView || !AUTO_SCROLL.enabled || viewportWidth <= 0 || totalTrackW <= viewportWidth || isDraggingRef.current) return;
+
+    if (autoSlideFrameRef.current !== null) {
+      window.cancelAnimationFrame(autoSlideFrameRef.current);
+      autoSlideFrameRef.current = null;
+    }
+
+    const initialDelaySec = translateXRef.current === 0 ? AUTO_SCROLL.delaySec : 0;
+    const startDelay = window.setTimeout(() => {
+      let lastTimestamp = performance.now();
+      let currentX = translateXRef.current;
+
+      const animate = (now: number) => {
+        if (isDraggingRef.current) {
+          return;
+        }
+
+        const elapsedSec = Math.max(0, (now - lastTimestamp) / 1000);
+        lastTimestamp = now;
+        currentX = Math.max(maxTranslateX, currentX - AUTO_SCROLL.speedPxPerSec * elapsedSec);
+        translateXRef.current = currentX;
+        setTranslateX(currentX);
+
+        if (currentX > maxTranslateX) {
+          autoSlideFrameRef.current = window.requestAnimationFrame(animate);
+          return;
+        }
+
+        autoSlideFrameRef.current = null;
+      };
+
+      autoSlideFrameRef.current = window.requestAnimationFrame((now) => {
+        lastTimestamp = now;
+        animate(now);
+      });
+    }, initialDelaySec * 1000);
+
     return () => {
-      el.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.clearTimeout(startDelay);
+      if (autoSlideFrameRef.current !== null) {
+        window.cancelAnimationFrame(autoSlideFrameRef.current);
+        autoSlideFrameRef.current = null;
+      }
     };
-  }, [progress]);
+  }, [isSectionInView, viewportWidth, totalTrackW, maxTranslateX]);
 
-  const wireY = TRACK_H / 2 + DOT_Y_BIAS;
+  // Resume motion loop when drag ends
+  useEffect(() => {
+    if (isDragging || !isSectionInView || !AUTO_SCROLL.enabled || viewportWidth <= 0 || totalTrackW <= viewportWidth) return;
 
-  const wireData = (() => {
-    // A clean, straight enterprise timeline with LINE_X_BIAS support
-    const lastX = (milestones.length - 1) * NODE_W + NODE_W / 2;
-    const endX = lastX + EXIT_TAIL_W + 60;
-    const adjustedWireY = wireY + LINE_X_BIAS;  // LINE_X_BIAS controls vertical wire position
-    
-    return { 
-      d: `M 0,${adjustedWireY} L ${endX},${adjustedWireY}`, 
-      peak: { x: endX, y: adjustedWireY }
+    // Cancel any existing animation
+    if (autoSlideFrameRef.current !== null) {
+      window.cancelAnimationFrame(autoSlideFrameRef.current);
+      autoSlideFrameRef.current = null;
+    }
+
+    // Restart animation immediately after drag ends
+    let lastTimestamp = performance.now();
+    let currentX = translateXRef.current;
+
+    const animate = (now: number) => {
+      if (isDraggingRef.current) {
+        return;
+      }
+
+      const elapsedSec = Math.max(0, (now - lastTimestamp) / 1000);
+      lastTimestamp = now;
+      currentX = Math.max(maxTranslateX, currentX - AUTO_SCROLL.speedPxPerSec * elapsedSec);
+      translateXRef.current = currentX;
+      setTranslateX(currentX);
+
+      if (currentX > maxTranslateX) {
+        autoSlideFrameRef.current = window.requestAnimationFrame(animate);
+        return;
+      }
+
+      autoSlideFrameRef.current = null;
     };
-  })();
 
-  const { d: pathD, peak } = wireData;
-  const totalW = (milestones.length - 1) * NODE_W + (NODE_W / 2) + EXIT_TAIL_W + 120;
+    autoSlideFrameRef.current = window.requestAnimationFrame((now) => {
+      lastTimestamp = now;
+      animate(now);
+    });
+
+    return () => {
+      if (autoSlideFrameRef.current !== null) {
+        window.cancelAnimationFrame(autoSlideFrameRef.current);
+        autoSlideFrameRef.current = null;
+      }
+    };
+  }, [isDragging, isSectionInView, viewportWidth, totalTrackW, maxTranslateX]);
+
+  useEffect(() => {
+    setTranslateX((prev) => Math.min(0, Math.max(maxTranslateX, prev)));
+  }, [maxTranslateX]);
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (viewportWidth <= 0 || totalTrackW <= viewportWidth) return;
+
+    setIsDragging(true);
+    isDraggingRef.current = true;
+
+    if (autoSlideFrameRef.current !== null) {
+      window.cancelAnimationFrame(autoSlideFrameRef.current);
+      autoSlideFrameRef.current = null;
+    }
+
+    dragStateRef.current = {
+      startX: event.clientX,
+      startOffset: translateX,
+    };
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+
+    const deltaX = event.clientX - dragStateRef.current.startX;
+    const nextX = Math.min(0, Math.max(maxTranslateX, dragStateRef.current.startOffset + deltaX));
+    setTranslateX(nextX);
+  };
+
+  const stopDragging = () => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    setIsDragging(false);
+  };
 
   return (
-    <section className="mj-section about-content-section">
-      <div className="mj-bg-grid" />
-      <div className="mj-bg-orb mj-bg-orb--a" />
-      <div className="mj-bg-orb mj-bg-orb--b" />
-
-      {/* Header */}
+    <section ref={sectionRef} className="mj-section about-content-section">
       <div className="mj-header">
-        <motion.div className="mj-eyebrow"
-          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.5 }}
+        <motion.div
+          className="mj-eyebrow"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
           Milestones Since Inception
         </motion.div>
-        <motion.h2 className="mj-h2"
-          initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.06 }}
+        <motion.h2
+          className="mj-h2"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.06 }}
         >
-          Growth <em>Journey</em>
+          Growth <span className="mj-h2-accent">Journey</span>
         </motion.h2>
-        <motion.p className="mj-sub"
-          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.12 }}
+        <motion.p
+          className="mj-sub"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.12 }}
         >
-          A clear progression of strategic growth milestones shaping QuasarCyberTech into a trusted cybersecurity authority.
+          A clear progression of strategic growth milestones shaping <span style={{ color: COLORS.burgundy }}>QuasarCyberTech</span> into a trusted cybersecurity authority.
         </motion.p>
       </div>
 
-      {/* Scroll area */}
-      <div ref={scrollAreaRef} className="mj-scroll-area">
+      <div
+        ref={scrollAreaRef}
+        className={`mj-scroll-area ${isDragging ? "mj-scroll-area--dragging" : ""}`}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={stopDragging}
+        onPointerCancel={stopDragging}
+        onPointerLeave={stopDragging}
+      >
         <div
           className="mj-track"
-          style={{ width: `${totalW}px`, height: `${TRACK_H}px` }}
+          style={{
+            width: `${totalTrackW}px`,
+            height: `${TRACK_H}px`,
+            transform: `translate3d(${translateX}px, 0, 0)`,
+            transition: "none",
+            willChange: "transform",
+          }}
         >
-          {/* Wire */}
-          <svg className="mj-wire" viewBox={`0 0 ${totalW} ${TRACK_H}`}>
-            <defs>
-              <linearGradient id="mj-wg" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor={COLORS.burgundy} />
-                <stop offset="45%" stopColor={COLORS.gold} />
-                <stop offset="75%" stopColor={COLORS.burgundy} />
-                <stop offset="100%" stopColor={COLORS.gold} />
-              </linearGradient>
-            </defs>
-            {/* Ghost track */}
-            <path d={pathD} fill="none" stroke="rgba(107,21,48,0.06)" strokeWidth="3" />
-            {/* Animated fill */}
-            <motion.path
-              d={pathD} fill="none"
-              stroke="url(#mj-wg)" strokeWidth="2.5"
-              strokeLinecap="round"
-              style={{ pathLength: smoothProg }}
-            />
-          </svg>
-
-          {/* Regular nodes */}
-           <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 3 }}>
-            {milestones.map((m, i) => (
-              <MilestoneNode 
-                key={`${m.year}-${m.month}-${m.title}`} 
-                milestone={m} 
-                index={i} 
-                isLast={i === milestones.length - 1}
-              />
-            ))}
-          </div>
-
-          {/* Growth Continues Label */}
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+          <div
+            className="mj-track-content"
             style={{
-              position: 'absolute',
-              left: `${peak.x + GROWTH_CONTINUES_X_OFFSET}px`,
-              top: `${peak.y + GROWTH_CONTINUES_Y_OFFSET}px`,
-              transform: 'translateY(-50%)',
-              zIndex: 10,
-              pointerEvents: 'none',
-              fontFamily: TYPOGRAPHY.fontBody,
-              fontSize: '11px',
-              fontWeight: 800,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              color: COLORS.gold,
-              whiteSpace: 'nowrap',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
+              position: "relative",
+              width: `${totalW}px`,
+              height: "100%",
+              transform: `translate3d(${startLeadPx}px, 0, 0)`,
             }}
           >
-            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: COLORS.gold }} />
-            Growth Continues
-          </motion.div>
+            <svg className="mj-wire" viewBox={`0 0 ${totalW} ${TRACK_H}`}>
+              <defs>
+                <linearGradient id="mj-wg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor={COLORS.burgundy} />
+                  <stop offset="45%" stopColor={COLORS.gold} />
+                  <stop offset="75%" stopColor={COLORS.burgundy} />
+                  <stop offset="100%" stopColor={COLORS.gold} />
+                </linearGradient>
+              </defs>
+              <g>
+                <path d={pathD} fill="none" stroke="rgba(107,21,48,0.06)" strokeWidth="3" />
+                <motion.path
+                  d={pathD}
+                  fill="none"
+                  stroke="url(#mj-wg)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={isSectionInView ? { pathLength: 1 } : { pathLength: 0 }}
+                  transition={{
+                    duration: WIRE_DRAW.durationSec,
+                    delay: WIRE_DRAW.delaySec,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              </g>
+            </svg>
+
+            <div className="mj-nodes" style={{ position: "relative", width: "100%", height: "100%", zIndex: 3 }}>
+              {milestones.map((milestone, index) => (
+                <MilestoneNode
+                  key={`${milestone.year}-${milestone.month}-${milestone.title}`}
+                  milestone={milestone}
+                  index={index}
+                  isLast={index === milestones.length - 1}
+                  nodeStep={nodeStep}
+                />
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              style={{
+                position: "absolute",
+                left: `${peak.x + NUDGE.growthContinues.x}px`,
+                top: `${peak.y + NUDGE.growthContinues.y}px`,
+                transform: "translateY(-50%)",
+                zIndex: 10,
+                pointerEvents: "none",
+                fontFamily: TYPOGRAPHY.fontBody,
+                fontSize: "11px",
+                fontWeight: 800,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: COLORS.gold,
+                whiteSpace: "nowrap",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: COLORS.gold }} />
+              Growth Continues
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <motion.div className="mj-hint"
-        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-        viewport={{ once: true }} transition={{ delay: 0.6 }}
+      <motion.div
+        className="mj-hint"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.6 }}
       >
         <span className="mj-hint-arrow">←</span>
         <span>Scroll to explore the journey</span>
         <span className="mj-hint-arrow">→</span>
       </motion.div>
 
-      {/* ═══ STYLES ═══ */}
       <style>{`
         .mj-section {
-          position: relative; overflow: hidden;
+          position: relative;
+          overflow: hidden;
           padding: clamp(42px, 5vw, 72px) 0 clamp(32px, 4vw, 52px);
-          background:
-            radial-gradient(ellipse 50% 40% at 12% 20%, rgba(107,21,48,0.04), transparent),
-            radial-gradient(ellipse 40% 50% at 88% 80%, rgba(214,176,92,0.035), transparent),
-            ${SECTION_BACKGROUNDS.LIGHT};
+          background: ${SECTION_BACKGROUNDS.LIGHT};
         }
-        .mj-bg-grid {
-          position: absolute; inset: 0; pointer-events: none; opacity: 0.15;
-          background-image:
-            linear-gradient(rgba(107,21,48,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(107,21,48,0.04) 1px, transparent 1px);
-          background-size: 44px 44px;
-          mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, black 35%, transparent 100%);
-        }
-        .mj-bg-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
-        .mj-bg-orb--a { width: 20rem; height: 20rem; top: -8rem; left: -6rem; background: rgba(107,21,48,0.12); }
-        .mj-bg-orb--b { width: 18rem; height: 18rem; bottom: -6rem; right: -5rem; background: rgba(214,176,92,0.1); }
 
-        /* Header */
         .mj-header {
-          position: relative; z-index: 2;
+          position: relative;
+          z-index: 2;
           margin-bottom: clamp(24px, 3vw, 36px);
           padding: 0 clamp(16px, 4vw, 48px);
         }
         .mj-eyebrow {
-          display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 14px;
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.24em;
-          text-transform: uppercase; color: #9a7a30;
+          font-size: 0.6875rem;
+          font-weight: 700;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          color: ${COLORS.burgundy};
         }
         .mj-h2 {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: clamp(1.875rem, 4.5vw, 3.125rem); font-weight: 800;
-          color: #1A0A0F; line-height: 1.08; margin: 0 0 12px;
+          font-size: clamp(1.875rem, 4.5vw, 3.125rem);
+          font-weight: 800;
+          color: #1A0A0F;
+          line-height: 1.08;
+          margin: 0 0 12px;
         }
-        .mj-h2 em { color: ${COLORS.burgundy}; font-style: italic; }
+        .mj-h2 .mj-h2-accent {
+          color: ${COLORS.burgundy};
+          font-style: normal;
+        }
         .mj-sub {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: clamp(0.875rem, 1.5vw, 1.0625rem); color: #6b5760;
-          line-height: 1.7; max-width: 580px; margin: 0;
+          font-size: clamp(0.875rem, 1.5vw, 1.0625rem);
+          color: #6b5760;
+          line-height: 1.7;
+          max-width: 580px;
+          margin: 0;
         }
 
-        /* Scroll area */
         .mj-scroll-area {
-          overflow-x: auto; 
-          overflow-y: visible;
-          position: relative; 
+          overflow: hidden;
+          position: relative;
           width: 100%;
-          cursor: ${MINIMAL_GRAB_CURSOR};
+          cursor: default;
           user-select: none;
-          padding: 2.5rem clamp(24px, 4vw, 64px) 1.5rem;
+          touch-action: pan-y;
+          padding: 2.5rem clamp(24px, 4vw, 64px) 2rem;
           z-index: 2;
-
-          /* Elegant Big Scrollbar */
-          scrollbar-width: thin;
-          scrollbar-color: rgba(107,21,48,0.2) transparent;
+        }
+        .mj-scroll-area--dragging {
+          cursor: default;
         }
 
-        .mj-scroll-area,
-        .mj-scroll-area * {
-          cursor: ${MINIMAL_GRAB_CURSOR};
+        .mj-track {
+          position: relative;
         }
-        
-        .mj-scroll-area::-webkit-scrollbar {
-          height: 12px;
-          display: block;
-        }
-        .mj-scroll-area::-webkit-scrollbar-track {
-           background: rgba(107,21,48,0.04);
-           border-radius: 8px;
-           margin: 0 clamp(24px, 4vw, 64px);
-        }
-        .mj-scroll-area::-webkit-scrollbar-thumb {
-           background: rgba(107,21,48,0.18);
-           border-radius: 8px;
-           border: 3px solid transparent; 
-           background-clip: padding-box;
-           transition: background 0.2s ease;
-        }
-        .mj-scroll-area::-webkit-scrollbar-thumb:hover {
-           background: ${COLORS.gold}44;
-           background-clip: padding-box;
-        }
-
-        .mj-scroll-area.mj-grabbing,
-        .mj-scroll-area.mj-grabbing * {
-          cursor: ${MINIMAL_GRABBING_CURSOR} !important;
-        }
-        
-        .mj-track { position: relative; }
         .mj-wire {
-          position: absolute; left: 0; top: 0;
-          width: 100%; height: 100%; z-index: 1; pointer-events: none;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          pointer-events: none;
           overflow: visible;
         }
 
-        /* Year watermark */
         .mj-year-label {
           position: absolute;
-          top: calc(50% + ${DOT_Y_BIAS}px + ${YEAR_LABEL_Y_OFFSET}px);
+          top: calc(50% + ${NUDGE.dot.y}px + ${YEAR_LABEL_SHARED_Y_OFFSET}px);
           left: 4px;
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 1.85rem; font-weight: 950;
-          color: rgba(107,21,48,0.3);
+          font-size: 1.85rem;
+          font-weight: 950;
+          color: #D6B05C;
           pointer-events: none;
           letter-spacing: -0.04em;
           z-index: 2;
@@ -520,49 +689,39 @@ export default function MilestonesJourney() {
           text-transform: uppercase;
         }
 
-
-
-        /* Dot */
         .mj-dot {
-          width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; border-radius: 50%;
+          width: ${DOT_R * 2}px;
+          height: ${DOT_R * 2}px;
+          border-radius: 50%;
           background: linear-gradient(135deg, ${COLORS.burgundy}, #922040);
-          display: flex; align-items: center; justify-content: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           border: 3px solid #faf7f4;
-          box-shadow: 0 3px 14px rgba(107,21,48,0.28);
-          position: relative; z-index: 3;
+          position: relative;
+          z-index: 3;
         }
         .mj-dot--year {
-          width: ${DOT_R * 2 + 6}px; height: ${DOT_R * 2 + 6}px;
+          width: ${DOT_R * 2 + 6}px;
+          height: ${DOT_R * 2 + 6}px;
           background: linear-gradient(135deg, ${COLORS.gold}, #c9a23e);
-          box-shadow: 0 3px 16px rgba(214,176,92,0.4);
         }
-        .mj-dot-ring {
-          position: absolute; top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; border-radius: 50%;
-          border: 1.5px solid rgba(107,21,48,0.3);
-          animation: mj-ring 2.8s ease-out infinite; z-index: 2;
-          pointer-events: none;
-        }
-        @keyframes mj-ring {
-          0%   { opacity: 0.5; width: ${DOT_R * 2}px; height: ${DOT_R * 2}px; }
-          100% { opacity: 0;   width: ${DOT_R * 4}px; height: ${DOT_R * 4}px; }
+        .mj-dot-core {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.92);
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
         }
 
-        @media (max-width: 768px) {
-          .mj-dot, .mj-dot-ring { display: none !important; }
-        }
-
-
-
-        /* Regular card */
         .mj-card {
           background: #fff;
-          border: 1px solid rgba(107,21,48,0.09);
+          border: 1px solid rgba(107, 21, 48, 0.09);
           overflow: hidden;
-          transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+          transition: transform 0.26s ease, border-color 0.26s ease;
           cursor: default;
-          display: flex; flex-direction: column;
+          display: flex;
+          flex-direction: column;
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
@@ -570,21 +729,24 @@ export default function MilestonesJourney() {
           z-index: 5;
         }
         .mj-card--top {
-          border-top: 2.5px solid ${COLORS.burgundy};
+          border-top: 2.5px solid ${COLORS.gold};
           border-radius: 0 0 8px 8px;
           top: 12px;
         }
-        .mj-card--top:hover { border-top-color: ${COLORS.gold}; }
+        .mj-card--top:hover {
+          border-top-color: ${COLORS.burgundy} !important;
+        }
         .mj-card--bot {
           border-bottom: 2.5px solid ${COLORS.gold};
           border-radius: 8px 8px 0 0;
           bottom: 12px;
         }
-        .mj-card--bot:hover { border-bottom-color: ${COLORS.burgundy}; }
+        .mj-card--bot:hover {
+          border-bottom-color: ${COLORS.burgundy} !important;
+        }
         .mj-card:hover {
           transform: translateX(-50%) translateY(-3px);
-          box-shadow: 0 14px 40px rgba(107,21,48,0.13);
-          border-color: rgba(107,21,48,0.18);
+          border-color: rgba(107, 21, 48, 0.18);
         }
         .mj-card--bot:hover {
           transform: translateX(-50%) translateY(3px);
@@ -595,78 +757,108 @@ export default function MilestonesJourney() {
         }
         .mj-card-title {
           font-family: ${TYPOGRAPHY.fontHeading};
-          font-size: 0.96rem; font-weight: 700;
-          color: #1a0a0f; line-height: 1.26; margin: 0 0 6px;
+          font-size: calc(0.96rem * ${CARD_TITLE_CONTROLS.desktopSize});
+          font-weight: ${CARD_TITLE_CONTROLS.weight};
+          color: ${COLORS.burgundy};
+          line-height: 1.18;
+          margin: 0 0 6px;
+          letter-spacing: -0.02em;
         }
         .mj-card-desc {
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 0.8rem; color: rgba(26,10,15,0.78);
-          line-height: 1.5; margin: 0;
+          font-size: 0.8rem;
+          color: rgba(26, 10, 15, 0.78);
+          line-height: 1.55;
+          margin: 0;
         }
 
-
-
-        /* Hint */
         .mj-hint {
-          display: flex; align-items: center; justify-content: center;
-          gap: 10px; margin-top: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 14px;
           font-family: ${TYPOGRAPHY.fontBody};
-          font-size: 0.75rem; font-weight: 500; color: rgba(107,21,48,0.35);
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: rgba(107, 21, 48, 0.35);
           letter-spacing: 0.08em;
         }
-        .mj-hint-arrow { font-size: 0.875rem; animation: mj-nudge 1.6s ease-in-out infinite; }
-        .mj-hint-arrow:last-child { animation-direction: reverse; }
+        .mj-hint-arrow {
+          font-size: 0.875rem;
+          animation: mj-nudge 1.6s ease-in-out infinite;
+        }
+        .mj-hint-arrow:last-child {
+          animation-direction: reverse;
+        }
         @keyframes mj-nudge {
           0%, 100% { transform: translateX(0); opacity: 0.5; }
-          50%       { transform: translateX(4px); opacity: 1; }
+          50% { transform: translateX(4px); opacity: 1; }
         }
 
-        /* ═══ RESPONSIVE — vertical stack ═══ */
         @media (max-width: 900px) {
-          .mj-section { padding: clamp(44px, 7vw, 72px) clamp(16px, 4vw, 28px); }
-          .mj-scroll-area { overflow-x: visible; padding: 0; }
+          .mj-section {
+            padding: clamp(44px, 7vw, 72px) clamp(16px, 4vw, 28px);
+          }
+          .mj-scroll-area {
+            overflow: hidden;
+            padding: 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .mj-scroll-area::-webkit-scrollbar {
+            display: none;
+          }
+          .mj-track-content {
+            width: 100% !important;
+            transform: none !important;
+          }
           .mj-track {
-            width: 100% !important; height: auto !important;
-            padding-left: 46px; position: relative;
+            width: 100% !important;
+            height: auto !important;
+            padding-left: 0;
+            position: relative;
+            transform: none !important;
           }
-          .mj-wire { display: none; }
           .mj-track::before {
-            content: ""; position: absolute; left: 21px; top: 0; bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg,
-              rgba(107,21,48,0.9) 0%,
-              rgba(214,176,92,0.95) 50%,
-              rgba(214,176,92,1) 100%
-            );
-            border-radius: 2px; z-index: 1;
+            display: none;
           }
-          .mj-nodes { flex-direction: column; height: auto; }
-
-          /* All nodes become vertical block */
+          .mj-wire {
+            display: none;
+          }
+          .mj-nodes {
+            flex-direction: column;
+            height: auto;
+          }
           .mj-node {
             position: relative !important;
-            left: auto !important; width: 100% !important;
+            left: auto !important;
+            width: 100% !important;
             height: auto !important;
             padding: 10px 0 14px;
           }
-          .mj-dot {
-            position: absolute !important;
-            left: -46px !important; top: 18px !important;
-            width: 24px !important; height: 24px !important;
+          .mj-node-inner {
+            height: auto !important;
           }
-          .mj-dot-ring { display: none !important; }
-          .mj-stem { display: none !important; }
-          .mj-month-pill { display: none; }
-          .mj-year-label { display: none; }
-
-          /* Cards reset to full width */
+          .mj-dot {
+            display: none !important;
+          }
+          .mj-stem {
+            display: none !important;
+          }
+          .mj-year-label {
+            display: none;
+          }
           .mj-card {
             position: relative !important;
-            left: auto !important; top: auto !important; bottom: auto !important;
+            left: auto !important;
+            top: auto !important;
+            bottom: auto !important;
             transform: none !important;
-            width: 100% !important; max-width: none !important;
+            width: 100% !important;
+            max-width: none !important;
             border-radius: 0 0 8px 8px !important;
-            border: 1px solid rgba(107,21,48,0.1) !important;
+            border: 1px solid rgba(107, 21, 48, 0.1) !important;
             border-top: none !important;
           }
           .mj-card::before {
@@ -680,23 +872,21 @@ export default function MilestonesJourney() {
             z-index: 1;
           }
           .mj-card--bot {
-            border-bottom: 1px solid rgba(107,21,48,0.1) !important;
+            border-bottom: 1px solid rgba(107, 21, 48, 0.1) !important;
             border-radius: 0 0 8px 8px !important;
           }
-          .mj-cert-card {
-            border-top-color: ${COLORS.gold} !important;
-            background: #0F0A12 !important;
+          .mj-card-title {
+            font-size: calc(0.96rem * ${CARD_TITLE_CONTROLS.mobileSize});
           }
-          .mj-card:hover, .mj-cert-card:hover {
-            transform: translateY(-2px) !important;
+          .mj-hint {
+            display: none;
           }
-          .mj-tag { position: static; display: inline-block; margin-bottom: 6px; }
-          .mj-hint { display: none; }
         }
 
         @media (max-width: 540px) {
-          .mj-track { padding-left: 40px; }
-          .mj-track::before { left: 17px; }
+          .mj-track {
+            padding-left: 0;
+          }
         }
       `}</style>
     </section>

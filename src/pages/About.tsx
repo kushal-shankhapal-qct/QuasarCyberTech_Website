@@ -16,9 +16,8 @@ import {
 import {
   Target,
   ShieldCheck,
-  Radar,
+  ShieldAlert,
   Settings,
-  CheckCircle2,
   ArrowRight,
 } from "lucide-react";
 import {
@@ -38,6 +37,19 @@ import { createBreadcrumbSchema, createAboutPageSchema } from "../seo/schema";
 import { Link } from "react-router-dom";
 
 const METRIC_ANIMATION_DURATION = 1.2;
+const METRIC_CONTROLS = {
+  tilePaddingY: "20px",
+  tilePaddingX: "16px",
+  valueBlockBottomGap: "12px",
+  underlineGapY: "10px",
+  metricNumberFontSize: "clamp(2rem, 6.1vw, 3.25rem)",
+  metricLabelFontSize: "clamp(0.7rem, 1.9vw, 0.75rem)",
+  metricLabelMaxWidth: "min(11rem, 100%)",
+  metricLabelMaxWidthMonitoring: "min(11.5rem, 100%)",
+  metricLabelMaxWidthVulnerabilities: "min(18em, 100%)",
+  metricGridGapY: "32px",
+  metricGridGapX: "0px",
+};
 const DEFAULT_MAP_SCALE = 190;
 const DEFAULT_MAP_CENTER: [number, number] = [0, 24];
 const MAP_LEGEND_HEIGHT = 46;
@@ -49,6 +61,12 @@ const LOCATION_ZOOM_CONFIG: Record<
   Dallas: { center: [-96.9, 32.8], zoom: 3.3 },
 };
 const ABOUT_DESKTOP_SIDE_MARGIN = "3rem";
+
+const getAboutMetricLabelMaxWidth = (label: string) => {
+  if (label.includes("Vulnerabilities")) return METRIC_CONTROLS.metricLabelMaxWidthVulnerabilities;
+  if (label.includes("Monitoring")) return METRIC_CONTROLS.metricLabelMaxWidthMonitoring;
+  return METRIC_CONTROLS.metricLabelMaxWidth;
+};
 
 /* ─── Metrics Helper ─── */
 const MetricRow: React.FC<{
@@ -91,6 +109,7 @@ const MetricRow: React.FC<{
             style={{
               ...TYPOGRAPHY.metricNumber,
               color: BRAND_CONTROLS.metricsSymbolColor,
+              fontSize: METRIC_CONTROLS.metricNumberFontSize,
             }}
           >
             {suffix === "\u00D77" ? "\u00D7" : "x"}
@@ -99,6 +118,7 @@ const MetricRow: React.FC<{
             style={{
               ...TYPOGRAPHY.metricNumber,
               color: BRAND_CONTROLS.metricsNumberColor,
+              fontSize: METRIC_CONTROLS.metricNumberFontSize,
             }}
           >
             7
@@ -112,6 +132,7 @@ const MetricRow: React.FC<{
           ...TYPOGRAPHY.metricNumber,
           color: BRAND_CONTROLS.metricsSymbolColor,
           marginLeft: "4px",
+          fontSize: METRIC_CONTROLS.metricNumberFontSize,
         }}
       >
         {suffix}
@@ -126,28 +147,29 @@ const MetricRow: React.FC<{
         textAlign: "center",
         position: "relative",
         width: "100%",
-        padding: "16px 12px",
+        padding: `${METRIC_CONTROLS.tilePaddingY} ${METRIC_CONTROLS.tilePaddingX}`,
       }}
     >
       <div
         style={{
-          position: "relative",
           display: "inline-flex",
           flexDirection: "column",
           alignItems: "center",
-          marginBottom: "18px",
+          marginBottom: METRIC_CONTROLS.valueBlockBottomGap,
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "baseline",
+            alignItems: "center",
             justifyContent: "center",
+            whiteSpace: "nowrap",
           }}
         >
           <span
             style={{
               ...TYPOGRAPHY.metricNumber,
+              fontSize: METRIC_CONTROLS.metricNumberFontSize,
               color: BRAND_CONTROLS.metricsNumberColor,
             }}
           >
@@ -157,10 +179,9 @@ const MetricRow: React.FC<{
         </div>
         <div
           style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: "-8px",
+            width: "100%",
+            marginTop: METRIC_CONTROLS.underlineGapY,
+            marginBottom: METRIC_CONTROLS.underlineGapY,
             height: "3px",
             borderRadius: "999px",
             background: "rgba(0,0,0,0.06)",
@@ -185,14 +206,20 @@ const MetricRow: React.FC<{
       <div
         style={{
           ...TYPOGRAPHY.metricLabel,
+          fontSize: METRIC_CONTROLS.metricLabelFontSize,
           color: BRAND_CONTROLS.metricsLabelColor,
-          lineHeight: 1.4,
-          maxWidth: label.includes("Monitoring") ? "120px" : "170px",
+          lineHeight: 1.45,
+          maxWidth: getAboutMetricLabelMaxWidth(label),
           margin: "0 auto",
-          whiteSpace: label.includes("Monitoring") ? "pre-line" : "normal",
+          whiteSpace: "normal",
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
-        {label}
+        {label.replace(/\n/g, " ")}
       </div>
     </div>
   );
@@ -273,7 +300,6 @@ export default function About() {
 
   const getGlassStyle = (isActive: boolean): React.CSSProperties => ({
     background: isActive ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.03)",
-    border: `1px solid ${isActive ? "rgba(214,176,92,0.45)" : ALPHAS.white08}`,
     boxShadow: isActive ? "0 10px 30px rgba(0,0,0,0.3)" : "none",
     backdropFilter: "blur(6px)",
     transition: "all 0.24s ease",
@@ -293,14 +319,14 @@ export default function About() {
 
   const whyChooseUs = [
     {
-      icon: Radar,
+      icon: ShieldAlert,
       title: "Proactive Engagement",
       desc: "We identify and address risks before they escalate, embedding threat-aware thinking into every layer of your operations.",
     },
     {
       icon: Target,
       title: "Outcome-Driven Delivery",
-      desc: "Every engagement is measured by its business impact — not just findings, but actionable security improvements.",
+      desc: "Every engagement is measured by its business impact, not just findings, but actionable security improvements.",
     },
     {
       icon: ShieldCheck,
@@ -314,6 +340,13 @@ export default function About() {
     },
   ];
 
+  const WHY_CARD_WATERMARK_CONTROLS = {
+    size: 110,
+    right: "10px",
+    bottom: "10px",
+    opacity: 0.18,
+  };
+
   const ecosystemPlatforms = [
     {
       name: "QStellar",
@@ -322,15 +355,10 @@ export default function About() {
       screenshot: ASSETS.platforms.screenshots.qstellar,
       subtitle:
         "AI-powered asset visibility and vulnerability intelligence platform",
-      highlights: [
-        "Asset discovery and visibility",
-        "Vulnerability intelligence and prioritization",
-        "Risk-based security decision support",
-        "AI-assisted security operations visibility",
-      ],
-      ctaText: "Visit QStellar Website",
-      link: "https://qstellar.co",
-      external: true,
+      highlights: [],
+      ctaText: "Explore in Detail",
+      link: "/platforms?scroll=platform-highlights",
+      external: false,
       styles: { logoHeight: "2.25rem", screenshotFit: "cover" as const },
     },
     {
@@ -339,15 +367,10 @@ export default function About() {
       logo: ASSETS.logos.platforms.qpulseLight,
       screenshot: ASSETS.platforms.screenshots.qpulse,
       subtitle: "Cybersecurity intelligence and regulatory insights portal",
-      highlights: [
-        "Real-time threat analytics",
-        "Global threat feed ingestion",
-        "Vulnerability research and analysis",
-        "Strategic security intelligence",
-      ],
-      ctaText: "Explore QPulse Portal",
-      link: "https://qpulse.quasarcybertech.com",
-      external: true,
+      highlights: [],
+      ctaText: "Explore in Detail",
+      link: "/platforms?scroll=qpulse",
+      external: false,
       styles: { logoHeight: "3.125rem", screenshotFit: "cover" as const },
     },
     {
@@ -357,19 +380,14 @@ export default function About() {
       screenshot: ASSETS.platforms.screenshots.qrgt,
       subtitle:
         "Continuous, governed Penetration Testing as a Service (PTaaS) platform",
-      highlights: [
-        "Continuous testing visibility",
-        "Governed remediation tracking",
-        "Risk and findings management",
-        "Supports lifecycle-driven application security programs",
-      ],
-      ctaText: "Explore QRGT Platform",
-      link: "/contact",
+      highlights: [],
+      ctaText: "Explore in Detail",
+      link: "/platforms?scroll=qrgt",
       external: false,
       styles: {
-        logoHeight: "4.75rem",
+        logoHeight: "3rem",
         screenshotFit: "cover" as const,
-        screenshotPosition: "left center",
+        screenshotPosition: "left top",
       },
     },
     {
@@ -378,15 +396,10 @@ export default function About() {
       logo: ASSETS.logos.platforms.qleap,
       screenshot: ASSETS.platforms.screenshots.qleap,
       subtitle: "Talent development, training, and internship ecosystem",
-      highlights: [
-        "Structured internship programs",
-        "Industry-aligned training modules",
-        "Enterprise readiness pipeline",
-        "Cybersecurity career acceleration",
-      ],
-      ctaText: "Explore QLeap",
-      link: "https://qleap-ed.com",
-      external: true,
+      highlights: [],
+      ctaText: "Explore in Detail",
+      link: "/platforms?scroll=qleap",
+      external: false,
       styles: { logoHeight: "2.5rem", screenshotFit: "cover" as const },
     },
   ];
@@ -428,6 +441,23 @@ export default function About() {
       icon: ASSETS.about.coreValueIcons.collaboration,
     },
   ];
+
+  const navigateToPlatform = (platform: (typeof ecosystemPlatforms)[number]) => {
+    const url = new URL(platform.link, window.location.href);
+    const scrollTarget = url.searchParams.get("scroll");
+
+    if (scrollTarget) {
+      window.location.href = `/platforms?scroll=${scrollTarget}`;
+      return;
+    }
+
+    if (platform.external) {
+      window.open(platform.link, "_blank");
+      return;
+    }
+
+    window.location.href = platform.link;
+  };
 
   return (
     <div
@@ -531,7 +561,7 @@ export default function About() {
                 }}
               >
                 <p style={{ marginBottom: "1.25rem" }}>
-                  At QuasarCyberTech, we combine strategic advisory, offensive
+                  At <span style={{ color: COLORS.burgundy, fontWeight: 700 }}>QuasarCyberTech</span>, we combine strategic advisory, offensive
                   security, managed defense, cloud security, compliance
                   assurance, and intelligent security platforms to help
                   organizations stay ahead of evolving threats.
@@ -552,7 +582,7 @@ export default function About() {
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gap: "26px 0",
+                gap: `${METRIC_CONTROLS.metricGridGapY} ${METRIC_CONTROLS.metricGridGapX}`,
                 position: "relative",
                 alignContent: "flex-start",
                 paddingTop: "0",
@@ -572,8 +602,8 @@ export default function About() {
                       style={{
                         position: "absolute",
                         right: 0,
-                        top: "20%",
-                        bottom: "20%",
+                        top: "30%",
+                        bottom: "30%",
                         width: "1px",
                         background: "rgba(0,0,0,0.08)",
                       }}
@@ -583,9 +613,9 @@ export default function About() {
                     <div
                       style={{
                         position: "absolute",
-                        left: "10%",
-                        right: "10%",
-                        bottom: "-12px",
+                        left: "15%",
+                        right: "15%",
+                        bottom: "-24px",
                         height: "1px",
                         background:
                           "linear-gradient(90deg, transparent 0%, rgba(11,31,59,0.1) 20%, rgba(11,31,59,0.1) 80%, transparent 100%)",
@@ -672,6 +702,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.12 }}
+              style={{ marginBottom: "var(--gap-core-values-bottom)" }}
             >
               <h3
                 style={{
@@ -687,7 +718,7 @@ export default function About() {
               </h3>
 
               <div className="about-core-values-grid">
-                {coreValues.slice(0, 4).map((value, index) => (
+                {coreValues.map((value, index) => (
                   <motion.div
                     key={value.title}
                     className="about-core-value-card"
@@ -708,28 +739,6 @@ export default function About() {
                   </motion.div>
                 ))}
               </div>
-
-              {coreValues[4] && (
-                <div className="about-core-values-last-row">
-                  <motion.div
-                    className="about-core-value-card about-core-value-card--last"
-                    initial={{ opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.36 }}
-                  >
-                    <div className="about-core-value-icon-box">
-                      <img
-                        src={coreValues[4].icon}
-                        alt={`${coreValues[4].title} icon`}
-                        className="about-core-value-icon"
-                        loading="lazy"
-                      />
-                    </div>
-                    <p className="about-core-value-text">{coreValues[4].title}</p>
-                  </motion.div>
-                </div>
-              )}
             </motion.div>
           </div>
         </section>
@@ -800,9 +809,18 @@ export default function About() {
                 }}
               >
                 QuasarCyberTech was founded by{" "}
-                <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>
+                <a
+                  href="https://www.linkedin.com/in/kishor-s-9405127/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: COLORS.gold,
+                    fontWeight: 700,
+                    textDecoration: "none",
+                  }}
+                >
                   Kishor Sonawane
-                </strong>
+                </a>
                 , a cybersecurity leader with over 23+ years of industry
                 experience and former Founder &amp; CEO of Varutra Consulting.
               </motion.p>
@@ -888,21 +906,22 @@ export default function About() {
                   style={{
                     background: "rgba(255,255,255,0.03)",
                     border: `1px solid ${ALPHAS.white08}`,
-                    borderRadius: "0.5rem",
+                    borderTop: `0.1875rem solid ${COLORS.gold}`,
+                    borderRadius: "0 0 0.5rem 0.5rem",
                     padding: "clamp(1.25rem, 2.5vw, 2rem)",
                     position: "relative",
                     overflow: "hidden",
                   }}
                 >
                   <item.icon
-                    size={110}
+                    size={WHY_CARD_WATERMARK_CONTROLS.size}
                     strokeWidth={0.5}
                     style={{
                       position: "absolute",
-                      right: "-10px",
-                      bottom: "-10px",
+                      right: WHY_CARD_WATERMARK_CONTROLS.right,
+                      bottom: WHY_CARD_WATERMARK_CONTROLS.bottom,
                       color: COLORS.gold,
-                      opacity: 0.18,
+                      opacity: WHY_CARD_WATERMARK_CONTROLS.opacity,
                       pointerEvents: "none",
                     }}
                   />
@@ -910,7 +929,7 @@ export default function About() {
                     style={{
                       fontSize: "clamp(15px, 1.3vw, 18px)",
                       fontWeight: 700,
-                      color: "#FFFFFF",
+                      color: COLORS.gold,
                       marginBottom: "0.75rem",
                       fontFamily: TYPOGRAPHY.fontHeading,
                       position: "relative",
@@ -942,7 +961,11 @@ export default function About() {
           className="about-platforms-section"
           style={{
             background: GRADIENTS.HOME_PLATFORMS_BG,
-            padding: `clamp(2rem, 5vh, 4rem) ${ABOUT_DESKTOP_SIDE_MARGIN} clamp(2rem, 5vh, 4rem)`,
+            marginTop: "var(--about-ecosystem-overlap-y)",
+            paddingTop: "var(--about-ecosystem-section-pt)",
+            paddingRight: ABOUT_DESKTOP_SIDE_MARGIN,
+            paddingBottom: "var(--about-ecosystem-section-pb)",
+            paddingLeft: ABOUT_DESKTOP_SIDE_MARGIN,
             fontFamily: TYPOGRAPHY.fontBody,
           }}
         >
@@ -985,6 +1008,7 @@ export default function About() {
             {ecosystemPlatforms.map((platform) => (
               <article
                 key={platform.name}
+                onClick={() => navigateToPlatform(platform)}
                 style={{
                   borderRadius: "0 0 1rem 1rem",
                   background: COLORS.cardOnDark,
@@ -993,9 +1017,10 @@ export default function About() {
                   display: "flex",
                   flexDirection: "column",
                   transition:
-                    "transform 0.25s ease, border-top-color 0.25s ease",
+                    "transform 0.25s ease, border-top-color 0.25s ease, cursor 0.25s ease",
                   overflow: "hidden",
                   boxShadow: "0 1.25rem 2.5rem rgba(0,0,0,0.3)",
+                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-0.375rem)";
@@ -1006,87 +1031,7 @@ export default function About() {
                   e.currentTarget.style.borderTopColor = COLORS.gold;
                 }}
               >
-                {/* Screenshot – wrapped in a "Mac ribbon" browser frame */}
-                <div
-                  className="about-platform-shot-shell"
-                  style={{
-                    padding: "0",
-                    background: "rgba(31, 54, 114, 0.98)",
-                    borderBottom: `1px solid rgba(255,255,255,0.08)`,
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                >
-                  {/* Mac-style ribbon */}
-                  <div
-                    className="about-platform-shot-ribbon"
-                    style={{
-                      height: "24px",
-                      background: "#6B1530",
-                      borderBottom: "1px solid rgba(255,255,255,0.08)",
-                      display: "flex",
-                      alignItems: "center",
-                      paddingLeft: "10px",
-                      gap: "6px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        background: "#FF5F56",
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        background: "#FFBD2E",
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        background: "#27C93F",
-                      }}
-                    />
-                  </div>
-                  <div
-                    className="about-platform-shot-viewport"
-                    style={{
-                      padding: "0",
-                      background: "transparent",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: "18rem",
-                    }}
-                  >
-                    {platform.screenshot && (
-                      <img
-                        className="about-platform-shot-image"
-                        src={platform.screenshot}
-                        alt={platform.name}
-                        style={{
-                          height: "100%",
-                          width: "100%",
-                          maxWidth: "none",
-                          objectFit: "cover",
-                          objectPosition:
-                            platform.styles?.screenshotPosition || "left center",
-                          display: "block",
-                          borderRadius: "0",
-                          border: "none",
-                        }}
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* Logo strip */}
+                {/* Logo + description strip */}
                 <div
                   style={{
                     width: "100%",
@@ -1095,10 +1040,9 @@ export default function About() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "0 1.5rem",
-                    borderTop: `0.0625rem solid ${COLORS.burgundy}`,
-                    borderBottom: "0.0625rem solid rgba(255,255,255,0.03)",
-                    gap: "1.25rem",
+                    padding: "0.95rem 1.25rem",
+                    borderBottom: "0.0625rem solid rgba(255,255,255,0.06)",
+                    gap: "1rem",
                   }}
                 >
                   {platform.logo && (
@@ -1115,8 +1059,7 @@ export default function About() {
                         alt={platform.name}
                         style={{
                           maxHeight: platform.styles?.logoHeight || "2.25rem",
-                          maxWidth:
-                            platform.name === "QRGT" ? "none" : "8.125rem",
+                          maxWidth: "8.125rem",
                           width: "auto",
                           objectFit: "contain",
                           objectPosition: "left center",
@@ -1129,13 +1072,38 @@ export default function About() {
                       flex: 1,
                       textAlign: "left",
                       borderLeft: "0.0625rem solid rgba(255,255,255,0.1)",
-                      paddingLeft: "1rem",
+                      paddingLeft: "0.95rem",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.55rem",
+                      minWidth: 0,
                     }}
                   >
+                    <a
+                      href={platform.link}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        navigateToPlatform(platform);
+                      }}
+                      rel={platform.external ? "noopener noreferrer" : undefined}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: COLORS.gold,
+                        opacity: 0.95,
+                        flexShrink: 0,
+                        textDecoration: "none",
+                      }}
+                      aria-label={`Explore ${platform.name} in detail`}
+                    >
+                      <ArrowRight size={14} />
+                    </a>
                     <span
                       style={{
                         fontSize: "0.72rem",
-                        color: "rgba(255,255,255,0.65)",
+                        color: "rgba(255,255,255,0.68)",
                         lineHeight: 1.4,
                         fontWeight: 500,
                         display: "block",
@@ -1145,72 +1113,50 @@ export default function About() {
                     </span>
                   </div>
                 </div>
-                {/* Highlights */}
+
+                {/* Screenshot panel */}
                 <div
+                  className="about-platform-shot-shell"
                   style={{
-                    padding: "1.5rem",
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
+                    marginTop: "var(--about-ecosystem-strip-shot-gap)",
+                    padding: "0",
+                    background: "transparent",
+                    border: `1px solid rgba(214,176,92,0.42)`,
+                    borderTop: `1px solid rgba(214,176,92,0.42)`,
+                    overflow: "hidden",
+                    position: "relative",
                   }}
                 >
-                  <ul
+                  <div
+                    className="about-platform-shot-viewport"
                     style={{
-                      listStyle: "none",
-                      margin: "0 0 1.5rem 0",
-                      padding: 0,
-                      display: "grid",
-                      gap: "0.75rem",
-                      flexGrow: 1,
-                    }}
-                  >
-                    {platform.highlights.map((h) => (
-                      <li
-                        key={h}
-                        style={{
-                          display: "flex",
-                          gap: "0.75rem",
-                          color: "rgba(255,255,255,0.9)",
-                          ...TYPOGRAPHY.bodySmall,
-                          fontWeight: 500,
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        <CheckCircle2
-                          size={16}
-                          style={{
-                            flexShrink: 0,
-                            marginTop: "0.125rem",
-                            color: COLORS.gold,
-                            opacity: 0.75,
-                          }}
-                        />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={platform.link}
-                    target={platform.external ? "_blank" : undefined}
-                    rel={platform.external ? "noopener noreferrer" : undefined}
-                    style={{
-                      color: "#FFFFFF",
-                      opacity: 0.85,
-                      fontSize: "0.8125rem",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      display: "inline-flex",
+                      padding: "0",
+                      background: "transparent",
+                      display: "flex",
                       alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: "0.625rem",
-                      borderTop: `0.0625rem solid ${ALPHAS.white06}`,
-                      paddingTop: "1.25rem",
-                      marginTop: "auto",
-                      transition: "all 0.3s ease",
+                      justifyContent: "center",
+                      height: "var(--about-ecosystem-shot-height-desktop)",
                     }}
                   >
-                    {platform.ctaText} <ArrowRight size={16} />
-                  </a>
+                    {platform.screenshot && (
+                      <img
+                        className="about-platform-shot-image"
+                        src={platform.screenshot}
+                        alt={platform.name}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          maxWidth: "none",
+                          objectFit: "cover",
+                          objectPosition:
+                            platform.styles?.screenshotPosition || "left top",
+                          display: "block",
+                          borderRadius: "0",
+                          border: "none",
+                        }}
+                      />
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
@@ -1223,7 +1169,8 @@ export default function About() {
           style={{
             background: SECTION_BACKGROUNDS.LIGHT,
             paddingTop: LAYOUT_CONTROLS.section.paddingTop,
-            paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
+            paddingBottom: "var(--about-industries-section-padding-bottom)",
+            marginBottom: "var(--about-industries-section-gap-bottom)",
             ...sectionPad,
           }}
         >
@@ -1400,12 +1347,14 @@ export default function About() {
                 onMouseEnter={() => setActiveLocation("Nashik")}
                 onMouseLeave={() => setActiveLocation(null)}
                 style={{
-                  borderLeft: `2px solid ${COLORS.burgundy}`,
-                  borderRadius: "2px",
+                  ...getGlassStyle(activeLocation === "Nashik"),
+                  borderRight: `1px solid ${activeLocation === "Nashik" ? "rgba(214,176,92,0.45)" : "transparent"}`,
+                  borderBottom: `1px solid ${activeLocation === "Nashik" ? "rgba(214,176,92,0.45)" : "transparent"}`,
+                  borderTop: "var(--about-map-card-top-accent-size) solid var(--about-map-card-top-accent-color)",
+                  borderRadius: "0 0 8px 8px",
                   padding: "16px 16px 16px 18px",
                   marginBottom: "14px",
                   cursor: "pointer",
-                  ...getGlassStyle(activeLocation === "Nashik"),
                 }}
               >
                 <div
@@ -1435,13 +1384,17 @@ export default function About() {
                     onMouseEnter={() => setActiveLocation(city)}
                     onMouseLeave={() => setActiveLocation(null)}
                     style={{
+                      ...getGlassStyle(activeLocation === city),
+                      borderLeft: `1px solid ${activeLocation === city ? "rgba(214,176,92,0.45)" : "transparent"}`,
+                      borderRight: `1px solid ${activeLocation === city ? "rgba(214,176,92,0.45)" : "transparent"}`,
+                      borderBottom: `1px solid ${activeLocation === city ? "rgba(214,176,92,0.45)" : "transparent"}`,
                       display: "flex",
                       alignItems: "center",
                       gap: "10px",
-                      borderRadius: "8px",
+                      borderTop: "var(--about-map-card-top-accent-size) solid var(--about-map-card-top-accent-color)",
+                      borderRadius: "0 0 8px 8px",
                       padding: "10px 12px",
                       cursor: "pointer",
-                      ...getGlassStyle(activeLocation === city),
                     }}
                   >
                     <div
@@ -1470,7 +1423,8 @@ export default function About() {
             <div
               style={{
                 border: `1px solid ${ALPHAS.white08}`,
-                borderRadius: "10px",
+                borderTop: "var(--about-map-card-top-accent-size) solid var(--about-map-card-top-accent-color)",
+                borderRadius: "0 0 10px 10px",
                 background:
                   "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
                 overflow: "hidden",
@@ -1684,14 +1638,36 @@ export default function About() {
           --about-hero-pad-top: clamp(10rem, 18vh, 12rem); 
           --about-hero-min-height: 100vh; /* Reduces empty space below button */
           --about-hero-gap-below-button: 0rem; /* Handled by min-height behavior now to avoid peaking */
+          --about-vm-card-pad-y: clamp(0.8rem, 1.55vw, 1.05rem);
+          --about-vm-card-pad-x: clamp(0.9rem, 1.85vw, 1.35rem);
           --about-core-value-font-size: clamp(13.5px, 1.18vw, 16px);
           --about-core-value-font-size-mobile: 15px;
+          --about-core-value-pad-y: clamp(0.08rem, 0.16vw, 0.35rem);
+          --about-core-value-pad-x: clamp(0.85rem, 1.5vw, 1rem);
+          --about-core-value-icon-size: clamp(50px, 4.6vw, 68px);
+          --about-core-value-min-height: clamp(94px, 9.2vw, 110px);
+          --about-core-value-min-height-mobile: 86px;
+          --about-core-value-content-gap: clamp(0.55rem, 1.2vw, 0.82rem);
+          --about-core-value-text-pad-y: 0rem;
           --about-core-values-mobile-gap-below-last: 1.4rem;
           --about-founder-mobile-gap-below: 1.6rem;
           --about-vm-mobile-icon-title-gap: 0.55rem;
+          --about-vm-mobile-card-pad-y: 0.78rem;
+          --about-vm-mobile-card-pad-right: 1rem;
           --about-vm-mobile-card-pad-left: 1rem;
           --about-vm-mobile-title-pad-left: 0rem;
           --about-vm-mobile-title-nudge-x: -3.5rem;
+          --about-ecosystem-overlap-y: -1px;
+          --about-ecosystem-section-pt: clamp(2rem, 5vh, 4rem);
+          --about-ecosystem-section-pb: 5rem;
+          --about-ecosystem-strip-shot-gap: 0rem;
+          --about-ecosystem-shot-height-desktop: 20rem;
+          --about-ecosystem-shot-height-mobile: 17rem;
+          --about-industries-section-padding-bottom: 2.5rem;
+          --about-industries-section-gap-bottom: 3rem;
+          --about-map-card-top-accent-size: 1px;
+          --about-map-card-top-accent-color: ${COLORS.gold};
+          --gap-core-values-bottom: 2rem;
 
           /* Why-Us hover controls */
           --about-why-hover-duration: 140ms;
@@ -1726,14 +1702,16 @@ export default function About() {
         .about-why-card:hover {
           transform: translateY(var(--about-why-hover-lift));
           border-color: var(--about-why-hover-border) !important;
+          border-top-color: ${COLORS.gold} !important;
           box-shadow: var(--about-why-hover-shadow);
         }
 
         .about-vm-card {
           background: #FFFFFF;
           border: 1px solid rgba(0,0,0,0.08);
-          border-radius: 1rem;
-          padding: clamp(0.95rem, 2vw, 1.45rem);
+          border-top: 3px solid ${COLORS.burgundy};
+          border-radius: 0 0 1rem 1rem;
+          padding: var(--about-vm-card-pad-y) var(--about-vm-card-pad-x);
           display: grid;
           grid-template-columns: auto 1fr;
           align-items: stretch;
@@ -1765,9 +1743,9 @@ export default function About() {
 
         .about-core-values-grid {
           display: grid;
-          grid-template-columns: repeat(2, minmax(18rem, 27rem));
-          justify-content: center;
-          gap: 1rem 1.2rem;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: 1rem;
+          align-items: stretch;
         }
         .about-core-values-last-row {
           display: flex;
@@ -1777,25 +1755,26 @@ export default function About() {
         .about-core-value-card {
           background: #FFFFFF;
           border: 1px solid rgba(0,0,0,0.08);
-          border-radius: 0.95rem;
-          padding: clamp(0.85rem, 1.8vw, 1.2rem);
+          border-left: 3px solid ${COLORS.burgundy};
+          border-radius: 0 0.95rem 0.95rem 0;
+          padding: var(--about-core-value-pad-y) var(--about-core-value-pad-x);
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          gap: clamp(0.75rem, 1.6vw, 1rem);
-          min-height: clamp(92px, 11vw, 126px);
-          width: min(100%, 27rem);
-          justify-self: center;
+          gap: var(--about-core-value-content-gap);
+          min-height: var(--about-core-value-min-height);
+          width: 100%;
+          justify-self: stretch;
           box-shadow: 0 10px 24px rgba(8,8,15,0.16);
         }
         .about-core-value-card--last {
           width: min(100%, 27rem);
         }
         .about-core-value-icon-box {
-          flex: 0 0 20%;
-          width: 20%;
-          max-width: 72px;
-          min-width: 52px;
+          flex: 0 0 var(--about-core-value-icon-size);
+          width: var(--about-core-value-icon-size);
+          max-width: var(--about-core-value-icon-size);
+          min-width: var(--about-core-value-icon-size);
           aspect-ratio: 1 / 1;
           display: flex;
           align-items: center;
@@ -1809,11 +1788,14 @@ export default function About() {
         }
         .about-core-value-text {
           margin: 0;
+          padding-top: var(--about-core-value-text-pad-y);
+          padding-bottom: var(--about-core-value-text-pad-y);
           font-size: var(--about-core-value-font-size);
           font-weight: 700;
           color: #2D1520;
           line-height: 1.32;
           text-align: left;
+          overflow-wrap: anywhere;
         }
         .about-page .page-hero-title-highlight {
            display: block !important;
@@ -1871,7 +1853,7 @@ export default function About() {
             justify-content: center !important;
             justify-items: center !important;
             gap: 0.65rem var(--about-vm-mobile-icon-title-gap) !important;
-            padding: 1rem 1rem 1rem var(--about-vm-mobile-card-pad-left) !important;
+            padding: var(--about-vm-mobile-card-pad-y) var(--about-vm-mobile-card-pad-right) var(--about-vm-mobile-card-pad-y) var(--about-vm-mobile-card-pad-left) !important;
           }
           .about-vm-icon-box {
             grid-area: icon;
@@ -1915,20 +1897,24 @@ export default function About() {
             margin-bottom: var(--about-founder-mobile-gap-below);
           }
           .about-platform-shot-shell {
+            margin-top: var(--about-ecosystem-strip-shot-gap) !important;
             background: transparent !important;
+            border: 1px solid rgba(214,176,92,0.42) !important;
           }
           .about-platform-shot-viewport {
             padding: 0 !important;
             background: transparent !important;
-            height: 15rem !important;
+            height: var(--about-ecosystem-shot-height-mobile) !important;
+            align-items: stretch !important;
+            justify-content: stretch !important;
           }
           .about-platform-shot-image {
             width: 100% !important;
             height: 100% !important;
             max-width: none !important;
-            object-fit: contain !important;
-            object-position: left center !important;
-            transform: scale(0.95) !important;
+            object-fit: cover !important;
+            object-position: left top !important;
+            transform: none !important;
             border: none !important;
           }
           .about-industries-grid {
@@ -1967,6 +1953,9 @@ export default function About() {
           }
           .about-core-value-text {
             font-size: var(--about-core-value-font-size-mobile);
+          }
+          .about-core-value-card {
+            min-height: var(--about-core-value-min-height-mobile) !important;
           }
         }
       `,

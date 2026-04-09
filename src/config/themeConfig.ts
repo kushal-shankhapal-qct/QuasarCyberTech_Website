@@ -209,6 +209,54 @@ export const buildEllipseGradient = ({
   return radialBase;
 };
 
+const PLATFORMS_DARK_SECTION_GRADIENT_CONTROLS: {
+  desktop: {
+    qpulse: EllipseGradientControls;
+    qleap: EllipseGradientControls;
+  };
+  mobile: {
+    qpulse: EllipseGradientControls;
+    qleap: EllipseGradientControls;
+  };
+} = {
+  desktop: {
+    qpulse: {
+      center: '22% 52%',
+      radiusX: '155%',
+      radiusY: '78%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '74%',
+    },
+    qleap: {
+      center: '78% 52%',
+      radiusX: '155%',
+      radiusY: '78%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '74%',
+    },
+  },
+  mobile: {
+    qpulse: {
+      center: '34% 38%',
+      radiusX: '165%',
+      radiusY: '72%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '60%',
+    },
+    qleap: {
+      center: '66% 38%',
+      radiusX: '165%',
+      radiusY: '72%',
+      startColor: 'rgba(56,8,26,1)',
+      endColor: 'rgba(0,1,18,1)',
+      endStop: '60%',
+    },
+  },
+};
+
 export const GRADIENT_PRESETS = {
   desktop: {
     // 1: Hero & Global Presets
@@ -230,7 +278,7 @@ export const GRADIENT_PRESETS = {
 
     // 3: Careers Page
     CAREERS_HERO_BG: 'radial-gradient(ellipse at 30% 70%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 90%)',
-    CAREERS_WHY_JOIN_BG: 'radial-gradient(ellipse at 70% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%)',
+    CAREERS_WHY_JOIN_BG: 'radial-gradient(ellipse at 40% 20%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 60%)',
     CAREERS_QLEAP_BG: 'radial-gradient(ellipse at 50% 10%, rgba(56,8,26,0.6) 0%, rgba(10,10,15,1) 80%)',
 
     // 4: Capabilities Pages
@@ -265,8 +313,8 @@ export const GRADIENT_PRESETS = {
     CAPABILITY_INDIVIDUAL_INDUSTRY_APPLICATION_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
     CAPABILITIES_DETAIL_DELIVERY_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
     CAPABILITIES_DETAIL_PLATFORM_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
-    PLATFORMS_QPULSE_SECTION_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
-    PLATFORMS_QLEAP_SECTION_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
+    PLATFORMS_QPULSE_SECTION_BG: buildEllipseGradient(PLATFORMS_DARK_SECTION_GRADIENT_CONTROLS.desktop.qpulse),
+    PLATFORMS_QLEAP_SECTION_BG: buildEllipseGradient(PLATFORMS_DARK_SECTION_GRADIENT_CONTROLS.desktop.qleap),
     LEADERSHIP_VISION_DARK_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
     NOT_FOUND_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
     FORBIDDEN_BG: 'radial-gradient(ellipse at 20% 60%, rgba(56,8,26,1) 0%, rgba(0,1,18,1) 75%)',
@@ -506,22 +554,8 @@ export const GRADIENT_PRESETS = {
       endColor: 'rgba(0,1,18,1)',
       endStop: '56%',
     }),
-    PLATFORMS_QPULSE_SECTION_BG: buildEllipseGradient({
-      center: '30% 40%',
-      radiusX: '150%',
-      radiusY: '62%',
-      startColor: 'rgba(56,8,26,1)',
-      endColor: 'rgba(0,1,18,1)',
-      endStop: '56%',
-    }),
-    PLATFORMS_QLEAP_SECTION_BG: buildEllipseGradient({
-      center: '30% 40%',
-      radiusX: '150%',
-      radiusY: '62%',
-      startColor: 'rgba(56,8,26,1)',
-      endColor: 'rgba(0,1,18,1)',
-      endStop: '56%',
-    }),
+    PLATFORMS_QPULSE_SECTION_BG: buildEllipseGradient(PLATFORMS_DARK_SECTION_GRADIENT_CONTROLS.mobile.qpulse),
+    PLATFORMS_QLEAP_SECTION_BG: buildEllipseGradient(PLATFORMS_DARK_SECTION_GRADIENT_CONTROLS.mobile.qleap),
     LEADERSHIP_VISION_DARK_BG: buildEllipseGradient({
       center: '30% 40%',
       radiusX: '150%',

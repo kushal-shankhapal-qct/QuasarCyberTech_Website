@@ -150,7 +150,11 @@ export default function QCTSecureFramework() {
     inactiveWatermarkLetterSizeRem: 10,  // 160px
     activeWatermarkLetterOffsetYRem: -0.75, // -12px
     inactiveWatermarkLetterOffsetYRem: -0.5,  // -8px
-    activeWatermarkIconOffsetYRem: -1.375, // -22px
+    activeWatermarkIconOffsetYRem: -6.8, // -56px, moved way up for better centering
+    mobileActiveWatermarkLetterOffsetYRem: 0,
+    mobileInactiveWatermarkLetterOffsetYRem: 0,
+    mobileActiveWatermarkIconOffsetYRem: -3.5,
+    mobileInactiveWatermarkIconOffsetYRem: 0,
     activeWatermarkShadow: '0 0 0.75rem rgba(255,255,255,0.18)',
     inactiveWatermarkShadow: '0 0 0.25rem rgba(255,255,255,0.1)',
     panelTransitionDurationSec: 0.55,
@@ -279,7 +283,13 @@ export default function QCTSecureFramework() {
                   style={{
                     lineHeight: 1,
                     fontSize: `${isActive ? FRAMEWORK_LAYOUT.activeWatermarkGlyphSizeRem : FRAMEWORK_LAYOUT.inactiveWatermarkLetterSizeRem}rem`,
-                    transform: `translateY(${isActive ? FRAMEWORK_LAYOUT.activeWatermarkLetterOffsetYRem : FRAMEWORK_LAYOUT.inactiveWatermarkLetterOffsetYRem}rem)`,
+                    transform: `translateY(${isMobileViewport
+                      ? (isActive
+                        ? FRAMEWORK_LAYOUT.mobileActiveWatermarkLetterOffsetYRem
+                        : FRAMEWORK_LAYOUT.mobileInactiveWatermarkLetterOffsetYRem)
+                      : (isActive
+                        ? FRAMEWORK_LAYOUT.activeWatermarkLetterOffsetYRem
+                        : FRAMEWORK_LAYOUT.inactiveWatermarkLetterOffsetYRem)}rem)`,
                     color: '#FFFFFF',
                     opacity: isActive ? FRAMEWORK_LAYOUT.activeWatermarkOpacity : FRAMEWORK_LAYOUT.inactiveWatermarkOpacity,
                     textShadow: isActive ? FRAMEWORK_LAYOUT.activeWatermarkShadow : FRAMEWORK_LAYOUT.inactiveWatermarkShadow,
@@ -293,7 +303,9 @@ export default function QCTSecureFramework() {
                   initial={false}
                   animate={{
                     opacity: isActive ? FRAMEWORK_LAYOUT.activeWatermarkOpacity : 0,
-                    y: isActive ? `${FRAMEWORK_LAYOUT.activeWatermarkIconOffsetYRem}rem` : '0rem',
+                    y: isActive
+                      ? `${isMobileViewport ? FRAMEWORK_LAYOUT.mobileActiveWatermarkIconOffsetYRem : FRAMEWORK_LAYOUT.activeWatermarkIconOffsetYRem}rem`
+                      : `${isMobileViewport ? FRAMEWORK_LAYOUT.mobileInactiveWatermarkIconOffsetYRem : 0}rem`,
                     scale: isActive ? 1 : 0.96,
                   }}
                   transition={{

@@ -18,6 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowRight,
+  Radio,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -208,19 +209,56 @@ const getFocusAreaText = (text: string): string => {
   return iconMatch ? iconMatch[2] : text;
 };
 
-const getDeliveryStepWatermarkIcon = (text: string): LucideIcon => {
+const DELIVERY_WATERMARK_FALLBACK_ICONS: LucideIcon[] = [
+    Radio,
+  Target,
+  ShieldCheck,
+  BarChart3,
+  FileCheck,
+  Users,
+  Network,
+  LayoutDashboard,
+  Cloud,
+  Fingerprint,
+  Landmark,
+  TrendingUp,
+];
+
+const getDeliverySemanticIcon = (text: string): LucideIcon => {
   const value = text.toLowerCase();
-  if (value.includes("onboarding") || value.includes("discovery")) return Users;
-  if (value.includes("detection") || value.includes("mapping")) return Target;
-  if (value.includes("response") || value.includes("alignment"))
-    return ShieldCheck;
-  if (
-    value.includes("reporting") ||
-    value.includes("roadmap") ||
-    value.includes("delivery")
-  )
-    return BarChart3;
+
+  if (value.includes("discover") || value.includes("onboard") || value.includes("stakeholder")) return Users;
+  if (value.includes("alert") || value.includes("notif") || value.includes("monitor")) return Radio;
+  if (value.includes("threat") || value.includes("hunt") || value.includes("risk") || value.includes("priority")) return Target;
+  if (value.includes("respond") || value.includes("mitigation") || value.includes("contain") || value.includes("remediation")) return ShieldCheck;
+  if (value.includes("govern") || value.includes("policy") || value.includes("compliance")) return Landmark;
+  if (value.includes("effect") || value.includes("control") || value.includes("check") || value.includes("validat")) return FileCheck;
+  if (value.includes("architecture") || value.includes("design") || value.includes("blueprint")) return LayoutDashboard;
+  if (value.includes("identity") || value.includes("access") || value.includes("authentication")) return Fingerprint;
+  if (value.includes("cloud") || value.includes("infrastructure") || value.includes("platform")) return Cloud;
+  if (value.includes("vendor") || value.includes("third-party") || value.includes("ecosystem")) return Network;
+  if (value.includes("dashboard") || value.includes("report") || value.includes("metric") || value.includes("kpi")) return BarChart3;
+  if (value.includes("roadmap") || value.includes("maturity") || value.includes("improvement") || value.includes("invest")) return TrendingUp;
+
   return FileCheck;
+};
+
+const getDeliveryStepWatermarkIcon = (
+  stepText: string,
+  index: number,
+  allSteps: string[],
+): LucideIcon => {
+  const used = new Set<LucideIcon>();
+  for (let i = 0; i < index; i += 1) {
+    const previousSemantic = getDeliverySemanticIcon(allSteps[i]);
+    used.add(previousSemantic);
+  }
+
+  const semantic = getDeliverySemanticIcon(stepText);
+  if (!used.has(semantic)) return semantic;
+
+  const fallback = DELIVERY_WATERMARK_FALLBACK_ICONS.find((icon) => !used.has(icon));
+  return fallback || semantic;
 };
 
 const subCapabilityImages: Record<string, string> = {
@@ -962,9 +1000,9 @@ const CapabilityPage: React.FC = () => {
                       <div className="flex items-center gap-3 h-full">
                         <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-white/40 rounded-lg border border-black/5 shadow-sm group-hover:border-[#6B1530]/30 transition-all duration-300">
                           <Icon 
-                            className="w-5 h-5 text-[#D6B05C] transition-all duration-300 group-hover:scale-110 group-hover:text-[#6B1530]" 
+                            className="w-5 h-5 text-[#6B1530] transition-all duration-300 group-hover:scale-110 group-hover:text-[#D6B05C]" 
                             style={{
-                              filter: "drop-shadow(0 0 8px rgba(214,176,92,0.3))",
+                              filter: "drop-shadow(0 0 8px rgba(107,21,48,0.2))",
                             }}
                           />
                         </div>
@@ -1046,15 +1084,17 @@ const CapabilityPage: React.FC = () => {
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {(activeSub.approach || []).map((step, index) => {
+              {(activeSub.approach || []).map((step, index, allSteps) => {
                 const parsed = splitStep(step);
                 const WatermarkIcon = getDeliveryStepWatermarkIcon(
-                  parsed.phase,
+                  `${parsed.phase} ${parsed.description}`,
+                  index,
+                  allSteps,
                 );
                 return (
                   <div key={`${parsed.phase}-${index}`} className="relative">
                     <div className="relative overflow-hidden border-l-2 border-[#6B1530] pl-3 pr-2 py-1">
-                      <WatermarkIcon className="absolute right-2 top-2 w-10 h-10 text-[#D6B05C] opacity-[0.11]" />
+                      <WatermarkIcon className="absolute right-2 top-[30%] -translate-y-1/2 w-14 h-14 text-[#D6B05C] opacity-[0.15]" />
                       <p className="text-xs font-mono text-[#D6B05C] m-0">
                         {String(index + 1).padStart(2, "0")}
                       </p>

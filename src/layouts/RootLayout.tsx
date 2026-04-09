@@ -8,6 +8,7 @@ import '@radix-ui/themes/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { themeConfig, GRADIENT_VARIABLES_CSS } from '../config/themeConfig';
+import BackToTopButton from '../components/BackToTopButton';
 
 const RootLayout: React.FC = () => {
   useEffect(() => {
@@ -28,10 +29,12 @@ const RootLayout: React.FC = () => {
         dangerouslySetInnerHTML={{ __html: GRADIENT_VARIABLES_CSS }}
       />
       <Theme appearance="inherit" radius="large" scaling="100%">
+        <div id="qct-page-top" style={{ position: 'absolute', top: 0 }} />
         {/* Individual pages define their own <main> — no wrapper <main> here */}
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>
+        <BackToTopButton />
         <ToastContainer
           position="top-right"
           autoClose={3000}

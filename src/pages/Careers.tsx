@@ -6,13 +6,11 @@ import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
 import CTASection from '../components/CTASection';
 import Seo from '../components/seo/Seo';
-import { COLORS, GRADIENTS, TYPOGRAPHY, LAYOUT_CONTROLS } from '../config/themeConfig';
+import { COLORS, GRADIENTS, TYPOGRAPHY } from '../config/themeConfig';
 import { ASSETS } from '@/constants/assets';
 import { createBreadcrumbSchema, createCareersPageSchema } from '../seo/schema';
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
-
-const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfshcNxujjrPu2rXQlWk1Mup2DH1dP6fIgPL_98lStWw1zckg/viewform";
 
 const roles = [
   {
@@ -397,9 +395,9 @@ const Careers: React.FC = () => {
       <CTASection
         theme="light"
         eyebrowText="READY TO APPLY?"
-        title={<>Ready to Join the <span style={{ color: COLORS.gold }}>Team?</span></>}
+        title={<>Ready to Join the <span style={{ color: COLORS.burgundy }}>Team</span>?</>}
         subtitle="We review applications on a rolling basis. Apply today and our team will be in touch within 5 business days."
-        primaryAction={{ label: "Apply Now", link: GOOGLE_FORM_URL, isExternal: true }}
+        primaryAction={{ label: "Apply Now", link: "#open-roles" }}
         secondaryAction={{ label: "View Open Roles", link: "#open-roles" }}
       />
 
