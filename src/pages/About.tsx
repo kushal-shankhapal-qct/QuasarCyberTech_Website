@@ -864,7 +864,7 @@ export default function About() {
           className="about-content-section"
           style={{
             background:
-              "radial-gradient(110% 90% at 12% 8%, rgba(107,21,48,0.3) 0%, rgba(107,21,48,0) 58%), radial-gradient(95% 85% at 86% 22%, rgba(107,21,48,0.34) 0%, rgba(107,21,48,0) 62%), #040B1D",
+              "radial-gradient(ellipse at 20% 30%, rgba(56,8,26,0.8) 0%, rgba(10,10,15,1) 80%)",
             paddingTop: LAYOUT_CONTROLS.section.paddingTop,
             paddingBottom: LAYOUT_CONTROLS.section.paddingBottom,
             ...sectionPad,
