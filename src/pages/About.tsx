@@ -906,15 +906,16 @@ export default function About() {
                   transition={{ duration: 1.9, delay: i * 0.08 }}
                   style={{
                     background: "rgba(255,255,255,0.03)",
-                    border: `1px solid ${ALPHAS.white08}`,
-                    borderTop: `0.1875rem solid ${COLORS.gold}`,
-                    borderRadius: "0 0 0.5rem 0.5rem",
+                    border: "1px solid rgba(214,176,92,0.3)",
+                    borderTop: `0.1rem solid ${COLORS.gold}`,
+                    borderRadius: "0 0 1.5rem 1.5rem",
                     padding: "clamp(1.25rem, 2.5vw, 2rem)",
                     position: "relative",
                     overflow: "hidden",
                   }}
                 >
                   <item.icon
+                    className="about-why-watermark"
                     size={WHY_CARD_WATERMARK_CONTROLS.size}
                     strokeWidth={0.5}
                     style={{
@@ -1703,9 +1704,13 @@ export default function About() {
         }
         .about-why-card:hover {
           transform: translateY(var(--about-why-hover-lift));
-          border-color: var(--about-why-hover-border) !important;
-          border-top-color: ${COLORS.gold} !important;
           box-shadow: var(--about-why-hover-shadow);
+        }
+        .about-why-card .about-why-watermark {
+          transition: opacity var(--about-why-hover-duration) var(--about-why-hover-ease);
+        }
+        .about-why-card:hover .about-why-watermark {
+          opacity: 0.28 !important;
         }
 
         .about-vm-card {
